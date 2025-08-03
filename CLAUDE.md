@@ -22,7 +22,7 @@
 ├── hooks/                   # Custom React hooks
 ├── lib/                     # Client helpers, API wrappers, etc.
 ├── styles/                  # Tailwind customizations
-├── tests/                   # Unit and integration tests
+├── tests/                   # Integration tests
 ├── public/
 ├── .eslintrc.js
 ├── tailwind.config.ts
@@ -56,7 +56,7 @@
 - **Test unit command**: `pnpm test:unit`
 - **Test integration command**: `pnpm test:integration`
 - Organize unit / component tests co-located with components
-- Organize integration tests in `test/integration`
+- Organize integration tests in the `tests` folder
 - Focus on testing behavior, not implementation details
 
 ## 🧱 Component Guidelines
@@ -129,21 +129,30 @@ When working on GitHub issues, follow this precise workflow:
 
 1. **Read Issue**: Analyze the GitHub issue and understand all acceptance criteria
 2. **Plan Tasks**: Use TodoWrite to create a structured task list breaking down the work
-3. **Write Test**: Write the simplest failing test for the first acceptance criterion
-4. **Implement**: Write minimal code to make the test pass
-5. **Verify Green**: Run tests using `pnpm test` to ensure they pass
-6. **Refactor**: Check for and make structural improvements
-7. **Repeat**: Continue Red → Green → Refactor cycle for remaining acceptance criteria
-8. **Review Tests**: Ensure all tests focus on behavior rather than implementation details
-9. **Document**: Update issue with completion status and evidence
-10. **Commit**: Use conventional commits for all changes
-11. **Create pull request**: Create pull request when all acceptance criteria are met
+3. **Write acceptance test**: Write an integration test using Playwright for one acceptance criterion
+4. **Write unit test**: Write the simplest failing test for the first acceptance criterion
+5. **Implement**: Write minimal code to make the test pass
+6. **Verify Green**: Run unit tests using `pnpm test:unit` to ensure they pass
+7. **Refactor**: Check for and make structural improvements
+8. **Repeat**: Continue Red → Green → Refactor cycle until the integration test and all unit tests pass. Check with `pnpm test:integration`.
+9. **Review Tests**: Ensure all tests focus on behavior rather than implementation details
+10. **Document**: Update issue with completion status and evidence
+11. **Commit**: Use conventional commits for all changes
+12. **Start on the next acceptance criterion**: Start back at step 3 if not all acceptance criteria are complete
+
+Follow this process precisely, always prioritizing clean, well-tested code over quick implementation.
+
+Always write one test at a time, make it run, then improve structure. Always run all the tests using `pnpm test` (except long-running tests) each time.
+
+Make any necessary structural changes (Tidy First), running tests after each change
+
+Commit structural changes separately
 
 ## Test-First Acceptance Criteria
 
-- Every acceptance criterion MUST have a corresponding test
+- Every acceptance criterion MUST have a corresponding integration test
 - Tests MUST pass before marking criteria as complete
-- Prefer simple, focused tests over complex integration tests
+- Prefer simple, focused tests over complex tests
 - Tests should validate the "what" not document the "how"
 
 ## Test Quality Review
@@ -257,28 +266,6 @@ BREAKING-CHANGE MUST be synonymous with BREAKING CHANGE, when used as a token in
 - Run tests after each refactoring step
 
 - Prioritize refactorings that remove duplication or improve clarity
-
-# EXAMPLE WORKFLOW
-
-When approaching a new feature:
-
-1. Write a simple failing test for a small part of the feature
-
-2. Implement the bare minimum to make it pass
-
-3. Run tests using `pnpm test` to confirm they pass (Green)
-
-4. Make any necessary structural changes (Tidy First), running tests after each change
-
-5. Commit structural changes separately
-
-6. Add another test for the next small increment of functionality
-
-7. Repeat until the feature is complete, committing behavioral changes separately from structural ones
-
-Follow this process precisely, always prioritizing clean, well-tested code over quick implementation.
-
-Always write one test at a time, make it run, then improve structure. Always run all the tests using `pnpm test` (except long-running tests) each time.
 
 ## CRITICAL TDD RULE: ONE TEST AT A TIME
 
