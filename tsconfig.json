@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/integration-tests/*": ["./integration-tests/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,

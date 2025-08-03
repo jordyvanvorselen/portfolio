@@ -59,6 +59,47 @@
 - Organize integration tests in the `tests` folder
 - Focus on testing behavior, not implementation details
 
+### 🎭 Playwright Page Object Model
+
+**MANDATORY**: All Playwright integration tests MUST use Page Object Model (POM) pattern:
+
+- **NO direct selectors in test files** - All locators MUST be encapsulated in page objects
+- Store page objects in `tests/pages/` directory
+- Page objects MUST encapsulate:
+  - All locators for the page/component
+  - Page-specific actions and navigation methods
+  - Element interaction methods
+- Test files should only contain business logic and assertions
+- Page objects MUST use TypeScript with proper typing
+- Action methods MUST return page objects (either `this` or another page object instance)
+
+**Example Structure:**
+```typescript
+// tests/pages/HomePage.ts
+export class HomePage {
+  constructor(public readonly page: Page) {}
+  
+  private readonly getStartedButton = this.page.getByRole('button', { name: 'Get Started' });
+  
+  async goto(): Promise<HomePage> {
+    await this.page.goto('/');
+    return this;
+  }
+  
+  async clickGetStarted(): Promise<GettingStartedPage> {
+    await this.getStartedButton.click();
+    return new GettingStartedPage(this.page);
+  }
+}
+
+// tests/home.spec.ts  
+test('user can get started', async ({ page }) => {
+  const homePage = new HomePage(page);
+  const gettingStartedPage = await homePage.goto().then(p => p.clickGetStarted());
+  await expect(page).toHaveURL(/\/getting-started/);
+});
+```
+
 ## 🧱 Component Guidelines
 
 - Use `radix-ui` components by default for form elements, cards, dialogs, etc.
