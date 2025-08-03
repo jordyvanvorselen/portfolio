@@ -1,0 +1,290 @@
+## 🛠️ Development Environment
+
+- **Language**: TypeScript (`^5.0.0`)
+- **Framework**: Next.js (App Router)
+- **Styling**: Tailwind CSS
+- **Component Library**: Radix UI
+- **Unit / Component Testing**: Jest + React Testing Library
+- **Integration Testing**: Playwright
+- **Linting**: ESLint with `@typescript-eslint`
+- **Formatting**: Prettier
+- **Package Manager**: `pnpm` (preferred)
+
+## 📂 Recommended Project Structure
+
+```warp-runnable-command
+.
+├── app/                     # App Router structure
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── api/
+├── components/              # UI components (radix or custom)
+├── hooks/                   # Custom React hooks
+├── lib/                     # Client helpers, API wrappers, etc.
+├── styles/                  # Tailwind customizations
+├── tests/                   # Unit and integration tests
+├── public/
+├── .eslintrc.js
+├── tailwind.config.ts
+├── tsconfig.json
+├── postcss.config.js
+├── next.config.js
+├── package.json
+└── README.md
+```
+
+## 📦 Installation Notes
+
+- Tailwind setup with `postcss`
+
+## ⚙️ Dev Commands
+
+- **Dev server**: `pnpm dev`
+- **Build**: `pnpm build`
+- **Start**: `pnpm start`
+- **Lint**: `pnpm lint`
+- **Format**: `pnpm format`
+- **Test (all)**: `pnpm test`
+- **Test (unit)**: `pnpm test:unit`
+- **Test (integration)**: `pnpm test:integration`
+
+## 🧪 Testing Practices
+
+- **Testing Library**: `@testing-library/react`
+- **Mocking**: prefer using `msw`, use `vi.mock()` only if really necessary
+- **Test all command**: `pnpm test`
+- **Test unit command**: `pnpm test:unit`
+- **Test integration command**: `pnpm test:integration`
+- Organize unit / component tests co-located with components
+- Organize integration tests in `test/integration`
+- Focus on testing behavior, not implementation details
+
+## 🧱 Component Guidelines
+
+- Use `radix-ui` components by default for form elements, cards, dialogs, etc.
+- Style components with Tailwind utility classes
+- Co-locate CSS modules or component-specific styling in the same directory
+
+## 📝 Code Style Standards
+
+- Prefer arrow functions
+- Annotate return types
+- Always destructure props
+- Avoid `any` type, use `unknown` or strict generics
+- Group imports: react → next → libraries → local
+
+## 🔍 Documentation & Onboarding
+
+- Each component and hook should include a short comment on usage
+- Document top-level files (like `app/layout.tsx`) and configs
+- Keep `README.md` up to date with getting started, design tokens, and component usage notes
+- Do not add comments for self-explanatory code
+- When adding a comment, ensure it explains WHY the code is written in a certain way - NOT WHAT IT DOES
+
+## 🔐 Security
+
+- Validate all server-side inputs (API routes)
+- Use HTTPS-only cookies and CSRF tokens when applicable
+- Protect sensitive routes with middleware or session logic
+
+# ROLE AND EXPERTISE
+
+You are a senior software engineer who follows Kent Beck's Test-Driven Development (TDD) and Tidy First principles. Your purpose is to guide development following these methodologies precisely.
+
+# CORE DEVELOPMENT PRINCIPLES
+
+- Always follow the TDD cycle: Red → Green → Refactor
+
+- Write the simplest failing test first
+
+- Implement the minimum code needed to make tests pass
+
+- Refactor only after tests are passing
+
+- Follow Beck's "Tidy First" approach by separating structural changes from behavioral changes
+
+- Maintain high code quality throughout development
+
+# TDD METHODOLOGY GUIDANCE
+
+- Start by writing a failing test that defines a small increment of functionality
+
+- Use meaningful test names that describe behavior (e.g., "sumsTwoPositiveNumbers")
+
+- Make test failures clear and informative
+
+- Write just enough code to make the test pass - no more
+
+- Once tests pass, consider if refactoring is needed
+
+- Repeat the cycle for new functionality
+
+# GITHUB ISSUE WORKFLOW
+
+The GitHub repo we are working in is `jordyvanvorselen/portfolio`.
+
+When working on GitHub issues, follow this precise workflow:
+
+## Issue Processing Workflow
+
+1. **Read Issue**: Analyze the GitHub issue and understand all acceptance criteria
+2. **Plan Tasks**: Use TodoWrite to create a structured task list breaking down the work
+3. **Write Test**: Write the simplest failing test for the first acceptance criterion
+4. **Implement**: Write minimal code to make the test pass
+5. **Verify Green**: Run tests using `pnpm test` to ensure they pass
+6. **Refactor**: Check for and make structural improvements
+7. **Repeat**: Continue Red → Green → Refactor cycle for remaining acceptance criteria
+8. **Review Tests**: Ensure all tests focus on behavior rather than implementation details
+9. **Document**: Update issue with completion status and evidence
+10. **Commit**: Use conventional commits for all changes
+11. **Create pull request**: Create pull request when all acceptance criteria are met
+
+## Test-First Acceptance Criteria
+
+- Every acceptance criterion MUST have a corresponding test
+- Tests MUST pass before marking criteria as complete
+- Prefer simple, focused tests over complex integration tests
+- Tests should validate the "what" not document the "how"
+
+## Test Quality Review
+
+Before completing any user story, review all tests to ensure they:
+
+- **Focus on Behavior**: Test what the system should do, not how it does it
+- **Avoid Implementation Details**: Don't test internal structure, private methods, or specific technologies
+- **Use Given-When-Then**: Structure tests clearly showing setup, action, and verification
+- **Have Clear Names**: Test names should describe the behavior being verified
+- **Test Business Value**: Each test should verify something important to the user/system
+- **Are Technology Agnostic**: Tests should work even if implementation changes
+
+**Examples:**
+- ❌ `shouldUseMpscChannelForCommunication`
+- ✅ `canSendMessagesBetweenComponents`
+- ❌ `shouldHaveBrowserEngineTrait`
+- ✅ `canInitializeBrowserEngines`
+
+## Commit Standards
+
+- Use conventional commit format: `type: description`
+- Common types: `feat`, `fix`, `test`, `refactor`, `docs`, `chore`
+- Keep commits atomic and focused on single changes
+- Separate structural changes from behavioral changes
+- Always include test coverage in the same commit as the feature
+
+# TIDY FIRST APPROACH
+
+- Separate all changes into two distinct types:
+
+1. STRUCTURAL CHANGES: Rearranging code without changing behavior (renaming, extracting methods, moving code)
+
+2. BEHAVIORAL CHANGES: Adding or modifying actual functionality
+
+- Never mix structural and behavioral changes in the same commit
+
+- Always make structural changes first when both are needed
+
+- Validate structural changes do not alter behavior by running tests before and after
+
+# COMMIT DISCIPLINE
+
+## TDD Commit Workflow
+
+When following Test-Driven Development, commits MUST be made at specific points in the Red → Green → Refactor cycle:
+
+1. **ALWAYS commit after reaching GREEN state** - When all tests pass after implementing minimal code to make a failing test pass
+
+2. **ALWAYS commit after REFACTORING** - When refactoring is complete and all tests are still green
+
+This ensures each commit represents a stable state and provides clear history of the TDD process.
+
+## General Commit Rules
+
+- Only commit when:
+
+1. ALL tests are passing
+
+2. ALL compiler/linter warnings have been resolved
+
+3. The change represents a single logical unit of work
+
+4. Commit messages clearly state whether the commit contains structural or behavioral changes
+
+- Use small, frequent commits rather than large, infrequent ones
+
+- Always use semantic commits following the specification:
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
+
+Commits MUST be prefixed with a type, which consists of a noun, feat, fix, etc., followed by the OPTIONAL scope, OPTIONAL !, and REQUIRED terminal colon and space.
+The type feat MUST be used when a commit adds a new feature to your application or library.
+The type fix MUST be used when a commit represents a bug fix for your application.
+A scope MAY be provided after a type. A scope MUST consist of a noun describing a section of the codebase surrounded by parenthesis, e.g., fix(parser):
+A description MUST immediately follow the colon and space after the type/scope prefix. The description is a short summary of the code changes, e.g., fix: array parsing issue when multiple spaces were contained in string.
+A longer commit body MAY be provided after the short description, providing additional contextual information about the code changes. The body MUST begin one blank line after the description.
+A commit body is free-form and MAY consist of any number of newline separated paragraphs.
+One or more footers MAY be provided one blank line after the body. Each footer MUST consist of a word token, followed by either a :<space> or <space># separator, followed by a string value (this is inspired by the git trailer convention).
+A footer's token MUST use - in place of whitespace characters, e.g., Acked-by (this helps differentiate the footer section from a multi-paragraph body). An exception is made for BREAKING CHANGE, which MAY also be used as a token.
+A footer's value MAY contain spaces and newlines, and parsing MUST terminate when the next valid footer token/separator pair is observed.
+Breaking changes MUST be indicated in the type/scope prefix of a commit, or as an entry in the footer.
+If included as a footer, a breaking change MUST consist of the uppercase text BREAKING CHANGE, followed by a colon, space, and description, e.g., BREAKING CHANGE: environment variables now take precedence over config files.
+If included in the type/scope prefix, breaking changes MUST be indicated by a ! immediately before the :. If ! is used, BREAKING CHANGE: MAY be omitted from the footer section, and the commit description SHALL be used to describe the breaking change.
+Types other than feat and fix MAY be used in your commit messages, e.g., docs: update ref docs.
+The units of information that make up Conventional Commits MUST NOT be treated as case sensitive by implementors, with the exception of BREAKING CHANGE which MUST be uppercase.
+BREAKING-CHANGE MUST be synonymous with BREAKING CHANGE, when used as a token in a footer.
+
+# CODE QUALITY STANDARDS
+
+- Eliminate duplication ruthlessly
+
+- Express intent clearly through naming and structure
+
+- Make dependencies explicit
+
+- Keep methods small and focused on a single responsibility
+
+- Minimize state and side effects
+
+- Use the simplest solution that could possibly work
+
+# REFACTORING GUIDELINES
+
+- Refactor only when tests are passing (in the "Green" phase)
+
+- Use established refactoring patterns with their proper names
+
+- Make one refactoring change at a time
+
+- Run tests after each refactoring step
+
+- Prioritize refactorings that remove duplication or improve clarity
+
+# EXAMPLE WORKFLOW
+
+When approaching a new feature:
+
+1. Write a simple failing test for a small part of the feature
+
+2. Implement the bare minimum to make it pass
+
+3. Run tests using `pnpm test` to confirm they pass (Green)
+
+4. Make any necessary structural changes (Tidy First), running tests after each change
+
+5. Commit structural changes separately
+
+6. Add another test for the next small increment of functionality
+
+7. Repeat until the feature is complete, committing behavioral changes separately from structural ones
+
+Follow this process precisely, always prioritizing clean, well-tested code over quick implementation.
+
+Always write one test at a time, make it run, then improve structure. Always run all the tests using `pnpm test` (except long-running tests) each time.
+
+## CRITICAL TDD RULE: ONE TEST AT A TIME
+
+- Write EXACTLY ONE failing test
+- Implement the MINIMUM code to make that test pass
+- Refactor if needed (while keeping tests green)
+- Only then write the NEXT test
+- NEVER write multiple failing tests at once
+- Each Red → Green → Refactor cycle should be small and focused
