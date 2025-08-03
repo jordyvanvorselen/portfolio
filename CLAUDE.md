@@ -22,7 +22,7 @@
 ├── hooks/                   # Custom React hooks
 ├── lib/                     # Client helpers, API wrappers, etc.
 ├── styles/                  # Tailwind customizations
-├── tests/                   # Integration tests
+├── integration-tests/       # Integration tests
 ├── public/
 ├── .eslintrc.js
 ├── tailwind.config.ts
@@ -56,7 +56,7 @@
 - **Test unit command**: `pnpm test:unit`
 - **Test integration command**: `pnpm test:integration`
 - Organize unit / component tests co-located with components
-- Organize integration tests in the `tests` folder
+- Organize integration tests in the `integration-tests` folder
 - Focus on testing behavior, not implementation details
 
 ### 🎭 Playwright Page Object Model
@@ -64,7 +64,7 @@
 **MANDATORY**: All Playwright integration tests MUST use Page Object Model (POM) pattern:
 
 - **NO direct selectors in test files** - All locators MUST be encapsulated in page objects
-- Store page objects in `tests/pages/` directory
+- Store page objects in `integration-tests/pages/` directory
 - Page objects MUST encapsulate:
   - All locators for the page/component
   - Page-specific actions and navigation methods
@@ -75,7 +75,7 @@
 
 **Example Structure:**
 ```typescript
-// tests/pages/HomePage.ts
+// integration-tests/pages/HomePage.ts
 export class HomePage {
   constructor(public readonly page: Page) {}
   
@@ -92,10 +92,10 @@ export class HomePage {
   }
 }
 
-// tests/home.spec.ts  
+// integration-tests/home.spec.ts  
 test('user can get started', async ({ page }) => {
-  const homePage = new HomePage(page);
-  const gettingStartedPage = await homePage.goto().then(p => p.clickGetStarted());
+  const homePage = await new HomePage(page).goto();
+  const gettingStartedPage = await homePage.clickGetStarted();
   await expect(page).toHaveURL(/\/getting-started/);
 });
 ```
