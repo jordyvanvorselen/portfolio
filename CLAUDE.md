@@ -78,21 +78,21 @@
 // integration-tests/pages/HomePage.ts
 export class HomePage {
   constructor(public readonly page: Page) {}
-  
+
   private readonly getStartedButton = this.page.getByRole('button', { name: 'Get Started' });
-  
+
   async goto(): Promise<HomePage> {
     await this.page.goto('/');
     return this;
   }
-  
+
   async clickGetStarted(): Promise<GettingStartedPage> {
     await this.getStartedButton.click();
     return new GettingStartedPage(this.page);
   }
 }
 
-// integration-tests/home.spec.ts  
+// integration-tests/home.spec.ts
 test('user can get started', async ({ page }) => {
   const homePage = await new HomePage(page).goto();
   const gettingStartedPage = await homePage.clickGetStarted();
@@ -316,3 +316,7 @@ BREAKING-CHANGE MUST be synonymous with BREAKING CHANGE, when used as a token in
 - Only then write the NEXT test
 - NEVER write multiple failing tests at once
 - Each Red → Green → Refactor cycle should be small and focused
+
+## MISC
+
+- The owner of the portfolio is "Jordy van Vorselen", use this name everywhere instead of "Alex Johnson"
