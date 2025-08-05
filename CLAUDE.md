@@ -58,6 +58,10 @@
 - Organize unit / component tests co-located with components
 - Organize integration tests in the `integration-tests` folder
 - Focus on testing behavior, not implementation details
+- The naming convention is `*.spec.tsx` for component tests and `*.test.ts` for integration tests
+- Use `describe` blocks to group related tests
+- Use `beforeEach` and `afterEach` for setup/teardown
+- Use `it` for individual test cases, NOT `test`
 
 ### 🎭 Playwright Page Object Model
 
@@ -71,32 +75,41 @@
   - Element interaction methods
 - Test files should only contain business logic and assertions
 - Page objects MUST use TypeScript with proper typing
-- Action methods MUST return page objects (either `this` or another page object instance)
+- Action methods MUST return page objects (either `this` or another page object instance) for fluent method chaining
 
-**Example Structure:**
+**Page Object Structure:**
+- All page objects extend `BasePage` which provides access to common components
+- Use custom fixtures to create page objects with initial navigation
+- Access nested components through the base page (e.g., `homePage.header.brandingLink`)
+
 ```typescript
-// integration-tests/pages/HomePage.ts
-export class HomePage {
+// integration-tests/pages/base.page.ts
+export class BasePage {
+  readonly header: HeaderPage = new HeaderPage(this.page);
+  
   constructor(public readonly page: Page) {}
+}
 
-  private readonly getStartedButton = this.page.getByRole('button', { name: 'Get Started' });
-
-  async goto(): Promise<HomePage> {
-    await this.page.goto('/');
-    return this;
-  }
-
-  async clickGetStarted(): Promise<GettingStartedPage> {
-    await this.getStartedButton.click();
-    return new GettingStartedPage(this.page);
+// integration-tests/pages/home.page.ts
+export class HomePage extends BasePage {
+  static async goto(page: Page): Promise<HomePage> {
+    await page.goto('/');
+    return new HomePage(page);
   }
 }
 
+// integration-tests/fixtures/pages.fixture.ts
+export const test = base.extend<Fixture>({
+  homePage: async ({ page }, pwUse) => {
+    await pwUse(await HomePage.goto(page));
+  },
+});
+
 // integration-tests/home.spec.ts
-test('user can get started', async ({ page }) => {
-  const homePage = await new HomePage(page).goto();
-  const gettingStartedPage = await homePage.clickGetStarted();
-  await expect(page).toHaveURL(/\/getting-started/);
+import { test } from '@/integration-tests/fixtures/pages.fixture';
+
+test('displays header branding', async ({ homePage }) => {
+  await expect(homePage.header.brandingLink).toHaveText('Jordy van Vorselen');
 });
 ```
 
@@ -320,3 +333,4 @@ BREAKING-CHANGE MUST be synonymous with BREAKING CHANGE, when used as a token in
 ## MISC
 
 - The owner of the portfolio is "Jordy van Vorselen", use this name everywhere instead of "Alex Johnson"
+- Write ONE small test at a time. Run it. Make it pass with the simplest code possible. Then write the next test.

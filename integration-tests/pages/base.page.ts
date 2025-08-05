@@ -1,9 +1,9 @@
 import { Page } from "@playwright/test";
 
-import { Navigation } from "@/integration-tests/pages/navigation.page";
+import { HeaderPage } from "@/integration-tests/pages/header.page";
 
 export class BasePage {
-	readonly navigation: Navigation = new Navigation(this.page);
+	readonly header: HeaderPage = new HeaderPage(this.page);
 
 	constructor(public readonly page: Page) {}
 }
