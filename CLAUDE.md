@@ -148,8 +148,20 @@ Task({
 ## 🧱 Component Guidelines
 
 - Use `radix-ui` components by default for form elements, cards, dialogs, etc.
+- Use `lucide-react` for all icons - import specific icons and use proper aria-label attributes for accessibility
 - Style components with Tailwind utility classes
 - Co-locate CSS modules or component-specific styling in the same directory
+
+### Icon Usage
+
+```typescript
+import { Github, Linkedin, UserPlus } from "lucide-react";
+
+// Always use aria-label for icon-only links/buttons
+<a href="https://github.com/user" aria-label="GitHub">
+  <Github className="w-5 h-5" />
+</a>
+```
 
 ## 📝 Code Style Standards
 
@@ -254,6 +266,7 @@ Before completing any user story, review all tests to ensure they:
 - **Test Business Value**: Each test should verify something important to the user/system
 - **Are Technology Agnostic**: Tests should work even if implementation changes
 - **Prefer `toBeVisible()` over `toBeInTheDocument()`**: When testing visual elements, use `toBeVisible()` as it better reflects user experience
+- **Styling is not tested in unit tests**: Visual styling and layout will be verified after implementation with visual regression testing/screenshot comparison, not in unit or integration tests
 
 **Examples:**
 - ❌ `shouldUseMpscChannelForCommunication`

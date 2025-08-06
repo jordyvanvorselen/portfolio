@@ -9,8 +9,8 @@ export class HeaderPage {
 	readonly experienceLink: Locator = this.header.getByRole("link", { name: "Experience" });
 	readonly contactLink: Locator = this.header.getByRole("link", { name: "Contact" });
 	readonly hireMeButton: Locator = this.header.getByRole("button", { name: "Hire Me" });
-	readonly githubLink: Locator = this.header.getByRole("link", { name: "GitHub" });
-	readonly linkedinLink: Locator = this.header.getByRole("link", { name: "LinkedIn" });
+	readonly githubLink: Locator = this.page.getByRole("link", { name: "GitHub" });
+	readonly linkedinLink: Locator = this.page.getByRole("link", { name: "LinkedIn" });
 
 	constructor(public readonly page: Page) {}
 
