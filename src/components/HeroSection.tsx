@@ -1,4 +1,5 @@
 import { AvailabilityBadge } from './AvailabilityBadge'
+import { HeroActions } from './HeroActions'
 import { HeroDescription } from './HeroDescription'
 import { HeroName } from './HeroName'
 import { HeroTitle } from './HeroTitle'
@@ -38,6 +39,9 @@ export function HeroSection(): JSX.Element {
         </div>
         <div className="flex justify-center mt-8 max-w-4xl mx-auto">
           <HeroDescription />
+        </div>
+        <div className="flex justify-center mt-12">
+          <HeroActions />
         </div>
       </div>
     </section>
