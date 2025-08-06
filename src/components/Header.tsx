@@ -1,6 +1,6 @@
 import { Github, Linkedin, UserPlus } from "lucide-react";
 
-export const Header = (): JSX.Element => {
+export const Header = () => {
 	return (
 		<header 
 			role="banner" 
