@@ -1,3 +1,5 @@
+import { AvailabilityBadge } from './AvailabilityBadge'
+
 export function HeroSection(): JSX.Element {
   return (
     <section className="flex-1 relative overflow-hidden">
@@ -21,7 +23,11 @@ export function HeroSection(): JSX.Element {
           )`,
         }}
       />
-      <div className="relative z-10">Hero Section Placeholder</div>
+      <div className="relative z-10 h-full px-8">
+        <div className="flex justify-center pt-16">
+          <AvailabilityBadge />
+        </div>
+      </div>
     </section>
   )
 }

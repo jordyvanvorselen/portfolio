@@ -394,7 +394,25 @@ BREAKING-CHANGE MUST be synonymous with BREAKING CHANGE, when used as a token in
 - NEVER write multiple failing tests at once
 - Each Red → Green → Refactor cycle should be small and focused
 
-## MISC
+## SUBAGENT USAGE
+
+- **MANDATORY**: Always use the Task tool with the most appropriate specialized subagent for the task at hand
+- Match the subagent type to the specific task requirements:
+  - **general-purpose**: Complex research, multi-step tasks, broad searches
+  - **analyzer**: Root cause analysis, systematic problem investigation
+  - **devops**: Infrastructure, deployment, automation tasks
+  - **frontend**: UX, accessibility, frontend performance, visual design
+  - **mentor**: Learning, understanding, knowledge transfer
+  - **backend**: Server-side systems, APIs, data integrity, security
+  - **refactorer**: Code quality, maintainability, technical debt
+  - **performance**: Optimization, bottleneck analysis, metrics
+  - **qa**: Testing, quality assurance, visual regression, screenshots
+  - **architect**: System design, scalability, long-term architecture
+  - **orchestrator**: Complex multi-agent coordination
+- Never default to manual execution when a specialized subagent would be more effective
+- Use the qa subagent specifically for visual testing and screenshot comparisons
+
+# MISC
 
 - The owner of the portfolio is "Jordy van Vorselen", use this name everywhere instead of "Alex Johnson"
 - Write ONE small test at a time. Run it. Make it pass with the simplest code possible. Then write the next test.
