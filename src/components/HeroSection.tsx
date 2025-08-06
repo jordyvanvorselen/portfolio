@@ -29,7 +29,7 @@ export function HeroSection(): JSX.Element {
           )`,
         }}
       />
-      <div className="relative z-10 h-full px-8 flex flex-col justify-start pt-32">
+      <div className="relative z-10 h-full px-8 flex flex-col justify-start pt-26">
         <div className="flex justify-center mb-8">
           <AvailabilityBadge />
         </div>
@@ -46,7 +46,7 @@ export function HeroSection(): JSX.Element {
           <HeroActions />
         </div>
         <SocialLinks />
-        <div className="flex justify-center mt-16">
+        <div className="flex justify-center mt-20">
           <ScrollIndicator />
         </div>
       </div>
