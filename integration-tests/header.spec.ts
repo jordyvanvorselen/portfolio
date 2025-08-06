@@ -20,4 +20,9 @@ test.describe("Header Component", () => {
 		await expect(homePage.header.hireMeButton).toBeVisible();
 		await expect(homePage.header.hireMeButton).toHaveText("Hire Me");
 	});
+
+	test("displays social icons", async ({ homePage }) => {
+		await expect(homePage.header.githubLink).toBeVisible();
+		await expect(homePage.header.linkedinLink).toBeVisible();
+	});
 });

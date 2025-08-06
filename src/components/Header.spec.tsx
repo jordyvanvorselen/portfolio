@@ -52,4 +52,18 @@ describe(Header, () => {
     const hireMeButton = screen.getByRole('button', { name: 'Hire Me' })
     expect(hireMeButton).toBeVisible()
   })
+
+  it('renders github social link', () => {
+    render(<Header />)
+    
+    const githubLink = screen.getByRole('link', { name: 'GitHub' })
+    expect(githubLink).toBeVisible()
+  })
+
+  it('renders linkedin social link', () => {
+    render(<Header />)
+    
+    const linkedinLink = screen.getByRole('link', { name: 'LinkedIn' })
+    expect(linkedinLink).toBeVisible()
+  })
 })
