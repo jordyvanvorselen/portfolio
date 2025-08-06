@@ -14,4 +14,10 @@ describe('HeroSection', () => {
     
     expect(screen.getByRole('heading', { name: 'Jordy van Vorselen', level: 1 })).toBeVisible()
   })
+
+  it('renders title', () => {
+    render(<HeroSection />)
+    
+    expect(screen.getByText('Senior Software Engineer')).toBeVisible()
+  })
 })

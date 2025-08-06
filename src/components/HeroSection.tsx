@@ -1,5 +1,6 @@
 import { AvailabilityBadge } from './AvailabilityBadge'
 import { HeroName } from './HeroName'
+import { HeroTitle } from './HeroTitle'
 
 export function HeroSection(): JSX.Element {
   return (
@@ -30,6 +31,9 @@ export function HeroSection(): JSX.Element {
         </div>
         <div className="flex justify-center mt-8">
           <HeroName />
+        </div>
+        <div className="flex justify-center mt-4">
+          <HeroTitle />
         </div>
       </div>
     </section>
