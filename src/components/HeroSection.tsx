@@ -9,9 +9,9 @@ export function HeroSection(): JSX.Element {
       <div className="absolute inset-0 bg-slate-900" />
       {/* Teal gradient overlay with opacity */}
       <div
-        className="absolute inset-0 opacity-45"
+        className="absolute inset-0 opacity-50"
         style={{
-          background: `radial-gradient(ellipse 100% 90% at center 25%, #1e3a4a 0%, transparent 70%)`,
+          background: `radial-gradient(ellipse 100% 90% at center 25%, #1e3c4a 0%, transparent 70%)`,
         }}
       />
       {/* Subtle diagonal texture */}
