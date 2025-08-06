@@ -8,4 +8,10 @@ describe('HeroSection', () => {
     
     expect(screen.getByText('Available for new opportunities')).toBeVisible()
   })
+
+  it('renders name heading', () => {
+    render(<HeroSection />)
+    
+    expect(screen.getByRole('heading', { name: 'Jordy van Vorselen', level: 1 })).toBeVisible()
+  })
 })
