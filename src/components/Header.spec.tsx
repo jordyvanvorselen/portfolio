@@ -66,4 +66,40 @@ describe(Header, () => {
     const linkedinLink = screen.getByRole('link', { name: 'LinkedIn' })
     expect(linkedinLink).toBeVisible()
   })
+
+  it('branding link has correct href', () => {
+    render(<Header />)
+    
+    const brandingLink = screen.getByRole('link', { name: 'Jordy van Vorselen' })
+    expect(brandingLink).toHaveAttribute('href', '/')
+  })
+
+  it('navigation links have correct href attributes', () => {
+    render(<Header />)
+    
+    expect(screen.getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about')
+    expect(screen.getByRole('link', { name: 'Expertise' })).toHaveAttribute('href', '/expertise')
+    expect(screen.getByRole('link', { name: 'Projects' })).toHaveAttribute('href', '/projects')
+    expect(screen.getByRole('link', { name: 'Experience' })).toHaveAttribute('href', '/experience')
+    expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/contact')
+  })
+
+  it('social links have correct href attributes', () => {
+    render(<Header />)
+    
+    expect(screen.getByRole('link', { name: 'GitHub' })).toHaveAttribute('href', 'https://github.com/jordyvanvorselen')
+    expect(screen.getByRole('link', { name: 'LinkedIn' })).toHaveAttribute('href', 'https://linkedin.com/in/jordy-van-vorselen')
+  })
+
+  it('external links have security attributes', () => {
+    render(<Header />)
+    
+    const githubLink = screen.getByRole('link', { name: 'GitHub' })
+    expect(githubLink).toHaveAttribute('target', '_blank')
+    expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer')
+    
+    const linkedinLink = screen.getByRole('link', { name: 'LinkedIn' })
+    expect(linkedinLink).toHaveAttribute('target', '_blank')
+    expect(linkedinLink).toHaveAttribute('rel', 'noopener noreferrer')
+  })
 })

@@ -38,7 +38,7 @@ export const Header = (): JSX.Element => {
 							<Github className="w-5 h-5" />
 						</a>
 						<a 
-							href="https://linkedin.com/in/jordyvanvorselen" 
+							href="https://linkedin.com/in/jordy-van-vorselen" 
 							className="text-gray-400 hover:text-white transition-colors"
 							target="_blank"
 							rel="noopener noreferrer"
