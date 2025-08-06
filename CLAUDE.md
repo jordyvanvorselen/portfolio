@@ -39,7 +39,7 @@
 
 ## ⚙️ Dev Commands
 
-- **Dev server**: `pnpm dev`
+- **Dev server**: `pnpm dev` (server is always started for you - DO NOT start it manually)
 - **Build**: `pnpm build`
 - **Start**: `pnpm start`
 - **Lint**: `pnpm lint`
@@ -113,6 +113,37 @@ test('displays header branding', async ({ homePage }) => {
   await expect(homePage.header.brandingLink).toHaveText('Jordy van Vorselen');
 });
 ```
+
+## 🖼️ Visual Regression Testing
+
+**MANDATORY**: After every styling change, perform visual regression testing to ensure pixel-perfect implementation:
+
+### Visual Testing Workflow
+
+1. **Take Screenshot**: Use Task tool with qa agent to navigate to `http://localhost:3000` and capture screenshots
+2. **Compare with Design**: Compare current implementation against design files in `/design/` directory
+3. **Identify Discrepancies**: Look for differences in:
+   - Layout and positioning
+   - Colors and typography
+   - Spacing and proportions
+   - Interactive element styling
+   - Hover states and transitions
+4. **Document Findings**: Report any visual discrepancies and suggest specific CSS/Tailwind improvements
+5. **Fix Issues**: Make necessary styling adjustments for pixel-perfect match
+6. **Re-test**: Repeat until implementation matches design exactly
+
+### Example Task Usage
+
+```typescript
+// Use this pattern after styling changes
+Task({
+  subagent_type: "qa",
+  description: "Visual regression testing with Playwright",
+  prompt: "Navigate to http://localhost:3000, take screenshots, and compare current implementation to design files for pixel-perfect accuracy. Report discrepancies and suggest improvements."
+})
+```
+
+**Note**: The Next.js development server is always running - DO NOT start it manually.
 
 ## 🧱 Component Guidelines
 
@@ -191,10 +222,11 @@ When working on GitHub issues, follow this precise workflow:
 7. **Verify Green**: Run unit tests using `pnpm test:unit` to ensure they pass
 8. **Refactor**: Check for and make structural improvements
 9. **Repeat**: Continue Red → Green → Refactor cycle until the integration test and all unit tests pass. Check with `pnpm test:integration`.
-10. **Review Tests**: Ensure all tests focus on behavior rather than implementation details
-11. **Document**: Update issue with completion status and evidence
-12. **Commit**: Use conventional commits for all changes
-13. **Start on the next acceptance criterion**: Start back at step 3 if not all acceptance criteria are complete
+10. **Visual Regression Test**: MANDATORY after any styling changes - Use Task tool with qa agent to take Playwright screenshot of localhost:3000 and compare against design files for pixel-perfect implementation
+11. **Review Tests**: Ensure all tests focus on behavior rather than implementation details
+12. **Document**: Update issue with completion status and evidence
+13. **Commit**: Use conventional commits for all changes
+14. **Start on the next acceptance criterion**: Start back at step 3 if not all acceptance criteria are complete
 
 Follow this process precisely, always prioritizing clean, well-tested code over quick implementation.
 
