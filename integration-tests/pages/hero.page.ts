@@ -8,6 +8,9 @@ export class HeroPage {
   readonly description: Locator = this.page.getByText(/I help engineering teams deliver better software faster/)
   readonly getInTouchButton: Locator = this.page.getByRole('button', { name: 'Get in Touch' })
   readonly downloadResumeButton: Locator = this.page.getByRole('button', { name: 'Download Resume' })
+  readonly githubLink: Locator = this.locator.getByRole('link', { name: 'GitHub' })
+  readonly linkedinLink: Locator = this.locator.getByRole('link', { name: 'LinkedIn' })
+  readonly emailLink: Locator = this.locator.getByRole('link', { name: 'Email' })
 
   constructor(public readonly page: Page) {}
 }

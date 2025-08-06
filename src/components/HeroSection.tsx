@@ -3,6 +3,7 @@ import { HeroActions } from './HeroActions'
 import { HeroDescription } from './HeroDescription'
 import { HeroName } from './HeroName'
 import { HeroTitle } from './HeroTitle'
+import { SocialLinks } from './SocialLinks'
 
 export function HeroSection(): JSX.Element {
   return (
@@ -43,6 +44,7 @@ export function HeroSection(): JSX.Element {
         <div className="flex justify-center mt-12">
           <HeroActions />
         </div>
+        <SocialLinks />
       </div>
     </section>
   )

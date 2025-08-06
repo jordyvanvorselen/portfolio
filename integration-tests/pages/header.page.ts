@@ -24,8 +24,10 @@ export class HeaderPage {
   readonly hireMeButton: Locator = this.locator.getByRole('button', {
     name: 'Hire Me',
   })
-  readonly githubLink: Locator = this.page.getByRole('link', { name: 'GitHub' })
-  readonly linkedinLink: Locator = this.page.getByRole('link', {
+  readonly githubLink: Locator = this.locator.getByRole('link', {
+    name: 'GitHub',
+  })
+  readonly linkedinLink: Locator = this.locator.getByRole('link', {
     name: 'LinkedIn',
   })
 

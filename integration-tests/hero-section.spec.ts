@@ -11,5 +11,8 @@ test.describe('Hero Section', () => {
     await expect(homePage.hero.description).toBeVisible()
     await expect(homePage.hero.getInTouchButton).toBeVisible()
     await expect(homePage.hero.downloadResumeButton).toBeVisible()
+    await expect(homePage.hero.githubLink).toBeVisible()
+    await expect(homePage.hero.linkedinLink).toBeVisible()
+    await expect(homePage.hero.emailLink).toBeVisible()
   })
 })
