@@ -1,7 +1,9 @@
+import { HeroSection } from '@/components/HeroSection'
+
 export default function Home() {
   return (
-    <main>
-      <h1>Welcome to Jordy van Vorselen's Portfolio</h1>
+    <main className="flex-1 flex flex-col">
+      <HeroSection />
     </main>
   );
 }

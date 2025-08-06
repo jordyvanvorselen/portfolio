@@ -161,6 +161,13 @@ For design file comparisons, use this workflow after styling changes:
 - Style components with Tailwind utility classes
 - Co-locate CSS modules or component-specific styling in the same directory
 
+### Component Naming Convention
+
+- **Component files**: Use PascalCase for React component files (e.g., `HeroSection.tsx`, `UserProfile.tsx`)
+- **Test files**: Use PascalCase for component test files (e.g., `HeroSection.spec.tsx`, `UserProfile.spec.tsx`)
+- **Integration test pages**: Use kebab-case for Playwright page objects (e.g., `hero.page.ts`, `user-profile.page.ts`)
+- **Component exports**: Always use PascalCase for component names in exports and imports
+
 ### Icon Usage
 
 ```typescript
