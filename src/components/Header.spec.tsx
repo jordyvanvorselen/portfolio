@@ -45,4 +45,11 @@ describe(Header, () => {
     const contactLink = screen.getByRole('link', { name: 'Contact' })
     expect(contactLink).toBeVisible()
   })
+
+  it('renders hire me button', () => {
+    render(<Header />)
+    
+    const hireMeButton = screen.getByRole('button', { name: 'Hire Me' })
+    expect(hireMeButton).toBeVisible()
+  })
 })

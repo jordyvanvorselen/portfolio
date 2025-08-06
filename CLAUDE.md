@@ -185,15 +185,16 @@ When working on GitHub issues, follow this precise workflow:
 1. **Read Issue**: Analyze the GitHub issue and understand all acceptance criteria
 2. **Plan Tasks**: Use TodoWrite to create a structured task list breaking down the work
 3. **Write acceptance test**: Write an integration test using Playwright for one acceptance criterion
-4. **Write unit test**: Write the simplest failing test for the first acceptance criterion
-5. **Implement**: Write minimal code to make the test pass
-6. **Verify Green**: Run unit tests using `pnpm test:unit` to ensure they pass
-7. **Refactor**: Check for and make structural improvements
-8. **Repeat**: Continue Red → Green → Refactor cycle until the integration test and all unit tests pass. Check with `pnpm test:integration`.
-9. **Review Tests**: Ensure all tests focus on behavior rather than implementation details
-10. **Document**: Update issue with completion status and evidence
-11. **Commit**: Use conventional commits for all changes
-12. **Start on the next acceptance criterion**: Start back at step 3 if not all acceptance criteria are complete
+4. **Run integration test**: ALWAYS run `pnpm test:integration` to verify the integration test fails before writing unit tests
+5. **Write unit test**: Write the simplest failing test for the first acceptance criterion
+6. **Implement**: Write minimal code to make the test pass
+7. **Verify Green**: Run unit tests using `pnpm test:unit` to ensure they pass
+8. **Refactor**: Check for and make structural improvements
+9. **Repeat**: Continue Red → Green → Refactor cycle until the integration test and all unit tests pass. Check with `pnpm test:integration`.
+10. **Review Tests**: Ensure all tests focus on behavior rather than implementation details
+11. **Document**: Update issue with completion status and evidence
+12. **Commit**: Use conventional commits for all changes
+13. **Start on the next acceptance criterion**: Start back at step 3 if not all acceptance criteria are complete
 
 Follow this process precisely, always prioritizing clean, well-tested code over quick implementation.
 

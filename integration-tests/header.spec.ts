@@ -15,4 +15,9 @@ test.describe("Header Component", () => {
 		await expect(homePage.header.experienceLink).toBeVisible();
 		await expect(homePage.header.contactLink).toBeVisible();
 	});
+
+	test("displays hire me button", async ({ homePage }) => {
+		await expect(homePage.header.hireMeButton).toBeVisible();
+		await expect(homePage.header.hireMeButton).toHaveText("Hire Me");
+	});
 });
