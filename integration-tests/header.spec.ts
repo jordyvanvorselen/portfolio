@@ -7,4 +7,12 @@ test.describe("Header Component", () => {
 		await expect(homePage.header.brandingLink).toBeVisible();
 		await expect(homePage.header.brandingLink).toHaveText("Jordy van Vorselen");
 	});
+
+	test("displays navigation menu", async ({ homePage }) => {
+		await expect(homePage.header.aboutLink).toBeVisible();
+		await expect(homePage.header.expertiseLink).toBeVisible();
+		await expect(homePage.header.projectsLink).toBeVisible();
+		await expect(homePage.header.experienceLink).toBeVisible();
+		await expect(homePage.header.contactLink).toBeVisible();
+	});
 });

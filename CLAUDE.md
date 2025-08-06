@@ -62,6 +62,7 @@
 - Use `describe` blocks to group related tests
 - Use `beforeEach` and `afterEach` for setup/teardown
 - Use `it` for individual test cases, NOT `test`
+- Integration tests are ran with `pnpm test:integration`, unit tests are ran with `pnpm test:unit`
 
 ### 🎭 Playwright Page Object Model
 
@@ -219,6 +220,7 @@ Before completing any user story, review all tests to ensure they:
 - **Have Clear Names**: Test names should describe the behavior being verified
 - **Test Business Value**: Each test should verify something important to the user/system
 - **Are Technology Agnostic**: Tests should work even if implementation changes
+- **Prefer `toBeVisible()` over `toBeInTheDocument()`**: When testing visual elements, use `toBeVisible()` as it better reflects user experience
 
 **Examples:**
 - ❌ `shouldUseMpscChannelForCommunication`
