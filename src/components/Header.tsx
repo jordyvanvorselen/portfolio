@@ -18,11 +18,11 @@ export const Header = () => {
 				
 				<nav className="absolute left-1/2 transform -translate-x-1/2">
 					<div className="flex items-center gap-12">
-						<a href="/about" className="text-gray-300 hover:text-white transition-colors font-medium">About</a>
-						<a href="/expertise" className="text-gray-300 hover:text-white transition-colors font-medium">Expertise</a>
-						<a href="/projects" className="text-gray-300 hover:text-white transition-colors font-medium">Projects</a>
-						<a href="/experience" className="text-gray-300 hover:text-white transition-colors font-medium">Experience</a>
-						<a href="/contact" className="text-gray-300 hover:text-white transition-colors font-medium">Contact</a>
+						<a href="/about" className="text-gray-300 hover:text-white transition-colors font-medium text-lg">About</a>
+						<a href="/expertise" className="text-gray-300 hover:text-white transition-colors font-medium text-lg">Expertise</a>
+						<a href="/projects" className="text-gray-300 hover:text-white transition-colors font-medium text-lg">Projects</a>
+						<a href="/experience" className="text-gray-300 hover:text-white transition-colors font-medium text-lg">Experience</a>
+						<a href="/contact" className="text-gray-300 hover:text-white transition-colors font-medium text-lg">Contact</a>
 					</div>
 				</nav>
 				

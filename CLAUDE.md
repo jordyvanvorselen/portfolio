@@ -55,6 +55,7 @@
 - **Test all command**: `pnpm test`
 - **Test unit command**: `pnpm test:unit`
 - **Test integration command**: `pnpm test:integration`
+- **Coverage requirement**: Unit tests MUST achieve 100% code coverage
 - Organize unit / component tests co-located with components
 - Organize integration tests in the `integration-tests` folder
 - Focus on testing behavior, not implementation details
@@ -116,32 +117,40 @@ test('displays header branding', async ({ homePage }) => {
 
 ## 🖼️ Visual Regression Testing
 
-**MANDATORY**: After every styling change, perform visual regression testing to ensure pixel-perfect implementation:
+**MANDATORY**: For specified page sections, implement Playwright screenshot tests to catch visual regressions:
 
-### Visual Testing Workflow
+### Playwright Screenshot Testing
+
+1. **Add Screenshot Tests**: For designated page sections/components, add Playwright tests using `toHaveScreenshot()`:
+   ```typescript
+   test('section visual regression', async ({ homePage }) => {
+     await expect(homePage.section.locator).toHaveScreenshot('section.png')
+   })
+   ```
+
+2. **Generate Baselines**: Run tests with `--update-snapshots` to create initial screenshot baselines:
+   ```bash
+   pnpm test:integration --update-snapshots
+   ```
+
+3. **Browser Coverage**: Tests run on Chrome and Firefox (WebKit excluded due to MSW compatibility)
+
+4. **Screenshot Storage**: Baselines stored in `integration-tests/*.spec.ts-snapshots/` directories
+
+5. **Updating Screenshots**: When making intentional styling changes, regenerate baselines:
+   ```bash
+   pnpm test:integration SectionName.spec.ts --update-snapshots
+   ```
+
+### Manual Visual Testing Workflow (Design Comparison)
+
+For design file comparisons, use this workflow after styling changes:
 
 1. **Take Screenshot**: Use Task tool with qa agent to navigate to `http://localhost:3000` and capture screenshots
 2. **Compare with Design**: Compare current implementation against design files in `/design/` directory
-3. **Identify Discrepancies**: Look for differences in:
-   - Layout and positioning
-   - Colors and typography
-   - Spacing and proportions
-   - Interactive element styling
-   - Hover states and transitions
-4. **Document Findings**: Report any visual discrepancies and suggest specific CSS/Tailwind improvements
-5. **Fix Issues**: Make necessary styling adjustments for pixel-perfect match
-6. **Re-test**: Repeat until implementation matches design exactly
-
-### Example Task Usage
-
-```typescript
-// Use this pattern after styling changes
-Task({
-  subagent_type: "qa",
-  description: "Visual regression testing with Playwright",
-  prompt: "Navigate to http://localhost:3000, take screenshots, and compare current implementation to design files for pixel-perfect accuracy. Report discrepancies and suggest improvements."
-})
-```
+3. **Identify Discrepancies**: Look for differences in layout, colors, typography, spacing, interactive states
+4. **Fix Issues**: Make necessary styling adjustments for pixel-perfect match
+5. **Re-test**: Repeat until implementation matches design exactly
 
 **Note**: The Next.js development server is always running - DO NOT start it manually.
 
