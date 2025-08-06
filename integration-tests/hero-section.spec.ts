@@ -14,5 +14,10 @@ test.describe('Hero Section', () => {
     await expect(homePage.hero.githubLink).toBeVisible()
     await expect(homePage.hero.linkedinLink).toBeVisible()
     await expect(homePage.hero.emailLink).toBeVisible()
+    await expect(homePage.hero.scrollIndicator).toBeVisible()
+  })
+
+  test('hero section visual regression', async ({ homePage }) => {
+    await expect(homePage.hero.locator).toHaveScreenshot('hero-section.png')
   })
 })

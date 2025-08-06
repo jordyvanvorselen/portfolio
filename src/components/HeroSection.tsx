@@ -3,6 +3,7 @@ import { HeroActions } from './HeroActions'
 import { HeroDescription } from './HeroDescription'
 import { HeroName } from './HeroName'
 import { HeroTitle } from './HeroTitle'
+import { ScrollIndicator } from './ScrollIndicator'
 import { SocialLinks } from './SocialLinks'
 
 export function HeroSection(): JSX.Element {
@@ -28,23 +29,26 @@ export function HeroSection(): JSX.Element {
           )`,
         }}
       />
-      <div className="relative z-10 h-full px-8">
-        <div className="flex justify-center pt-16">
+      <div className="relative z-10 h-full px-8 flex flex-col justify-start pt-32">
+        <div className="flex justify-center mb-8">
           <AvailabilityBadge />
         </div>
-        <div className="flex justify-center mt-8">
+        <div className="flex justify-center mb-6">
           <HeroName />
         </div>
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mb-10">
           <HeroTitle />
         </div>
-        <div className="flex justify-center mt-8 max-w-4xl mx-auto">
+        <div className="flex justify-center mb-16 max-w-4xl mx-auto">
           <HeroDescription />
         </div>
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mb-12">
           <HeroActions />
         </div>
         <SocialLinks />
+        <div className="flex justify-center mt-16">
+          <ScrollIndicator />
+        </div>
       </div>
     </section>
   )

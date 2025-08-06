@@ -11,6 +11,7 @@ export class HeroPage {
   readonly githubLink: Locator = this.locator.getByRole('link', { name: 'GitHub' })
   readonly linkedinLink: Locator = this.locator.getByRole('link', { name: 'LinkedIn' })
   readonly emailLink: Locator = this.locator.getByRole('link', { name: 'Email' })
+  readonly scrollIndicator: Locator = this.locator.getByText('SCROLL')
 
   constructor(public readonly page: Page) {}
 }
