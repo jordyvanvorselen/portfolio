@@ -20,4 +20,10 @@ describe('HeroSection', () => {
     
     expect(screen.getByText('Senior Software Engineer')).toBeVisible()
   })
+
+  it('renders description', () => {
+    render(<HeroSection />)
+    
+    expect(screen.getByText(/I help engineering teams deliver better software faster/)).toBeVisible()
+  })
 })
