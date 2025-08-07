@@ -88,7 +88,7 @@
 // integration-tests/pages/base.page.ts
 export class BasePage {
   readonly header: HeaderPage = new HeaderPage(this.page);
-  
+
   constructor(public readonly page: Page) {}
 }
 
@@ -124,7 +124,7 @@ test('displays header branding', async ({ homePage }) => {
 1. **Add Screenshot Tests**: For designated page sections/components, add Playwright tests using `toHaveScreenshot()`:
    ```typescript
    test('section visual regression', async ({ homePage }) => {
-     await expect(homePage.section.locator).toHaveScreenshot('section.png')
+     await expect(homePage.section.locator).toHaveScreenshot('section.png', { animations: "disabled" })
    })
    ```
 

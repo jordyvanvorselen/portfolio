@@ -3,7 +3,9 @@ import { expect } from '@playwright/test'
 import { test } from '@/integration-tests/fixtures/pages.fixture'
 
 test.describe('Hero Section', () => {
-  test('displays hero section with all required elements', async ({ homePage }) => {
+  test('displays hero section with all required elements', async ({
+    homePage,
+  }) => {
     await expect(homePage.hero.locator).toBeVisible()
     await expect(homePage.hero.availabilityBadge).toBeVisible()
     await expect(homePage.hero.name).toBeVisible()
@@ -18,6 +20,8 @@ test.describe('Hero Section', () => {
   })
 
   test('hero section visual regression', async ({ homePage }) => {
-    await expect(homePage.hero.locator).toHaveScreenshot('hero-section.png')
+    await expect(homePage.hero.locator).toHaveScreenshot('hero-section.png', {
+      animations: 'disabled',
+    })
   })
 })

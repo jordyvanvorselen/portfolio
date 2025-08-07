@@ -80,6 +80,8 @@ test.describe('Header Component', () => {
   })
 
   test('header visual regression', async ({ homePage }) => {
-    await expect(homePage.header.locator).toHaveScreenshot('header.png')
+    await expect(homePage.header.locator).toHaveScreenshot('header.png', {
+      animations: 'disabled',
+    })
   })
 })
