@@ -19,7 +19,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const sizeStyles = {
       small: 'px-4 py-2 text-base rounded',
-      large: 'px-18 py-7 text-2xl font-bold rounded-xl'
+      large: 'px-8 md:px-12 lg:px-18 py-4 md:py-5 lg:py-7 text-lg md:text-xl lg:text-2xl font-bold rounded-lg lg:rounded-xl'
     }
 
     return (

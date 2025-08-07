@@ -29,24 +29,24 @@ export function HeroSection(): JSX.Element {
           )`,
         }}
       />
-      <div className="relative z-10 h-full px-8 flex flex-col justify-start pt-26">
-        <div className="flex justify-center mb-8">
+      <div className="relative z-10 h-full px-4 md:px-8 lg:px-12 flex flex-col justify-start pt-16 md:pt-20 lg:pt-26">
+        <div className="flex justify-center mb-6 md:mb-8">
           <AvailabilityBadge />
         </div>
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-4 md:mb-6">
           <HeroName />
         </div>
-        <div className="flex justify-center mb-10">
+        <div className="flex justify-center mb-6 md:mb-8 lg:mb-10">
           <HeroTitle />
         </div>
-        <div className="flex justify-center mb-16 max-w-4xl mx-auto">
+        <div className="flex justify-center mb-8 md:mb-12 lg:mb-16 max-w-4xl mx-auto px-4">
           <HeroDescription />
         </div>
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-8 md:mb-12">
           <HeroActions />
         </div>
         <SocialLinks />
-        <div className="flex justify-center mt-20">
+        <div className="flex justify-center mt-12 md:mt-16 lg:mt-20">
           <ScrollIndicator />
         </div>
       </div>

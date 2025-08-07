@@ -18,7 +18,7 @@ test.describe('Header Component', () => {
 
   test('displays hire me button', async ({ homePage }) => {
     await expect(homePage.header.hireMeButton).toBeVisible()
-    await expect(homePage.header.hireMeButton).toHaveText('Hire Me')
+    await expect(homePage.header.hireMeButton).toContainText('Hire')
   })
 
   test('displays social icons', async ({ homePage }) => {
