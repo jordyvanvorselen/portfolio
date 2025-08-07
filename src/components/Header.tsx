@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Github, Linkedin, UserPlus } from 'lucide-react'
 
 export const Header = () => {
@@ -8,46 +9,46 @@ export const Header = () => {
     >
       <div className="w-full flex items-center justify-between">
         <div className="flex-shrink-0">
-          <a
+          <Link
             href="/"
             className="text-2xl font-bold text-white hover:text-gray-300 transition-colors"
           >
             Jordy van Vorselen
-          </a>
+          </Link>
         </div>
 
         <nav className="absolute left-1/2 transform -translate-x-1/2">
           <div className="flex items-center gap-12">
-            <a
+            <Link
               href="/about"
               className="text-gray-300 hover:text-white transition-colors font-medium text-lg"
             >
               About
-            </a>
-            <a
+            </Link>
+            <Link
               href="/expertise"
               className="text-gray-300 hover:text-white transition-colors font-medium text-lg"
             >
               Expertise
-            </a>
-            <a
+            </Link>
+            <Link
               href="/projects"
               className="text-gray-300 hover:text-white transition-colors font-medium text-lg"
             >
               Projects
-            </a>
-            <a
+            </Link>
+            <Link
               href="/experience"
               className="text-gray-300 hover:text-white transition-colors font-medium text-lg"
             >
               Experience
-            </a>
-            <a
+            </Link>
+            <Link
               href="/contact"
               className="text-gray-300 hover:text-white transition-colors font-medium text-lg"
             >
               Contact
-            </a>
+            </Link>
           </div>
         </nav>
 
