@@ -1,17 +1,14 @@
-import { test, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
+
+import { test } from '@/integration-tests/fixtures/pages.fixture'
 
 test.describe('Expertise Section', () => {
-  test('displays expertise section', async ({ page }) => {
-    await page.goto('/')
+  test('displays expertise section', async ({ homePage }) => {
+    await expect(homePage.expertiseSection.section).toBeVisible()
 
-    const expertiseSection = page.getByRole('region', {
-      name: 'Core Expertise',
-    })
-    await expect(expertiseSection).toBeVisible()
+    // Check for the "Core Expertise" label
+    await expect(homePage.expertiseSection.label).toBeVisible()
 
-    const heading = expertiseSection.getByRole('heading', {
-      name: 'What I Excel At',
-    })
-    await expect(heading).toBeVisible()
+    await expect(homePage.expertiseSection.title).toBeVisible()
   })
 })

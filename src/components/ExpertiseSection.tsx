@@ -1,3 +1,5 @@
+import { ExpertiseLabel } from './ExpertiseLabel'
+
 export function ExpertiseSection() {
   return (
     <section
@@ -23,6 +25,9 @@ export function ExpertiseSection() {
       />
       <div className="relative z-10 h-full flex items-center justify-center px-4">
         <div className="max-w-6xl mx-auto text-center">
+          <div className="flex justify-center mb-6">
+            <ExpertiseLabel />
+          </div>
           <h2 className="text-4xl font-bold text-white">What I Excel At</h2>
         </div>
       </div>
