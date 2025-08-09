@@ -10,5 +10,8 @@ test.describe('Expertise Section', () => {
     await expect(homePage.expertiseSection.label).toBeVisible()
 
     await expect(homePage.expertiseSection.title).toBeVisible()
+
+    // Check for the description text
+    await expect(homePage.expertiseSection.description).toBeVisible()
   })
 })

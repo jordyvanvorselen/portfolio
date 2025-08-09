@@ -1,3 +1,4 @@
+import { Text } from '@/ui/Text'
 import { ExpertiseLabel } from './ExpertiseLabel'
 
 export function ExpertiseSection() {
@@ -31,6 +32,10 @@ export function ExpertiseSection() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
             What I Excel At
           </h2>
+          <Text variant="description">
+            Three fundamental pillars that drive my approach to software
+            engineering and ensure delivery of exceptional results.
+          </Text>
         </div>
       </div>
     </section>
