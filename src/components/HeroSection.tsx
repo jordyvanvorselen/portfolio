@@ -8,7 +8,7 @@ import { SocialLinks } from './SocialLinks'
 
 export function HeroSection(): JSX.Element {
   return (
-    <section className="flex-1 relative overflow-hidden">
+    <section className="h-[calc(100vh-6rem)] relative overflow-hidden">
       {/* Dark base background */}
       <div className="absolute inset-0 bg-slate-900" />
       {/* Teal gradient overlay with opacity */}
@@ -29,7 +29,7 @@ export function HeroSection(): JSX.Element {
           )`,
         }}
       />
-      <div className="relative z-10 h-full px-4 md:px-8 lg:px-12 flex flex-col justify-start pt-16 md:pt-20 lg:pt-26">
+      <div className="relative z-10 h-full px-4 md:px-8 lg:px-12 flex flex-col justify-start pt-8 md:pt-12 lg:pt-16">
         <div className="flex justify-center mb-6 md:mb-8">
           <AvailabilityBadge />
         </div>

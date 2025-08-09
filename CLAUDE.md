@@ -146,7 +146,7 @@ test('displays header branding', async ({ homePage }) => {
 
 For design file comparisons, use this workflow after styling changes:
 
-1. **Take Screenshot**: Use Task tool with qa agent to navigate to `http://localhost:3000` and capture screenshots
+1. **Take Screenshot**: Use Playwright MCP tools to navigate to `http://localhost:3000` and capture screenshots
 2. **Compare with Design**: Compare current implementation against design files in `/design/` directory
 3. **Identify Discrepancies**: Look for differences in layout, colors, typography, spacing, interactive states
 4. **Fix Issues**: Make necessary styling adjustments for pixel-perfect match
