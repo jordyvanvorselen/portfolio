@@ -28,7 +28,9 @@ export function ExpertiseSection() {
           <div className="flex justify-center mb-6">
             <ExpertiseLabel />
           </div>
-          <h2 className="text-4xl font-bold text-white">What I Excel At</h2>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            What I Excel At
+          </h2>
         </div>
       </div>
     </section>

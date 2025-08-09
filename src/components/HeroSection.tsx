@@ -30,7 +30,7 @@ export function HeroSection(): JSX.Element {
         }}
       />
       <div className="relative z-10 h-full px-4 md:px-8 lg:px-12 flex flex-col justify-start pt-8 md:pt-12 lg:pt-16">
-        <div className="flex justify-center mb-6 md:mb-8">
+        <div className="flex justify-center mt-12 mb-6 md:mb-8">
           <AvailabilityBadge />
         </div>
         <div className="flex justify-center mb-4 md:mb-6">

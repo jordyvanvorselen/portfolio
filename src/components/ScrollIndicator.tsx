@@ -5,9 +5,9 @@ export function ScrollIndicator(): JSX.Element {
     <div className="flex flex-col items-center justify-center">
       {/* Mouse Icon with bounce animation */}
       <div
-        className="mb-4"
+        className="mb-4 animate-bounce"
         style={{
-          animation: 'bounce 2s ease-in-out infinite',
+          animationDuration: '2s',
         }}
       >
         <Mouse

@@ -54,8 +54,8 @@ export const Header = () => {
           </div>
         </nav>
 
-        {/* Actions */}
-        <div className="flex flex-shrink-0 items-center gap-3 md:gap-4 lg:gap-6 xl:gap-8">
+        {/* Actions - Hidden on mobile */}
+        <div className="hidden md:flex flex-shrink-0 items-center gap-3 md:gap-4 lg:gap-6 xl:gap-8">
           <div className="flex items-center gap-3 lg:gap-6">
             <a
               href="https://github.com/jordyvanvorselen"

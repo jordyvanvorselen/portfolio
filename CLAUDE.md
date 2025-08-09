@@ -43,6 +43,7 @@
 - **Build**: `pnpm build`
 - **Start**: `pnpm start`
 - **Lint**: `pnpm lint`
+- **Lint (autofix)**: `pnpm lint:fix`
 - **Format**: `pnpm format`
 - **Test (all)**: `pnpm test`
 - **Test (unit)**: `pnpm test:unit`
