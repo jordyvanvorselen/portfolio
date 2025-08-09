@@ -80,6 +80,7 @@
 - Action methods MUST return page objects (either `this` or another page object instance) for fluent method chaining
 
 **Page Object Structure:**
+
 - All page objects extend `BasePage` which provides access to common components
 - Use custom fixtures to create page objects with initial navigation
 - Access nested components through the base page (e.g., `homePage.header.brandingLink`)
@@ -87,7 +88,7 @@
 ```typescript
 // integration-tests/pages/base.page.ts
 export class BasePage {
-  readonly header: HeaderPage = new HeaderPage(this.page);
+  readonly header: HeaderPage = new HeaderPage(this.page)
 
   constructor(public readonly page: Page) {}
 }
@@ -95,24 +96,24 @@ export class BasePage {
 // integration-tests/pages/home.page.ts
 export class HomePage extends BasePage {
   static async goto(page: Page): Promise<HomePage> {
-    await page.goto('/');
-    return new HomePage(page);
+    await page.goto('/')
+    return new HomePage(page)
   }
 }
 
 // integration-tests/fixtures/pages.fixture.ts
 export const test = base.extend<Fixture>({
   homePage: async ({ page }, pwUse) => {
-    await pwUse(await HomePage.goto(page));
+    await pwUse(await HomePage.goto(page))
   },
-});
+})
 
 // integration-tests/home.spec.ts
-import { test } from '@/integration-tests/fixtures/pages.fixture';
+import { test } from '@/integration-tests/fixtures/pages.fixture'
 
 test('displays header branding', async ({ homePage }) => {
-  await expect(homePage.header.brandingLink).toHaveText('Jordy van Vorselen');
-});
+  await expect(homePage.header.brandingLink).toHaveText('Jordy van Vorselen')
+})
 ```
 
 ## 🖼️ Visual Regression Testing
@@ -122,13 +123,17 @@ test('displays header branding', async ({ homePage }) => {
 ### Playwright Screenshot Testing
 
 1. **Add Screenshot Tests**: For designated page sections/components, add Playwright tests using `toHaveScreenshot()`:
+
    ```typescript
    test('section visual regression', async ({ homePage }) => {
-     await expect(homePage.section.locator).toHaveScreenshot('section.png', { animations: "disabled" })
+     await expect(homePage.section.locator).toHaveScreenshot('section.png', {
+       animations: 'disabled',
+     })
    })
    ```
 
 2. **Generate Baselines**: Run tests with `--update-snapshots` to create initial screenshot baselines:
+
    ```bash
    pnpm test:integration --update-snapshots
    ```
@@ -285,6 +290,7 @@ Before completing any user story, review all tests to ensure they:
 - **Styling is not tested in unit tests**: Visual styling and layout will be verified after implementation with visual regression testing/screenshot comparison, not in unit or integration tests
 
 **Examples:**
+
 - ❌ `shouldUseMpscChannelForCommunication`
 - ✅ `canSendMessagesBetweenComponents`
 - ❌ `shouldHaveBrowserEngineTrait`

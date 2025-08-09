@@ -18,7 +18,7 @@ describe(RootLayout, () => {
         <RootLayout>Test content</RootLayout>
       </body>
     )
-    
+
     const header = screen.getByRole('banner')
     expect(header).toBeVisible()
   })
@@ -29,7 +29,7 @@ describe(RootLayout, () => {
         <RootLayout>Test children content</RootLayout>
       </body>
     )
-    
+
     expect(screen.getByText('Test children content')).toBeVisible()
   })
 })
@@ -37,6 +37,8 @@ describe(RootLayout, () => {
 describe('metadata', () => {
   it('has correct title and description', () => {
     expect(metadata.title).toBe('Jordy van Vorselen - Portfolio')
-    expect(metadata.description).toBe('Full-stack developer and software engineer portfolio')
+    expect(metadata.description).toBe(
+      'Full-stack developer and software engineer portfolio'
+    )
   })
 })
