@@ -18,7 +18,12 @@
 │   ├── layout.tsx
 │   ├── page.tsx
 │   ├── api/
-├── components/              # UI components (radix or custom)
+├── src/                     # Source code root
+│   ├── ui/                  # Generic UI components with design system
+│   └── domains/             # Domain-based feature organization
+│       ├── header/          # Header domain components
+│       ├── hero-section/    # Hero section domain components
+│       └── expertise-section/ # Expertise section domain components
 ├── hooks/                   # Custom React hooks
 ├── lib/                     # Client helpers, API wrappers, etc.
 ├── styles/                  # Tailwind customizations
@@ -166,6 +171,52 @@ For design file comparisons, use this workflow after styling changes:
 - Use `lucide-react` for all icons - import specific icons and use proper aria-label attributes for accessibility
 - Style components with Tailwind utility classes
 - Co-locate CSS modules or component-specific styling in the same directory
+
+### Domain-Based Architecture
+
+**MANDATORY**: Follow the domain-based folder structure for all feature development:
+
+- **`src/ui/`**: Create generic, reusable UI components with design system patterns
+  - All UI components MUST support variant systems for different use cases
+  - Components MUST be technology-agnostic and reusable across domains
+  - Include comprehensive TypeScript interfaces for props
+  - Examples: `Badge.tsx`, `Text.tsx`, `SocialIcon.tsx`, `NavigationLink.tsx`
+
+- **`src/domains/`**: Organize feature-specific components by domain
+  - Each domain represents a distinct section or feature of the application
+  - Domain components utilize UI components from `src/ui/`
+  - Examples: `header/`, `hero-section/`, `expertise-section/`
+
+### Design System Development Workflow
+
+1. **Identify Reusable Patterns**: Before creating domain-specific components, identify if similar UI patterns exist
+2. **Create Generic UI Component**: Build reusable component in `src/ui/` with variant system
+3. **Use in Domain**: Import and utilize UI components within domain-specific components
+4. **Maintain Consistency**: Ensure all similar UI patterns use the same underlying component
+
+**Example Workflow:**
+
+```typescript
+// 1. Create generic UI component
+// src/ui/NavigationLink.tsx
+export interface NavigationLinkProps {
+  href: string
+  children: ReactNode
+  variant?: 'desktop' | 'mobile'
+}
+
+// 2. Use in domain component
+// src/domains/header/Header.tsx
+import { NavigationLink } from '@/ui/NavigationLink'
+
+export function Header(): JSX.Element {
+  return (
+    <NavigationLink href="/about" variant="desktop">
+      About
+    </NavigationLink>
+  )
+}
+```
 
 ### Component Naming Convention
 
