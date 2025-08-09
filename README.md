@@ -126,9 +126,9 @@ graph LR
     B --> C[🔵 Refactor Code]
     C --> A
 
-    style A fill:#ffebee,stroke:#f44336
-    style B fill:#e8f5e8,stroke:#4caf50
-    style C fill:#e3f2fd,stroke:#2196f3
+    style A fill:#ffebee,stroke:#f44336,color:#000000
+    style B fill:#e8f5e8,stroke:#4caf50,color:#000000
+    style C fill:#e3f2fd,stroke:#2196f3,color:#000000
 ```
 
 1. **🔴 Red**: Write the smallest possible failing test
