@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Github, Linkedin, UserPlus } from 'lucide-react'
 
+import { NavigationLink } from '@/ui/NavigationLink'
 import { SocialIcon } from '@/ui/SocialIcon'
 
 export const Header = () => {
@@ -23,36 +24,21 @@ export const Header = () => {
         {/* Navigation - Hidden on mobile, visible on larger screens */}
         <nav className="hidden lg:block absolute left-1/2 transform -translate-x-1/2">
           <div className="flex items-center gap-6 lg:gap-8 xl:gap-12">
-            <Link
-              href="/about"
-              className="text-gray-300 hover:text-white transition-colors font-medium text-sm lg:text-base xl:text-lg"
-            >
+            <NavigationLink href="/about" variant="desktop">
               About
-            </Link>
-            <Link
-              href="/expertise"
-              className="text-gray-300 hover:text-white transition-colors font-medium text-sm lg:text-base xl:text-lg"
-            >
+            </NavigationLink>
+            <NavigationLink href="/expertise" variant="desktop">
               Expertise
-            </Link>
-            <Link
-              href="/projects"
-              className="text-gray-300 hover:text-white transition-colors font-medium text-sm lg:text-base xl:text-lg"
-            >
+            </NavigationLink>
+            <NavigationLink href="/projects" variant="desktop">
               Projects
-            </Link>
-            <Link
-              href="/experience"
-              className="text-gray-300 hover:text-white transition-colors font-medium text-sm lg:text-base xl:text-lg"
-            >
+            </NavigationLink>
+            <NavigationLink href="/experience" variant="desktop">
               Experience
-            </Link>
-            <Link
-              href="/contact"
-              className="text-gray-300 hover:text-white transition-colors font-medium text-sm lg:text-base xl:text-lg"
-            >
+            </NavigationLink>
+            <NavigationLink href="/contact" variant="desktop">
               Contact
-            </Link>
+            </NavigationLink>
           </div>
         </nav>
 
@@ -86,36 +72,21 @@ export const Header = () => {
       {/* Mobile Navigation - Visible on tablet/mobile */}
       <nav className="lg:hidden mt-4 pt-4 border-t border-gray-700">
         <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-          <Link
-            href="/about"
-            className="text-gray-300 hover:text-white transition-colors font-medium text-sm"
-          >
+          <NavigationLink href="/about" variant="mobile">
             About
-          </Link>
-          <Link
-            href="/expertise"
-            className="text-gray-300 hover:text-white transition-colors font-medium text-sm"
-          >
+          </NavigationLink>
+          <NavigationLink href="/expertise" variant="mobile">
             Expertise
-          </Link>
-          <Link
-            href="/projects"
-            className="text-gray-300 hover:text-white transition-colors font-medium text-sm"
-          >
+          </NavigationLink>
+          <NavigationLink href="/projects" variant="mobile">
             Projects
-          </Link>
-          <Link
-            href="/experience"
-            className="text-gray-300 hover:text-white transition-colors font-medium text-sm"
-          >
+          </NavigationLink>
+          <NavigationLink href="/experience" variant="mobile">
             Experience
-          </Link>
-          <Link
-            href="/contact"
-            className="text-gray-300 hover:text-white transition-colors font-medium text-sm"
-          >
+          </NavigationLink>
+          <NavigationLink href="/contact" variant="mobile">
             Contact
-          </Link>
+          </NavigationLink>
         </div>
       </nav>
     </header>
