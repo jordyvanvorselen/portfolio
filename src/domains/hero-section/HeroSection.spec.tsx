@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { HeroSection } from './HeroSection'
+import { HeroSection } from '@/domains/hero-section/HeroSection'
 
 describe('HeroSection', () => {
   it('renders availability badge', () => {

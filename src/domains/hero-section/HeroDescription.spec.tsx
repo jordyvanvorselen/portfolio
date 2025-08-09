@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { HeroDescription } from './HeroDescription'
+import { HeroDescription } from '@/domains/hero-section/HeroDescription'
 
 describe('HeroDescription', () => {
   it('displays description text', () => {

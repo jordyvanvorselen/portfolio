@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { ExpertiseLabel } from './ExpertiseLabel'
+import { ExpertiseLabel } from '@/domains/expertise-section/ExpertiseLabel'
 
 describe('ExpertiseLabel', () => {
   it('displays "Core Expertise" text', () => {

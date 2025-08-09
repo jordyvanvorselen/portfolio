@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { ScrollIndicator } from './ScrollIndicator'
+import { ScrollIndicator } from '@/domains/hero-section/ScrollIndicator'
 
 describe('ScrollIndicator', () => {
   it('renders SCROLL text', () => {

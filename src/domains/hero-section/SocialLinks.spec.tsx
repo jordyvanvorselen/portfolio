@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { SocialLinks } from './SocialLinks'
+import { SocialLinks } from '@/domains/hero-section/SocialLinks'
 
 describe('SocialLinks', () => {
   it('renders GitHub link', () => {

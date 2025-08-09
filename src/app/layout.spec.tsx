@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import RootLayout, { metadata } from './layout'
+import RootLayout, { metadata } from '@/app/layout'
 
 // Suppress all console errors for layout component tests
 const originalConsoleError = console.error

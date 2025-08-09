@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Github } from 'lucide-react'
 
-import { SocialIcon } from './SocialIcon'
+import { SocialIcon } from '@/ui/SocialIcon'
 
 describe('SocialIcon', () => {
   it('renders social icon link with proper attributes', () => {

@@ -1,6 +1,6 @@
 import { Mail, Download } from 'lucide-react'
 
-import { Button } from './Button'
+import { Button } from '@/ui/Button'
 
 export function HeroActions(): JSX.Element {
   return (

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { HeroActions } from './HeroActions'
+import { HeroActions } from '@/domains/hero-section/HeroActions'
 
 describe('HeroActions', () => {
   it('renders Get in Touch button', () => {

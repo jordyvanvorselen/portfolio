@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Header } from './Header'
+import { Header } from '@/domains/header/Header'
 
 describe(Header, () => {
   it('renders branding link with correct text', () => {

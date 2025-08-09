@@ -11,6 +11,22 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  {
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['./*', '../*', '!./*.css'],
+              message:
+                'Please do not use relative import paths. Use path aliases (@/*) instead.',
+            },
+          ],
+        },
+      ],
+    },
+  },
 ]
 
 export default eslintConfig

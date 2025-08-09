@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { HeroName } from './HeroName'
+import { HeroName } from '@/domains/hero-section/HeroName'
 
 describe('HeroName', () => {
   it('displays name as heading', () => {

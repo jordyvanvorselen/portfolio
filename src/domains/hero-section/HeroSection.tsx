@@ -1,10 +1,10 @@
-import { AvailabilityBadge } from './AvailabilityBadge'
-import { HeroActions } from './HeroActions'
-import { HeroDescription } from './HeroDescription'
-import { HeroName } from './HeroName'
-import { HeroTitle } from './HeroTitle'
-import { ScrollIndicator } from './ScrollIndicator'
-import { SocialLinks } from './SocialLinks'
+import { AvailabilityBadge } from '@/domains/hero-section/AvailabilityBadge'
+import { HeroActions } from '@/domains/hero-section/HeroActions'
+import { HeroDescription } from '@/domains/hero-section/HeroDescription'
+import { HeroName } from '@/domains/hero-section/HeroName'
+import { HeroTitle } from '@/domains/hero-section/HeroTitle'
+import { ScrollIndicator } from '@/domains/hero-section/ScrollIndicator'
+import { SocialLinks } from '@/domains/hero-section/SocialLinks'
 
 export function HeroSection(): JSX.Element {
   return (

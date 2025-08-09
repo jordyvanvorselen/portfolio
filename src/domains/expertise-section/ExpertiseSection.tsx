@@ -1,5 +1,5 @@
 import { Text } from '@/ui/Text'
-import { ExpertiseLabel } from './ExpertiseLabel'
+import { ExpertiseLabel } from '@/domains/expertise-section/ExpertiseLabel'
 
 export function ExpertiseSection() {
   return (
