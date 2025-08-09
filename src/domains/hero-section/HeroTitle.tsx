@@ -1,7 +1,9 @@
+import { Title } from '@/ui/Title'
+
 export function HeroTitle(): JSX.Element {
   return (
-    <p className="text-2xl md:text-3xl lg:text-4xl text-gray-200/95 text-center">
+    <Title variant="hero-title" as="p">
       Senior Software Engineer
-    </p>
+    </Title>
   )
 }

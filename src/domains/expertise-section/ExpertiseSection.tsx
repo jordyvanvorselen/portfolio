@@ -1,4 +1,5 @@
 import { Text } from '@/ui/Text'
+import { Title } from '@/ui/Title'
 import { ExpertiseLabel } from '@/domains/expertise-section/ExpertiseLabel'
 
 export function ExpertiseSection() {
@@ -29,9 +30,9 @@ export function ExpertiseSection() {
           <div className="flex justify-center mb-6">
             <ExpertiseLabel />
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <Title variant="section-title" as="h2">
             What I Excel At
-          </h2>
+          </Title>
           <Text variant="description">
             Three fundamental pillars that drive my approach to software
             engineering and ensure delivery of exceptional results.

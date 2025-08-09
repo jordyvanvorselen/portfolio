@@ -1,6 +1,6 @@
-import Link from 'next/link'
 import { Github, Linkedin, UserPlus } from 'lucide-react'
 
+import { Logo } from '@/ui/Logo'
 import { NavigationLink } from '@/ui/NavigationLink'
 import { SocialIcon } from '@/ui/SocialIcon'
 
@@ -13,12 +13,7 @@ export const Header = () => {
       <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
         {/* Logo */}
         <div className="flex-shrink-0">
-          <Link
-            href="/"
-            className="text-xl md:text-2xl font-bold text-white hover:text-gray-300 transition-colors"
-          >
-            Jordy van Vorselen
-          </Link>
+          <Logo />
         </div>
 
         {/* Navigation - Hidden on mobile, visible on larger screens */}
