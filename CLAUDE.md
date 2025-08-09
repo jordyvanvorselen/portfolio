@@ -192,6 +192,7 @@ import { Github, Linkedin, UserPlus } from "lucide-react";
 - Always destructure props
 - Avoid `any` type, use `unknown` or strict generics
 - Group imports: react → next → libraries → local
+- **MANDATORY**: Use path aliases (`@/*`) instead of relative imports (`./*`, `../*`) - ESLint enforces this rule
 
 ## 🔍 Documentation & Onboarding
 
