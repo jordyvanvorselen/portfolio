@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { Github, Linkedin, UserPlus } from 'lucide-react'
 
+import { SocialIcon } from '@/ui/SocialIcon'
+
 export const Header = () => {
   return (
     <header
@@ -57,24 +59,18 @@ export const Header = () => {
         {/* Actions - Hidden on mobile */}
         <div className="hidden md:flex flex-shrink-0 items-center gap-3 md:gap-4 lg:gap-6 xl:gap-8">
           <div className="flex items-center gap-3 lg:gap-6">
-            <a
+            <SocialIcon
               href="https://github.com/jordyvanvorselen"
-              className="text-gray-400 hover:text-white transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-            >
-              <Github className="w-5 h-5" />
-            </a>
-            <a
+              label="GitHub"
+              icon={Github}
+              variant="simple"
+            />
+            <SocialIcon
               href="https://linkedin.com/in/jordy-van-vorselen"
-              className="text-gray-400 hover:text-white transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="w-5 h-5" />
-            </a>
+              label="LinkedIn"
+              icon={Linkedin}
+              variant="simple"
+            />
           </div>
 
           <div className="hidden md:block w-px h-6 bg-gray-500"></div>
