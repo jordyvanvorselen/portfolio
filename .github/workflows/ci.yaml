@@ -17,17 +17,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - name: Install dependencies
-        run: pnpm install
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
       - name: Run linting
         run: pnpm lint
 
@@ -36,17 +27,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - name: Install dependencies
-        run: pnpm install
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
       - name: Build application
         run: pnpm build
 
@@ -55,17 +37,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - name: Install dependencies
-        run: pnpm install
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
       - name: Run type checking
         run: pnpm tsc --noEmit
 
@@ -74,17 +47,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - name: Install dependencies
-        run: pnpm install
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
       - name: Run unit tests
         run: pnpm test:unit
 
@@ -93,17 +57,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - name: Install dependencies
-        run: pnpm install
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
       - name: Install Playwright browsers
         run: pnpm playwright install --with-deps
       - name: Run integration tests
@@ -128,19 +83,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
 
       - name: Build application
         run: pnpm build
