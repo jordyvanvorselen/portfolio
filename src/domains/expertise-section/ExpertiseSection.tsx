@@ -4,6 +4,7 @@ import { ExpertiseLabel } from '@/domains/expertise-section/ExpertiseLabel'
 import { TDDCard } from '@/domains/expertise-section/TDDCard'
 import { SoftwareArchitectureCard } from '@/domains/expertise-section/SoftwareArchitectureCard'
 import { AIAcceleratedDevelopmentCard } from '@/domains/expertise-section/AIAcceleratedDevelopmentCard'
+import { ExpertiseCallToAction } from '@/domains/expertise-section/ExpertiseCallToAction'
 
 export const ExpertiseSection = () => {
   return (
@@ -30,13 +31,13 @@ export const ExpertiseSection = () => {
       />
       <div className="relative z-10 h-full flex items-center justify-center px-4">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-4">
             <ExpertiseLabel />
           </div>
-          <Title variant="section-title" as="h2">
+          <Title variant="section-title-compact" as="h2">
             What I Excel At
           </Title>
-          <Text variant="description">
+          <Text variant="description-compact">
             Three fundamental pillars that drive my approach to software
             engineering and ensure delivery of exceptional results.
           </Text>
@@ -45,6 +46,7 @@ export const ExpertiseSection = () => {
             <SoftwareArchitectureCard />
             <AIAcceleratedDevelopmentCard />
           </div>
+          <ExpertiseCallToAction />
         </div>
       </div>
     </section>

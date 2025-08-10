@@ -156,4 +156,26 @@ test.describe('Expertise Section', () => {
     await expect(aiCard.getByText('Publications')).toBeVisible()
     await expect(aiCard.getByText('on this topic')).toBeVisible()
   })
+
+  test('displays call-to-action section', async ({ homePage }) => {
+    const callToAction = homePage.expertiseSection.callToAction
+
+    // Check for the main question text
+    await expect(
+      callToAction.getByText(
+        'Ready to discuss how these skills can benefit your project?'
+      )
+    ).toBeVisible()
+
+    // Check for the availability message with check icon
+    await expect(
+      callToAction.getByText(
+        'Available for consulting and full-time opportunities'
+      )
+    ).toBeVisible()
+
+    // Check for the check icon
+    const checkIcon = callToAction.locator('svg').first()
+    await expect(checkIcon).toBeVisible()
+  })
 })

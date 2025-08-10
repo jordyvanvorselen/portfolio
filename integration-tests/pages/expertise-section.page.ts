@@ -8,6 +8,7 @@ export class ExpertiseSectionPage {
   readonly tddCard: Locator
   readonly softwareArchitectureCard: Locator
   readonly aiAcceleratedDevelopmentCard: Locator
+  readonly callToAction: Locator
 
   constructor(private readonly page: Page) {
     this.section = this.page.getByRole('region', { name: 'Core Expertise' })
@@ -25,5 +26,6 @@ export class ExpertiseSectionPage {
     this.aiAcceleratedDevelopmentCard = this.section.getByRole('article', {
       name: /ai-accelerated development/i,
     })
+    this.callToAction = this.section.locator('[data-testid="call-to-action"]')
   }
 }
