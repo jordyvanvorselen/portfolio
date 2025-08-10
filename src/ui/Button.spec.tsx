@@ -47,4 +47,17 @@ describe('Button', () => {
     const button = screen.getByRole('button', { name: 'Custom Button' })
     expect(button).toHaveClass('custom-class')
   })
+
+  it('renders as link when href is provided', () => {
+    render(
+      <Button href="mailto:test@example.com" variant="footer-cta">
+        Get In Touch
+      </Button>
+    )
+
+    const link = screen.getByRole('link', { name: 'Get In Touch' })
+    expect(link).toBeVisible()
+    expect(link).toHaveAttribute('href', 'mailto:test@example.com')
+    expect(link).toHaveClass('bg-[#14b8a6]')
+  })
 })

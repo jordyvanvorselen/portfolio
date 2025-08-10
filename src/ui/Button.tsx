@@ -1,12 +1,30 @@
-import { ButtonHTMLAttributes, forwardRef } from 'react'
+import { ButtonHTMLAttributes, AnchorHTMLAttributes, forwardRef } from 'react'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface BaseButtonProps {
   children: React.ReactNode
   variant?: 'primary' | 'secondary' | 'footer-cta' | 'footer-action'
   size?: 'small' | 'large'
+  className?: string
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+interface ButtonAsButton
+  extends BaseButtonProps,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof BaseButtonProps> {
+  href?: never
+}
+
+interface ButtonAsLink
+  extends BaseButtonProps,
+    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseButtonProps> {
+  href: string
+}
+
+type ButtonProps = ButtonAsButton | ButtonAsLink
+
+export const Button = forwardRef<
+  HTMLButtonElement | HTMLAnchorElement,
+  ButtonProps
+>(
   (
     { children, className, variant = 'primary', size = 'small', ...props },
     ref
@@ -32,10 +50,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         'px-8 md:px-12 lg:px-18 py-4 md:py-5 lg:py-7 text-lg md:text-xl lg:text-2xl font-bold rounded-lg lg:rounded-xl',
     }
 
+    const baseClassName = `inline-flex items-center justify-center transition-colors duration-200 cursor-pointer ${sizeStyles[size]} ${variantStyles[variant]} ${className || ''}`
+
+    if ('href' in props && props.href) {
+      return (
+        <a
+          ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+          className={baseClassName}
+          {...props}
+        >
+          {children}
+        </a>
+      )
+    }
+
     return (
       <button
-        ref={ref}
-        className={`inline-flex items-center justify-center transition-colors duration-200 cursor-pointer ${sizeStyles[size]} ${variantStyles[variant]} ${className || ''}`}
+        ref={ref as React.ForwardedRef<HTMLButtonElement>}
+        className={baseClassName}
         {...props}
       >
         {children}

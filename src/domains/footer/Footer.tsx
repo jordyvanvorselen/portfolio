@@ -5,6 +5,7 @@ import { Text } from '@/ui/Text'
 import { NavigationLink } from '@/ui/NavigationLink'
 import { SocialIcon } from '@/ui/SocialIcon'
 import { BackToTopButton } from '@/ui/BackToTopButton'
+import { Button } from '@/ui/Button'
 
 export const Footer = () => {
   return (
@@ -100,13 +101,13 @@ export const Footer = () => {
                     variant="footer"
                   />
                 </div>
-                <a
+                <Button
+                  variant="footer-cta"
                   href="mailto:jordyvanvorselen@gmail.com"
-                  className="inline-flex items-center justify-center bg-[#14b8a6] hover:bg-[#0ea5e9] text-white shadow h-9 px-4 py-2 w-full rounded-md text-sm font-medium transition-colors"
                 >
                   <Mail className="w-4 h-4 mr-2" />
                   Get In Touch
-                </a>
+                </Button>
               </div>
             </section>
           </div>
