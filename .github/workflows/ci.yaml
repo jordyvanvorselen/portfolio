@@ -76,6 +76,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [lint, build, typecheck, unit-test, integration-test]
+    environment: ${{ env.ENVIRONMENT }}
 
     steps:
       - name: Determine environment
