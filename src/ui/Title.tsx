@@ -28,9 +28,9 @@ export const Title = ({
     'section-title':
       'text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6',
     'subsection-label':
-      'text-xs font-bold text-slate-400 uppercase tracking-[0.1em] letter-spacing-wide',
+      'text-xs font-bold text-slate-400 uppercase tracking-[0.1em] letter-spacing-wide text-left',
     'card-title':
-      'text-2xl font-bold text-white mb-2 leading-tight group-hover:text-white transition-colors duration-300',
+      'text-2xl font-bold text-white mb-2 leading-tight group-hover:text-white transition-colors duration-300 text-left',
   }
 
   const defaultElements = {

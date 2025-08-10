@@ -1,9 +1,10 @@
-import { TestTube } from 'lucide-react'
+import { TestTube, ExternalLink } from 'lucide-react'
 
 import { Card } from '@/ui/Card'
 import { Badge } from '@/ui/Badge'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
+import { Divider } from '@/ui/Divider'
 
 export function TDDCard(): JSX.Element {
   return (
@@ -26,7 +27,7 @@ export function TDDCard(): JSX.Element {
         software with comprehensive test coverage. My TDD practice leads to
         better design decisions and maintainable codebases.
       </Text>
-      <div className="space-y-4 mb-8">
+      <div className="space-y-4 mb-6">
         <Title variant="subsection-label">KEY SKILLS & TOOLS</Title>
         <div className="flex flex-wrap gap-2">
           <Badge variant="skill">Jest</Badge>
@@ -37,11 +38,18 @@ export function TDDCard(): JSX.Element {
           <Badge variant="skill">E2E Testing</Badge>
         </div>
       </div>
-      <div className="text-center">
-        <Text variant="publication-number">12</Text>
-        <Text variant="publication-label">Publications</Text>
-        <Text variant="publication-description">on this topic</Text>
-      </div>
+      <Divider>
+        <div className="flex items-center justify-between w-full px-4">
+          <div className="flex items-center gap-3">
+            <Text variant="publication-number">12</Text>
+            <div className="flex flex-col">
+              <Text variant="publication-label">Publications</Text>
+              <Text variant="publication-description">on this topic</Text>
+            </div>
+          </div>
+          <ExternalLink className="w-5 h-5 text-slate-400" />
+        </div>
+      </Divider>
     </Card>
   )
 }

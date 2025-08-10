@@ -38,7 +38,11 @@ export function ExpertiseSection() {
             Three fundamental pillars that drive my approach to software
             engineering and ensure delivery of exceptional results.
           </Text>
-          <TDDCard />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-7xl mx-auto">
+            <TDDCard />
+            <TDDCard />
+            <TDDCard />
+          </div>
         </div>
       </div>
     </section>
