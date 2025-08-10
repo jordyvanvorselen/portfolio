@@ -59,8 +59,13 @@ This project follows a **domain-driven architecture** with clear separation of c
 │       ├── hero-section/        # Landing introduction
 │       └── expertise-section/   # Skills showcase
 ├── 🧪 integration-tests/        # E2E Testing Suite
-│   ├── pages/                   # Page Object Models
-│   └── fixtures/                # Test fixtures
+│   ├── page-objects/            # Page Object Model Architecture
+│   │   ├── pages/               # Page-level objects (HomePage)
+│   │   ├── sections/            # Section-level objects (Header, Hero)
+│   │   ├── base.page.ts         # Abstract base class for pages
+│   │   └── base.section.ts      # Abstract base class for sections
+│   ├── fixtures/                # Test fixtures & dependency injection
+│   └── msw/                     # Mock Service Worker handlers
 ├── 🔧 hooks/                    # Custom React hooks
 ├── 📚 lib/                      # Utilities & helpers
 └── 🎯 public/                   # Static assets
@@ -90,29 +95,50 @@ This project maintains **100% code coverage** through a comprehensive three-tier
 
 ### 🟡 Integration Testing (Playwright)
 
-- **Pattern**: Page Object Model (POM) mandatory
-- **Focus**: User workflows and component interactions
-- **Location**: `integration-tests/` directory
+- **Architecture**: Section-based Page Object Model (POM) with `BasePage`/`BaseSection` pattern
+- **Focus**: User workflows and component interactions with proper element scoping
+- **Location**: `integration-tests/page-objects/` directory with organized structure
+- **Browsers**: Chrome & Firefox (WebKit excluded due to MSW compatibility)
 - **Run**: `pnpm test:integration`
 
 ```bash
-✅ 36 integration tests passing
+✅ 52 integration tests passing
 ✅ Chrome & Firefox coverage
-✅ Page Object Model enforced
+✅ Section-based page object architecture
+✅ Strict mode violation prevention
+✅ Visual regression testing included
 ```
+
+**Page Object Architecture Features:**
+
+- **Section Scoping**: All locators properly scoped to prevent element ambiguity
+- **Base Classes**: Abstract `BasePage` and `BaseSection` for consistent patterns
+- **Separation of Concerns**: Common sections in `BasePage`, page-specific in page classes
+- **Type Safety**: Full TypeScript support with proper typing
+- **Fixtures**: Dependency injection for clean test setup
 
 ### 🟢 Visual Regression Testing (Playwright Screenshots)
 
-- **Purpose**: Pixel-perfect design fidelity
-- **Method**: Automated screenshot comparisons
-- **Baseline**: Generated with `--update-snapshots`
-- **Coverage**: All major UI sections
+- **Purpose**: Pixel-perfect design fidelity across browsers and devices
+- **Method**: Automated screenshot comparisons with baseline images
+- **Coverage**: Header, Hero, Expertise sections with dedicated visual tests
+- **Browsers**: Chrome & Firefox with platform-specific baselines
+- **Storage**: Baselines in `integration-tests/*.spec.ts-snapshots/` directories
 
 ```bash
-✅ Visual regression tests
-✅ Multi-browser screenshot validation
-✅ Automated baseline management
+✅ Visual regression tests for major UI sections
+✅ Multi-browser screenshot validation (Chrome/Firefox)
+✅ Automated baseline management with --update-snapshots
+✅ CI/CD integration with artifact upload for failures
+✅ Platform-specific baseline generation (Linux CI, macOS dev)
 ```
+
+**Visual Testing Features:**
+
+- **Section-based Screenshots**: Each major UI section has dedicated visual tests
+- **Browser Coverage**: Platform-specific baselines for Chrome and Firefox
+- **CI Integration**: Automatic snapshot validation in GitHub Actions
+- **Failure Artifacts**: Test results uploaded as CI artifacts for debugging
 
 ## 🔄 Test-Driven Development Workflow
 
@@ -178,6 +204,67 @@ pnpm dev
 | `pnpm lint`             | 🔍 Check code quality        |
 | `pnpm lint:fix`         | 🛠️ Fix linting issues        |
 | `pnpm format`           | ✨ Format code with Prettier |
+
+## 🔄 CI/CD Pipeline
+
+This project uses **GitHub Actions** for continuous integration and deployment with a comprehensive quality gate system:
+
+### 🛠️ Workflow Overview
+
+```mermaid
+graph LR
+    A[Push/PR] --> B[Lint & Format]
+    A --> C[Build Verification]
+    A --> D[Type Checking]
+    A --> E[Unit Tests]
+    A --> F[Integration Tests]
+
+    B --> G[Deploy Gate]
+    C --> G
+    D --> G
+    E --> G
+    F --> G
+
+    G --> H[🚀 Vercel Deployment]
+
+    style A fill:#e3f2fd,stroke:#2196f3
+    style G fill:#fff3e0,stroke:#ff9800
+    style H fill:#e8f5e8,stroke:#4caf50
+```
+
+### ⚡ Pipeline Stages
+
+| Stage                | Purpose                            | Tools             | Status                                                                |
+| -------------------- | ---------------------------------- | ----------------- | --------------------------------------------------------------------- |
+| **🔍 Lint & Format** | Code style & quality enforcement   | ESLint + Prettier | ![Badge](https://img.shields.io/badge/ESLint-Passing-brightgreen)     |
+| **🏗️ Build**         | Application build verification     | Next.js           | ![Badge](https://img.shields.io/badge/Build-Passing-brightgreen)      |
+| **📋 Typecheck**     | Static type analysis               | TypeScript        | ![Badge](https://img.shields.io/badge/TypeScript-Strict-blue)         |
+| **🧪 Unit Tests**    | Component & logic testing          | Jest + RTL        | ![Badge](https://img.shields.io/badge/Coverage-100%25-brightgreen)    |
+| **🌐 Integration**   | E2E testing with visual regression | Playwright        | ![Badge](https://img.shields.io/badge/Tests-52%20passing-brightgreen) |
+
+### 🎯 Key Features
+
+- **✅ Quality Gates**: All stages must pass before deployment
+- **🔍 Pre-commit Hooks**: Automatic linting and formatting on commit
+- **🚀 Playwright Browser Caching**: Optimized CI performance with browser cache
+- **📁 Artifact Management**: Test results uploaded for 30-day retention
+- **🔄 Environment-based Deployment**: Production (main) vs Preview (PRs)
+- **⚡ Composite Actions**: Reusable Node.js/pnpm setup action
+- **🛡️ Security**: Vercel deployment with encrypted secrets
+
+### 🚀 Deployment Strategy
+
+**Production Deployment** (main branch):
+
+- Triggered on push to `main`
+- Full quality gate validation (lint, build, typecheck, tests)
+- Deployed to production Vercel environment
+
+**Preview Deployment** (PRs):
+
+- Triggered on pull request creation/updates
+- Same quality validation as production
+- Deployed to unique preview URL for review
 
 ## 📊 Code Quality Metrics
 
