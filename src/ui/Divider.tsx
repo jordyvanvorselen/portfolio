@@ -5,12 +5,12 @@ interface DividerProps extends HTMLAttributes<HTMLDivElement> {
   variant?: 'card-section'
 }
 
-export function Divider({
+export const Divider = ({
   children,
   variant = 'card-section',
   className = '',
   ...props
-}: DividerProps): JSX.Element {
+}: DividerProps) => {
   const variantClasses = {
     'card-section': 'border-t border-slate-700/50 pt-6',
   }

@@ -8,13 +8,13 @@ export interface SocialIconProps {
   className?: string
 }
 
-export function SocialIcon({
+export const SocialIcon = ({
   href,
   label,
   icon: Icon,
   variant = 'simple',
   className = '',
-}: SocialIconProps): JSX.Element {
+}: SocialIconProps) => {
   const baseClasses = 'transition-colors duration-200'
 
   const variantClasses = {

@@ -5,10 +5,7 @@ interface CardProps {
   'aria-label'?: string
 }
 
-export function Card({
-  children,
-  'aria-label': ariaLabel,
-}: CardProps): JSX.Element {
+export const Card = ({ children, 'aria-label': ariaLabel }: CardProps) => {
   return (
     <article
       aria-label={ariaLabel}

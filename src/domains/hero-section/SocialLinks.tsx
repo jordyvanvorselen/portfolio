@@ -2,7 +2,7 @@ import { Github, Linkedin, Mail } from 'lucide-react'
 
 import { SocialIcon } from '@/ui/SocialIcon'
 
-export function SocialLinks(): JSX.Element {
+export const SocialLinks = () => {
   return (
     <div className="flex justify-center gap-6">
       <SocialIcon

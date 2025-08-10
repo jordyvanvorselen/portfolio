@@ -1,6 +1,6 @@
 import { Text } from '@/ui/Text'
 
-export function HeroDescription(): JSX.Element {
+export const HeroDescription = () => {
   return (
     <Text variant="description">
       I help engineering teams deliver better software faster through

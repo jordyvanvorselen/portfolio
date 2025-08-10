@@ -18,7 +18,7 @@ interface ExpertiseCardProps {
   publicationNumberClassName?: string
 }
 
-export function ExpertiseCard({
+export const ExpertiseCard = ({
   ariaLabel,
   icon,
   iconColor,
@@ -27,7 +27,7 @@ export function ExpertiseCard({
   skills,
   publicationCount,
   publicationNumberClassName = '',
-}: ExpertiseCardProps): JSX.Element {
+}: ExpertiseCardProps) => {
   return (
     <Card aria-label={ariaLabel}>
       <div className="flex items-start gap-4 mb-6">

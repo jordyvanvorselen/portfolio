@@ -1,5 +1,5 @@
 import { Badge } from '@/ui/Badge'
 
-export function AvailabilityBadge(): JSX.Element {
+export const AvailabilityBadge = () => {
   return <Badge variant="availability">Available for new opportunities</Badge>
 }

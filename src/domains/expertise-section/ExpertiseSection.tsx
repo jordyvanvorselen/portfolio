@@ -4,7 +4,7 @@ import { ExpertiseLabel } from '@/domains/expertise-section/ExpertiseLabel'
 import { TDDCard } from '@/domains/expertise-section/TDDCard'
 import { SoftwareArchitectureCard } from '@/domains/expertise-section/SoftwareArchitectureCard'
 
-export function ExpertiseSection() {
+export const ExpertiseSection = () => {
   return (
     <section
       aria-label="Core Expertise"

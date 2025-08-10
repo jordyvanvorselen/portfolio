@@ -1,6 +1,6 @@
 import { Mouse } from 'lucide-react'
 
-export function ScrollIndicator(): JSX.Element {
+export const ScrollIndicator = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       {/* Mouse Icon with bounce animation */}

@@ -2,7 +2,7 @@ import { TestTube } from 'lucide-react'
 
 import { ExpertiseCard } from '@/domains/expertise-section/ExpertiseCard'
 
-export function TDDCard(): JSX.Element {
+export const TDDCard = () => {
   return (
     <ExpertiseCard
       ariaLabel="Test-Driven Development"

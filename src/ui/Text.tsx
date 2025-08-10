@@ -11,11 +11,11 @@ export interface TextProps {
   className?: string
 }
 
-export function Text({
+export const Text = ({
   children,
   variant = 'description',
   className = '',
-}: TextProps): JSX.Element {
+}: TextProps) => {
   const variantClasses = {
     description:
       'text-lg md:text-xl font-medium text-gray-200/90 text-center leading-relaxed max-w-3xl mx-auto',

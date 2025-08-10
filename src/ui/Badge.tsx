@@ -6,11 +6,11 @@ export interface BadgeProps {
   className?: string
 }
 
-export function Badge({
+export const Badge = ({
   children,
   variant = 'availability',
   className = '',
-}: BadgeProps): JSX.Element {
+}: BadgeProps) => {
   const baseClasses =
     'inline-flex items-center rounded-md border focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2'
 

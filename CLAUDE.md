@@ -249,8 +249,10 @@ import { Github, Linkedin, UserPlus } from "lucide-react";
 
 ## 📝 Code Style Standards
 
-- Prefer arrow functions
-- Annotate return types
+- **MANDATORY**: Use arrow function components with implicit return type inference
+  - `export const ComponentName = () => {` (NOT `export function ComponentName()`)
+  - Do NOT annotate return types for React components - let TypeScript infer them
+  - Example: `export const MyComponent = ({ title }: Props) => { return <div>{title}</div> }`
 - Always destructure props
 - Avoid `any` type, use `unknown` or strict generics
 - Group imports: react → next → libraries → local

@@ -6,7 +6,7 @@ import { HeroTitle } from '@/domains/hero-section/HeroTitle'
 import { ScrollIndicator } from '@/domains/hero-section/ScrollIndicator'
 import { SocialLinks } from '@/domains/hero-section/SocialLinks'
 
-export function HeroSection(): JSX.Element {
+export const HeroSection = () => {
   return (
     <section className="h-[calc(100vh-6rem)] relative overflow-hidden">
       {/* Dark base background */}

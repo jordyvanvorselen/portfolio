@@ -2,7 +2,7 @@ import { Mail, Download } from 'lucide-react'
 
 import { Button } from '@/ui/Button'
 
-export function HeroActions(): JSX.Element {
+export const HeroActions = () => {
   return (
     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
       <Button variant="primary" size="large">

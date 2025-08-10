@@ -2,7 +2,7 @@ import { Layers } from 'lucide-react'
 
 import { ExpertiseCard } from '@/domains/expertise-section/ExpertiseCard'
 
-export function SoftwareArchitectureCard(): JSX.Element {
+export const SoftwareArchitectureCard = () => {
   return (
     <ExpertiseCard
       ariaLabel="Software Architecture"
