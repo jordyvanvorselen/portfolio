@@ -14,9 +14,9 @@ export default defineConfig({
   },
   expect: {
     toHaveScreenshot: {
-      // Platform-specific snapshot paths: browser-platform format
+      // Platform-specific snapshot paths organized by platform folders
       pathTemplate:
-        '{testDir}/{testFileDir}/__screenshots__/{testFileName}-{projectName}-{platform}{ext}',
+        '{testDir}/{testFileDir}/__screenshots__/{platform}/{testFileName}-{projectName}{ext}',
     },
   },
   projects: [
