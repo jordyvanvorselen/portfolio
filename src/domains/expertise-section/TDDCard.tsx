@@ -22,34 +22,38 @@ export function TDDCard(): JSX.Element {
           <Title variant="card-title">Test-Driven Development</Title>
         </div>
       </div>
-      <Text variant="card-description">
-        I write tests first, then code. This approach ensures robust, bug-free
-        software with comprehensive test coverage. My TDD practice leads to
-        better design decisions and maintainable codebases.
-      </Text>
-      <div className="space-y-4 mb-6">
-        <Title variant="subsection-label">KEY SKILLS & TOOLS</Title>
-        <div className="flex flex-wrap gap-2">
-          <Badge variant="skill">Jest</Badge>
-          <Badge variant="skill">Cypress</Badge>
-          <Badge variant="skill">Testing Library</Badge>
-          <Badge variant="skill">Unit Testing</Badge>
-          <Badge variant="skill">Integration Testing</Badge>
-          <Badge variant="skill">E2E Testing</Badge>
-        </div>
+      <div className="flex-grow">
+        <Text variant="card-description">
+          I write tests first, then code. This approach ensures robust, bug-free
+          software with comprehensive test coverage. My TDD practice leads to
+          better design decisions and maintainable codebases.
+        </Text>
       </div>
-      <Divider>
-        <div className="flex items-center justify-between w-full px-4">
-          <div className="flex items-center gap-3">
-            <Text variant="publication-number">12</Text>
-            <div className="flex flex-col">
-              <Text variant="publication-label">Publications</Text>
-              <Text variant="publication-description">on this topic</Text>
-            </div>
+      <div className="mt-auto">
+        <div className="space-y-4 mb-6">
+          <Title variant="subsection-label">KEY SKILLS & TOOLS</Title>
+          <div className="flex flex-wrap gap-2">
+            <Badge variant="skill">Jest</Badge>
+            <Badge variant="skill">Cypress</Badge>
+            <Badge variant="skill">Testing Library</Badge>
+            <Badge variant="skill">Unit Testing</Badge>
+            <Badge variant="skill">Integration Testing</Badge>
+            <Badge variant="skill">E2E Testing</Badge>
           </div>
-          <ExternalLink className="w-5 h-5 text-slate-400" />
         </div>
-      </Divider>
+        <Divider>
+          <div className="flex items-center justify-between w-full px-4">
+            <div className="flex items-center gap-3">
+              <Text variant="publication-number">12</Text>
+              <div className="flex flex-col">
+                <Text variant="publication-label">Publications</Text>
+                <Text variant="publication-description">on this topic</Text>
+              </div>
+            </div>
+            <ExternalLink className="w-5 h-5 text-slate-400" />
+          </div>
+        </Divider>
+      </div>
     </Card>
   )
 }

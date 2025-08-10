@@ -6,6 +6,7 @@ export class ExpertiseSectionPage {
   readonly title: Locator
   readonly description: Locator
   readonly tddCard: Locator
+  readonly softwareArchitectureCard: Locator
 
   constructor(private readonly page: Page) {
     this.section = this.page.getByRole('region', { name: 'Core Expertise' })
@@ -16,6 +17,9 @@ export class ExpertiseSectionPage {
     )
     this.tddCard = this.section.getByRole('article', {
       name: /test-driven development/i,
+    })
+    this.softwareArchitectureCard = this.section.getByRole('article', {
+      name: /software architecture/i,
     })
   }
 }

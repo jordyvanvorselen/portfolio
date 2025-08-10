@@ -2,6 +2,7 @@ import { Text } from '@/ui/Text'
 import { Title } from '@/ui/Title'
 import { ExpertiseLabel } from '@/domains/expertise-section/ExpertiseLabel'
 import { TDDCard } from '@/domains/expertise-section/TDDCard'
+import { SoftwareArchitectureCard } from '@/domains/expertise-section/SoftwareArchitectureCard'
 
 export function ExpertiseSection() {
   return (
@@ -40,8 +41,8 @@ export function ExpertiseSection() {
           </Text>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-7xl mx-auto">
             <TDDCard />
-            <TDDCard />
-            <TDDCard />
+            <SoftwareArchitectureCard />
+            <div>{/* Placeholder for third card */}</div>
           </div>
         </div>
       </div>
