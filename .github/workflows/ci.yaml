@@ -3,7 +3,6 @@ name: Continuous Integration and Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  ENVIRONMENT: ${{ (github.head_ref || github.ref_name) == 'main' && 'production' || 'preview' }}
 
 permissions:
   contents: read
@@ -76,11 +75,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [lint, build, typecheck, unit-test, integration-test]
-    environment: ${{ env.ENVIRONMENT }}
+    environment: ${{ (github.head_ref || github.ref_name) == 'main' && 'production' || 'preview' }}
 
     steps:
       - name: Determine environment
-        run: echo "Deploying to $ENVIRONMENT"
+        run: echo "Deploying to ${{ github.environment }}"
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -89,20 +88,20 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=$ENVIRONMENT --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=${{ github.environment }} --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy production
-        if: env.ENVIRONMENT == 'production'
+        if: github.environment == 'production'
         run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy preview
-        if: env.ENVIRONMENT != 'production'
+        if: github.environment == 'preview'
         run: |
           PREVIEW_URL=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }})
           echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_ENV
 
       - name: Comment PR with preview URL
-        if: env.ENVIRONMENT != 'production'
+        if: github.environment == 'preview'
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           message: |
