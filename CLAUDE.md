@@ -205,6 +205,35 @@ For design file comparisons, use this workflow after styling changes:
 
 **Note**: The Next.js development server is always running - DO NOT start it manually.
 
+## 🔄 CI/CD & GitHub Actions Architecture
+
+The project uses a **modular reusable actions architecture** with smart caching for optimal performance and maintainability.
+
+### Reusable Actions Pattern
+
+**Two-Layer Composite Action Structure**:
+
+- **Foundation Layer**: Base actions for common setup (Node.js, pnpm, dependencies)
+- **Specialized Layer**: Domain-specific actions that build on foundation actions
+- **Benefits**: Maximum reusability, consistent environments, reduced duplication
+
+### Caching Strategy
+
+**Intelligent Version-Based Caching**:
+
+- Cache keys include tool versions for proper invalidation
+- Expensive operations (browser downloads) are cached, lightweight ones are not
+- Cache hit detection prevents redundant installations
+- `actions/cache@v4` handles both restore and save phases automatically
+
+### Workflow Design Principles
+
+- **Focused Scope**: Each workflow has a single, clear purpose
+- **Manual Triggers**: Maintenance operations use `workflow_dispatch`
+- **Smart Execution**: Conditional steps based on cache hits and change detection
+- **Artifact Strategy**: Upload generated files for review and debugging
+- **Commit Discipline**: Semantic commits with `[skip ci]` for automated changes
+
 ## 🧱 Component Guidelines
 
 - Use `radix-ui` components by default for form elements, cards, dialogs, etc.
