@@ -22,7 +22,9 @@ export function TDDCard(): JSX.Element {
         </div>
       </div>
       <Text variant="card-description">
-        I write tests first, then code. This approach ensures robust, bug-free software with comprehensive test coverage. My TDD practice leads to better design decisions and maintainable codebases.
+        I write tests first, then code. This approach ensures robust, bug-free
+        software with comprehensive test coverage. My TDD practice leads to
+        better design decisions and maintainable codebases.
       </Text>
       <div className="space-y-4 mb-8">
         <Title variant="subsection-label">KEY SKILLS & TOOLS</Title>

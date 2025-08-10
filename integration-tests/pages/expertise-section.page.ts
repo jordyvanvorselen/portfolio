@@ -14,6 +14,8 @@ export class ExpertiseSectionPage {
     this.description = this.section.getByText(
       'Three fundamental pillars that drive my approach to software engineering and ensure delivery of exceptional results.'
     )
-    this.tddCard = this.section.getByRole('article', { name: /test-driven development/i })
+    this.tddCard = this.section.getByRole('article', {
+      name: /test-driven development/i,
+    })
   }
 }

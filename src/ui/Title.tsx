@@ -2,7 +2,13 @@ import { ReactNode, ElementType } from 'react'
 
 interface TitleProps {
   children: ReactNode
-  variant?: 'logo' | 'hero-name' | 'hero-title' | 'section-title' | 'subsection-label' | 'card-title'
+  variant?:
+    | 'logo'
+    | 'hero-name'
+    | 'hero-title'
+    | 'section-title'
+    | 'subsection-label'
+    | 'card-title'
   as?: ElementType
   className?: string
 }
