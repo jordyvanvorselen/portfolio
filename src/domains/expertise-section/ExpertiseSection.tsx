@@ -3,6 +3,7 @@ import { Title } from '@/ui/Title'
 import { ExpertiseLabel } from '@/domains/expertise-section/ExpertiseLabel'
 import { TDDCard } from '@/domains/expertise-section/TDDCard'
 import { SoftwareArchitectureCard } from '@/domains/expertise-section/SoftwareArchitectureCard'
+import { AIAcceleratedDevelopmentCard } from '@/domains/expertise-section/AIAcceleratedDevelopmentCard'
 
 export const ExpertiseSection = () => {
   return (
@@ -42,7 +43,7 @@ export const ExpertiseSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-7xl mx-auto">
             <TDDCard />
             <SoftwareArchitectureCard />
-            <div>{/* Placeholder for third card */}</div>
+            <AIAcceleratedDevelopmentCard />
           </div>
         </div>
       </div>

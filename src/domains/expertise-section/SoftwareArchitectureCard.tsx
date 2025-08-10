@@ -19,7 +19,6 @@ export const SoftwareArchitectureCard = () => {
         'Hexagonal Architecture',
       ]}
       publicationCount={8}
-      publicationNumberClassName="text-[#14b8a6]"
     />
   )
 }

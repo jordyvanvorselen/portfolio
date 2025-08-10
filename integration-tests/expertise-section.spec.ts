@@ -104,4 +104,56 @@ test.describe('Expertise Section', () => {
     await expect(architectureCard.getByText('Publications')).toBeVisible()
     await expect(architectureCard.getByText('on this topic')).toBeVisible()
   })
+
+  test('displays ai accelerated development expertise card', async ({
+    homePage,
+  }) => {
+    const aiCard = homePage.expertiseSection.aiAcceleratedDevelopmentCard
+    await expect(aiCard).toBeVisible()
+
+    // Check for AI Accelerated Development title
+    await expect(
+      aiCard.getByRole('heading', { name: 'AI-Accelerated Development' })
+    ).toBeVisible()
+
+    // Check for description text
+    await expect(
+      aiCard.getByText(
+        /I leverage AI tools to accelerate team velocity while maintaining code quality/
+      )
+    ).toBeVisible()
+
+    // Check for KEY SKILLS & TOOLS section
+    await expect(aiCard.getByText('KEY SKILLS & TOOLS')).toBeVisible()
+
+    // Check for skill badges
+    const skillsSection = aiCard
+      .locator('div')
+      .filter({ hasText: 'KEY SKILLS & TOOLS' })
+      .first()
+    await expect(
+      skillsSection.getByRole('status').filter({ hasText: 'Claude Code' })
+    ).toBeVisible()
+    await expect(
+      skillsSection
+        .getByRole('status')
+        .filter({ hasText: 'Trunk-Based Development' })
+    ).toBeVisible()
+    await expect(
+      skillsSection
+        .getByRole('status')
+        .filter({ hasText: 'Continuous Deployment' })
+    ).toBeVisible()
+    await expect(
+      skillsSection.getByRole('status').filter({ hasText: 'Pair Programming' })
+    ).toBeVisible()
+    await expect(
+      skillsSection.getByRole('status').filter({ hasText: 'Automated Testing' })
+    ).toBeVisible()
+
+    // Check for publications section
+    await expect(aiCard.getByText('15')).toBeVisible()
+    await expect(aiCard.getByText('Publications')).toBeVisible()
+    await expect(aiCard.getByText('on this topic')).toBeVisible()
+  })
 })

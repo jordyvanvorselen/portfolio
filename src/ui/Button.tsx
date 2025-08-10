@@ -31,7 +31,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        className={`inline-flex items-center justify-center transition-colors duration-200 ${sizeStyles[size]} ${variantStyles[variant]} ${className || ''}`}
+        className={`inline-flex items-center justify-center transition-colors duration-200 cursor-pointer ${sizeStyles[size]} ${variantStyles[variant]} ${className || ''}`}
         {...props}
       >
         {children}

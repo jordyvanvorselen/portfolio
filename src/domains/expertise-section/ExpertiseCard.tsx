@@ -15,7 +15,6 @@ interface ExpertiseCardProps {
   description: string
   skills: string[]
   publicationCount: number
-  publicationNumberClassName?: string
 }
 
 export const ExpertiseCard = ({
@@ -26,7 +25,6 @@ export const ExpertiseCard = ({
   description,
   skills,
   publicationCount,
-  publicationNumberClassName = '',
 }: ExpertiseCardProps) => {
   return (
     <Card aria-label={ariaLabel}>
@@ -70,13 +68,10 @@ export const ExpertiseCard = ({
         <Divider>
           <div className="flex items-center justify-between w-full px-4">
             <div className="flex items-center gap-3">
-              <Text
-                variant="publication-number"
-                className={publicationNumberClassName}
-              >
+              <Text variant="publication-number" style={{ color: iconColor }}>
                 {publicationCount}
               </Text>
-              <div className="flex flex-col">
+              <div className="flex flex-col text-left">
                 <Text variant="publication-label">Publications</Text>
                 <Text variant="publication-description">on this topic</Text>
               </div>
