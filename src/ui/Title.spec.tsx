@@ -54,6 +54,26 @@ describe('Title', () => {
     expect(heading).toBeVisible()
   })
 
+  it('renders subsection-label variant as h4', () => {
+    render(<Title variant="subsection-label">KEY SKILLS & TOOLS</Title>)
+
+    const heading = screen.getByRole('heading', {
+      level: 4,
+      name: 'KEY SKILLS & TOOLS',
+    })
+    expect(heading).toBeVisible()
+  })
+
+  it('renders card-title variant as h3', () => {
+    render(<Title variant="card-title">Test-Driven Development</Title>)
+
+    const heading = screen.getByRole('heading', {
+      level: 3,
+      name: 'Test-Driven Development',
+    })
+    expect(heading).toBeVisible()
+  })
+
   it('accepts custom className', () => {
     render(<Title className="custom-class">Test</Title>)
 

@@ -1,6 +1,7 @@
 import { Text } from '@/ui/Text'
 import { Title } from '@/ui/Title'
 import { ExpertiseLabel } from '@/domains/expertise-section/ExpertiseLabel'
+import { TDDCard } from '@/domains/expertise-section/TDDCard'
 
 export function ExpertiseSection() {
   return (
@@ -37,6 +38,7 @@ export function ExpertiseSection() {
             Three fundamental pillars that drive my approach to software
             engineering and ensure delivery of exceptional results.
           </Text>
+          <TDDCard />
         </div>
       </div>
     </section>

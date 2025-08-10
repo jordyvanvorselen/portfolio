@@ -22,6 +22,12 @@ describe('Text', () => {
     expect(screen.getByText('Description text')).toBeVisible()
   })
 
+  it('accepts card-description variant', () => {
+    render(<Text variant="card-description">Card description text</Text>)
+
+    expect(screen.getByText('Card description text')).toBeVisible()
+  })
+
   it('accepts custom className', () => {
     render(<Text className="custom-class">Text</Text>)
 

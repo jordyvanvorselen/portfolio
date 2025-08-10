@@ -189,10 +189,21 @@ For design file comparisons, use this workflow after styling changes:
 
 ### Design System Development Workflow
 
-1. **Identify Reusable Patterns**: Before creating domain-specific components, identify if similar UI patterns exist
-2. **Create Generic UI Component**: Build reusable component in `src/ui/` with variant system
-3. **Use in Domain**: Import and utilize UI components within domain-specific components
-4. **Maintain Consistency**: Ensure all similar UI patterns use the same underlying component
+**MANDATORY UI COMPONENT REUSE CHECK**: Before implementing ANY styling or creating new components, you MUST:
+
+1. **Check Existing UI Components**: ALWAYS examine all files in `src/ui/` to identify existing components that can be reused
+2. **Evaluate for Variants**: If a similar component exists, determine if you can extend it with a new variant instead of creating new styling
+3. **Prefer Extending Over Creating**: Add variants to existing components rather than duplicating functionality
+4. **Create Only When Necessary**: Only create new UI components when no existing component can be reasonably extended
+
+**Development Workflow:**
+
+1. **FIRST: Audit `src/ui/` folder** - List all existing UI components and their current variants
+2. **Identify Reusable Patterns**: Before creating domain-specific components, identify if similar UI patterns exist in the UI folder
+3. **Extend Existing Components**: Add appropriate variants to existing UI components (e.g., `Title`, `Text`, `Badge`) rather than inline styling
+4. **Create Generic UI Component**: Only build new reusable components in `src/ui/` if no existing component can be extended
+5. **Use in Domain**: Import and utilize UI components within domain-specific components
+6. **Maintain Consistency**: Ensure all similar UI patterns use the same underlying component
 
 **Example Workflow:**
 

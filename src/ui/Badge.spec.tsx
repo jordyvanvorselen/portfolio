@@ -29,6 +29,12 @@ describe('Badge', () => {
     expect(screen.getByText('Section badge')).toBeVisible()
   })
 
+  it('accepts skill variant', () => {
+    render(<Badge variant="skill">Skill badge</Badge>)
+
+    expect(screen.getByText('Skill badge')).toBeVisible()
+  })
+
   it('accepts custom className', () => {
     render(<Badge className="custom-class">Custom badge</Badge>)
 
