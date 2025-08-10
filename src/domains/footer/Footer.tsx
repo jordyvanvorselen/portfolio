@@ -116,15 +116,17 @@ export const Footer = () => {
         {/* Footer Bottom */}
         <div className="border-t border-[#334155] py-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center text-[#cbd5e1] text-sm mb-4 md:mb-0">
-              <span>© 2025 Jordy van Vorselen. Made with</span>
+            <div className="flex items-center mb-4 md:mb-0">
+              <Text variant="footer-copyright">
+                © 2025 Jordy van Vorselen. Made with
+              </Text>
               <Heart className="w-4 h-4 mx-1 text-red-500" />
-              <span>and lots of coffee.</span>
+              <Text variant="footer-copyright">and lots of coffee.</Text>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-[#10b981] text-sm">
+              <Text variant="footer-availability">
                 Available for remote opportunities
-              </span>
+              </Text>
               <BackToTopButton />
             </div>
           </div>

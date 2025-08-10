@@ -52,4 +52,14 @@ describe('Text', () => {
 
     expect(screen.getByText('Footer copyright text')).toBeVisible()
   })
+
+  it('accepts footer-availability variant', () => {
+    render(
+      <Text variant="footer-availability">
+        Available for remote opportunities
+      </Text>
+    )
+
+    expect(screen.getByText('Available for remote opportunities')).toBeVisible()
+  })
 })

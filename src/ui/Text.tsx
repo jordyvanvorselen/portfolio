@@ -14,6 +14,7 @@ export interface TextProps {
     | 'footer-description'
     | 'footer-info'
     | 'footer-copyright'
+    | 'footer-availability'
   className?: string
   style?: CSSProperties
 }
@@ -39,6 +40,7 @@ export const Text = ({
     'footer-description': 'text-[#cbd5e1] mb-6 max-w-md',
     'footer-info': 'text-[#cbd5e1] text-sm',
     'footer-copyright': 'text-[#cbd5e1] text-sm',
+    'footer-availability': 'text-[#10b981] text-sm',
   }
 
   const combinedClasses = `${variantClasses[variant]} ${className}`.trim()
