@@ -178,4 +178,13 @@ test.describe('Expertise Section', () => {
     const checkIcon = callToAction.locator('svg').first()
     await expect(checkIcon).toBeVisible()
   })
+
+  test('expertise section visual regression', async ({ homePage }) => {
+    await expect(homePage.expertiseSection.section).toHaveScreenshot(
+      'expertise-section.png',
+      {
+        animations: 'disabled',
+      }
+    )
+  })
 })

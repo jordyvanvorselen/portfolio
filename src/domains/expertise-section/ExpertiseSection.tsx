@@ -10,7 +10,7 @@ export const ExpertiseSection = () => {
   return (
     <section
       aria-label="Core Expertise"
-      className="h-screen relative overflow-hidden"
+      className="min-h-screen relative overflow-hidden py-8 md:py-12 lg:py-16"
     >
       {/* Base gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#1e3a4c] to-[#0f172a]" />
@@ -29,7 +29,7 @@ export const ExpertiseSection = () => {
           )`,
         }}
       />
-      <div className="relative z-10 h-full flex items-center justify-center px-4">
+      <div className="relative z-10 min-h-full flex items-center justify-center px-4 md:px-8 lg:px-12">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex justify-center mb-4">
             <ExpertiseLabel />
