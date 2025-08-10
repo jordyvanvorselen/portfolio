@@ -92,4 +92,15 @@ jobs:
 
       - name: Deploy preview
         if: env.ENVIRONMENT != 'production'
-        run: vercel deploy --token=${{ secrets.VERCEL_TOKEN }}
+        run: |
+          PREVIEW_URL=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }})
+          echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_ENV
+
+      - name: Comment PR with preview URL
+        if: env.ENVIRONMENT != 'production'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: |
+            🚀 **Preview deployment ready!**
+
+            📎 **Preview URL**: ${{ env.PREVIEW_URL }}
