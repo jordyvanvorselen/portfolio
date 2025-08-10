@@ -10,7 +10,7 @@ export const ExpertiseSection = () => {
   return (
     <section
       aria-label="Core Expertise"
-      className="min-h-screen relative overflow-hidden py-8 md:py-12 lg:py-16"
+      className="min-h-screen relative overflow-hidden py-4 md:py-6 lg:py-8"
     >
       {/* Base gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#1e3a4c] to-[#0f172a]" />
@@ -31,7 +31,7 @@ export const ExpertiseSection = () => {
       />
       <div className="relative z-10 min-h-full flex items-center justify-center px-4 md:px-8 lg:px-12">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-center mb-2 md:mb-3 lg:mb-4">
             <ExpertiseLabel />
           </div>
           <Title variant="section-title-compact" as="h2">
@@ -41,7 +41,7 @@ export const ExpertiseSection = () => {
             Three fundamental pillars that drive my approach to software
             engineering and ensure delivery of exceptional results.
           </Text>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-8 lg:mt-12 max-w-7xl mx-auto">
             <TDDCard />
             <SoftwareArchitectureCard />
             <AIAcceleratedDevelopmentCard />

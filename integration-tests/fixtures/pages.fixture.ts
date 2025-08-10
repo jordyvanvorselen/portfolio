@@ -10,7 +10,10 @@ type Fixture = {
 }
 
 export const test = base.extend<Fixture>({
-  msw: createNetworkFixture({ initialHandlers: defaultHandlers }),
+  msw: [
+    createNetworkFixture({ initialHandlers: defaultHandlers }),
+    { auto: true },
+  ],
 
   page: async ({ page }, pwUse) => {
     await page.addInitScript(() => (window.isUnderTest = true))
