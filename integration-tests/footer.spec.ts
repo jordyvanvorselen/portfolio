@@ -63,4 +63,10 @@ test.describe('Footer', () => {
     const finalScrollPosition = await page.evaluate(() => window.scrollY)
     expect(finalScrollPosition).toBe(0)
   })
+
+  test('footer visual regression', async ({ homePage }) => {
+    await expect(homePage.footer.section).toHaveScreenshot('footer.png', {
+      animations: 'disabled',
+    })
+  })
 })
