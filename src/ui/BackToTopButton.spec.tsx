@@ -29,4 +29,15 @@ describe('BackToTopButton', () => {
       behavior: 'smooth',
     })
   })
+
+  it('calls custom onClick when provided', () => {
+    const mockOnClick = jest.fn()
+    render(<BackToTopButton onClick={mockOnClick} />)
+
+    const button = screen.getByRole('button', { name: /Back to top/ })
+    fireEvent.click(button)
+
+    expect(mockOnClick).toHaveBeenCalledTimes(1)
+    expect(window.scrollTo).not.toHaveBeenCalled()
+  })
 })
