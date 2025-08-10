@@ -80,12 +80,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js and pnpm
-        uses: ./.github/actions/setup-node-pnpm
-
-      - name: Build application
-        run: pnpm build
-
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
