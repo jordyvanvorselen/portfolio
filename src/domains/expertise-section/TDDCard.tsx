@@ -37,6 +37,11 @@ export function TDDCard(): JSX.Element {
           <Badge variant="skill">E2E Testing</Badge>
         </div>
       </div>
+      <div className="text-center">
+        <Text variant="publication-number">12</Text>
+        <Text variant="publication-label">Publications</Text>
+        <Text variant="publication-description">on this topic</Text>
+      </div>
     </Card>
   )
 }

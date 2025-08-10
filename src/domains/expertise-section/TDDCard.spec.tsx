@@ -44,4 +44,12 @@ describe('TDDCard', () => {
     expect(screen.getByText('Integration Testing')).toBeVisible()
     expect(screen.getByText('E2E Testing')).toBeVisible()
   })
+
+  it('displays publications section', () => {
+    render(<TDDCard />)
+
+    expect(screen.getByText('12')).toBeVisible()
+    expect(screen.getByText('Publications')).toBeVisible()
+    expect(screen.getByText('on this topic')).toBeVisible()
+  })
 })
