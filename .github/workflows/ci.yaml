@@ -76,7 +76,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [lint, build, typecheck, unit-test, integration-test]
-    environment: ${{ env.ENVIRONMENT }}
+    environment: ${{ (github.head_ref || github.ref_name) == 'main' && 'production' || 'preview' }}
 
     steps:
       - name: Determine environment
