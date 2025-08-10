@@ -32,25 +32,25 @@ export const HeroSection = () => {
       <div className="relative z-10 min-h-full px-4 md:px-8 lg:px-12 flex flex-col">
         {/* Main content - centered */}
         <div className="flex-1 flex flex-col justify-center">
-          <div className="flex justify-center mb-3 md:mb-4 lg:mb-6">
+          <div className="flex justify-center mb-6 md:mb-4 lg:mb-6">
             <AvailabilityBadge />
           </div>
-          <div className="flex justify-center mb-2 md:mb-3 lg:mb-4">
+          <div className="flex justify-center mb-4 md:mb-3 lg:mb-4">
             <HeroName />
           </div>
-          <div className="flex justify-center mb-3 md:mb-4 lg:mb-6">
+          <div className="flex justify-center mb-6 md:mb-4 lg:mb-6">
             <HeroTitle />
           </div>
-          <div className="flex justify-center mb-4 md:mb-6 lg:mb-8 max-w-4xl mx-auto px-4">
+          <div className="flex justify-center mb-8 md:mb-6 lg:mb-8 max-w-4xl mx-auto px-4">
             <HeroDescription />
           </div>
-          <div className="flex justify-center mb-4 md:mb-6 lg:mb-8">
+          <div className="flex justify-center mb-8 md:mb-6 lg:mb-8">
             <HeroActions />
           </div>
           <SocialLinks />
         </div>
         {/* Scroll indicator - pushed to bottom */}
-        <div className="flex justify-center pb-4 md:pb-6 lg:pb-8">
+        <div className="flex justify-center pt-8 pb-4 md:pt-10 md:pb-6 lg:pt-12 lg:pb-8">
           <ScrollIndicator />
         </div>
       </div>
