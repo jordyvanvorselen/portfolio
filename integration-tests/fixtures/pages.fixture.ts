@@ -1,7 +1,7 @@
 import { type NetworkFixture, createNetworkFixture } from '@msw/playwright'
 import { test as base } from '@playwright/test'
 
-import { HomePage as HomePage } from '@/integration-tests/pages/home.page'
+import { HomePage } from '@/integration-tests/page-objects/pages/home.page'
 import { defaultHandlers } from '@/integration-tests/msw/defaultHandlers'
 
 type Fixture = {
