@@ -72,7 +72,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [lint, build, typecheck, unit-test, integration-test]
-    if: github.event_name == 'push'
 
     steps:
       - name: Determine environment
