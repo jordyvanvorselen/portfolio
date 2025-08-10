@@ -3,6 +3,9 @@ name: Update Visual Snapshots
 on:
   workflow_dispatch: # Manual trigger
 
+permissions:
+  contents: write
+
 jobs:
   update-snapshots:
     runs-on: ubuntu-latest
