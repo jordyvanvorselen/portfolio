@@ -170,7 +170,7 @@ test.describe('Expertise Section', () => {
     // Check for the availability message with check icon
     await expect(
       callToAction.getByText(
-        'Available for consulting and full-time opportunities'
+        'Available for remote consulting and full-time opportunities'
       )
     ).toBeVisible()
 

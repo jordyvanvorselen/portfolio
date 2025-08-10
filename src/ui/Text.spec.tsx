@@ -34,4 +34,22 @@ describe('Text', () => {
     const textElement = screen.getByText('Text')
     expect(textElement).toHaveClass('custom-class')
   })
+
+  it('accepts footer-description variant', () => {
+    render(<Text variant="footer-description">Footer description text</Text>)
+
+    expect(screen.getByText('Footer description text')).toBeVisible()
+  })
+
+  it('accepts footer-info variant', () => {
+    render(<Text variant="footer-info">Footer info text</Text>)
+
+    expect(screen.getByText('Footer info text')).toBeVisible()
+  })
+
+  it('accepts footer-copyright variant', () => {
+    render(<Text variant="footer-copyright">Footer copyright text</Text>)
+
+    expect(screen.getByText('Footer copyright text')).toBeVisible()
+  })
 })

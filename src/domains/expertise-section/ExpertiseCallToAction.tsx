@@ -11,7 +11,7 @@ export const ExpertiseCallToAction = () => {
       <address className="flex items-center justify-center space-x-2 text-[#10b981] not-italic">
         <CircleCheckBig className="w-5 h-5" role="img" />
         <Text variant="call-to-action-availability">
-          Available for consulting and full-time opportunities
+          Available for remote consulting and full-time opportunities
         </Text>
       </address>
     </section>

@@ -90,4 +90,24 @@ describe('Title', () => {
     })
     expect(heading).toBeVisible()
   })
+
+  it('renders footer-author variant as h3', () => {
+    render(<Title variant="footer-author">Jordy van Vorselen</Title>)
+
+    const heading = screen.getByRole('heading', {
+      level: 3,
+      name: 'Jordy van Vorselen',
+    })
+    expect(heading).toBeVisible()
+  })
+
+  it('renders footer-section variant as h4', () => {
+    render(<Title variant="footer-section">Quick Links</Title>)
+
+    const heading = screen.getByRole('heading', {
+      level: 4,
+      name: 'Quick Links',
+    })
+    expect(heading).toBeVisible()
+  })
 })

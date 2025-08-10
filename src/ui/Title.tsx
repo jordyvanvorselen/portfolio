@@ -10,6 +10,8 @@ interface TitleProps {
     | 'section-title-compact'
     | 'subsection-label'
     | 'card-title'
+    | 'footer-author'
+    | 'footer-section'
   as?: ElementType
   className?: string
 }
@@ -34,6 +36,8 @@ export const Title = ({
       'text-xs font-bold text-slate-400 uppercase tracking-[0.1em] letter-spacing-wide text-left',
     'card-title':
       'text-2xl font-bold text-white mb-2 leading-tight group-hover:text-white transition-colors duration-300 text-left',
+    'footer-author': 'text-2xl font-bold text-[#ffffff] mb-4',
+    'footer-section': 'text-lg font-semibold text-[#ffffff] mb-4',
   }
 
   const defaultElements = {
@@ -44,6 +48,8 @@ export const Title = ({
     'section-title-compact': 'h2',
     'subsection-label': 'h4',
     'card-title': 'h3',
+    'footer-author': 'h3',
+    'footer-section': 'h4',
   }
 
   const Component = as || defaultElements[variant]

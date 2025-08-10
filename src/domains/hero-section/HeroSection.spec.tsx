@@ -6,7 +6,9 @@ describe('HeroSection', () => {
   it('renders availability badge', () => {
     render(<HeroSection />)
 
-    expect(screen.getByText('Available for new opportunities')).toBeVisible()
+    expect(
+      screen.getByText('Available for new remote opportunities')
+    ).toBeVisible()
   })
 
   it('renders name heading', () => {

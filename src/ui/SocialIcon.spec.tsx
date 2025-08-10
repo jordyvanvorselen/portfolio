@@ -51,4 +51,49 @@ describe('SocialIcon', () => {
     const link = screen.getByRole('link', { name: 'GitHub' })
     expect(link).toHaveClass('custom-class')
   })
+
+  it('displays label text with footer variant', () => {
+    render(
+      <SocialIcon
+        href="https://github.com/test"
+        label="GitHub"
+        icon={Github}
+        variant="footer"
+      />
+    )
+
+    const link = screen.getByRole('link', { name: 'GitHub' })
+    expect(link).toBeVisible()
+    expect(screen.getByText('GitHub')).toBeVisible()
+  })
+
+  it('does not display label text with simple variant', () => {
+    render(
+      <SocialIcon
+        href="https://github.com/test"
+        label="GitHub"
+        icon={Github}
+        variant="simple"
+      />
+    )
+
+    const link = screen.getByRole('link', { name: 'GitHub' })
+    expect(link).toBeVisible()
+    expect(screen.queryByText('GitHub')).not.toBeInTheDocument()
+  })
+
+  it('does not display label text with button variant', () => {
+    render(
+      <SocialIcon
+        href="https://github.com/test"
+        label="GitHub"
+        icon={Github}
+        variant="button"
+      />
+    )
+
+    const link = screen.getByRole('link', { name: 'GitHub' })
+    expect(link).toBeVisible()
+    expect(screen.queryByText('GitHub')).not.toBeInTheDocument()
+  })
 })

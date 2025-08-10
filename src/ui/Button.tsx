@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, forwardRef } from 'react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'footer-cta' | 'footer-action'
   size?: 'small' | 'large'
 }
 
@@ -20,6 +20,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         size === 'large'
           ? 'bg-slate-900/15 hover:bg-slate-800/15 text-white border-2 border-gray-500/30'
           : 'bg-gray-500 text-white hover:bg-gray-600',
+      'footer-cta':
+        'bg-[#14b8a6] hover:bg-[#0ea5e9] text-white shadow h-9 px-4 py-2 w-full rounded-md text-sm font-medium',
+      'footer-action':
+        'text-[#cbd5e1] hover:text-white h-8 px-3 text-xs hover:bg-accent rounded-md',
     }
 
     const sizeStyles = {

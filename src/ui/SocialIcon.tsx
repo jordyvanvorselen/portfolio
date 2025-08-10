@@ -4,7 +4,7 @@ export interface SocialIconProps {
   href: string
   label: string
   icon: LucideIcon
-  variant?: 'simple' | 'button'
+  variant?: 'simple' | 'button' | 'footer'
   className?: string
 }
 
@@ -21,9 +21,11 @@ export const SocialIcon = ({
     simple: 'text-gray-400 hover:text-white',
     button:
       'flex items-center justify-center w-12 h-12 rounded-full border-2 border-gray-500/30 text-gray-300 hover:text-white hover:border-gray-400/50',
+    footer:
+      'flex items-center text-[#cbd5e1] hover:text-white transition-colors',
   }
 
-  const iconClasses = 'w-5 h-5'
+  const iconClasses = variant === 'footer' ? 'w-5 h-5 mr-3' : 'w-5 h-5'
 
   const combinedClasses =
     `${baseClasses} ${variantClasses[variant]} ${className}`.trim()
@@ -37,6 +39,7 @@ export const SocialIcon = ({
       className={combinedClasses}
     >
       <Icon className={iconClasses} />
+      {variant === 'footer' && label}
     </a>
   )
 }

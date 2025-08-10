@@ -47,4 +47,14 @@ describe('NavigationLink', () => {
     const link = screen.getByRole('link', { name: 'Test' })
     expect(link).toHaveClass('custom-class')
   })
+
+  it('accepts footer variant', () => {
+    render(
+      <NavigationLink href="/footer-link" variant="footer">
+        Footer Link
+      </NavigationLink>
+    )
+
+    expect(screen.getByRole('link', { name: 'Footer Link' })).toBeVisible()
+  })
 })

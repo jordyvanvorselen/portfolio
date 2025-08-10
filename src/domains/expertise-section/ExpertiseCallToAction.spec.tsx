@@ -24,7 +24,9 @@ describe('ExpertiseCallToAction', () => {
     render(<ExpertiseCallToAction />)
 
     expect(
-      screen.getByText('Available for consulting and full-time opportunities')
+      screen.getByText(
+        'Available for remote consulting and full-time opportunities'
+      )
     ).toBeVisible()
   })
 })

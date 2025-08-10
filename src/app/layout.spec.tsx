@@ -32,6 +32,17 @@ describe(RootLayout, () => {
 
     expect(screen.getByText('Test children content')).toBeVisible()
   })
+
+  it('renders footer component', () => {
+    render(
+      <body>
+        <RootLayout>Test content</RootLayout>
+      </body>
+    )
+
+    const footer = screen.getByRole('contentinfo')
+    expect(footer).toBeVisible()
+  })
 })
 
 describe('metadata', () => {

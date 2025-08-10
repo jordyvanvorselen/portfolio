@@ -6,6 +6,8 @@ describe('AvailabilityBadge', () => {
   it('displays availability text', () => {
     render(<AvailabilityBadge />)
 
-    expect(screen.getByText('Available for new opportunities')).toBeVisible()
+    expect(
+      screen.getByText('Available for new remote opportunities')
+    ).toBeVisible()
   })
 })

@@ -11,6 +11,9 @@ export interface TextProps {
     | 'publication-description'
     | 'call-to-action-question'
     | 'call-to-action-availability'
+    | 'footer-description'
+    | 'footer-info'
+    | 'footer-copyright'
   className?: string
   style?: CSSProperties
 }
@@ -33,6 +36,9 @@ export const Text = ({
     'publication-description': 'text-sm text-slate-400',
     'call-to-action-question': 'text-[#cbd5e1] mb-6',
     'call-to-action-availability': 'font-semibold',
+    'footer-description': 'text-[#cbd5e1] mb-6 max-w-md',
+    'footer-info': 'text-[#cbd5e1] text-sm',
+    'footer-copyright': 'text-[#cbd5e1] text-sm',
   }
 
   const combinedClasses = `${variantClasses[variant]} ${className}`.trim()

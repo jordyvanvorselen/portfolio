@@ -3,7 +3,7 @@ import { Locator, Page } from '@playwright/test'
 export class HeroPage {
   readonly locator: Locator = this.page.locator('section').first()
   readonly availabilityBadge: Locator = this.page.getByText(
-    'Available for new opportunities'
+    'Available for new remote opportunities'
   )
   readonly name: Locator = this.page.getByRole('heading', {
     name: 'Jordy van Vorselen',
