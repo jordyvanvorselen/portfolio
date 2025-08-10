@@ -12,6 +12,13 @@ export default defineConfig({
     trace: 'on-first-retry',
     viewport: { width: 1920, height: 1080 },
   },
+  expect: {
+    toHaveScreenshot: {
+      // Platform-specific snapshot paths organized by platform folders
+      pathTemplate:
+        '{testDir}/{testFileDir}/__screenshots__/{platform}/{testFileName}-{projectName}{ext}',
+    },
+  },
   projects: [
     {
       name: 'chromium',

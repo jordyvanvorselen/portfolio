@@ -28,6 +28,12 @@
 ├── lib/                     # Client helpers, API wrappers, etc.
 ├── styles/                  # Tailwind customizations
 ├── integration-tests/       # Integration tests
+│   ├── page-objects/        # Page Object Model architecture
+│   │   ├── pages/           # Page-level objects
+│   │   ├── sections/        # Section-level objects
+│   │   ├── base.page.ts     # Abstract base page class
+│   │   └── base.section.ts  # Abstract base section class
+│   └── fixtures/            # Test fixtures for dependency injection
 ├── public/
 ├── .eslintrc.js
 ├── tailwind.config.ts
@@ -73,34 +79,68 @@
 
 ### 🎭 Playwright Page Object Model
 
-**MANDATORY**: All Playwright integration tests MUST use Page Object Model (POM) pattern:
+**MANDATORY**: All Playwright integration tests MUST use Page Object Model (POM) pattern with section-based architecture:
 
 - **NO direct selectors in test files** - All locators MUST be encapsulated in page objects
-- Store page objects in `integration-tests/pages/` directory
+- Store page objects in `integration-tests/page-objects/` directory with organized structure:
+  - `pages/` - Page-level objects (e.g., `HomePage`)
+  - `sections/` - Section-level objects (e.g., `Header`, `Hero`)
+  - `base.page.ts` - Abstract base class for all pages
+  - `base.section.ts` - Abstract base class for all sections
 - Page objects MUST encapsulate:
-  - All locators for the page/component
+  - All locators for the page/component with proper section scoping
   - Page-specific actions and navigation methods
   - Element interaction methods
 - Test files should only contain business logic and assertions
 - Page objects MUST use TypeScript with proper typing
-- Action methods MUST return page objects (either `this` or another page object instance) for fluent method chaining
+- Action methods MUST return page objects for fluent method chaining
 
-**Page Object Structure:**
+**Page Object Architecture:**
 
-- All page objects extend `BasePage` which provides access to common components
-- Use custom fixtures to create page objects with initial navigation
-- Access nested components through the base page (e.g., `homePage.header.brandingLink`)
+- **BasePage**: Abstract base class containing only common sections (header, footer)
+- **BaseSection**: Abstract base class requiring `section` locator for proper scoping
+- **Page Classes**: Extend `BasePage` and contain page-specific sections
+- **Section Classes**: Extend `BaseSection` and scope all locators to their section
+- **Fixtures**: Handle page navigation and dependency injection
+
+**Critical Architecture Rules:**
+
+1. **Section Scoping**: Every section MUST define `override readonly section: Locator`
+2. **Locator Chaining**: All locators in sections MUST chain from the section locator
+3. **Separation of Concerns**: Common sections in `BasePage`, page-specific sections in page classes
+4. **Strict Mode Prevention**: Use `.first()` for elements that may have duplicates (e.g., mobile/desktop navigation)
 
 ```typescript
-// integration-tests/pages/base.page.ts
-export class BasePage {
-  readonly header: HeaderPage = new HeaderPage(this.page)
-
+// integration-tests/page-objects/base.section.ts
+export abstract class BaseSection {
+  abstract readonly section: Locator
   constructor(public readonly page: Page) {}
 }
 
-// integration-tests/pages/home.page.ts
+// integration-tests/page-objects/base.page.ts
+export abstract class BasePage {
+  readonly header: Header = new Header(this.page)
+  readonly footer: Footer = new Footer(this.page)
+  constructor(public readonly page: Page) {}
+}
+
+// integration-tests/page-objects/sections/header.section.ts
+export class Header extends BaseSection {
+  override readonly section: Locator = this.page.getByRole('banner')
+  readonly aboutLink: Locator = this.section
+    .getByRole('link', { name: 'About' })
+    .first()
+  readonly brandingLink: Locator = this.section.getByRole('link', {
+    name: 'Jordy van Vorselen',
+  })
+}
+
+// integration-tests/page-objects/pages/home.page.ts
 export class HomePage extends BasePage {
+  readonly hero: Hero = new Hero(this.page)
+  readonly expertiseSection: ExpertiseSection = new ExpertiseSection(this.page)
+  readonly tddCard: TddCard = new TddCard(this.page)
+
   static async goto(page: Page): Promise<HomePage> {
     await page.goto('/')
     return new HomePage(page)
@@ -114,7 +154,7 @@ export const test = base.extend<Fixture>({
   },
 })
 
-// integration-tests/home.spec.ts
+// integration-tests/header.spec.ts
 import { test } from '@/integration-tests/fixtures/pages.fixture'
 
 test('displays header branding', async ({ homePage }) => {
@@ -164,6 +204,35 @@ For design file comparisons, use this workflow after styling changes:
 5. **Re-test**: Repeat until implementation matches design exactly
 
 **Note**: The Next.js development server is always running - DO NOT start it manually.
+
+## 🔄 CI/CD & GitHub Actions Architecture
+
+The project uses a **modular reusable actions architecture** with smart caching for optimal performance and maintainability.
+
+### Reusable Actions Pattern
+
+**Two-Layer Composite Action Structure**:
+
+- **Foundation Layer**: Base actions for common setup (Node.js, pnpm, dependencies)
+- **Specialized Layer**: Domain-specific actions that build on foundation actions
+- **Benefits**: Maximum reusability, consistent environments, reduced duplication
+
+### Caching Strategy
+
+**Intelligent Version-Based Caching**:
+
+- Cache keys include tool versions for proper invalidation
+- Expensive operations (browser downloads) are cached, lightweight ones are not
+- Cache hit detection prevents redundant installations
+- `actions/cache@v4` handles both restore and save phases automatically
+
+### Workflow Design Principles
+
+- **Focused Scope**: Each workflow has a single, clear purpose
+- **Manual Triggers**: Maintenance operations use `workflow_dispatch`
+- **Smart Execution**: Conditional steps based on cache hits and change detection
+- **Artifact Strategy**: Upload generated files for review and debugging
+- **Commit Discipline**: Semantic commits with `[skip ci]` for automated changes
 
 ## 🧱 Component Guidelines
 
@@ -233,7 +302,7 @@ export function Header(): JSX.Element {
 
 - **Component files**: Use PascalCase for React component files (e.g., `HeroSection.tsx`, `UserProfile.tsx`)
 - **Test files**: Use PascalCase for component test files (e.g., `HeroSection.spec.tsx`, `UserProfile.spec.tsx`)
-- **Integration test pages**: Use kebab-case for Playwright page objects (e.g., `hero.page.ts`, `user-profile.page.ts`)
+- **Integration test page objects**: Use kebab-case with `.section.ts` suffix for sections (e.g., `header.section.ts`, `hero.section.ts`) and `.page.ts` suffix for pages (e.g., `home.page.ts`)
 - **Component exports**: Always use PascalCase for component names in exports and imports
 
 ### Icon Usage

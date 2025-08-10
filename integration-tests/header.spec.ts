@@ -3,7 +3,7 @@ import { test } from '@/integration-tests/fixtures/pages.fixture'
 
 test.describe('Header Component', () => {
   test('displays header with branding', async ({ homePage }) => {
-    await expect(homePage.header.locator).toBeVisible()
+    await expect(homePage.header.section).toBeVisible()
     await expect(homePage.header.brandingLink).toBeVisible()
     await expect(homePage.header.brandingLink).toHaveText('Jordy van Vorselen')
   })
@@ -80,7 +80,7 @@ test.describe('Header Component', () => {
   })
 
   test('header visual regression', async ({ homePage }) => {
-    await expect(homePage.header.locator).toHaveScreenshot('header.png', {
+    await expect(homePage.header.section).toHaveScreenshot('header.png', {
       animations: 'disabled',
     })
   })

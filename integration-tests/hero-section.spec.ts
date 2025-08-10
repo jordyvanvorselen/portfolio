@@ -6,7 +6,7 @@ test.describe('Hero Section', () => {
   test('displays hero section with all required elements', async ({
     homePage,
   }) => {
-    await expect(homePage.hero.locator).toBeVisible()
+    await expect(homePage.hero.section).toBeVisible()
     await expect(homePage.hero.availabilityBadge).toBeVisible()
     await expect(homePage.hero.name).toBeVisible()
     await expect(homePage.hero.title).toBeVisible()
@@ -20,7 +20,7 @@ test.describe('Hero Section', () => {
   })
 
   test('hero section visual regression', async ({ homePage }) => {
-    await expect(homePage.hero.locator).toHaveScreenshot('hero-section.png', {
+    await expect(homePage.hero.section).toHaveScreenshot('hero-section.png', {
       animations: 'disabled',
     })
   })

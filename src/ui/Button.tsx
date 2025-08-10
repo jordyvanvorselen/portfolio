@@ -53,22 +53,25 @@ export const Button = forwardRef<
     const baseClassName = `inline-flex items-center justify-center transition-colors duration-200 cursor-pointer ${sizeStyles[size]} ${variantStyles[variant]} ${className || ''}`
 
     if ('href' in props && props.href) {
+      const { href, ...anchorProps } = props as ButtonAsLink
       return (
         <a
           ref={ref as React.ForwardedRef<HTMLAnchorElement>}
           className={baseClassName}
-          {...props}
+          href={href}
+          {...anchorProps}
         >
           {children}
         </a>
       )
     }
 
+    const buttonProps = props as ButtonAsButton
     return (
       <button
         ref={ref as React.ForwardedRef<HTMLButtonElement>}
         className={baseClassName}
-        {...props}
+        {...buttonProps}
       >
         {children}
       </button>
