@@ -16,8 +16,8 @@ test.describe('Responsive Design', () => {
       expect(headerBox?.width).toBeLessThanOrEqual(375)
 
       // All navigation links should be accessible
-      await expect(homePage.header.aboutLink).toBeVisible()
-      await expect(homePage.header.expertiseLink).toBeVisible()
+      await expect(homePage.header.homeLink).toBeVisible()
+      await expect(homePage.header.blogLink).toBeVisible()
       await expect(homePage.header.projectsLink).toBeVisible()
       await expect(homePage.header.experienceLink).toBeVisible()
       await expect(homePage.header.contactLink).toBeVisible()
@@ -75,8 +75,8 @@ test.describe('Responsive Design', () => {
       await expect(homePage.header.navigation).toBeVisible()
 
       // All navigation items should be visible
-      await expect(homePage.header.aboutLink).toBeVisible()
-      await expect(homePage.header.expertiseLink).toBeVisible()
+      await expect(homePage.header.homeLink).toBeVisible()
+      await expect(homePage.header.blogLink).toBeVisible()
       await expect(homePage.header.projectsLink).toBeVisible()
       await expect(homePage.header.experienceLink).toBeVisible()
       await expect(homePage.header.contactLink).toBeVisible()
