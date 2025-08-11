@@ -1,5 +1,5 @@
-import { HeroSection } from '@/domains/hero-section/HeroSection'
-import { ExpertiseSection } from '@/domains/expertise-section/ExpertiseSection'
+import { HeroSection } from '@/domains/home/hero/HeroSection'
+import { ExpertiseSection } from '@/domains/home/expertise/ExpertiseSection'
 
 export default function Home() {
   return (

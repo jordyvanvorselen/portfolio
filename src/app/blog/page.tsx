@@ -81,16 +81,21 @@ export default function BlogPage() {
     <main className="flex-1 flex flex-col bg-gray-950">
       <BlogHeroSection />
       <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <BlogSearchFilters />
+        <div data-testid="blog-search-filters">
+          <BlogSearchFilters />
+        </div>
 
-        <div className="mt-12 mb-16">
+        <div
+          data-testid="featured-blog-section"
+          className="mt-12 mb-16 min-h-[400px] md:min-h-[450px] lg:min-h-[500px]"
+        >
           <Title variant="section-label-small" className="mb-8">
             Featured article
           </Title>
           <FeaturedBlogCard {...featuredPost} />
         </div>
 
-        <div>
+        <div data-testid="blog-grid">
           <Title variant="section-label-small" className="mb-8">
             Latest articles
           </Title>

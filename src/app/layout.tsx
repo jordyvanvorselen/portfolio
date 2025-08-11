@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Header } from '@/domains/header/Header'
-import { Footer } from '@/domains/footer/Footer'
+import { Header } from '@/domains/common/Header'
+import { Footer } from '@/domains/common/Footer'
 
 export const metadata: Metadata = {
   title: 'Jordy van Vorselen - Portfolio',
