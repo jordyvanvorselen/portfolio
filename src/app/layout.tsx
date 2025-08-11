@@ -1,13 +1,7 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/domains/header/Header'
 import { Footer } from '@/domains/footer/Footer'
-
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-})
 
 export const metadata: Metadata = {
   title: 'Jordy van Vorselen - Portfolio',
@@ -21,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${inter.variable} antialiased h-full flex flex-col`}>
+      <body className="antialiased h-full flex flex-col">
         <Header />
         {children}
         <Footer />
