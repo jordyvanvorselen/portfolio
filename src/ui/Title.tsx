@@ -7,6 +7,7 @@ interface TitleProps {
     | 'hero-name'
     | 'hero-title'
     | 'blog-hero-title'
+    | 'blog-card-title'
     | 'section-title'
     | 'section-title-compact'
     | 'subsection-label'
@@ -31,6 +32,8 @@ export const Title = ({
       'text-2xl md:text-3xl lg:text-4xl text-gray-200/95 text-center',
     'blog-hero-title':
       'text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent',
+    'blog-card-title':
+      'text-xl font-bold text-white mb-3 group-hover:text-teal-400 transition-colors duration-300 line-clamp-2',
     'section-title':
       'text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6',
     'section-title-compact':
@@ -48,6 +51,7 @@ export const Title = ({
     'hero-name': 'h1',
     'hero-title': 'p',
     'blog-hero-title': 'h1',
+    'blog-card-title': 'h3',
     'section-title': 'h2',
     'section-title-compact': 'h2',
     'subsection-label': 'h4',

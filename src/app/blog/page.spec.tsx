@@ -18,7 +18,22 @@ describe('BlogPage', () => {
     render(<BlogPage />)
 
     expect(screen.getByPlaceholderText('Search articles...')).toBeVisible()
-    expect(screen.getByText('All')).toBeVisible()
-    expect(screen.getByText('API')).toBeVisible()
+    expect(screen.getByRole('button', { name: 'All' })).toBeVisible()
+    expect(screen.getByRole('button', { name: 'API' })).toBeVisible()
+  })
+
+  it('renders blog cards', () => {
+    render(<BlogPage />)
+
+    const blogCards = screen.getAllByRole('article')
+    expect(blogCards).toHaveLength(6)
+    expect(
+      screen.getByText(
+        'Advanced TypeScript Patterns for Enterprise Applications'
+      )
+    ).toBeVisible()
+    expect(
+      screen.getByText('Implementing Clean Architecture in React Applications')
+    ).toBeVisible()
   })
 })
