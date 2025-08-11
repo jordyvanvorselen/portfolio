@@ -46,4 +46,18 @@ describe('ScrollIndicator', () => {
       block: 'start',
     })
   })
+
+  it('does nothing when expertise section is not found', () => {
+    ;(global.document.getElementById as jest.Mock).mockReturnValue(null)
+
+    render(<ScrollIndicator />)
+
+    const scrollIndicator = screen.getByTestId('scroll-indicator')
+    fireEvent.click(scrollIndicator)
+
+    expect(global.document.getElementById).toHaveBeenCalledWith(
+      'expertise-section'
+    )
+    // Should not throw error when element is not found
+  })
 })

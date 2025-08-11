@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import BlogPage from '@/app/blog/page'
+import BlogPage, { metadata } from '@/app/blog/page'
 
 describe('BlogPage', () => {
   it('renders the blog hero section', () => {
@@ -35,5 +35,12 @@ describe('BlogPage', () => {
     expect(
       screen.getByText('Implementing Clean Architecture in React Applications')
     ).toBeVisible()
+  })
+
+  it('exports correct metadata', () => {
+    expect(metadata).toEqual({
+      title: 'Blog - Jordy van Vorselen',
+      description: 'Blog posts by Jordy van Vorselen',
+    })
   })
 })
