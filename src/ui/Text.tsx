@@ -5,6 +5,7 @@ export interface TextProps {
   variant?:
     | 'description'
     | 'description-compact'
+    | 'blog-hero-subtitle'
     | 'card-description'
     | 'publication-number'
     | 'publication-label'
@@ -30,6 +31,8 @@ export const Text = ({
       'text-lg md:text-xl font-medium text-gray-200/90 text-center leading-relaxed max-w-3xl mx-auto',
     'description-compact':
       'text-base md:text-lg font-medium text-gray-200/90 text-center leading-relaxed max-w-2xl mx-auto mb-4',
+    'blog-hero-subtitle':
+      'text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8',
     'card-description':
       'text-slate-300 mb-8 leading-relaxed text-[15px] group-hover:text-slate-200 transition-colors duration-300 text-left',
     'publication-number': 'text-4xl font-bold',
