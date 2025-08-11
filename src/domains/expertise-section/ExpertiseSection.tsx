@@ -9,6 +9,7 @@ import { ExpertiseCallToAction } from '@/domains/expertise-section/ExpertiseCall
 export const ExpertiseSection = () => {
   return (
     <section
+      id="expertise-section"
       aria-label="Core Expertise"
       className="min-h-screen relative overflow-hidden py-4 md:py-6 lg:py-8"
     >

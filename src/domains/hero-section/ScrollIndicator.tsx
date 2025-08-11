@@ -1,25 +1,37 @@
-import { Mouse } from 'lucide-react'
+'use client'
+
+import { ChevronDown } from 'lucide-react'
 
 export const ScrollIndicator = () => {
-  return (
-    <div className="flex flex-col items-center justify-center">
-      {/* Mouse Icon with bounce animation */}
-      <figure
-        className="mb-4 animate-bounce"
-        style={{
-          animationDuration: '2s',
-        }}
-      >
-        <Mouse
-          className="w-12 h-12 text-teal-400/60 drop-shadow-[0_0_12px_rgba(20,184,166,0.6)]"
-          strokeWidth={1.4}
-        />
-      </figure>
+  const handleScrollToExpertise = () => {
+    const expertiseSection = document.getElementById('expertise-section')
+    if (expertiseSection) {
+      expertiseSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
+    }
+  }
 
-      {/* SCROLL Text */}
-      <span className="text-gray-400/70 text-sm font-medium tracking-[0.2em] uppercase text-center">
-        SCROLL
-      </span>
+  return (
+    <div
+      data-testid="scroll-indicator"
+      onClick={handleScrollToExpertise}
+      className="cursor-pointer group flex flex-col items-center"
+    >
+      <div className="text-center mb-4">
+        <p className="text-sm md:text-base text-[#cbd5e1] font-medium mb-1 group-hover:text-white transition-colors duration-300">
+          Discover My Core Expertise
+        </p>
+        <p className="text-xs text-[#cbd5e1]/70 group-hover:text-[#cbd5e1] transition-colors duration-300">
+          Explore the skills I master
+        </p>
+      </div>
+      <ChevronDown
+        data-testid="chevron-down-icon"
+        className="w-6 h-6 text-[#14b8a6] group-hover:text-white transition-colors duration-300 animate-[pulse_4s_ease-in-out_infinite] mx-auto"
+        strokeWidth={2}
+      />
     </div>
   )
 }
