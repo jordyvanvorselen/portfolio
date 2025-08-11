@@ -34,6 +34,27 @@ test.describe('Hero Section', () => {
     await expect(homePage.hero.scrollIndicatorIcon).toBeVisible()
   })
 
+  test('scrolls to expertise section when scroll indicator is clicked', async ({
+    homePage,
+    page,
+  }) => {
+    // Get initial scroll position
+    const initialScrollPosition = await page.evaluate(() => window.scrollY)
+
+    // Click the scroll indicator
+    await homePage.hero.scrollIndicatorTitle.click()
+
+    // Wait for smooth scrolling to complete
+    await page.waitForTimeout(1000)
+
+    // Check that we've scrolled down
+    const finalScrollPosition = await page.evaluate(() => window.scrollY)
+    expect(finalScrollPosition).toBeGreaterThan(initialScrollPosition)
+
+    // Verify the expertise section is visible
+    await expect(homePage.expertiseSection.section).toBeVisible()
+  })
+
   test('hero section visual regression', async ({ homePage }) => {
     await expect(homePage.hero.section).toHaveScreenshot('hero-section.png', {
       animations: 'disabled',
