@@ -4,6 +4,7 @@ export const ScrollIndicator = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       <p>Discover My Core Expertise</p>
+      <p>Explore the skills I master</p>
       {/* Mouse Icon with bounce animation */}
       <figure
         className="mb-4 animate-bounce"

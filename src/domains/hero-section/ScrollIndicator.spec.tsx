@@ -8,4 +8,10 @@ describe('ScrollIndicator', () => {
 
     expect(screen.getByText('Discover My Core Expertise')).toBeVisible()
   })
+
+  it('renders Explore the skills I master subtitle', () => {
+    render(<ScrollIndicator />)
+
+    expect(screen.getByText('Explore the skills I master')).toBeVisible()
+  })
 })
