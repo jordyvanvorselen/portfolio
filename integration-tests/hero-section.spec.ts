@@ -19,6 +19,20 @@ test.describe('Hero Section', () => {
     await expect(homePage.hero.scrollIndicator).toBeVisible()
   })
 
+  test('displays redesigned scroll indicator with new content', async ({
+    homePage,
+  }) => {
+    await expect(homePage.hero.scrollIndicatorTitle).toBeVisible()
+    await expect(homePage.hero.scrollIndicatorTitle).toHaveText(
+      'Discover My Core Expertise'
+    )
+    await expect(homePage.hero.scrollIndicatorSubtitle).toBeVisible()
+    await expect(homePage.hero.scrollIndicatorSubtitle).toHaveText(
+      'Explore the skills I master'
+    )
+    await expect(homePage.hero.scrollIndicatorIcon).toBeVisible()
+  })
+
   test('hero section visual regression', async ({ homePage }) => {
     await expect(homePage.hero.section).toHaveScreenshot('hero-section.png', {
       animations: 'disabled',

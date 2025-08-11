@@ -31,4 +31,13 @@ export class Hero extends BaseSection {
     name: 'Email',
   })
   readonly scrollIndicator: Locator = this.section.getByText('SCROLL')
+  readonly scrollIndicatorTitle: Locator = this.section.getByText(
+    'Discover My Core Expertise'
+  )
+  readonly scrollIndicatorSubtitle: Locator = this.section.getByText(
+    'Explore the skills I master'
+  )
+  readonly scrollIndicatorIcon: Locator = this.section.locator(
+    '[aria-hidden="true"]'
+  )
 }
