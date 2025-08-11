@@ -8,25 +8,25 @@ test.describe('Blog Cards', () => {
     const blogPage = await BlogPage.goto(page)
 
     // Verify blog cards are displayed
-    await expect(blogPage.blogCards).toHaveCount(6)
+    await expect(blogPage.blogGrid.blogCards).toHaveCount(6)
 
     // Verify first blog card has all required elements
-    await expect(blogPage.firstBlogCard).toBeVisible()
-    await expect(blogPage.blogCardTitle).toBeVisible()
-    await expect(blogPage.blogCardImage).toBeVisible()
-    await expect(blogPage.blogCardDate).toBeVisible()
-    await expect(blogPage.blogCardReadTime).toBeVisible()
-    await expect(blogPage.blogCardDescription).toBeVisible()
-    await expect(blogPage.blogCardTags.first()).toBeVisible()
+    await expect(blogPage.blogGrid.firstBlogCard).toBeVisible()
+    await expect(blogPage.blogGrid.blogCardTitle).toBeVisible()
+    await expect(blogPage.blogGrid.blogCardImage).toBeVisible()
+    await expect(blogPage.blogGrid.blogCardDate).toBeVisible()
+    await expect(blogPage.blogGrid.blogCardReadTime).toBeVisible()
+    await expect(blogPage.blogGrid.blogCardDescription).toBeVisible()
+    await expect(blogPage.blogGrid.blogCardTags.first()).toBeVisible()
   })
 
   test('blog card has proper hover effects', async ({ page }) => {
     const blogPage = await BlogPage.goto(page)
 
     // Hover over first blog card
-    await blogPage.firstBlogCard.hover()
+    await blogPage.blogGrid.firstBlogCard.hover()
 
     // Verify hover effects are applied (we'll test styling changes)
-    await expect(blogPage.firstBlogCard).toBeVisible()
+    await expect(blogPage.blogGrid.firstBlogCard).toBeVisible()
   })
 })
