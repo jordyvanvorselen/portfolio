@@ -47,6 +47,7 @@ This project follows a **domain-driven architecture** with clear separation of c
 ├── 🚀 app/                      # Next.js App Router
 │   ├── layout.tsx               # Root layout & metadata
 │   ├── page.tsx                 # Home page
+│   ├── blog/                    # Blog pages
 │   └── api/                     # API routes
 ├── 🎨 src/
 │   ├── ui/                      # 🧩 Generic UI Components
@@ -55,13 +56,15 @@ This project follows a **domain-driven architecture** with clear separation of c
 │   │   ├── SocialIcon.tsx       # Social media icons
 │   │   └── NavigationLink.tsx   # Navigation links
 │   └── domains/                 # 🏗️ Feature Domains
-│       ├── header/              # Navigation & branding
-│       ├── hero-section/        # Landing introduction
-│       └── expertise-section/   # Skills showcase
+│       ├── common/              # Shared components (Header, Footer)
+│       ├── home/                # Home page features
+│       │   ├── hero/            # Landing introduction
+│       │   └── expertise/       # Skills showcase
+│       └── blog/                # Blog functionality
 ├── 🧪 integration-tests/        # E2E Testing Suite
 │   ├── page-objects/            # Page Object Model Architecture
-│   │   ├── pages/               # Page-level objects (HomePage)
-│   │   ├── sections/            # Section-level objects (Header, Hero)
+│   │   ├── pages/               # Page-level objects (HomePage, BlogPage)
+│   │   ├── sections/            # Section-level objects (Header, Hero, Blog)
 │   │   ├── base.page.ts         # Abstract base class for pages
 │   │   └── base.section.ts      # Abstract base class for sections
 │   ├── fixtures/                # Test fixtures & dependency injection
@@ -89,7 +92,7 @@ This project maintains **100% code coverage** through a comprehensive three-tier
 - **Run**: `pnpm test:unit`
 
 ```bash
-✅ 42 unit tests passing
+✅ 154 unit tests passing
 ✅ 100% code coverage maintained
 ```
 
@@ -102,7 +105,7 @@ This project maintains **100% code coverage** through a comprehensive three-tier
 - **Run**: `pnpm test:integration`
 
 ```bash
-✅ 52 integration tests passing
+✅ 80 integration tests passing
 ✅ Chrome & Firefox coverage
 ✅ Section-based page object architecture
 ✅ Strict mode violation prevention
@@ -121,7 +124,7 @@ This project maintains **100% code coverage** through a comprehensive three-tier
 
 - **Purpose**: Pixel-perfect design fidelity across browsers and devices
 - **Method**: Automated screenshot comparisons with baseline images
-- **Coverage**: Header, Hero, Expertise sections with dedicated visual tests
+- **Coverage**: Header, Hero, Expertise, Blog sections with dedicated visual tests
 - **Browsers**: Chrome & Firefox with platform-specific baselines
 - **Storage**: Baselines in `integration-tests/*.spec.ts-snapshots/` directories
 
@@ -240,7 +243,7 @@ graph LR
 | **🏗️ Build**         | Application build verification     | Next.js           | ![Badge](https://img.shields.io/badge/Build-Passing-brightgreen)      |
 | **📋 Typecheck**     | Static type analysis               | TypeScript        | ![Badge](https://img.shields.io/badge/TypeScript-Strict-blue)         |
 | **🧪 Unit Tests**    | Component & logic testing          | Jest + RTL        | ![Badge](https://img.shields.io/badge/Coverage-100%25-brightgreen)    |
-| **🌐 Integration**   | E2E testing with visual regression | Playwright        | ![Badge](https://img.shields.io/badge/Tests-52%20passing-brightgreen) |
+| **🌐 Integration**   | E2E testing with visual regression | Playwright        | ![Badge](https://img.shields.io/badge/Tests-80%20passing-brightgreen) |
 
 ### 🎯 Key Features
 
