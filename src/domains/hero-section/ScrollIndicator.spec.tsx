@@ -14,4 +14,11 @@ describe('ScrollIndicator', () => {
 
     expect(screen.getByText('Explore the skills I master')).toBeVisible()
   })
+
+  it('renders chevron down icon', () => {
+    render(<ScrollIndicator />)
+
+    const chevronIcon = screen.getByTestId('chevron-down-icon')
+    expect(chevronIcon).toBeVisible()
+  })
 })

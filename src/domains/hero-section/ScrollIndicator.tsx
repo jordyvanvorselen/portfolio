@@ -1,4 +1,4 @@
-import { Mouse } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 
 export const ScrollIndicator = () => {
   return (
@@ -12,7 +12,8 @@ export const ScrollIndicator = () => {
           animationDuration: '2s',
         }}
       >
-        <Mouse
+        <ChevronDown
+          data-testid="chevron-down-icon"
           className="w-12 h-12 text-teal-400/60 drop-shadow-[0_0_12px_rgba(20,184,166,0.6)]"
           strokeWidth={1.4}
         />
