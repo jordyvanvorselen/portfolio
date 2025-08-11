@@ -13,4 +13,12 @@ describe('BlogPage', () => {
       screen.getByText(/thoughts, tutorials, and deep dives/i)
     ).toBeVisible()
   })
+
+  it('renders the search filters section', () => {
+    render(<BlogPage />)
+
+    expect(screen.getByPlaceholderText('Search articles...')).toBeVisible()
+    expect(screen.getByText('All')).toBeVisible()
+    expect(screen.getByText('API')).toBeVisible()
+  })
 })
