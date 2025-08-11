@@ -7,7 +7,6 @@ test('renders blog page', async ({ blogPage }) => {
 })
 
 test('displays blog hero section content', async ({ blogPage }) => {
-  await expect(blogPage.hero.icon).toBeVisible()
   await expect(blogPage.hero.title).toBeVisible()
   await expect(blogPage.hero.title).toHaveText('Engineering Insights')
   await expect(blogPage.hero.subtitle).toBeVisible()

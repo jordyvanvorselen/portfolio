@@ -19,13 +19,6 @@ describe('BlogHeroSection', () => {
     ).toBeVisible()
   })
 
-  it('displays the pen tool icon', () => {
-    render(<BlogHeroSection />)
-
-    const icon = screen.getByLabelText('pen-tool')
-    expect(icon).toBeVisible()
-  })
-
   it('displays articles count stat', () => {
     render(<BlogHeroSection />)
 

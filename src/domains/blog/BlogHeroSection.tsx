@@ -1,4 +1,4 @@
-import { PenTool, BookOpen } from 'lucide-react'
+import { BookOpen } from 'lucide-react'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 
@@ -14,15 +14,6 @@ export const BlogHeroSection = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <div className="flex justify-center mb-8">
-            <div className="relative">
-              <div className="absolute inset-0 bg-teal-500/20 rounded-full blur-xl"></div>
-              <div className="relative bg-gradient-to-br from-teal-500 to-blue-500 p-4 rounded-full">
-                <PenTool className="w-8 h-8 text-white" aria-label="pen-tool" />
-              </div>
-            </div>
-          </div>
-
           <Title variant="blog-hero-title">Engineering Insights</Title>
 
           <Text variant="blog-hero-subtitle">
