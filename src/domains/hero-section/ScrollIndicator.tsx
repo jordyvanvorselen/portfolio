@@ -17,7 +17,7 @@ export const ScrollIndicator = () => {
     <div
       data-testid="scroll-indicator"
       onClick={handleScrollToExpertise}
-      className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 cursor-pointer group"
+      className="cursor-pointer group flex flex-col items-center"
     >
       <div className="text-center mb-4">
         <p className="text-sm md:text-base text-[#cbd5e1] font-medium mb-1 group-hover:text-white transition-colors duration-300">
