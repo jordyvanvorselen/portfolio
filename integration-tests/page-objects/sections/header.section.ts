@@ -13,9 +13,9 @@ export class Header extends BaseSection {
       name: 'About',
     })
     .first()
-  readonly expertiseLink: Locator = this.section
+  readonly blogLink: Locator = this.section
     .getByRole('link', {
-      name: 'Expertise',
+      name: 'Blog',
     })
     .first()
   readonly projectsLink: Locator = this.section

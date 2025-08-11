@@ -22,8 +22,8 @@ export const Header = () => {
             <NavigationLink href="/about" variant="desktop">
               About
             </NavigationLink>
-            <NavigationLink href="/expertise" variant="desktop">
-              Expertise
+            <NavigationLink href="/blog" variant="desktop">
+              Blog
             </NavigationLink>
             <NavigationLink href="/projects" variant="desktop">
               Projects
@@ -70,8 +70,8 @@ export const Header = () => {
           <NavigationLink href="/about" variant="mobile">
             About
           </NavigationLink>
-          <NavigationLink href="/expertise" variant="mobile">
-            Expertise
+          <NavigationLink href="/blog" variant="mobile">
+            Blog
           </NavigationLink>
           <NavigationLink href="/projects" variant="mobile">
             Projects

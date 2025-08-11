@@ -10,7 +10,7 @@ test.describe('Header Component', () => {
 
   test('displays navigation menu', async ({ homePage }) => {
     await expect(homePage.header.aboutLink).toBeVisible()
-    await expect(homePage.header.expertiseLink).toBeVisible()
+    await expect(homePage.header.blogLink).toBeVisible()
     await expect(homePage.header.projectsLink).toBeVisible()
     await expect(homePage.header.experienceLink).toBeVisible()
     await expect(homePage.header.contactLink).toBeVisible()
@@ -36,8 +36,8 @@ test.describe('Header Component', () => {
     await expect(homePage.page).toHaveURL('/about')
 
     await homePage.page.goBack()
-    await homePage.header.expertiseLink.click()
-    await expect(homePage.page).toHaveURL('/expertise')
+    await homePage.header.blogLink.click()
+    await expect(homePage.page).toHaveURL('/blog')
 
     await homePage.page.goBack()
     await homePage.header.projectsLink.click()
