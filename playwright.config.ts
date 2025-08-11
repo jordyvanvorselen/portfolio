@@ -16,7 +16,7 @@ export default defineConfig({
     toHaveScreenshot: {
       // Platform-specific snapshot paths organized by platform folders
       pathTemplate:
-        '{testDir}/{testFileDir}/__screenshots__/{platform}/{testFileName}-{projectName}{ext}',
+        '{testDir}/{testFileDir}/__screenshots__/{platform}/{arg}-{testFileName}-{projectName}{ext}',
     },
   },
   projects: [

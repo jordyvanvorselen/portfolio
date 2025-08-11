@@ -18,6 +18,14 @@ const customJestConfig = {
     '<rootDir>/tests/',
   ],
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
+  coverageThreshold: {
+    global: {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+  },
 }
 
 module.exports = createJestConfig(customJestConfig)

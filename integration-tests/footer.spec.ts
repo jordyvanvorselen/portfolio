@@ -12,8 +12,8 @@ test.describe('Footer', () => {
 
     // Quick Links section
     await expect(homePage.footer.quickLinksSection).toBeVisible()
-    await expect(homePage.footer.aboutLink).toBeVisible()
-    await expect(homePage.footer.expertiseLink).toBeVisible()
+    await expect(homePage.footer.homeLink).toBeVisible()
+    await expect(homePage.footer.blogLink).toBeVisible()
     await expect(homePage.footer.projectsLink).toBeVisible()
     await expect(homePage.footer.experienceLink).toBeVisible()
     await expect(homePage.footer.contactLink).toBeVisible()
