@@ -10,6 +10,7 @@ interface TitleProps {
     | 'blog-card-title'
     | 'section-title'
     | 'section-title-compact'
+    | 'section-label-small'
     | 'subsection-label'
     | 'card-title'
     | 'footer-author'
@@ -38,6 +39,8 @@ export const Title = ({
       'text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6',
     'section-title-compact':
       'text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-12 mb-4',
+    'section-label-small':
+      'text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6',
     'subsection-label':
       'text-xs font-bold text-slate-400 uppercase tracking-[0.1em] letter-spacing-wide text-left',
     'card-title':
@@ -54,6 +57,7 @@ export const Title = ({
     'blog-card-title': 'h3',
     'section-title': 'h2',
     'section-title-compact': 'h2',
+    'section-label-small': 'h3',
     'subsection-label': 'h4',
     'card-title': 'h3',
     'footer-author': 'h3',

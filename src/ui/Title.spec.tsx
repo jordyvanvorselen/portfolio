@@ -110,4 +110,14 @@ describe('Title', () => {
     })
     expect(heading).toBeVisible()
   })
+
+  it('renders section-label-small variant as h3', () => {
+    render(<Title variant="section-label-small">Featured article</Title>)
+
+    const heading = screen.getByRole('heading', {
+      level: 3,
+      name: 'Featured article',
+    })
+    expect(heading).toBeVisible()
+  })
 })

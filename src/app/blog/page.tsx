@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import { BlogHeroSection } from '@/domains/blog/BlogHeroSection'
 import { BlogSearchFilters } from '@/domains/blog/BlogSearchFilters'
 import { BlogCard } from '@/domains/blog/BlogCard'
+import { FeaturedBlogCard } from '@/domains/blog/FeaturedBlogCard'
+import { Title } from '@/ui/Title'
 
 export const metadata: Metadata = {
   title: 'Blog - Jordy van Vorselen',
@@ -73,16 +75,30 @@ const blogPosts = [
 ]
 
 export default function BlogPage() {
+  const [featuredPost, ...regularPosts] = blogPosts
+
   return (
     <main className="flex-1 flex flex-col bg-gray-950">
       <BlogHeroSection />
       <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <BlogSearchFilters />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-          {blogPosts.map((post, index) => (
-            <BlogCard key={index} {...post} />
-          ))}
+        <div className="mt-12 mb-16">
+          <Title variant="section-label-small" className="mb-8">
+            Featured article
+          </Title>
+          <FeaturedBlogCard {...featuredPost} />
+        </div>
+
+        <div>
+          <Title variant="section-label-small" className="mb-8">
+            Latest articles
+          </Title>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {regularPosts.map((post, index) => (
+              <BlogCard key={index} {...post} />
+            ))}
+          </div>
         </div>
       </div>
     </main>

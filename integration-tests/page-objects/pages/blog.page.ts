@@ -5,6 +5,9 @@ import { BlogHero } from '@/integration-tests/page-objects/sections/blog-hero.se
 
 export class BlogPage extends BasePage {
   readonly hero: BlogHero = new BlogHero(this.page)
+  readonly featuredBlogCard: Locator = this.page.locator(
+    '[data-featured="true"]'
+  )
   readonly searchBar: Locator = this.page.getByPlaceholder('Search articles...')
   readonly allFilter: Locator = this.page.getByRole('button', { name: 'All' })
   readonly blogCards: Locator = this.page.getByRole('article')
