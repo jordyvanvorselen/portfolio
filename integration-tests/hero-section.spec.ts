@@ -16,7 +16,8 @@ test.describe('Hero Section', () => {
     await expect(homePage.hero.githubLink).toBeVisible()
     await expect(homePage.hero.linkedinLink).toBeVisible()
     await expect(homePage.hero.emailLink).toBeVisible()
-    await expect(homePage.hero.scrollIndicator).toBeVisible()
+    await expect(homePage.hero.scrollIndicatorTitle).toBeVisible()
+    await expect(homePage.hero.scrollIndicatorSubtitle).toBeVisible()
   })
 
   test('displays redesigned scroll indicator with new content', async ({

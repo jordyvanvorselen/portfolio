@@ -2,27 +2,22 @@ import { ChevronDown } from 'lucide-react'
 
 export const ScrollIndicator = () => {
   return (
-    <div className="flex flex-col items-center justify-center">
-      <p>Discover My Core Expertise</p>
-      <p>Explore the skills I master</p>
-      {/* Mouse Icon with bounce animation */}
-      <figure
-        className="mb-4 animate-bounce"
-        style={{
-          animationDuration: '2s',
-        }}
-      >
+    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 cursor-pointer group">
+      <div className="text-center mb-4">
+        <p className="text-sm md:text-base text-[#cbd5e1] font-medium mb-1 group-hover:text-white transition-colors duration-300">
+          Discover My Core Expertise
+        </p>
+        <p className="text-xs text-[#cbd5e1]/70 group-hover:text-[#cbd5e1] transition-colors duration-300">
+          Explore the skills I master
+        </p>
+      </div>
+      <div className="w-12 h-12 border-2 border-[#14b8a6]/60 rounded-full flex items-center justify-center backdrop-blur-sm bg-[#0f172a]/20 shadow-lg shadow-[#14b8a6]/20 group-hover:bg-[#14b8a6]/20 group-hover:border-[#14b8a6] group-hover:shadow-[#14b8a6]/40 transition-all duration-300 mx-auto">
         <ChevronDown
           data-testid="chevron-down-icon"
-          className="w-12 h-12 text-teal-400/60 drop-shadow-[0_0_12px_rgba(20,184,166,0.6)]"
-          strokeWidth={1.4}
+          className="w-6 h-6 text-[#14b8a6] group-hover:text-white transition-colors duration-300 animate-[pulse_2s_ease-in-out_infinite]"
+          strokeWidth={2}
         />
-      </figure>
-
-      {/* SCROLL Text */}
-      <span className="text-gray-400/70 text-sm font-medium tracking-[0.2em] uppercase text-center">
-        SCROLL
-      </span>
+      </div>
     </div>
   )
 }
