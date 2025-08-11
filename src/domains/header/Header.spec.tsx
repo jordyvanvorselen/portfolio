@@ -11,12 +11,12 @@ describe(Header, () => {
     expect(brandingLink).toBeVisible()
   })
 
-  it('renders about navigation link', () => {
+  it('renders home navigation link', () => {
     render(<Header />)
 
-    const aboutLinks = screen.getAllByRole('link', { name: 'About' })
-    expect(aboutLinks.length).toBeGreaterThan(0)
-    aboutLinks.forEach(link => expect(link).toBeVisible())
+    const homeLinks = screen.getAllByRole('link', { name: 'Home' })
+    expect(homeLinks.length).toBeGreaterThan(0)
+    homeLinks.forEach(link => expect(link).toBeVisible())
   })
 
   it('renders blog navigation link', () => {
@@ -84,13 +84,13 @@ describe(Header, () => {
   it('navigation links have correct href attributes', () => {
     render(<Header />)
 
-    const aboutLinks = screen.getAllByRole('link', { name: 'About' })
+    const homeLinks = screen.getAllByRole('link', { name: 'Home' })
     const blogLinks = screen.getAllByRole('link', { name: 'Blog' })
     const projectsLinks = screen.getAllByRole('link', { name: 'Projects' })
     const experienceLinks = screen.getAllByRole('link', { name: 'Experience' })
     const contactLinks = screen.getAllByRole('link', { name: 'Contact' })
 
-    aboutLinks.forEach(link => expect(link).toHaveAttribute('href', '/about'))
+    homeLinks.forEach(link => expect(link).toHaveAttribute('href', '/'))
     blogLinks.forEach(link => expect(link).toHaveAttribute('href', '/blog'))
     projectsLinks.forEach(link =>
       expect(link).toHaveAttribute('href', '/projects')

@@ -8,9 +8,9 @@ export class Header extends BaseSection {
   readonly brandingLink: Locator = this.section.getByRole('link', {
     name: 'Jordy van Vorselen',
   })
-  readonly aboutLink: Locator = this.section
+  readonly homeLink: Locator = this.section
     .getByRole('link', {
-      name: 'About',
+      name: 'Home',
     })
     .first()
   readonly blogLink: Locator = this.section

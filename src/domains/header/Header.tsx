@@ -19,8 +19,8 @@ export const Header = () => {
         {/* Navigation - Hidden on mobile, visible on larger screens */}
         <nav className="hidden lg:block absolute left-1/2 transform -translate-x-1/2">
           <div className="flex items-center gap-6 lg:gap-8 xl:gap-12">
-            <NavigationLink href="/about" variant="desktop">
-              About
+            <NavigationLink href="/" variant="desktop">
+              Home
             </NavigationLink>
             <NavigationLink href="/blog" variant="desktop">
               Blog
@@ -67,8 +67,8 @@ export const Header = () => {
       {/* Mobile Navigation - Visible on tablet/mobile */}
       <nav className="lg:hidden mt-4 pt-4 border-t border-gray-700">
         <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-          <NavigationLink href="/about" variant="mobile">
-            About
+          <NavigationLink href="/" variant="mobile">
+            Home
           </NavigationLink>
           <NavigationLink href="/blog" variant="mobile">
             Blog
