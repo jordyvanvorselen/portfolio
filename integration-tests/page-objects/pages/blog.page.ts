@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test'
+import { Page } from '@playwright/test'
 
 import { BasePage } from '@/integration-tests/page-objects/base.page'
 import { BlogHero } from '@/integration-tests/page-objects/sections/blog-hero.section'

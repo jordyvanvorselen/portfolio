@@ -3,7 +3,10 @@ import type { Metadata } from 'next'
 import { BlogHeroSection } from '@/domains/blog/BlogHeroSection'
 import { BlogSearchFilters } from '@/domains/blog/BlogSearchFilters'
 import { BlogCard } from '@/domains/blog/BlogCard'
-import { FeaturedBlogCard } from '@/domains/blog/FeaturedBlogCard'
+import {
+  FeaturedBlogCard,
+  FeaturedBlogCardProps,
+} from '@/domains/blog/FeaturedBlogCard'
 import { Title } from '@/ui/Title'
 
 export const metadata: Metadata = {
@@ -92,7 +95,7 @@ export default function BlogPage() {
           <Title variant="section-label-small" className="mb-8">
             Featured article
           </Title>
-          <FeaturedBlogCard {...featuredPost} />
+          <FeaturedBlogCard {...(featuredPost as FeaturedBlogCardProps)} />
         </div>
 
         <div data-testid="blog-grid">
