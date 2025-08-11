@@ -53,12 +53,12 @@ export const BlogCard = ({
 
           <div className="flex flex-wrap gap-2">
             {tags.slice(0, 3).map(tag => (
-              <Badge key={tag} variant="blog-tag">
+              <Badge key={tag} variant="skill">
                 {tag}
               </Badge>
             ))}
             {tags.length > 3 && (
-              <Badge variant="blog-tag-more">+{tags.length - 3} more</Badge>
+              <Badge variant="skill">+{tags.length - 3} more</Badge>
             )}
           </div>
         </div>
