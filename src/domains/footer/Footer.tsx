@@ -38,19 +38,19 @@ export const Footer = () => {
             <section className="hidden lg:block flex-1">
               <Title variant="footer-section">Quick Links</Title>
               <nav className="space-y-2 mt-4">
-                <NavigationLink href="#" variant="footer">
-                  About
+                <NavigationLink href="/" variant="footer">
+                  Home
                 </NavigationLink>
-                <NavigationLink href="#" variant="footer">
-                  Expertise
+                <NavigationLink href="/blog" variant="footer">
+                  Blog
                 </NavigationLink>
-                <NavigationLink href="#" variant="footer">
+                <NavigationLink href="/projects" variant="footer">
                   Projects
                 </NavigationLink>
-                <NavigationLink href="#" variant="footer">
+                <NavigationLink href="/experience" variant="footer">
                   Experience
                 </NavigationLink>
-                <NavigationLink href="#" variant="footer">
+                <NavigationLink href="/contact" variant="footer">
                   Contact
                 </NavigationLink>
               </nav>

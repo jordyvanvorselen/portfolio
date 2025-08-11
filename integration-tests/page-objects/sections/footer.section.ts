@@ -21,11 +21,11 @@ export class Footer extends BaseSection {
   readonly quickLinksSection: Locator = this.section.getByRole('heading', {
     name: 'Quick Links',
   })
-  readonly aboutLink: Locator = this.section.getByRole('link', {
-    name: 'About',
+  readonly homeLink: Locator = this.section.getByRole('link', {
+    name: 'Home',
   })
-  readonly expertiseLink: Locator = this.section.getByRole('link', {
-    name: 'Expertise',
+  readonly blogLink: Locator = this.section.getByRole('link', {
+    name: 'Blog',
   })
   readonly projectsLink: Locator = this.section.getByRole('link', {
     name: 'Projects',

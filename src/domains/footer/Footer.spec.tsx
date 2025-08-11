@@ -28,8 +28,8 @@ describe('Footer', () => {
     render(<Footer />)
 
     expect(screen.getByRole('heading', { name: 'Quick Links' })).toBeVisible()
-    expect(screen.getByRole('link', { name: 'About' })).toBeVisible()
-    expect(screen.getByRole('link', { name: 'Expertise' })).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Home' })).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Blog' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Projects' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Experience' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Contact' })).toBeVisible()
