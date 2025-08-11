@@ -4,7 +4,7 @@ import { Text } from '@/ui/Text'
 
 export const BlogHeroSection = () => {
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden">
+    <section className="relative pt-16 pb-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-950 to-black"></div>
 
       <div className="absolute inset-0 overflow-hidden">
