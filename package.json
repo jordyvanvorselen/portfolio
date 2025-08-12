@@ -10,7 +10,7 @@
     "lint:fix": "next lint --fix && pnpm format:fix",
     "format": "prettier --check .",
     "format:fix": "prettier --write . --log-level warn",
-    "test": "jest && playwright test",
+    "test": "pnpm test:unit && pnpm test:integration",
     "test:unit": "jest --coverage",
     "test:integration": "playwright test"
   },
