@@ -77,4 +77,47 @@ describe('Text', () => {
       )
     ).toBeVisible()
   })
+
+  it('accepts projects-grid-description variant', () => {
+    render(
+      <Text variant="projects-grid-description">
+        Each project represents hours of dedication and problem-solving.
+      </Text>
+    )
+
+    expect(
+      screen.getByText(
+        'Each project represents hours of dedication and problem-solving.'
+      )
+    ).toBeVisible()
+  })
+
+  it('accepts project-card-description variant', () => {
+    render(
+      <Text variant="project-card-description">
+        A powerful platform for managing complex architectures.
+      </Text>
+    )
+
+    expect(
+      screen.getByText(
+        'A powerful platform for managing complex architectures.'
+      )
+    ).toBeVisible()
+  })
+
+  it('accepts project-card-long-description variant', () => {
+    render(
+      <Text variant="project-card-long-description">
+        Built with Node.js and Kubernetes, this provides comprehensive
+        solutions.
+      </Text>
+    )
+
+    expect(
+      screen.getByText(
+        'Built with Node.js and Kubernetes, this provides comprehensive solutions.'
+      )
+    ).toBeVisible()
+  })
 })

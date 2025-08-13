@@ -36,4 +36,11 @@ describe('Divider', () => {
     const divider = screen.getByTestId('divider')
     expect(divider).toBeVisible()
   })
+
+  it('renders horizontal-gradient variant', () => {
+    render(<Divider variant="horizontal-gradient" data-testid="divider" />)
+
+    const divider = screen.getByTestId('divider')
+    expect(divider).toBeVisible()
+  })
 })

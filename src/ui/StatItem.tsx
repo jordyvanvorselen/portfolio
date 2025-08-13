@@ -5,6 +5,7 @@ interface StatItemProps {
   label: string
   icon?: ReactNode
   hoverColor?: 'teal' | 'yellow' | 'purple'
+  variant?: 'default' | 'floating'
   className?: string
 }
 
@@ -13,12 +14,26 @@ export const StatItem = ({
   label,
   icon,
   hoverColor = 'teal',
+  variant = 'default',
   className = '',
 }: StatItemProps) => {
   const hoverColorClasses = {
     teal: 'group-hover:text-teal-400',
     yellow: 'group-hover:text-yellow-400',
     purple: 'group-hover:text-purple-400',
+  }
+
+  if (variant === 'floating') {
+    return (
+      <div
+        className={`bg-black/80 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1 ${className}`}
+      >
+        {icon && <span className="text-gray-400">{icon}</span>}
+        <span className="text-white text-sm font-medium">
+          {value.toLocaleString()}
+        </span>
+      </div>
+    )
   }
 
   return (

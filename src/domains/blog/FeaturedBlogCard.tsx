@@ -1,4 +1,5 @@
 import { Calendar, Clock, Star } from 'lucide-react'
+import Image from 'next/image'
 
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
@@ -40,9 +41,11 @@ export const FeaturedBlogCard = ({
       <div className="relative lg:grid lg:grid-cols-2 lg:gap-8">
         {/* Image section */}
         <div className="aspect-[16/9] lg:aspect-auto overflow-hidden">
-          <img
+          <Image
             src={image}
             alt={title}
+            width={800}
+            height={600}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-gray-900/10 lg:to-gray-800/60" />

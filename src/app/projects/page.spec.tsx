@@ -20,16 +20,11 @@ describe('ProjectsPage', () => {
     expect(screen.getByText('425')).toBeVisible()
   })
 
-  it('renders projects heading', () => {
+  it('renders projects grid section', () => {
     render(<ProjectsPage />)
 
-    expect(screen.getByRole('heading', { name: 'Projects' })).toBeVisible()
-  })
-
-  it('displays coming soon message', () => {
-    render(<ProjectsPage />)
-
-    expect(screen.getByText('Coming soon...')).toBeVisible()
+    expect(screen.getByRole('region', { name: 'projects grid' })).toBeVisible()
+    expect(screen.getByText(/A powerful orchestration platform/)).toBeVisible()
   })
 
   it('has correct metadata', () => {

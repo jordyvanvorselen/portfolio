@@ -35,10 +35,24 @@ describe('Badge', () => {
     expect(screen.getByText('Skill badge')).toBeVisible()
   })
 
+  it('accepts technology variant', () => {
+    render(<Badge variant="technology">React</Badge>)
+
+    expect(screen.getByText('React')).toBeVisible()
+  })
+
   it('accepts custom className', () => {
     render(<Badge className="custom-class">Custom badge</Badge>)
 
     const badge = screen.getByText('Custom badge')
     expect(badge).toHaveClass('custom-class')
+  })
+
+  it('accepts custom style prop', () => {
+    const customStyle = { animationDelay: '100ms' }
+    render(<Badge style={customStyle}>Styled badge</Badge>)
+
+    const badge = screen.getByText('Styled badge')
+    expect(badge).toHaveStyle('animation-delay: 100ms')
   })
 })

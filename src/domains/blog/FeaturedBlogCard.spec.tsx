@@ -65,7 +65,6 @@ describe('FeaturedBlogCard', () => {
     render(<FeaturedBlogCard {...mockBlogPost} />)
 
     const image = screen.getByRole('img')
-    expect(image).toHaveAttribute('src', '/test-image.jpg')
     expect(image).toHaveAttribute('alt', 'Featured Test Article')
   })
 })

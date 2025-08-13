@@ -2,7 +2,13 @@ import { ButtonHTMLAttributes, AnchorHTMLAttributes, forwardRef } from 'react'
 
 interface BaseButtonProps {
   children: React.ReactNode
-  variant?: 'primary' | 'secondary' | 'footer-cta' | 'footer-action'
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'footer-cta'
+    | 'footer-action'
+    | 'project-primary'
+    | 'project-secondary'
   size?: 'small' | 'large'
   className?: string
 }
@@ -42,10 +48,14 @@ export const Button = forwardRef<
         'bg-[#14b8a6] hover:bg-[#0ea5e9] text-white shadow h-9 px-4 py-2 w-full rounded-md text-sm font-medium',
       'footer-action':
         'text-[#cbd5e1] hover:text-white h-8 px-3 text-xs hover:bg-accent rounded-md',
+      'project-primary':
+        'bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white shadow-lg hover:shadow-teal-500/25 transition-all duration-300',
+      'project-secondary':
+        'border border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white hover:border-gray-500 transition-all duration-300',
     }
 
     const sizeStyles = {
-      small: 'px-4 py-2 text-base rounded',
+      small: 'px-4 py-2 text-base rounded-lg',
       large:
         'px-8 md:px-12 lg:px-18 py-4 md:py-5 lg:py-7 text-lg md:text-xl lg:text-2xl font-bold rounded-lg lg:rounded-xl',
     }

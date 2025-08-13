@@ -40,26 +40,26 @@ export const ProjectsHero = ({
 
         {/* Floating code symbols */}
         <div
-          className="absolute top-20 left-20 text-teal-500/20 animate-bounce"
-          style={{ animationDelay: '0.5s' }}
+          className="absolute top-20 left-20 text-teal-500/20 animate-pulse"
+          style={{ animationDuration: '3s' }}
         >
           <CodeIcon className="w-8 h-8" />
         </div>
         <div
-          className="absolute top-40 right-32 text-purple-500/20 animate-bounce"
-          style={{ animationDelay: '1.5s' }}
+          className="absolute top-40 right-32 text-purple-500/20 animate-pulse"
+          style={{ animationDuration: '4s' }}
         >
           <GithubIcon className="w-6 h-6" />
         </div>
         <div
-          className="absolute bottom-32 left-32 text-teal-500/20 animate-bounce"
-          style={{ animationDelay: '2s' }}
+          className="absolute bottom-32 left-32 text-teal-500/20 animate-pulse"
+          style={{ animationDuration: '3.5s' }}
         >
           <StarIcon className="w-7 h-7" />
         </div>
         <div
-          className="absolute bottom-20 right-20 text-purple-500/20 animate-bounce"
-          style={{ animationDelay: '0.8s' }}
+          className="absolute bottom-20 right-20 text-purple-500/20 animate-pulse"
+          style={{ animationDuration: '4.5s' }}
         >
           <CodeIcon className="w-5 h-5" />
         </div>
