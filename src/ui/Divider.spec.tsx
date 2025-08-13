@@ -29,4 +29,11 @@ describe('Divider', () => {
       'border-t border-slate-700/50 pt-6 custom-class'
     )
   })
+
+  it('renders vertical-gradient variant', () => {
+    render(<Divider variant="vertical-gradient" data-testid="divider" />)
+
+    const divider = screen.getByTestId('divider')
+    expect(divider).toBeVisible()
+  })
 })

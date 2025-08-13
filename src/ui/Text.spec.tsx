@@ -62,4 +62,19 @@ describe('Text', () => {
 
     expect(screen.getByText('Available for remote opportunities')).toBeVisible()
   })
+
+  it('accepts projects-hero-description variant', () => {
+    render(
+      <Text variant="projects-hero-description">
+        Crafting innovative solutions and contributing to the developer
+        community
+      </Text>
+    )
+
+    expect(
+      screen.getByText(
+        'Crafting innovative solutions and contributing to the developer community'
+      )
+    ).toBeVisible()
+  })
 })

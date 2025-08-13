@@ -1,0 +1,41 @@
+import { render, screen } from '@testing-library/react'
+
+import ProjectsPage, { metadata } from '@/app/projects/page'
+
+describe('ProjectsPage', () => {
+  it('renders projects hero section', () => {
+    render(<ProjectsPage />)
+
+    expect(
+      screen.getByRole('heading', { name: 'Open Source Projects' })
+    ).toBeVisible()
+    expect(screen.getByText(/crafting innovative solutions/i)).toBeVisible()
+  })
+
+  it('displays project statistics in hero', () => {
+    render(<ProjectsPage />)
+
+    expect(screen.getByText('15')).toBeVisible()
+    expect(screen.getByText('2,500')).toBeVisible()
+    expect(screen.getByText('425')).toBeVisible()
+  })
+
+  it('renders projects heading', () => {
+    render(<ProjectsPage />)
+
+    expect(screen.getByRole('heading', { name: 'Projects' })).toBeVisible()
+  })
+
+  it('displays coming soon message', () => {
+    render(<ProjectsPage />)
+
+    expect(screen.getByText('Coming soon...')).toBeVisible()
+  })
+
+  it('has correct metadata', () => {
+    expect(metadata.title).toBe('Projects - Jordy van Vorselen')
+    expect(metadata.description).toBe(
+      'Projects and open source contributions by Jordy van Vorselen'
+    )
+  })
+})

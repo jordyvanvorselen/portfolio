@@ -120,4 +120,14 @@ describe('Title', () => {
     })
     expect(heading).toBeVisible()
   })
+
+  it('renders projects-hero-title variant as h1', () => {
+    render(<Title variant="projects-hero-title">Open Source Projects</Title>)
+
+    const heading = screen.getByRole('heading', {
+      level: 1,
+      name: 'Open Source Projects',
+    })
+    expect(heading).toBeVisible()
+  })
 })

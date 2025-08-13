@@ -15,6 +15,7 @@ interface TitleProps {
     | 'card-title'
     | 'footer-author'
     | 'footer-section'
+    | 'projects-hero-title'
   as?: ElementType
   className?: string
 }
@@ -47,6 +48,7 @@ export const Title = ({
       'text-2xl font-bold text-white mb-2 leading-tight group-hover:text-white transition-colors duration-300 text-left',
     'footer-author': 'text-2xl font-bold text-[#ffffff] mb-4',
     'footer-section': 'text-lg font-semibold text-[#ffffff] mb-4',
+    'projects-hero-title': 'text-5xl lg:text-7xl font-bold mb-6',
   }
 
   const defaultElements = {
@@ -62,6 +64,7 @@ export const Title = ({
     'card-title': 'h3',
     'footer-author': 'h3',
     'footer-section': 'h4',
+    'projects-hero-title': 'h1',
   }
 
   const Component = as || defaultElements[variant]
