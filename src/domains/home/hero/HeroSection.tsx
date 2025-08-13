@@ -8,7 +8,7 @@ import { SocialLinks } from '@/domains/home/hero/SocialLinks'
 
 export const HeroSection = () => {
   return (
-    <section className="min-h-[calc(100vh-6rem)] relative overflow-hidden py-4 md:py-6 lg:py-8 border-b border-gray-600">
+    <section className="h-[calc(100vh-6rem)] relative overflow-hidden py-4 md:py-6 lg:py-8 border-b border-gray-600">
       {/* Dark base background */}
       <div className="absolute inset-0 bg-slate-900" />
       {/* Teal gradient overlay with opacity */}

@@ -17,6 +17,10 @@ export interface TextProps {
     | 'footer-info'
     | 'footer-copyright'
     | 'footer-availability'
+    | 'projects-hero-description'
+    | 'projects-grid-description'
+    | 'project-card-description'
+    | 'project-card-long-description'
   className?: string
   style?: CSSProperties
 }
@@ -46,6 +50,11 @@ export const Text = ({
     'footer-info': 'text-[#cbd5e1] text-sm',
     'footer-copyright': 'text-[#cbd5e1] text-sm',
     'footer-availability': 'text-[#10b981] text-sm',
+    'projects-hero-description':
+      'text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed max-w-3xl mx-auto',
+    'projects-grid-description': 'text-xl text-gray-300 max-w-3xl mx-auto',
+    'project-card-description': 'text-gray-300 text-lg leading-relaxed',
+    'project-card-long-description': 'text-gray-400 leading-relaxed',
   }
 
   const combinedClasses = `${variantClasses[variant]} ${className}`.trim()

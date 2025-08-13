@@ -120,4 +120,32 @@ describe('Title', () => {
     })
     expect(heading).toBeVisible()
   })
+
+  it('renders projects-hero-title variant as h1', () => {
+    render(<Title variant="projects-hero-title">Open Source Projects</Title>)
+
+    const heading = screen.getByRole('heading', {
+      level: 1,
+      name: 'Open Source Projects',
+    })
+    expect(heading).toBeVisible()
+  })
+
+  it('renders projects-grid-title variant', () => {
+    render(<Title variant="projects-grid-title">Featured Projects</Title>)
+
+    expect(screen.getByText('Featured Projects')).toBeVisible()
+  })
+
+  it('renders project-card-title variant', () => {
+    render(<Title variant="project-card-title">My Project</Title>)
+
+    expect(screen.getByText('My Project')).toBeVisible()
+  })
+
+  it('renders project-section-label variant', () => {
+    render(<Title variant="project-section-label">Technologies</Title>)
+
+    expect(screen.getByText('Technologies')).toBeVisible()
+  })
 })

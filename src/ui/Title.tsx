@@ -15,6 +15,10 @@ interface TitleProps {
     | 'card-title'
     | 'footer-author'
     | 'footer-section'
+    | 'projects-hero-title'
+    | 'projects-grid-title'
+    | 'project-card-title'
+    | 'project-section-label'
   as?: ElementType
   className?: string
 }
@@ -47,6 +51,12 @@ export const Title = ({
       'text-2xl font-bold text-white mb-2 leading-tight group-hover:text-white transition-colors duration-300 text-left',
     'footer-author': 'text-2xl font-bold text-[#ffffff] mb-4',
     'footer-section': 'text-lg font-semibold text-[#ffffff] mb-4',
+    'projects-hero-title': 'text-5xl lg:text-7xl font-bold mb-6',
+    'projects-grid-title': 'text-3xl lg:text-4xl font-bold text-white mb-4',
+    'project-card-title':
+      'text-3xl lg:text-4xl font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-teal-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-500',
+    'project-section-label':
+      'text-sm font-semibold text-gray-300 uppercase tracking-wider',
   }
 
   const defaultElements = {
@@ -62,6 +72,10 @@ export const Title = ({
     'card-title': 'h3',
     'footer-author': 'h3',
     'footer-section': 'h4',
+    'projects-hero-title': 'h1',
+    'projects-grid-title': 'h2',
+    'project-card-title': 'h2',
+    'project-section-label': 'h3',
   }
 
   const Component = as || defaultElements[variant]

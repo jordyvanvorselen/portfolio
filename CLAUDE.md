@@ -109,6 +109,11 @@
 2. **Locator Chaining**: All locators in sections MUST chain from the section locator
 3. **Separation of Concerns**: Common sections in `BasePage`, page-specific sections in page classes
 4. **Strict Mode Prevention**: Use `.first()` for elements that may have duplicates (e.g., mobile/desktop navigation)
+5. **Query Priority**: Always follow React Testing Library's recommended query priority order:
+   - **Priority 1 (Preferred)**: Accessible to everyone queries - `getByRole`, `getByLabelText`, `getByPlaceholderText`, `getByText`, `getByDisplayValue`
+   - **Priority 2 (OK)**: Semantic queries - `getByAltText`, `getByTitle`
+   - **Priority 3 (Last resort)**: `getByTestId` - Only when other queries aren't feasible or don't make sense
+   - **Avoid**: Complex filter chains with `.first()` - prefer specific `data-testid` attributes for reliable element targeting
 
 ```typescript
 // integration-tests/page-objects/base.section.ts

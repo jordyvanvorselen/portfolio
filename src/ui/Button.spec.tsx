@@ -60,4 +60,16 @@ describe('Button', () => {
     expect(link).toHaveAttribute('href', 'mailto:test@example.com')
     expect(link).toHaveClass('bg-[#14b8a6]')
   })
+
+  it('accepts project-primary variant', () => {
+    render(<Button variant="project-primary">View Source</Button>)
+
+    expect(screen.getByRole('button', { name: 'View Source' })).toBeVisible()
+  })
+
+  it('accepts project-secondary variant', () => {
+    render(<Button variant="project-secondary">Live Demo</Button>)
+
+    expect(screen.getByRole('button', { name: 'Live Demo' })).toBeVisible()
+  })
 })
