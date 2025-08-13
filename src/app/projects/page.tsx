@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const ProjectsPage = () => {
   return (
-    <main className="flex-1 bg-gray-950">
+    <main className="bg-gray-950 overflow-x-hidden">
       <ProjectsHero totalProjects={15} totalStars={2500} totalForks={425} />
       <ProjectsGrid />
     </main>

@@ -34,10 +34,10 @@ export const ProjectCard = ({
       style={{ animationDelay: `${index * 200}ms` }}
     >
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
 
       <div
-        className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-12 py-16 ${
+        className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-12 py-16 px-6 lg:px-8 ${
           reversed ? 'lg:flex-row-reverse' : ''
         }`}
       >
