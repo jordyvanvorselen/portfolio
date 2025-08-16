@@ -1,5 +1,4 @@
 import { ProjectCard } from '@/domains/projects/ProjectCard'
-import { Divider } from '@/ui/Divider'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 import { Project } from '@/types/project'
@@ -158,10 +157,14 @@ export const ProjectsGrid = () => {
                 index={index}
               />
 
-              {/* Separator */}
+              {/* Elegant dot separator */}
               {index < mockProjects.length - 1 && (
                 <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
-                  <Divider variant="horizontal-gradient" />
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-1 h-1 bg-gray-700 rounded-full"></div>
+                    <div className="w-1 h-1 bg-teal-500/50 rounded-full"></div>
+                    <div className="w-1 h-1 bg-gray-700 rounded-full"></div>
+                  </div>
                 </div>
               )}
             </div>
