@@ -8,7 +8,7 @@ import { SocialLinks } from '@/domains/home/hero/SocialLinks'
 
 export const HeroSection = () => {
   return (
-    <section className="content-section header-offset relative overflow-hidden border-b border-gray-600">
+    <section className="content-section header-offset relative overflow-hidden">
       {/* Main gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-950 to-black" />
 

@@ -6,9 +6,12 @@ export const ScrollIndicator = () => {
   const handleScrollToExpertise = () => {
     const expertiseSection = document.getElementById('expertise-section')
     if (expertiseSection) {
-      expertiseSection.scrollIntoView({
+      const headerHeight = 64 // 4rem = 64px (--header-height)
+      const elementPosition = expertiseSection.offsetTop - headerHeight
+
+      window.scrollTo({
+        top: elementPosition,
         behavior: 'smooth',
-        block: 'start',
       })
     }
   }

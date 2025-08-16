@@ -4,8 +4,8 @@ import { ScrollIndicator } from '@/domains/home/hero/ScrollIndicator'
 
 describe('ScrollIndicator', () => {
   beforeEach(() => {
-    // Mock scrollIntoView
-    Element.prototype.scrollIntoView = jest.fn()
+    // Mock window.scrollTo
+    global.window.scrollTo = jest.fn()
     // Mock getElementById
     global.document.getElementById = jest.fn()
   })
@@ -30,7 +30,7 @@ describe('ScrollIndicator', () => {
   })
 
   it('scrolls to expertise section when clicked', () => {
-    const mockElement = { scrollIntoView: jest.fn() }
+    const mockElement = { offsetTop: 1000 }
     ;(global.document.getElementById as jest.Mock).mockReturnValue(mockElement)
 
     render(<ScrollIndicator />)
@@ -41,9 +41,9 @@ describe('ScrollIndicator', () => {
     expect(global.document.getElementById).toHaveBeenCalledWith(
       'expertise-section'
     )
-    expect(mockElement.scrollIntoView).toHaveBeenCalledWith({
+    expect(global.window.scrollTo).toHaveBeenCalledWith({
+      top: 936, // 1000 - 64 (header height)
       behavior: 'smooth',
-      block: 'start',
     })
   })
 

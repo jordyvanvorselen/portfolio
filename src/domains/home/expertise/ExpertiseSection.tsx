@@ -11,7 +11,7 @@ export const ExpertiseSection = () => {
     <section
       id="expertise-section"
       aria-label="Core Expertise"
-      className="content-section-min relative overflow-hidden py-4 md:py-6 lg:py-8 bg-gray-950"
+      className="content-section-min relative overflow-hidden py-4 md:py-6 lg:py-8 bg-gray-950 border-t border-gray-800"
     >
       {/* Main gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-950" />

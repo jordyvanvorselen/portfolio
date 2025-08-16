@@ -45,7 +45,7 @@ export const Button = forwardRef<
         size === 'large'
           ? 'bg-slate-900/15 hover:bg-slate-800/15 text-white border-2 border-gray-500/30'
           : 'bg-gray-500 text-white hover:bg-gray-600',
-      cta: 'bg-teal-500 hover:bg-teal-600 text-white shadow-xl shadow-teal-500/25 h-9 px-4 py-2 w-full rounded-md text-sm font-medium',
+      cta: 'bg-teal-500 hover:bg-teal-600 text-white shadow shadow-teal-500/20 h-9 px-4 py-2 w-full rounded-md text-sm font-medium',
       'footer-action':
         'text-[#cbd5e1] hover:text-white h-8 px-3 text-xs hover:bg-accent rounded-md',
       'project-primary':
