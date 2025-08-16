@@ -557,6 +557,7 @@ BREAKING-CHANGE MUST be synonymous with BREAKING CHANGE, when used as a token in
   - **orchestrator**: Complex multi-agent coordination
 - Never default to manual execution when a specialized subagent would be more effective
 - Use the qa subagent specifically for visual testing and screenshot comparisons
+- **MAXIMIZE PARALLELIZATION**: When working on multiple independent tasks (like extending UI components, refactoring different files, or similar operations), ALWAYS use multiple Task tool calls in a single message to run them in parallel for optimal performance and efficiency
 
 # MISC
 
