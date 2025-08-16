@@ -15,8 +15,8 @@ export class Hero extends BaseSection {
   readonly description: Locator = this.section.getByText(
     /I help engineering teams deliver better software faster/
   )
-  readonly getInTouchButton: Locator = this.section.getByRole('button', {
-    name: 'Get in Touch',
+  readonly getInTouchButton: Locator = this.section.getByRole('link', {
+    name: 'Get In Touch',
   })
   readonly downloadResumeButton: Locator = this.section.getByRole('button', {
     name: 'Download Resume',

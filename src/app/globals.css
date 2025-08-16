@@ -26,3 +26,12 @@
 .header-offset {
   margin-top: var(--header-height);
 }
+
+/* Fix overscroll background color */
+html {
+  background-color: #030712; /* gray-950 */
+}
+
+body {
+  background-color: #030712; /* gray-950 */
+}

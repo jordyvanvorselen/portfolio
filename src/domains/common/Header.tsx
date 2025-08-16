@@ -3,6 +3,7 @@ import { Github, Linkedin, UserPlus } from 'lucide-react'
 import { Logo } from '@/ui/Logo'
 import { NavigationLink } from '@/ui/NavigationLink'
 import { SocialIcon } from '@/ui/SocialIcon'
+import { Button } from '@/ui/Button'
 
 export const Header = () => {
   return (
@@ -58,10 +59,10 @@ export const Header = () => {
 
             <div className="w-px h-6 bg-gray-700"></div>
 
-            <button className="inline-flex items-center justify-center whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 h-8 rounded-md px-3 text-xs bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <Button variant="cta" href="mailto:jordyvanvorselen@gmail.com">
               <UserPlus className="w-4 h-4 mr-2" />
               Hire Me
-            </button>
+            </Button>
           </div>
 
           {/* Mobile menu button */}

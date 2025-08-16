@@ -102,10 +102,7 @@ export const Footer = () => {
                     variant="footer"
                   />
                 </div>
-                <Button
-                  variant="footer-cta"
-                  href="mailto:jordyvanvorselen@gmail.com"
-                >
+                <Button variant="cta" href="mailto:jordyvanvorselen@gmail.com">
                   <Mail className="w-4 h-4 mr-2" />
                   Get In Touch
                 </Button>

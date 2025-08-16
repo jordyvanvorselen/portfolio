@@ -18,8 +18,7 @@ export const SocialIcon = ({
   const baseClasses = 'transition-colors duration-200'
 
   const variantClasses = {
-    simple:
-      'text-gray-400 hover:text-white transition-all duration-300 p-2 hover:bg-gray-800 rounded-full backdrop-blur-sm',
+    simple: 'text-gray-400 hover:text-white',
     button:
       'flex items-center justify-center w-12 h-12 rounded-full border-2 border-gray-500/30 text-gray-300 hover:text-white hover:border-gray-400/50',
     footer:

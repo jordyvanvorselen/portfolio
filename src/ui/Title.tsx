@@ -30,7 +30,7 @@ export const Title = ({
   className = '',
 }: TitleProps) => {
   const variantStyles = {
-    logo: 'text-xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent hover:from-teal-400 hover:via-teal-300 hover:to-blue-400 transition-all duration-300',
+    logo: 'text-xl md:text-2xl font-bold text-white hover:text-gray-300 transition-colors',
     'hero-name':
       'text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent text-center',
     'hero-title': 'text-2xl md:text-3xl lg:text-4xl text-gray-300 text-center',
