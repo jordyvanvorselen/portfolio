@@ -2,6 +2,11 @@ import { ExternalLink, Github, Star, GitFork } from 'lucide-react'
 import Image from 'next/image'
 
 import { StatItem } from '@/ui/StatItem'
+import { Title } from '@/ui/Title'
+import { Text } from '@/ui/Text'
+import { Badge } from '@/ui/Badge'
+import { Button } from '@/ui/Button'
+import { StatusBadge } from '@/ui/StatusBadge'
 import { Project } from '@/types/project'
 
 interface ProjectCardProps {
@@ -22,6 +27,7 @@ export const ProjectCard = ({
 
   return (
     <div
+      role="article"
       className={`group relative overflow-hidden rounded-xl hover:bg-gray-900/20 transition-all duration-500 p-8 animate-in ${animationDirection}`}
       style={{ animationDelay: `${index * 200}ms` }}
     >
@@ -62,15 +68,9 @@ export const ProjectCard = ({
 
             {/* Status badge */}
             <div className="absolute bottom-4 left-4 z-20">
-              <div
-                className={`backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium border ${
-                  isFeatured
-                    ? 'bg-green-500/20 text-green-400 border-green-500/30'
-                    : 'bg-blue-500/20 text-blue-400 border-blue-500/30'
-                }`}
-              >
+              <StatusBadge variant={isFeatured ? 'active' : 'maintained'}>
                 {isFeatured ? 'Active' : 'Maintained'}
-              </div>
+              </StatusBadge>
             </div>
           </div>
         </div>
@@ -79,62 +79,66 @@ export const ProjectCard = ({
         <div className="flex-1 space-y-6">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <h2 className="text-3xl lg:text-4xl font-bold text-white group-hover:text-white transition-all duration-500">
-                {project.title}
-              </h2>
+              <Title variant="project-card-title">{project.title}</Title>
             </div>
 
-            <p className="text-gray-300 text-lg leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
+            <Text
+              variant="project-card-description"
+              className="group-hover:text-gray-200 transition-colors duration-300"
+            >
               {project.description}
-            </p>
+            </Text>
 
-            <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+            <Text
+              variant="project-card-long-description"
+              className="group-hover:text-gray-300 transition-colors duration-300"
+            >
               {project.longDescription}
-            </p>
+            </Text>
           </div>
 
           {/* Technologies */}
           <div className="space-y-3">
-            <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">
-              Technologies
-            </h3>
+            <Title variant="project-section-label">Technologies</Title>
             <div className="flex flex-wrap gap-2">
               {project.technologies.map((tech, techIndex) => (
-                <div
+                <Badge
+                  variant="project-tech"
                   key={tech}
-                  className="bg-gray-800/50 text-gray-300 border border-gray-700/30 hover:bg-gray-700/60 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 hover:scale-105"
                   style={{
                     animationDelay: `${index * 200 + techIndex * 50}ms`,
                   }}
                 >
                   {tech}
-                </div>
+                </Badge>
               ))}
             </div>
           </div>
 
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-4 pt-4 border-t border-gray-700/30">
-            <a
+            <Button
+              variant="github"
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 shadow h-9 py-2 bg-teal-500/20 text-teal-300 border border-teal-500/30 hover:bg-teal-500/30 hover:text-teal-200 transition-all duration-300 rounded-full px-6 flex items-center gap-2"
+              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 shadow flex items-center gap-2"
             >
               <Github className="w-4 h-4" aria-hidden="true" />
               View Source
-            </a>
+            </Button>
 
             {project.liveUrl && (
-              <a
+              <Button
+                variant="demo"
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 py-2 text-gray-300 hover:text-white hover:bg-gray-800/50 transition-all duration-300 rounded-full px-6 flex items-center gap-2"
+                className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex items-center gap-2"
               >
                 <ExternalLink className="w-4 h-4" aria-hidden="true" />
                 Live Demo
-              </a>
+              </Button>
             )}
           </div>
         </div>

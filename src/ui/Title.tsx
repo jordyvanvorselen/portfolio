@@ -53,7 +53,7 @@ export const Title = ({
     'projects-hero-title': 'text-5xl lg:text-7xl font-bold mb-6',
     'projects-grid-title': 'text-3xl lg:text-4xl font-bold text-white mb-4',
     'project-card-title':
-      'text-3xl lg:text-4xl font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-teal-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-500',
+      'text-3xl lg:text-4xl font-bold text-white group-hover:text-white transition-all duration-500',
     'project-section-label':
       'text-sm font-semibold text-gray-300 uppercase tracking-wider',
   }

@@ -9,15 +9,17 @@ describe('ProjectsPage', () => {
     expect(
       screen.getByRole('heading', { name: 'Open Source Projects' })
     ).toBeVisible()
-    expect(screen.getByText(/crafting innovative solutions/i)).toBeVisible()
+    expect(
+      screen.getByText(/A collection of innovative software solutions/i)
+    ).toBeVisible()
   })
 
   it('displays project statistics in hero', () => {
     render(<ProjectsPage />)
 
-    expect(screen.getByText('15')).toBeVisible()
-    expect(screen.getByText('2,500')).toBeVisible()
-    expect(screen.getByText('425')).toBeVisible()
+    expect(screen.getByText('6')).toBeVisible()
+    expect(screen.getByText('12,037')).toBeVisible()
+    expect(screen.getByText('1,543')).toBeVisible()
   })
 
   it('renders projects grid section', () => {

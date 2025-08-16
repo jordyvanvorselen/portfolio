@@ -1,5 +1,7 @@
 import { Code, Star, Github } from 'lucide-react'
 import { StatItem } from '@/ui/StatItem'
+import { Title } from '@/ui/Title'
+import { Text } from '@/ui/Text'
 
 export const ProjectsHero = () => {
   return (
@@ -17,19 +19,19 @@ export const ProjectsHero = () => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           {/* Title */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
+          <Title variant="projects-hero-title">
             <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
               Open Source Projects
             </span>
-          </h1>
+          </Title>
 
           {/* Description */}
-          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8">
+          <Text variant="projects-hero-description">
             A collection of innovative software solutions born from curiosity,
             continuous learning, and the pure joy of building something
             meaningful. Each project represents a journey of discovery and fun
             in the world of code.
-          </p>
+          </Text>
 
           {/* Stats */}
           <div className="flex items-center justify-center gap-8 text-gray-400">

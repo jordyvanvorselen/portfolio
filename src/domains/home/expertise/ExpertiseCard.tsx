@@ -6,6 +6,7 @@ import { Badge } from '@/ui/Badge'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 import { Divider } from '@/ui/Divider'
+import { IconContainer } from '@/ui/IconContainer'
 
 interface ExpertiseCardProps {
   ariaLabel: string
@@ -29,29 +30,10 @@ export const ExpertiseCard = ({
   return (
     <Card aria-label={ariaLabel}>
       <div className="flex items-start gap-4 mb-6">
-        <div className="relative flex-shrink-0 mt-1">
-          <div
-            className="absolute inset-0 rounded-xl blur-lg"
-            style={{
-              backgroundColor: `${iconColor}20`,
-            }}
-          />
-          <div
-            className="relative inline-flex p-3 rounded-xl border border-gray-700 group-hover:scale-105 transition-all duration-300 shadow-lg"
-            style={{
-              backgroundColor: `${iconColor}1A`,
-            }}
-          >
-            <div
-              className="drop-shadow-sm"
-              style={{
-                color: iconColor,
-                filter: `drop-shadow(0 0 8px ${iconColor}40)`,
-              }}
-            >
-              {icon}
-            </div>
-          </div>
+        <div className="flex-shrink-0 mt-1">
+          <IconContainer color={iconColor} variant="expertise" size="md">
+            {icon}
+          </IconContainer>
         </div>
         <div className="flex-1">
           <Title variant="card-title">{title}</Title>
