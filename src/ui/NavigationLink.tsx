@@ -14,11 +14,10 @@ export const NavigationLink = ({
   className = '',
 }: NavigationLinkProps) => {
   const variantStyles = {
-    desktop:
-      'text-gray-300 hover:text-white transition-colors font-medium text-sm lg:text-base xl:text-lg',
+    desktop: 'text-gray-300 hover:text-white transition-colors font-medium',
     mobile:
       'text-gray-300 hover:text-white transition-colors font-medium text-sm',
-    footer: 'block text-[#cbd5e1] hover:text-white transition-colors',
+    footer: 'block text-gray-300 hover:text-white transition-colors',
   }
 
   const combinedClasses = `${variantStyles[variant]} ${className}`.trim()

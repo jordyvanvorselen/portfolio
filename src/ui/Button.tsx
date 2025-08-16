@@ -1,11 +1,12 @@
 import { ButtonHTMLAttributes, AnchorHTMLAttributes, forwardRef } from 'react'
+import Link from 'next/link'
 
 interface BaseButtonProps {
   children: React.ReactNode
   variant?:
     | 'primary'
     | 'secondary'
-    | 'footer-cta'
+    | 'cta'
     | 'footer-action'
     | 'project-primary'
     | 'project-secondary'
@@ -44,8 +45,7 @@ export const Button = forwardRef<
         size === 'large'
           ? 'bg-slate-900/15 hover:bg-slate-800/15 text-white border-2 border-gray-500/30'
           : 'bg-gray-500 text-white hover:bg-gray-600',
-      'footer-cta':
-        'bg-[#14b8a6] hover:bg-[#0ea5e9] text-white shadow h-9 px-4 py-2 w-full rounded-md text-sm font-medium',
+      cta: 'bg-teal-500 hover:bg-teal-600 text-white shadow-xl shadow-teal-500/25 h-9 px-4 py-2 w-full rounded-md text-sm font-medium',
       'footer-action':
         'text-[#cbd5e1] hover:text-white h-8 px-3 text-xs hover:bg-accent rounded-md',
       'project-primary':
@@ -64,6 +64,28 @@ export const Button = forwardRef<
 
     if ('href' in props && props.href) {
       const { href, ...anchorProps } = props as ButtonAsLink
+
+      // Use Next.js Link for internal routes, regular anchor for external links
+      const isInternalLink = href.startsWith('/') || href.startsWith('#')
+
+      if (isInternalLink) {
+        // Filter out undefined optional properties for Next.js Link
+        const filteredProps = Object.fromEntries(
+          Object.entries(anchorProps).filter(([, value]) => value !== undefined)
+        )
+
+        return (
+          <Link
+            href={href}
+            ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+            className={baseClassName}
+            {...filteredProps}
+          >
+            {children}
+          </Link>
+        )
+      }
+
       return (
         <a
           ref={ref as React.ForwardedRef<HTMLAnchorElement>}

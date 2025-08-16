@@ -24,7 +24,7 @@ export const ProjectsHero = ({
 }: ProjectsHeroProps) => {
   return (
     <section
-      className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
+      className="header-offset relative min-h-[60vh] flex items-center justify-center overflow-hidden"
       role="region"
       aria-label="hero"
     >

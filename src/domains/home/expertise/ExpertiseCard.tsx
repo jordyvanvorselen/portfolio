@@ -31,21 +31,27 @@ export const ExpertiseCard = ({
       <div className="flex items-start gap-4 mb-6">
         <div className="relative flex-shrink-0 mt-1">
           <div
-            className="inline-flex p-3 rounded-2xl border border-white/5 group-hover:scale-105 transition-all duration-300 shadow-lg"
+            className="absolute inset-0 rounded-xl blur-lg"
             style={{
-              backgroundColor: `${iconColor}/10`,
+              backgroundColor: `${iconColor}20`,
+            }}
+          />
+          <div
+            className="relative inline-flex p-3 rounded-xl border border-gray-700 group-hover:scale-105 transition-all duration-300 shadow-lg"
+            style={{
+              backgroundColor: `${iconColor}1A`,
             }}
           >
-            <div className="drop-shadow-sm" style={{ color: iconColor }}>
+            <div
+              className="drop-shadow-sm"
+              style={{
+                color: iconColor,
+                filter: `drop-shadow(0 0 8px ${iconColor}40)`,
+              }}
+            >
               {icon}
             </div>
           </div>
-          <div
-            className="absolute inset-0 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"
-            style={{
-              background: `radial-gradient(circle, ${iconColor}/20, ${iconColor}/20)`,
-            }}
-          />
         </div>
         <div className="flex-1">
           <Title variant="card-title">{title}</Title>

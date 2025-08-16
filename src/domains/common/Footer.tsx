@@ -11,15 +11,27 @@ export const Footer = () => {
   return (
     <footer
       role="contentinfo"
-      className="bg-[#0f172a] border-t border-[#334155]"
+      className="relative bg-gray-950 border-t border-gray-800/50"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Main gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-950 to-black" />
+
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-pulse delay-1000" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="py-16">
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Author Section - spans 2 columns equivalent */}
-            <section className="lg:col-span-2 flex-1 lg:flex-[2]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Author Section - spans 2 columns on large screens */}
+            <div className="lg:col-span-2">
               <Title variant="footer-author">Jordy van Vorselen</Title>
-              <Text variant="footer-description" className="mb-6 max-w-md">
+              <Text
+                variant="footer-description"
+                className="mb-6 max-w-md leading-relaxed"
+              >
                 Senior Software Engineer passionate about building scalable,
                 maintainable software solutions. Always eager to tackle new
                 challenges and collaborate with amazing teams.
@@ -32,56 +44,45 @@ export const Footer = () => {
               <div className="flex items-center text-[#cbd5e1]">
                 <Text variant="footer-info">✉️ jordyvanvorselen@gmail.com</Text>
               </div>
-            </section>
+            </div>
 
-            {/* Quick Links Section - Hidden on mobile and tablet, visible on desktop */}
-            <section className="hidden lg:block flex-1">
+            {/* Quick Links Section */}
+            <div>
               <Title variant="footer-section">Quick Links</Title>
-              <nav className="space-y-2 mt-4">
-                <NavigationLink href="/public" variant="footer">
-                  Home
-                </NavigationLink>
-                <NavigationLink href="/blog" variant="footer">
-                  Blog
-                </NavigationLink>
-                <NavigationLink href="/projects" variant="footer">
-                  Projects
-                </NavigationLink>
-                <NavigationLink href="/experience" variant="footer">
-                  Experience
-                </NavigationLink>
-                <NavigationLink href="/contact" variant="footer">
-                  Contact
-                </NavigationLink>
-              </nav>
-            </section>
+              <ul className="space-y-2">
+                <li>
+                  <NavigationLink href="/" variant="footer">
+                    Home
+                  </NavigationLink>
+                </li>
+                <li>
+                  <NavigationLink href="/blog" variant="footer">
+                    Blog
+                  </NavigationLink>
+                </li>
+                <li>
+                  <NavigationLink href="/projects" variant="footer">
+                    Projects
+                  </NavigationLink>
+                </li>
+                <li>
+                  <NavigationLink href="/experience" variant="footer">
+                    Experience
+                  </NavigationLink>
+                </li>
+                <li>
+                  <NavigationLink href="/contact" variant="footer">
+                    Contact
+                  </NavigationLink>
+                </li>
+              </ul>
+            </div>
 
             {/* Connect Section */}
-            <section className="flex-1">
+            <div>
               <Title variant="footer-section">Let&apos;s Connect</Title>
-              <div className="space-y-4 mt-4">
-                {/* Mobile & Tablet: Horizontal circular buttons, Desktop: Vertical text + icon */}
-                <div className="lg:hidden flex gap-4">
-                  <SocialIcon
-                    href="https://github.com/jordyvanvorselen"
-                    label="GitHub"
-                    icon={Github}
-                    variant="button"
-                  />
-                  <SocialIcon
-                    href="https://linkedin.com/in/jordy-van-vorselen"
-                    label="LinkedIn"
-                    icon={Linkedin}
-                    variant="button"
-                  />
-                  <SocialIcon
-                    href="mailto:jordyvanvorselen@gmail.com"
-                    label="Email"
-                    icon={Mail}
-                    variant="button"
-                  />
-                </div>
-                <div className="hidden lg:flex lg:flex-col lg:space-y-3">
+              <div className="space-y-4">
+                <div className="flex flex-col space-y-3">
                   <SocialIcon
                     href="https://github.com/jordyvanvorselen"
                     label="GitHub"
@@ -101,20 +102,17 @@ export const Footer = () => {
                     variant="footer"
                   />
                 </div>
-                <Button
-                  variant="footer-cta"
-                  href="mailto:jordyvanvorselen@gmail.com"
-                >
+                <Button variant="cta" href="mailto:jordyvanvorselen@gmail.com">
                   <Mail className="w-4 h-4 mr-2" />
                   Get In Touch
                 </Button>
               </div>
-            </section>
+            </div>
           </div>
         </div>
 
         {/* Footer Bottom */}
-        <div className="border-t border-[#334155] py-6">
+        <div className="border-t border-gray-800/50 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center mb-4 md:mb-0">
               <Text variant="footer-copyright">
