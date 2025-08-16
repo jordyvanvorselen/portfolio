@@ -69,12 +69,17 @@ export const Button = forwardRef<
       const isInternalLink = href.startsWith('/') || href.startsWith('#')
 
       if (isInternalLink) {
+        // Filter out undefined optional properties for Next.js Link
+        const filteredProps = Object.fromEntries(
+          Object.entries(anchorProps).filter(([, value]) => value !== undefined)
+        )
+
         return (
           <Link
             href={href}
             ref={ref as React.ForwardedRef<HTMLAnchorElement>}
             className={baseClassName}
-            {...anchorProps}
+            {...filteredProps}
           >
             {children}
           </Link>
