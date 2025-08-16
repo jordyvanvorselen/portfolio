@@ -15,12 +15,16 @@ test.describe('Responsive Design', () => {
       const headerBox = await homePage.header.section.boundingBox()
       expect(headerBox?.width).toBeLessThanOrEqual(375)
 
-      // All navigation links should be accessible
-      await expect(homePage.header.homeLink).toBeVisible()
-      await expect(homePage.header.blogLink).toBeVisible()
-      await expect(homePage.header.projectsLink).toBeVisible()
-      await expect(homePage.header.experienceLink).toBeVisible()
-      await expect(homePage.header.contactLink).toBeVisible()
+      // On mobile, navigation links should be hidden and hamburger menu should be visible
+      await expect(homePage.header.mobileMenuButton).toBeVisible()
+      await expect(homePage.header.homeLink).not.toBeVisible()
+      await expect(homePage.header.blogLink).not.toBeVisible()
+      await expect(homePage.header.projectsLink).not.toBeVisible()
+      await expect(homePage.header.experienceLink).not.toBeVisible()
+      await expect(homePage.header.contactLink).not.toBeVisible()
+
+      // Branding should still be visible
+      await expect(homePage.header.brandingLink).toBeVisible()
     })
 
     test('hero section should stack vertically', async ({ homePage }) => {

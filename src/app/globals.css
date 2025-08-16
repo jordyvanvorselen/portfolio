@@ -4,3 +4,25 @@
 @theme {
   --font-sans: 'DM Sans', system-ui, sans-serif;
 }
+
+:root {
+  /* Header dimensions */
+  --header-height: 4rem; /* 64px - matches h-16 */
+
+  /* Viewport calculations */
+  --viewport-height: 100vh;
+  --content-height: calc(var(--viewport-height) - var(--header-height));
+}
+
+/* Utility classes for content sections */
+.content-section {
+  height: var(--content-height);
+}
+
+.content-section-min {
+  min-height: var(--content-height);
+}
+
+.header-offset {
+  margin-top: var(--header-height);
+}

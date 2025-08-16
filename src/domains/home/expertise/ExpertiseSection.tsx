@@ -11,25 +11,17 @@ export const ExpertiseSection = () => {
     <section
       id="expertise-section"
       aria-label="Core Expertise"
-      className="min-h-screen relative overflow-hidden py-4 md:py-6 lg:py-8"
+      className="content-section-min relative overflow-hidden py-4 md:py-6 lg:py-8 bg-gray-950"
     >
-      {/* Base gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#1e3a4c] to-[#0f172a]" />
-      {/* First radial gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(20,184,166,0.1),transparent_50%)]" />
-      {/* Second radial gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(14,165,233,0.1),transparent_50%)]" />
-      {/* Subtle diagonal texture */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-5"
-        style={{
-          backgroundImage: `repeating-linear-gradient(
-            45deg,
-            transparent 0 2px,
-            rgba(255,255,255,0.08) 2px 4px
-          )`,
-        }}
-      />
+      {/* Main gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-950" />
+
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 -left-40 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -right-40 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl" />
+      </div>
+
       <div className="relative z-10 min-h-full flex items-center justify-center px-4 md:px-8 lg:px-12">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex justify-center mb-2 md:mb-3 lg:mb-4">

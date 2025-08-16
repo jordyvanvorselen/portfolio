@@ -33,18 +33,18 @@ export const Text = ({
 }: TextProps) => {
   const variantClasses = {
     description:
-      'text-lg md:text-xl font-medium text-gray-200/90 text-center leading-relaxed max-w-3xl mx-auto',
+      'text-lg md:text-xl font-medium text-gray-300 text-center leading-relaxed max-w-3xl mx-auto',
     'description-compact':
-      'text-base md:text-lg font-medium text-gray-200/90 text-center leading-relaxed max-w-2xl mx-auto mb-4',
+      'text-base md:text-lg font-medium text-gray-300 text-center leading-relaxed max-w-2xl mx-auto mb-4',
     'blog-hero-subtitle':
       'text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8',
     'blog-card-description': 'text-gray-300 leading-relaxed mb-4 line-clamp-3',
     'card-description':
-      'text-slate-300 mb-8 leading-relaxed text-[15px] group-hover:text-slate-200 transition-colors duration-300 text-left',
+      'text-gray-300 mb-8 leading-relaxed text-[15px] group-hover:text-gray-200 transition-colors duration-300 text-left',
     'publication-number': 'text-4xl font-bold',
     'publication-label': 'text-lg font-semibold text-slate-100',
     'publication-description': 'text-sm text-slate-400',
-    'call-to-action-question': 'text-[#cbd5e1] mb-6',
+    'call-to-action-question': 'text-gray-300 mb-6',
     'call-to-action-availability': 'font-semibold',
     'footer-description': 'text-[#cbd5e1] mb-6 max-w-md',
     'footer-info': 'text-[#cbd5e1] text-sm',

@@ -30,11 +30,10 @@ export const Title = ({
   className = '',
 }: TitleProps) => {
   const variantStyles = {
-    logo: 'text-xl md:text-2xl font-bold text-white hover:text-gray-300 transition-colors',
+    logo: 'text-xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent hover:from-teal-400 hover:via-teal-300 hover:to-blue-400 transition-all duration-300',
     'hero-name':
-      'text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white text-center',
-    'hero-title':
-      'text-2xl md:text-3xl lg:text-4xl text-gray-200/95 text-center',
+      'text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent text-center',
+    'hero-title': 'text-2xl md:text-3xl lg:text-4xl text-gray-300 text-center',
     'blog-hero-title':
       'text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent',
     'blog-card-title':
@@ -42,7 +41,7 @@ export const Title = ({
     'section-title':
       'text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6',
     'section-title-compact':
-      'text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-12 mb-4',
+      'text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent mt-12 mb-4',
     'section-label-small':
       'text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6',
     'subsection-label':

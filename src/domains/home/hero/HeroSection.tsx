@@ -8,28 +8,17 @@ import { SocialLinks } from '@/domains/home/hero/SocialLinks'
 
 export const HeroSection = () => {
   return (
-    <section className="h-[calc(100vh-6rem)] relative overflow-hidden py-4 md:py-6 lg:py-8 border-b border-gray-600">
-      {/* Dark base background */}
-      <div className="absolute inset-0 bg-slate-900" />
-      {/* Teal gradient overlay with opacity */}
-      <div
-        className="absolute inset-0 opacity-50"
-        style={{
-          background: `radial-gradient(ellipse 100% 90% at center 25%, #1e3c4a 0%, transparent 70%)`,
-        }}
-      />
-      {/* Subtle diagonal texture */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-5"
-        style={{
-          backgroundImage: `repeating-linear-gradient(
-            45deg,
-            transparent 0 2px,
-            rgba(255,255,255,0.08) 2px 4px
-          )`,
-        }}
-      />
-      <div className="relative z-10 min-h-full px-4 md:px-8 lg:px-12 flex flex-col">
+    <section className="content-section header-offset relative overflow-hidden border-b border-gray-600">
+      {/* Main gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-950 to-black" />
+
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
+      </div>
+
+      <div className="relative z-10 h-full px-4 md:px-8 lg:px-12 flex flex-col">
         {/* Main content - centered */}
         <div className="flex-1 flex flex-col justify-center">
           <div className="flex justify-center mb-6 md:mb-4 lg:mb-6">
@@ -54,6 +43,9 @@ export const HeroSection = () => {
           <ScrollIndicator />
         </div>
       </div>
+
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gray-950 to-transparent" />
     </section>
   )
 }

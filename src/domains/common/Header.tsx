@@ -8,17 +8,20 @@ export const Header = () => {
   return (
     <header
       role="banner"
-      className="bg-gray-900 text-white px-4 md:px-8 lg:px-20 py-4 md:py-6 lg:py-8 border-b border-gray-700"
+      className="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/50"
     >
-      <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
-        {/* Logo */}
-        <div className="flex-shrink-0">
-          <Logo />
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          className="flex items-center justify-between"
+          style={{ height: 'var(--header-height)' }}
+        >
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Logo />
+          </div>
 
-        {/* Navigation - Hidden on mobile, visible on larger screens */}
-        <nav className="hidden lg:block absolute left-1/2 transform -translate-x-1/2">
-          <div className="flex items-center gap-6 lg:gap-8 xl:gap-12">
+          {/* Navigation - Hidden on mobile, visible on larger screens */}
+          <nav className="hidden md:flex items-center space-x-8">
             <NavigationLink href="/" variant="desktop">
               Home
             </NavigationLink>
@@ -34,56 +37,60 @@ export const Header = () => {
             <NavigationLink href="/contact" variant="desktop">
               Contact
             </NavigationLink>
+          </nav>
+
+          {/* Actions - Hidden on mobile */}
+          <div className="hidden md:flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
+              <SocialIcon
+                href="https://github.com/jordyvanvorselen"
+                label="GitHub"
+                icon={Github}
+                variant="simple"
+              />
+              <SocialIcon
+                href="https://linkedin.com/in/jordy-van-vorselen"
+                label="LinkedIn"
+                icon={Linkedin}
+                variant="simple"
+              />
+            </div>
+
+            <div className="w-px h-6 bg-gray-700"></div>
+
+            <button className="inline-flex items-center justify-center whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 h-8 rounded-md px-3 text-xs bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+              <UserPlus className="w-4 h-4 mr-2" />
+              Hire Me
+            </button>
           </div>
-        </nav>
 
-        {/* Actions - Hidden on mobile */}
-        <div className="hidden md:flex flex-shrink-0 items-center gap-3 md:gap-4 lg:gap-6 xl:gap-8">
-          <div className="flex items-center gap-3 lg:gap-6">
-            <SocialIcon
-              href="https://github.com/jordyvanvorselen"
-              label="GitHub"
-              icon={Github}
-              variant="simple"
-            />
-            <SocialIcon
-              href="https://linkedin.com/in/jordy-van-vorselen"
-              label="LinkedIn"
-              icon={Linkedin}
-              variant="simple"
-            />
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              aria-label="Open navigation menu"
+              className="inline-flex items-center justify-center whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-8 rounded-md px-3 text-xs text-gray-300 hover:text-white hover:bg-gray-800 transition-all duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-6 h-6"
+                aria-hidden="true"
+              >
+                <path d="M4 12h16"></path>
+                <path d="M4 18h16"></path>
+                <path d="M4 6h16"></path>
+              </svg>
+            </button>
           </div>
-
-          <div className="hidden md:block w-px h-6 bg-gray-500"></div>
-
-          <button className="bg-teal-500 hover:bg-teal-600 text-white px-3 lg:px-4 py-2 rounded-md font-medium transition-colors flex items-center gap-2 text-sm lg:text-base">
-            <UserPlus className="w-4 h-4" />
-            <span className="hidden sm:inline">Hire Me</span>
-            <span className="sm:hidden">Hire</span>
-          </button>
         </div>
       </div>
-
-      {/* Mobile Navigation - Visible on tablet/mobile */}
-      <nav className="lg:hidden mt-4 pt-4 border-t border-gray-700">
-        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-          <NavigationLink href="/" variant="mobile">
-            Home
-          </NavigationLink>
-          <NavigationLink href="/blog" variant="mobile">
-            Blog
-          </NavigationLink>
-          <NavigationLink href="/projects" variant="mobile">
-            Projects
-          </NavigationLink>
-          <NavigationLink href="/experience" variant="mobile">
-            Experience
-          </NavigationLink>
-          <NavigationLink href="/contact" variant="mobile">
-            Contact
-          </NavigationLink>
-        </div>
-      </nav>
     </header>
   )
 }

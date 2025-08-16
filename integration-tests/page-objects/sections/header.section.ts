@@ -44,6 +44,6 @@ export class Header extends BaseSection {
   })
   readonly navigation: Locator = this.section.getByRole('navigation')
   readonly mobileMenuButton: Locator = this.section.getByRole('button', {
-    name: 'Menu',
+    name: 'Open navigation menu',
   })
 }
