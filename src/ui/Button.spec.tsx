@@ -107,4 +107,21 @@ describe('Button', () => {
 
     expect(screen.getByRole('button', { name: 'Live Demo' })).toBeVisible()
   })
+
+  it('filters undefined optional properties for internal links', () => {
+    render(
+      <Button
+        href="/contact"
+        variant="cta"
+        onMouseEnter={undefined}
+        onClick={undefined}
+      >
+        Contact Page
+      </Button>
+    )
+
+    const link = screen.getByRole('link', { name: 'Contact Page' })
+    expect(link).toBeVisible()
+    expect(link).toHaveAttribute('href', '/contact')
+  })
 })
