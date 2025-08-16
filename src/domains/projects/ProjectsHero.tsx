@@ -5,7 +5,7 @@ import { Text } from '@/ui/Text'
 
 export const ProjectsHero = () => {
   return (
-    <section 
+    <section
       className="relative pt-32 pb-20 overflow-hidden"
       role="region"
       aria-label="hero"
