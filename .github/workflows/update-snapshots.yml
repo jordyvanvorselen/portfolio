@@ -2,6 +2,12 @@ name: Update Visual Snapshots
 
 on:
   workflow_dispatch: # Manual trigger
+  push:
+    paths:
+      - 'integration-tests/__screenshots__/darwin/**'
+    branches:
+      - '!main' # Exclude main branch
+      - '**' # Include all other branches
 
 permissions:
   contents: write
