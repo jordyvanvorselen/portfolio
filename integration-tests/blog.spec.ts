@@ -41,37 +41,23 @@ test('displays latest articles section', async ({ blogPage }) => {
 })
 
 test('blog hero section visual regression', async ({ blogPage }) => {
-  await expect(blogPage.hero.section).toHaveScreenshot(
-    'blog-hero-section.png',
-    {
-      animations: 'disabled',
-    }
-  )
+  await expect(blogPage.hero.section).toHaveScreenshot('blog-hero-section.png')
 })
 
 test('blog search filters visual regression', async ({ blogPage }) => {
   await expect(blogPage.searchFilters.section).toHaveScreenshot(
-    'blog-search-filters.png',
-    {
-      animations: 'disabled',
-    }
+    'blog-search-filters.png'
   )
 })
 
 test('featured blog section visual regression', async ({ blogPage }) => {
   await expect(blogPage.featuredSection.section).toHaveScreenshot(
-    'featured-blog-section.png',
-    {
-      animations: 'disabled',
-    }
+    'featured-blog-section.png'
   )
 })
 
 test('blog grid section visual regression', async ({ blogPage }) => {
   await expect(blogPage.blogGrid.section).toHaveScreenshot(
-    'blog-grid-section.png',
-    {
-      animations: 'disabled',
-    }
+    'blog-grid-section.png'
   )
 })

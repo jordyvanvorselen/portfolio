@@ -177,9 +177,7 @@ test('displays header branding', async ({ homePage }) => {
 
    ```typescript
    test('section visual regression', async ({ homePage }) => {
-     await expect(homePage.section.locator).toHaveScreenshot('section.png', {
-       animations: 'disabled',
-     })
+     await expect(homePage.section.locator).toHaveScreenshot('section.png')
    })
    ```
 
