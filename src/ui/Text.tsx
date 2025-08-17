@@ -1,69 +1,101 @@
 import { ReactNode, CSSProperties } from 'react'
 
+// Design token types
+export type TextSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl'
+export type TextWeight = 'normal' | 'medium' | 'semibold' | 'bold'
+export type TextColor = 'primary' | 'secondary' | 'muted' | 'accent' | 'success'
+export type TextLineHeight = 'tight' | 'normal' | 'relaxed' | 'loose'
+export type TextAlignment = 'left' | 'center' | 'right'
+export type TextLineClamp = 1 | 2 | 3 | 4 | 5 | 6 | 'none'
+
 export interface TextProps {
   children: ReactNode
-  variant?:
-    | 'description'
-    | 'description-compact'
-    | 'blog-hero-subtitle'
-    | 'blog-card-description'
-    | 'card-description'
-    | 'publication-number'
-    | 'publication-label'
-    | 'publication-description'
-    | 'call-to-action-question'
-    | 'call-to-action-availability'
-    | 'footer-description'
-    | 'footer-info'
-    | 'footer-copyright'
-    | 'footer-availability'
-    | 'projects-hero-description'
-    | 'projects-grid-description'
-    | 'project-card-description'
-    | 'project-card-long-description'
-    | 'scroll-indicator-main'
-    | 'scroll-indicator-subtitle'
+  size?: TextSize
+  weight?: TextWeight
+  color?: TextColor
+  lineHeight?: TextLineHeight
+  alignment?: TextAlignment
+  lineClamp?: TextLineClamp
   className?: string
   style?: CSSProperties
 }
 
 export const Text = ({
   children,
-  variant = 'description',
+  size = 'base',
+  weight = 'normal',
+  color = 'secondary',
+  lineHeight = 'normal',
+  alignment = 'left',
+  lineClamp = 'none',
   className = '',
   style,
 }: TextProps) => {
-  const variantClasses = {
-    description:
-      'text-lg md:text-xl font-medium text-gray-300 text-center leading-relaxed max-w-3xl mx-auto',
-    'description-compact':
-      'text-base md:text-lg font-medium text-gray-300 text-center leading-relaxed max-w-2xl mx-auto mb-4',
-    'blog-hero-subtitle':
-      'text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8',
-    'blog-card-description': 'text-gray-300 leading-relaxed mb-4 line-clamp-3',
-    'card-description':
-      'text-gray-300 mb-8 leading-relaxed text-[15px] group-hover:text-gray-200 transition-colors duration-300 text-left',
-    'publication-number': 'text-4xl font-bold',
-    'publication-label': 'text-lg font-semibold text-slate-100',
-    'publication-description': 'text-sm text-slate-400',
-    'call-to-action-question': 'text-gray-300 mb-6',
-    'call-to-action-availability': 'font-semibold',
-    'footer-description': 'text-[#cbd5e1] mb-6 max-w-md',
-    'footer-info': 'text-[#cbd5e1] text-sm',
-    'footer-copyright': 'text-[#cbd5e1] text-sm',
-    'footer-availability': 'text-[#10b981] text-sm',
-    'projects-hero-description':
-      'text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed max-w-3xl mx-auto',
-    'projects-grid-description': 'text-xl text-gray-300 max-w-3xl mx-auto',
-    'project-card-description': 'text-gray-300 text-lg leading-relaxed',
-    'project-card-long-description': 'text-gray-400 leading-relaxed',
-    'scroll-indicator-main':
-      'text-sm md:text-base text-slate-300 group-hover:text-teal-500 transition-colors duration-300',
-    'scroll-indicator-subtitle':
-      'text-xs text-slate-300/70 group-hover:text-slate-300 transition-colors duration-300',
+  // Size styles
+  const sizeStyles = {
+    xs: 'text-xs',
+    sm: 'text-sm',
+    base: 'text-base',
+    lg: 'text-lg',
+    xl: 'text-xl',
+    '2xl': 'text-xl lg:text-2xl',
   }
 
-  const combinedClasses = `${variantClasses[variant]} ${className}`.trim()
+  // Weight styles
+  const weightStyles = {
+    normal: 'font-normal',
+    medium: 'font-medium',
+    semibold: 'font-semibold',
+    bold: 'font-bold',
+  }
+
+  // Color styles
+  const colorStyles = {
+    primary: 'text-slate-100',
+    secondary: 'text-gray-300',
+    muted: 'text-gray-400',
+    accent: 'text-teal-500',
+    success: 'text-[#10b981]',
+  }
+
+  // Line height styles
+  const lineHeightStyles = {
+    tight: 'leading-tight',
+    normal: 'leading-normal',
+    relaxed: 'leading-relaxed',
+    loose: 'leading-loose',
+  }
+
+  // Alignment styles
+  const alignmentStyles = {
+    left: 'text-left',
+    center: 'text-center',
+    right: 'text-right',
+  }
+
+  // Line clamp styles
+  const lineClampStyles = {
+    1: 'line-clamp-1',
+    2: 'line-clamp-2',
+    3: 'line-clamp-3',
+    4: 'line-clamp-4',
+    5: 'line-clamp-5',
+    6: 'line-clamp-6',
+    none: '',
+  }
+
+  const combinedClasses = [
+    sizeStyles[size],
+    weightStyles[weight],
+    colorStyles[color],
+    lineHeightStyles[lineHeight],
+    alignmentStyles[alignment],
+    lineClampStyles[lineClamp],
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .trim()
 
   return (
     <p className={combinedClasses} style={style}>

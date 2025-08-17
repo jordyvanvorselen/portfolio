@@ -92,14 +92,28 @@ export default function BlogPage() {
           data-testid="featured-blog-section"
           className="mt-12 mb-16 min-h-[400px] md:min-h-[450px] lg:min-h-[500px]"
         >
-          <Title variant="section-label-small" className="mb-8">
+          <Title
+            size="2xl"
+            weight="bold"
+            color="primary"
+            align="left"
+            as="h3"
+            className="mb-8"
+          >
             Featured article
           </Title>
           <FeaturedBlogCard {...(featuredPost as FeaturedBlogCardProps)} />
         </div>
 
         <div data-testid="blog-grid">
-          <Title variant="section-label-small" className="mb-8">
+          <Title
+            size="2xl"
+            weight="bold"
+            color="primary"
+            align="left"
+            as="h3"
+            className="mb-8"
+          >
             Latest articles
           </Title>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

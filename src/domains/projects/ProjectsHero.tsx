@@ -23,14 +23,28 @@ export const ProjectsHero = () => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           {/* Title */}
-          <Title variant="projects-hero-title">
+          <Title
+            size="4xl"
+            weight="bold"
+            color="primary"
+            align="center"
+            as="h1"
+            className="mb-6"
+          >
             <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
               Open Source Projects
             </span>
           </Title>
 
           {/* Description */}
-          <Text variant="projects-hero-description">
+          <Text
+            size="2xl"
+            weight="normal"
+            color="secondary"
+            alignment="center"
+            lineHeight="relaxed"
+            className="mb-12 max-w-3xl mx-auto"
+          >
             A collection of innovative software solutions born from curiosity,
             continuous learning, and the pure joy of building something
             meaningful. Each project represents a journey of discovery and fun
@@ -43,21 +57,24 @@ export const ProjectsHero = () => {
               value={6}
               label="Projects"
               icon={<Code className="w-4 h-4" />}
-              hoverColor="teal"
+              color="primary"
+              size="lg"
             />
             <div className="w-px h-6 bg-gray-600" />
             <StatItem
               value={12037}
               label="Stars"
               icon={<Star className="w-4 h-4" />}
-              hoverColor="yellow"
+              color="accent"
+              size="lg"
             />
             <div className="w-px h-6 bg-gray-600" />
             <StatItem
               value={1543}
               label="Forks"
               icon={<Github className="w-4 h-4" />}
-              hoverColor="purple"
+              color="secondary"
+              size="lg"
             />
           </div>
         </div>

@@ -9,7 +9,16 @@ interface LogoProps {
 export const Logo = ({ className = '' }: LogoProps) => {
   return (
     <Link href="/" className={className}>
-      <Title variant="logo">Jordy van Vorselen</Title>
+      <Title
+        as="span"
+        size="md"
+        weight="bold"
+        color="primary"
+        align="left"
+        className="hover:text-gray-300 transition-colors"
+      >
+        Jordy van Vorselen
+      </Title>
     </Link>
   )
 }

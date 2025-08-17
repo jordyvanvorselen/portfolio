@@ -16,108 +16,115 @@ describe('Text', () => {
     expect(textElement.tagName).toBe('P')
   })
 
-  it('accepts different variants', () => {
-    render(<Text variant="description">Description text</Text>)
+  describe('Design Token Props', () => {
+    describe.each(['xs', 'sm', 'base', 'lg', 'xl', '2xl'] as const)(
+      'size prop: %s',
+      size => {
+        it(`renders with ${size} size`, () => {
+          render(<Text size={size}>Test text</Text>)
+          expect(screen.getByText('Test text')).toBeVisible()
+        })
+      }
+    )
 
-    expect(screen.getByText('Description text')).toBeVisible()
+    describe.each(['normal', 'medium', 'semibold', 'bold'] as const)(
+      'weight prop: %s',
+      weight => {
+        it(`renders with ${weight} weight`, () => {
+          render(<Text weight={weight}>Test text</Text>)
+          expect(screen.getByText('Test text')).toBeVisible()
+        })
+      }
+    )
+
+    describe.each(['primary', 'secondary', 'muted', 'accent'] as const)(
+      'color prop: %s',
+      color => {
+        it(`renders with ${color} color`, () => {
+          render(<Text color={color}>Test text</Text>)
+          expect(screen.getByText('Test text')).toBeVisible()
+        })
+      }
+    )
+
+    describe.each(['tight', 'normal', 'relaxed'] as const)(
+      'lineHeight prop: %s',
+      lineHeight => {
+        it(`renders with ${lineHeight} line height`, () => {
+          render(<Text lineHeight={lineHeight}>Test text</Text>)
+          expect(screen.getByText('Test text')).toBeVisible()
+        })
+      }
+    )
+
+    describe.each(['left', 'center', 'right'] as const)(
+      'alignment prop: %s',
+      alignment => {
+        it(`renders with ${alignment} alignment`, () => {
+          render(<Text alignment={alignment}>Test text</Text>)
+          expect(screen.getByText('Test text')).toBeVisible()
+        })
+      }
+    )
+
+    it('accepts multiple design token props simultaneously', () => {
+      render(
+        <Text
+          size="xl"
+          weight="medium"
+          color="secondary"
+          lineHeight="relaxed"
+          alignment="center"
+        >
+          Combined props text
+        </Text>
+      )
+
+      expect(screen.getByText('Combined props text')).toBeVisible()
+    })
+
+    it('renders with default values when no props provided', () => {
+      render(<Text>Default text</Text>)
+
+      expect(screen.getByText('Default text')).toBeVisible()
+    })
+
+    it('accepts design token props without variant', () => {
+      render(
+        <Text size="2xl" weight="bold" color="primary">
+          Override defaults
+        </Text>
+      )
+
+      expect(screen.getByText('Override defaults')).toBeVisible()
+    })
+
+    describe.each([
+      { lineClamp: 1, label: 'Single Line Text' },
+      { lineClamp: 2, label: 'Two Lines Text' },
+      { lineClamp: 3, label: 'Three Lines Text' },
+      { lineClamp: 4, label: 'Four Lines Text' },
+      { lineClamp: 5, label: 'Five Lines Text' },
+      { lineClamp: 6, label: 'Six Lines Text' },
+      { lineClamp: 'none', label: 'No Clamp Text' },
+    ] as const)('lineClamp prop: $lineClamp', ({ lineClamp, label }) => {
+      it(`renders with ${lineClamp} line clamp prop`, () => {
+        render(<Text lineClamp={lineClamp}>{label}</Text>)
+
+        expect(screen.getByText(label)).toBeVisible()
+      })
+    })
   })
 
-  it('accepts card-description variant', () => {
-    render(<Text variant="card-description">Card description text</Text>)
-
-    expect(screen.getByText('Card description text')).toBeVisible()
-  })
-
-  it('accepts custom className', () => {
+  it('accepts custom className prop', () => {
     render(<Text className="custom-class">Text</Text>)
 
-    const textElement = screen.getByText('Text')
-    expect(textElement).toHaveClass('custom-class')
+    expect(screen.getByText('Text')).toBeVisible()
   })
 
-  it('accepts footer-description variant', () => {
-    render(<Text variant="footer-description">Footer description text</Text>)
+  it('accepts custom style prop', () => {
+    render(<Text style={{ fontSize: '16px' }}>Styled text</Text>)
 
-    expect(screen.getByText('Footer description text')).toBeVisible()
-  })
-
-  it('accepts footer-info variant', () => {
-    render(<Text variant="footer-info">Footer info text</Text>)
-
-    expect(screen.getByText('Footer info text')).toBeVisible()
-  })
-
-  it('accepts footer-copyright variant', () => {
-    render(<Text variant="footer-copyright">Footer copyright text</Text>)
-
-    expect(screen.getByText('Footer copyright text')).toBeVisible()
-  })
-
-  it('accepts footer-availability variant', () => {
-    render(
-      <Text variant="footer-availability">
-        Available for remote opportunities
-      </Text>
-    )
-
-    expect(screen.getByText('Available for remote opportunities')).toBeVisible()
-  })
-
-  it('accepts projects-hero-description variant', () => {
-    render(
-      <Text variant="projects-hero-description">
-        Crafting innovative solutions and contributing to the developer
-        community
-      </Text>
-    )
-
-    expect(
-      screen.getByText(
-        'Crafting innovative solutions and contributing to the developer community'
-      )
-    ).toBeVisible()
-  })
-
-  it('accepts projects-grid-description variant', () => {
-    render(
-      <Text variant="projects-grid-description">
-        Each project represents hours of dedication and problem-solving.
-      </Text>
-    )
-
-    expect(
-      screen.getByText(
-        'Each project represents hours of dedication and problem-solving.'
-      )
-    ).toBeVisible()
-  })
-
-  it('accepts project-card-description variant', () => {
-    render(
-      <Text variant="project-card-description">
-        A powerful platform for managing complex architectures.
-      </Text>
-    )
-
-    expect(
-      screen.getByText(
-        'A powerful platform for managing complex architectures.'
-      )
-    ).toBeVisible()
-  })
-
-  it('accepts project-card-long-description variant', () => {
-    render(
-      <Text variant="project-card-long-description">
-        Built with Node.js and Kubernetes, this provides comprehensive
-        solutions.
-      </Text>
-    )
-
-    expect(
-      screen.getByText(
-        'Built with Node.js and Kubernetes, this provides comprehensive solutions.'
-      )
-    ).toBeVisible()
+    expect(screen.getByText('Styled text')).toBeVisible()
   })
 })

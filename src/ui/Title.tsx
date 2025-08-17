@@ -1,84 +1,133 @@
 import { ReactNode, ElementType } from 'react'
 
+export type TitleSize =
+  | 'xs'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | '4xl'
+  | '5xl'
+export type TitleWeight = 'normal' | 'medium' | 'semibold' | 'bold'
+export type TitleColor =
+  | 'primary'
+  | 'secondary'
+  | 'muted'
+  | 'accent'
+  | 'gradient'
+export type TitleHoverColor = 'teal' | 'blue' | 'white' | 'none'
+export type TitleAlignment = 'left' | 'center' | 'right'
+export type TitleTracking = 'normal' | 'wide' | 'wider'
+export type TitleLineClamp = 1 | 2 | 3 | 4 | 'none'
+
 interface TitleProps {
   children: ReactNode
-  variant?:
-    | 'logo'
-    | 'hero-name'
-    | 'hero-title'
-    | 'blog-hero-title'
-    | 'blog-card-title'
-    | 'section-title'
-    | 'section-title-compact'
-    | 'section-label-small'
-    | 'subsection-label'
-    | 'card-title'
-    | 'footer-author'
-    | 'footer-section'
-    | 'projects-hero-title'
-    | 'projects-grid-title'
-    | 'project-card-title'
-    | 'project-section-label'
+  size?: TitleSize
+  weight?: TitleWeight
+  color?: TitleColor
+  hoverColor?: TitleHoverColor
+  align?: TitleAlignment
   as?: ElementType
+  uppercase?: boolean
+  tracking?: TitleTracking
+  lineClamp?: TitleLineClamp
   className?: string
 }
 
 export const Title = ({
   children,
-  variant = 'logo',
-  as,
+  size = 'md',
+  weight = 'bold',
+  color = 'primary',
+  hoverColor = 'none',
+  align = 'left',
+  as = 'h2',
+  uppercase = false,
+  tracking = 'normal',
+  lineClamp = 'none',
   className = '',
 }: TitleProps) => {
-  const variantStyles = {
-    logo: 'text-xl md:text-2xl font-bold text-white hover:text-gray-300 transition-colors',
-    'hero-name':
-      'text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent text-center',
-    'hero-title': 'text-2xl md:text-3xl lg:text-4xl text-gray-300 text-center',
-    'blog-hero-title':
-      'text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent',
-    'blog-card-title':
-      'text-xl font-bold text-white mb-3 group-hover:text-teal-400 transition-colors duration-300 line-clamp-2',
-    'section-title':
-      'text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6',
-    'section-title-compact':
-      'text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent mt-12 mb-4',
-    'section-label-small':
-      'text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6',
-    'subsection-label':
-      'text-xs font-bold text-slate-400 uppercase tracking-[0.1em] letter-spacing-wide text-left',
-    'card-title':
-      'text-2xl font-bold text-white mb-2 leading-tight group-hover:text-white transition-colors duration-300 text-left',
-    'footer-author': 'text-2xl font-bold text-[#ffffff] mb-4',
-    'footer-section': 'text-lg font-semibold text-[#ffffff] mb-4',
-    'projects-hero-title': 'text-5xl lg:text-7xl font-bold mb-6',
-    'projects-grid-title': 'text-3xl lg:text-4xl font-bold text-white mb-4',
-    'project-card-title':
-      'text-3xl lg:text-4xl font-bold text-white group-hover:text-white transition-all duration-500',
-    'project-section-label':
-      'text-sm font-semibold text-gray-300 uppercase tracking-wider',
+  // Size styles
+  const sizeStyles = {
+    xs: 'text-xs',
+    sm: 'text-sm',
+    md: 'text-xl md:text-2xl',
+    lg: 'text-2xl',
+    xl: 'text-2xl md:text-3xl lg:text-4xl',
+    '2xl': 'text-3xl md:text-3xl lg:text-4xl',
+    '3xl': 'text-3xl md:text-4xl lg:text-5xl',
+    '4xl': 'text-5xl md:text-5xl lg:text-6xl xl:text-7xl',
+    '5xl': 'text-4xl md:text-6xl lg:text-7xl xl:text-8xl',
   }
 
-  const defaultElements = {
-    logo: 'span',
-    'hero-name': 'h1',
-    'hero-title': 'p',
-    'blog-hero-title': 'h1',
-    'blog-card-title': 'h3',
-    'section-title': 'h2',
-    'section-title-compact': 'h2',
-    'section-label-small': 'h3',
-    'subsection-label': 'h4',
-    'card-title': 'h3',
-    'footer-author': 'h3',
-    'footer-section': 'h4',
-    'projects-hero-title': 'h1',
-    'projects-grid-title': 'h2',
-    'project-card-title': 'h2',
-    'project-section-label': 'h3',
+  // Weight styles
+  const weightStyles = {
+    normal: 'font-normal',
+    medium: 'font-medium',
+    semibold: 'font-semibold',
+    bold: 'font-bold',
   }
 
-  const Component = as || defaultElements[variant]
-  const combinedClasses = `${variantStyles[variant]} ${className}`.trim()
+  // Color styles
+  const colorStyles = {
+    primary: 'text-white',
+    secondary: 'text-gray-300',
+    muted: 'text-slate-400',
+    accent:
+      'text-white group-hover:text-teal-400 transition-colors duration-300',
+    gradient:
+      'bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent',
+  }
+
+  // Alignment styles
+  const alignmentStyles = {
+    left: 'text-left',
+    center: 'text-center',
+    right: 'text-right',
+  }
+
+  // Tracking styles
+  const trackingStyles = {
+    normal: '',
+    wide: 'tracking-[0.1em]',
+    wider: 'tracking-[0.2em]',
+  }
+
+  // Hover color styles
+  const hoverColorStyles = {
+    teal: 'group-hover:text-teal-400',
+    blue: 'group-hover:text-blue-400',
+    white: 'group-hover:text-white',
+    none: '',
+  }
+
+  // Line clamp styles
+  const lineClampStyles = {
+    1: 'line-clamp-1',
+    2: 'line-clamp-2',
+    3: 'line-clamp-3',
+    4: 'line-clamp-4',
+    none: '',
+  }
+
+  const Component = as
+
+  const combinedClasses = [
+    sizeStyles[size],
+    weightStyles[weight],
+    colorStyles[color],
+    hoverColorStyles[hoverColor],
+    alignmentStyles[align],
+    uppercase && 'uppercase',
+    trackingStyles[tracking],
+    lineClampStyles[lineClamp],
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .trim()
 
   return <Component className={combinedClasses}>{children}</Component>
 }

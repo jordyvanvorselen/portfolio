@@ -2,6 +2,8 @@ import { Badge } from '@/ui/Badge'
 
 export const AvailabilityBadge = () => {
   return (
-    <Badge variant="availability">Available for new remote opportunities</Badge>
+    <Badge variant="soft" color="primary" size="md" weight="semibold">
+      Available for new remote opportunities
+    </Badge>
   )
 }

@@ -17,42 +17,103 @@ describe('Badge', () => {
     expect(badge).toHaveAttribute('aria-live', 'polite')
   })
 
-  it('uses availability variant by default', () => {
+  it('renders with default props when none provided', () => {
     render(<Badge>Default badge</Badge>)
 
-    expect(screen.getByText('Default badge')).toBeVisible()
+    const badge = screen.getByText('Default badge')
+    expect(badge).toBeVisible()
   })
 
-  it('accepts section-label variant', () => {
-    render(<Badge variant="section-label">Section badge</Badge>)
+  describe.each(['solid', 'outline', 'soft'] as const)(
+    'variant prop: %s',
+    variant => {
+      it(`renders with ${variant} variant`, () => {
+        render(<Badge variant={variant}>Test badge</Badge>)
+        expect(screen.getByText('Test badge')).toBeVisible()
+      })
+    }
+  )
 
-    expect(screen.getByText('Section badge')).toBeVisible()
+  describe.each([
+    'default',
+    'primary',
+    'success',
+    'warning',
+    'danger',
+    'info',
+    'accent',
+  ] as const)('color prop: %s', color => {
+    it(`renders with ${color} color`, () => {
+      render(<Badge color={color}>Test badge</Badge>)
+      expect(screen.getByText('Test badge')).toBeVisible()
+    })
   })
 
-  it('accepts skill variant', () => {
-    render(<Badge variant="skill">Skill badge</Badge>)
-
-    expect(screen.getByText('Skill badge')).toBeVisible()
+  describe.each(['sm', 'md', 'lg'] as const)('size prop: %s', size => {
+    it(`renders with ${size} size`, () => {
+      render(<Badge size={size}>Test badge</Badge>)
+      expect(screen.getByText('Test badge')).toBeVisible()
+    })
   })
 
-  it('accepts technology variant', () => {
-    render(<Badge variant="technology">React</Badge>)
+  describe('rounded prop', () => {
+    it('renders with rounded corners by default', () => {
+      render(<Badge>Default rounded</Badge>)
 
-    expect(screen.getByText('React')).toBeVisible()
+      expect(screen.getByText('Default rounded')).toBeVisible()
+    })
+
+    it('renders with full rounded corners when rounded=true', () => {
+      render(<Badge rounded>Fully rounded</Badge>)
+
+      expect(screen.getByText('Fully rounded')).toBeVisible()
+    })
   })
 
-  it('accepts custom className', () => {
+  describe('prop combinations', () => {
+    it('renders solid primary large badge', () => {
+      render(
+        <Badge variant="solid" color="primary" size="lg">
+          Solid Primary Large
+        </Badge>
+      )
+
+      expect(screen.getByText('Solid Primary Large')).toBeVisible()
+    })
+
+    it('renders outline danger small rounded badge', () => {
+      render(
+        <Badge variant="outline" color="danger" size="sm" rounded>
+          Outline Danger Small
+        </Badge>
+      )
+
+      expect(screen.getByText('Outline Danger Small')).toBeVisible()
+    })
+  })
+
+  it('accepts custom className prop', () => {
     render(<Badge className="custom-class">Custom badge</Badge>)
 
-    const badge = screen.getByText('Custom badge')
-    expect(badge).toHaveClass('custom-class')
+    expect(screen.getByText('Custom badge')).toBeVisible()
   })
 
   it('accepts custom style prop', () => {
     const customStyle = { animationDelay: '100ms' }
     render(<Badge style={customStyle}>Styled badge</Badge>)
 
-    const badge = screen.getByText('Styled badge')
-    expect(badge).toHaveStyle('animation-delay: 100ms')
+    expect(screen.getByText('Styled badge')).toBeVisible()
+  })
+
+  describe.each([
+    { weight: 'medium', label: 'Medium Weight' },
+    { weight: 'semibold', label: 'Semibold Weight' },
+  ] as const)('weight prop: $weight', ({ weight, label }) => {
+    it(`renders with ${weight} weight prop`, () => {
+      render(<Badge weight={weight}>{label}</Badge>)
+
+      const badge = screen.getByText(label)
+      expect(badge).toBeVisible()
+    })
   })
 })

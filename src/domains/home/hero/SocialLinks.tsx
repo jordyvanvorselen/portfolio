@@ -10,18 +10,27 @@ export const SocialLinks = () => {
         label="GitHub"
         icon={Github}
         variant="button"
+        size="md"
+        color="muted"
+        interactive="hover"
       />
       <SocialIcon
         href="https://linkedin.com/in/jordy-van-vorselen"
         label="LinkedIn"
         icon={Linkedin}
         variant="button"
+        size="md"
+        color="muted"
+        interactive="hover"
       />
       <SocialIcon
         href="mailto:jordyvanvorselen@gmail.com"
         label="Email"
         icon={Mail}
         variant="button"
+        size="md"
+        color="muted"
+        interactive="hover"
       />
     </div>
   )

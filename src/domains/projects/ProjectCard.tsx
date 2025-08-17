@@ -56,19 +56,22 @@ export const ProjectCard = ({
                 value={project.stars}
                 label="stars"
                 icon={<Star className="w-3 h-3 text-yellow-400" />}
-                variant="floating"
+                layout="floating"
               />
               <StatItem
                 value={project.forks}
                 label="forks"
                 icon={<GitFork className="w-3 h-3 text-gray-300" />}
-                variant="floating"
+                layout="floating"
               />
             </div>
 
             {/* Status badge */}
             <div className="absolute bottom-4 left-4 z-20">
-              <StatusBadge variant={isFeatured ? 'active' : 'maintained'}>
+              <StatusBadge
+                variant="soft"
+                color={isFeatured ? 'success' : 'info'}
+              >
                 {isFeatured ? 'Active' : 'Maintained'}
               </StatusBadge>
             </div>
@@ -79,18 +82,32 @@ export const ProjectCard = ({
         <div className="flex-1 space-y-6">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <Title variant="project-card-title">{project.title}</Title>
+              <Title
+                size="2xl"
+                weight="bold"
+                color="accent"
+                align="left"
+                as="h2"
+              >
+                {project.title}
+              </Title>
             </div>
 
             <Text
-              variant="project-card-description"
+              size="lg"
+              weight="normal"
+              color="secondary"
+              lineHeight="relaxed"
               className="group-hover:text-gray-200 transition-colors duration-300"
             >
               {project.description}
             </Text>
 
             <Text
-              variant="project-card-long-description"
+              size="base"
+              weight="normal"
+              color="muted"
+              lineHeight="relaxed"
               className="group-hover:text-gray-300 transition-colors duration-300"
             >
               {project.longDescription}
@@ -99,11 +116,22 @@ export const ProjectCard = ({
 
           {/* Technologies */}
           <div className="space-y-3">
-            <Title variant="project-section-label">Technologies</Title>
+            <Title
+              size="sm"
+              weight="semibold"
+              color="muted"
+              align="left"
+              as="h3"
+            >
+              Technologies
+            </Title>
             <div className="flex flex-wrap gap-2">
               {project.technologies.map((tech, techIndex) => (
                 <Badge
-                  variant="project-tech"
+                  variant="soft"
+                  color="default"
+                  size="sm"
+                  rounded
                   key={tech}
                   style={{
                     animationDelay: `${index * 200 + techIndex * 50}ms`,
@@ -118,9 +146,11 @@ export const ProjectCard = ({
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-4 pt-4 border-t border-gray-700/30">
             <Button
-              variant="github"
+              variant="outline"
+              color="accent"
+              size="md"
               href={project.githubUrl}
-              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 shadow flex items-center gap-2"
+              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 shadow flex items-center gap-2 rounded-full"
             >
               <Github className="w-4 h-4" aria-hidden="true" />
               View Source
@@ -128,9 +158,11 @@ export const ProjectCard = ({
 
             {project.liveUrl && (
               <Button
-                variant="demo"
+                variant="ghost"
+                color="neutral"
+                size="md"
                 href={project.liveUrl}
-                className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex items-center gap-2"
+                className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex items-center gap-2 rounded-full"
               >
                 <ExternalLink className="w-4 h-4" aria-hidden="true" />
                 Live Demo

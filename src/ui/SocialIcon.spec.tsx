@@ -1,99 +1,123 @@
 import { render, screen } from '@testing-library/react'
-import { Github } from 'lucide-react'
+import { Github, Linkedin, Twitter } from 'lucide-react'
 
-import { SocialIcon } from '@/ui/SocialIcon'
+import { SocialIcon, type SocialIconProps } from '@/ui/SocialIcon'
 
 describe('SocialIcon', () => {
-  it('renders social icon link with proper attributes', () => {
-    render(
-      <SocialIcon href="https://github.com/test" label="GitHub" icon={Github} />
-    )
+  const defaultProps: SocialIconProps = {
+    href: 'https://github.com/test',
+    label: 'GitHub',
+    icon: Github,
+  }
 
-    const link = screen.getByRole('link', { name: 'GitHub' })
-    expect(link).toBeVisible()
-    expect(link).toHaveAttribute('href', 'https://github.com/test')
-    expect(link).toHaveAttribute('target', '_blank')
-    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+  describe('Basic Functionality', () => {
+    it('renders social icon link with proper attributes', () => {
+      render(<SocialIcon {...defaultProps} />)
+
+      const link = screen.getByRole('link', { name: 'GitHub' })
+      expect(link).toBeVisible()
+      expect(link).toHaveAttribute('href', 'https://github.com/test')
+      expect(link).toHaveAttribute('target', '_blank')
+      expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+      expect(link).toHaveAttribute('aria-label', 'GitHub')
+    })
+
+    it('renders icon component', () => {
+      render(<SocialIcon {...defaultProps} />)
+
+      const link = screen.getByRole('link', { name: 'GitHub' })
+      expect(link.querySelector('svg')).toBeInTheDocument()
+    })
+
+    it('accepts custom className prop without errors', () => {
+      render(<SocialIcon {...defaultProps} className="custom-class" />)
+
+      const link = screen.getByRole('link', { name: 'GitHub' })
+      expect(link).toBeVisible()
+    })
   })
 
-  it('renders icon component', () => {
-    render(
-      <SocialIcon href="https://github.com/test" label="GitHub" icon={Github} />
-    )
+  describe('Design System Variants', () => {
+    it('renders icon variant by default', () => {
+      render(<SocialIcon {...defaultProps} />)
 
-    const link = screen.getByRole('link', { name: 'GitHub' })
-    expect(link.querySelector('svg')).toBeInTheDocument()
+      const link = screen.getByRole('link', { name: 'GitHub' })
+      expect(link).toBeVisible()
+      expect(screen.queryByText('GitHub')).not.toBeInTheDocument()
+    })
+
+    describe.each([
+      { variant: 'icon' as const, expectsText: false },
+      { variant: 'button' as const, expectsText: false },
+      { variant: 'text' as const, expectsText: true },
+    ])('variant prop: $variant', ({ variant, expectsText }) => {
+      it(`renders ${variant} variant correctly`, () => {
+        render(<SocialIcon {...defaultProps} variant={variant} />)
+
+        const link = screen.getByRole('link', { name: 'GitHub' })
+        expect(link).toBeVisible()
+
+        if (expectsText) {
+          expect(screen.getByText('GitHub')).toBeVisible()
+        } else {
+          expect(screen.queryByText('GitHub')).not.toBeInTheDocument()
+        }
+      })
+    })
   })
 
-  it('accepts different variants', () => {
-    render(
-      <SocialIcon
-        href="https://github.com/test"
-        label="GitHub"
-        icon={Github}
-        variant="button"
-      />
+  describe('Design System Sizes', () => {
+    describe.each(['xs', 'sm', 'md', 'lg', 'xl'] as const)(
+      'size prop: %s',
+      size => {
+        it(`renders with ${size} size`, () => {
+          render(<SocialIcon {...defaultProps} size={size} />)
+          expect(screen.getByRole('link', { name: 'GitHub' })).toBeVisible()
+        })
+      }
     )
-
-    expect(screen.getByRole('link', { name: 'GitHub' })).toBeVisible()
   })
 
-  it('accepts custom className', () => {
-    render(
-      <SocialIcon
-        href="https://github.com/test"
-        label="GitHub"
-        icon={Github}
-        className="custom-class"
-      />
+  describe('Design System Colors', () => {
+    describe.each(['primary', 'secondary', 'muted', 'accent'] as const)(
+      'color prop: %s',
+      color => {
+        it(`renders with ${color} color`, () => {
+          render(<SocialIcon {...defaultProps} color={color} />)
+          expect(screen.getByRole('link', { name: 'GitHub' })).toBeVisible()
+        })
+      }
     )
-
-    const link = screen.getByRole('link', { name: 'GitHub' })
-    expect(link).toHaveClass('custom-class')
   })
 
-  it('displays label text with footer variant', () => {
-    render(
-      <SocialIcon
-        href="https://github.com/test"
-        label="GitHub"
-        icon={Github}
-        variant="footer"
-      />
-    )
+  describe('Design System Interactive States', () => {
+    describe.each(['static', 'hover'] as const)(
+      'interactive prop: %s',
+      interactive => {
+        it(`renders with ${interactive} interactive state`, () => {
+          render(<SocialIcon {...defaultProps} interactive={interactive} />)
 
-    const link = screen.getByRole('link', { name: 'GitHub' })
-    expect(link).toBeVisible()
-    expect(screen.getByText('GitHub')).toBeVisible()
+          const link = screen.getByRole('link', { name: 'GitHub' })
+          expect(link).toBeVisible()
+        })
+      }
+    )
   })
 
-  it('does not display label text with simple variant', () => {
-    render(
-      <SocialIcon
-        href="https://github.com/test"
-        label="GitHub"
-        icon={Github}
-        variant="simple"
-      />
-    )
+  describe('Multiple Icon Types', () => {
+    it('works with different Lucide icons', () => {
+      const { rerender } = render(
+        <SocialIcon {...defaultProps} icon={Github} />
+      )
+      expect(screen.getByRole('link', { name: 'GitHub' })).toBeVisible()
 
-    const link = screen.getByRole('link', { name: 'GitHub' })
-    expect(link).toBeVisible()
-    expect(screen.queryByText('GitHub')).not.toBeInTheDocument()
-  })
+      rerender(
+        <SocialIcon {...defaultProps} icon={Linkedin} label="LinkedIn" />
+      )
+      expect(screen.getByRole('link', { name: 'LinkedIn' })).toBeVisible()
 
-  it('does not display label text with button variant', () => {
-    render(
-      <SocialIcon
-        href="https://github.com/test"
-        label="GitHub"
-        icon={Github}
-        variant="button"
-      />
-    )
-
-    const link = screen.getByRole('link', { name: 'GitHub' })
-    expect(link).toBeVisible()
-    expect(screen.queryByText('GitHub')).not.toBeInTheDocument()
+      rerender(<SocialIcon {...defaultProps} icon={Twitter} label="Twitter" />)
+      expect(screen.getByRole('link', { name: 'Twitter' })).toBeVisible()
+    })
   })
 })

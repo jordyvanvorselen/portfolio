@@ -22,7 +22,7 @@ describe('BlogSearchFilters', () => {
 
     const allFilter = screen.getByText('All')
     expect(allFilter).toBeVisible()
-    expect(allFilter).toHaveClass('bg-teal-500')
+    expect(allFilter).toHaveAttribute('aria-pressed', 'true')
   })
 
   it('displays category filter buttons', () => {
@@ -40,14 +40,14 @@ describe('BlogSearchFilters', () => {
     const apiFilter = screen.getByText('API')
 
     // Initially All should be active
-    expect(allFilter).toHaveClass('bg-teal-500')
-    expect(apiFilter).toHaveClass('border-gray-600')
+    expect(allFilter).toHaveAttribute('aria-pressed', 'true')
+    expect(apiFilter).toHaveAttribute('aria-pressed', 'false')
 
     // Click API filter
     fireEvent.click(apiFilter)
 
     // API should now be active, All should be inactive
-    expect(apiFilter).toHaveClass('bg-teal-500')
-    expect(allFilter).toHaveClass('border-gray-600')
+    expect(apiFilter).toHaveAttribute('aria-pressed', 'true')
+    expect(allFilter).toHaveAttribute('aria-pressed', 'false')
   })
 })

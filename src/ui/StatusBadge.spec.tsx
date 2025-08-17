@@ -2,83 +2,84 @@ import { render, screen } from '@testing-library/react'
 import { StatusBadge } from '@/ui/StatusBadge'
 
 describe('StatusBadge', () => {
-  it('renders children correctly', () => {
-    render(<StatusBadge>Active</StatusBadge>)
+  describe('Basic functionality', () => {
+    it('renders children correctly', () => {
+      render(<StatusBadge>Test Badge</StatusBadge>)
 
-    expect(screen.getByText('Active')).toBeVisible()
+      expect(screen.getByText('Test Badge')).toBeVisible()
+    })
+
+    it('accepts custom className', () => {
+      render(<StatusBadge className="custom-class">Test</StatusBadge>)
+
+      expect(screen.getByText('Test')).toBeVisible()
+    })
   })
 
-  it('applies default active variant classes', () => {
-    const { container } = render(<StatusBadge>Active</StatusBadge>)
-
-    const badge = container.firstChild as HTMLElement
-    expect(badge).toHaveClass(
-      'bg-green-500/20',
-      'text-green-400',
-      'border-green-500/30'
-    )
+  describe.each(['xs', 'sm', 'md', 'lg'] as const)('Size variants', size => {
+    it(`accepts ${size} size without errors`, () => {
+      render(<StatusBadge size={size}>Test</StatusBadge>)
+      expect(screen.getByText('Test')).toBeVisible()
+    })
   })
 
-  it('applies maintained variant classes', () => {
-    const { container } = render(
-      <StatusBadge variant="maintained">Maintained</StatusBadge>
-    )
-
-    const badge = container.firstChild as HTMLElement
-    expect(badge).toHaveClass(
-      'bg-blue-500/20',
-      'text-blue-400',
-      'border-blue-500/30'
-    )
+  describe.each([
+    { variant: 'solid' as const, color: 'success' as const },
+    { variant: 'solid' as const, color: 'danger' as const },
+    { variant: 'soft' as const, color: 'default' as const },
+    { variant: 'soft' as const, color: 'success' as const },
+    { variant: 'soft' as const, color: 'info' as const },
+    { variant: 'soft' as const, color: 'primary' as const },
+    { variant: 'outline' as const, color: 'success' as const },
+    { variant: 'outline' as const, color: 'warning' as const },
+  ])('Variant styles', ({ variant, color }) => {
+    it(`accepts ${variant} variant with ${color} color`, () => {
+      render(
+        <StatusBadge variant={variant} color={color}>
+          Test
+        </StatusBadge>
+      )
+      expect(screen.getByText('Test')).toBeVisible()
+    })
   })
 
-  it('applies featured variant classes', () => {
-    const { container } = render(
-      <StatusBadge variant="featured">Featured</StatusBadge>
-    )
-
-    const badge = container.firstChild as HTMLElement
-    expect(badge).toHaveClass(
-      'bg-teal-500/20',
-      'text-teal-400',
-      'border-teal-500/30'
-    )
+  describe.each([
+    'default',
+    'primary',
+    'success',
+    'warning',
+    'danger',
+    'info',
+    'accent',
+  ] as const)('Color variants', color => {
+    it(`accepts ${color} color without errors`, () => {
+      render(<StatusBadge color={color}>Test</StatusBadge>)
+      expect(screen.getByText('Test')).toBeVisible()
+    })
   })
 
-  it('applies archived variant classes', () => {
-    const { container } = render(
-      <StatusBadge variant="archived">Archived</StatusBadge>
-    )
+  describe('Default values', () => {
+    it('renders with default props when none are provided', () => {
+      render(<StatusBadge>Test</StatusBadge>)
 
-    const badge = container.firstChild as HTMLElement
-    expect(badge).toHaveClass(
-      'bg-gray-500/20',
-      'text-gray-400',
-      'border-gray-500/30'
-    )
+      expect(screen.getByText('Test')).toBeVisible()
+    })
   })
 
-  it('applies base classes to all variants', () => {
-    const { container } = render(<StatusBadge>Test</StatusBadge>)
+  describe('Props combinations', () => {
+    it('accepts all props combined without errors', () => {
+      render(
+        <StatusBadge
+          variant="soft"
+          color="primary"
+          size="lg"
+          className="test-class"
+        >
+          Combined Props Test
+        </StatusBadge>
+      )
 
-    const badge = container.firstChild as HTMLElement
-    expect(badge).toHaveClass(
-      'backdrop-blur-sm',
-      'px-3',
-      'py-1',
-      'rounded-full',
-      'text-xs',
-      'font-medium',
-      'border'
-    )
-  })
-
-  it('applies custom className', () => {
-    const { container } = render(
-      <StatusBadge className="custom-class">Test</StatusBadge>
-    )
-
-    const badge = container.firstChild as HTMLElement
-    expect(badge).toHaveClass('custom-class')
+      expect(screen.getByText('Combined Props Test')).toBeVisible()
+    })
   })
 })

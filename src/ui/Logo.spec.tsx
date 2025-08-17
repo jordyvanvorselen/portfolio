@@ -3,24 +3,33 @@ import { render, screen } from '@testing-library/react'
 import { Logo } from '@/ui/Logo'
 
 describe('Logo', () => {
-  it('renders logo as home link', () => {
-    render(<Logo />)
+  describe.each([
+    { scenario: 'without className', className: undefined },
+    { scenario: 'with custom className', className: 'custom-class' },
+  ])('className prop: $scenario', ({ scenario, className }) => {
+    it(`renders logo as home link ${scenario}`, () => {
+      render(<Logo {...(className ? { className } : {})} />)
 
-    const logoLink = screen.getByRole('link', { name: 'Jordy van Vorselen' })
-    expect(logoLink).toBeVisible()
-    expect(logoLink).toHaveAttribute('href', '/')
-  })
+      const logoLink = screen.getByRole('link', { name: 'Jordy van Vorselen' })
+      expect(logoLink).toBeVisible()
+      expect(logoLink).toHaveAttribute('href', '/')
+    })
 
-  it('renders logo text', () => {
-    render(<Logo />)
+    it(`renders logo text ${scenario}`, () => {
+      render(<Logo {...(className ? { className } : {})} />)
 
-    expect(screen.getByText('Jordy van Vorselen')).toBeVisible()
-  })
+      expect(screen.getByText('Jordy van Vorselen')).toBeVisible()
+    })
 
-  it('accepts custom className', () => {
-    render(<Logo className="custom-class" />)
+    if (className) {
+      it('applies custom className to logo link', () => {
+        render(<Logo {...(className ? { className } : {})} />)
 
-    const logoLink = screen.getByRole('link', { name: 'Jordy van Vorselen' })
-    expect(logoLink).toHaveClass('custom-class')
+        const logoLink = screen.getByRole('link', {
+          name: 'Jordy van Vorselen',
+        })
+        expect(logoLink).toHaveClass(className)
+      })
+    }
   })
 })

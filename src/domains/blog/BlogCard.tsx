@@ -50,18 +50,41 @@ export const BlogCard = ({
             </div>
           </div>
 
-          <Title variant="blog-card-title">{title}</Title>
+          <Title
+            size="sm"
+            weight="bold"
+            color="primary"
+            align="left"
+            as="h3"
+            hoverColor="teal"
+            lineClamp={2}
+            className="text-xl mb-3 transition-colors duration-300"
+          >
+            {title}
+          </Title>
 
-          <Text variant="blog-card-description">{description}</Text>
+          <Text
+            size="base"
+            weight="normal"
+            color="secondary"
+            alignment="left"
+            lineHeight="relaxed"
+            lineClamp={3}
+            className="mb-4"
+          >
+            {description}
+          </Text>
 
           <div className="flex flex-wrap gap-2">
             {tags.slice(0, 3).map(tag => (
-              <Badge key={tag} variant="skill">
+              <Badge key={tag} variant="soft" color="default" size="sm">
                 {tag}
               </Badge>
             ))}
             {tags.length > 3 && (
-              <Badge variant="skill">+{tags.length - 3} more</Badge>
+              <Badge variant="soft" color="default" size="sm">
+                +{tags.length - 3} more
+              </Badge>
             )}
           </div>
         </div>

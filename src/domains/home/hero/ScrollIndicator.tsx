@@ -24,10 +24,16 @@ export const ScrollIndicator = () => {
       className="cursor-pointer group flex flex-col items-center"
     >
       <div className="text-center mb-4">
-        <Text variant="scroll-indicator-main" className="font-medium mb-1">
+        <Text
+          size="base"
+          weight="medium"
+          color="secondary"
+          alignment="center"
+          className="mb-1"
+        >
           Discover My Core Expertise
         </Text>
-        <Text variant="scroll-indicator-subtitle">
+        <Text size="xs" weight="normal" color="muted" alignment="center">
           Explore the skills I master
         </Text>
       </div>

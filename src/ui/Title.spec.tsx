@@ -3,149 +3,193 @@ import { render, screen } from '@testing-library/react'
 import { Title } from '@/ui/Title'
 
 describe('Title', () => {
-  it('renders title with default variant', () => {
-    render(<Title>Test Title</Title>)
+  describe('New prop-based API', () => {
+    it('renders with default props', () => {
+      render(<Title>Default Title</Title>)
 
-    expect(screen.getByText('Test Title')).toBeVisible()
-  })
-
-  it('renders logo variant with correct styling', () => {
-    render(<Title variant="logo">Jordy van Vorselen</Title>)
-
-    const title = screen.getByText('Jordy van Vorselen')
-    expect(title).toBeVisible()
-  })
-
-  it('renders hero-name variant as h1', () => {
-    render(
-      <Title variant="hero-name" as="h1">
-        Jordy van Vorselen
-      </Title>
-    )
-
-    const heading = screen.getByRole('heading', {
-      level: 1,
-      name: 'Jordy van Vorselen',
+      const heading = screen.getByRole('heading', {
+        level: 2,
+        name: 'Default Title',
+      })
+      expect(heading).toBeVisible()
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('renders hero-title variant as paragraph', () => {
-    render(
-      <Title variant="hero-title" as="p">
-        Senior Software Engineer
-      </Title>
-    )
+    describe.each([
+      { size: 'xs', label: 'Extra Small' },
+      { size: 'sm', label: 'Small' },
+      { size: 'md', label: 'Medium' },
+      { size: 'lg', label: 'Large' },
+      { size: 'xl', label: 'Extra Large' },
+      { size: '2xl', label: '2X Large' },
+      { size: '3xl', label: '3X Large' },
+      { size: '4xl', label: '4X Large' },
+      { size: '5xl', label: '5X Large' },
+    ] as const)('size prop: $size', ({ size, label }) => {
+      it(`renders with ${size} size prop`, () => {
+        render(<Title size={size}>{label}</Title>)
 
-    expect(screen.getByText('Senior Software Engineer')).toBeVisible()
-  })
-
-  it('renders section-title variant as h2', () => {
-    render(
-      <Title variant="section-title" as="h2">
-        What I Excel At
-      </Title>
-    )
-
-    const heading = screen.getByRole('heading', {
-      level: 2,
-      name: 'What I Excel At',
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('renders subsection-label variant as h4', () => {
-    render(<Title variant="subsection-label">KEY SKILLS & TOOLS</Title>)
+    describe.each([
+      { weight: 'normal', label: 'Normal Weight' },
+      { weight: 'medium', label: 'Medium Weight' },
+      { weight: 'semibold', label: 'Semibold Weight' },
+      { weight: 'bold', label: 'Bold Weight' },
+    ] as const)('weight prop: $weight', ({ weight, label }) => {
+      it(`renders with ${weight} weight prop`, () => {
+        render(<Title weight={weight}>{label}</Title>)
 
-    const heading = screen.getByRole('heading', {
-      level: 4,
-      name: 'KEY SKILLS & TOOLS',
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('renders card-title variant as h3', () => {
-    render(<Title variant="card-title">Test-Driven Development</Title>)
+    describe.each([
+      { color: 'primary', label: 'Primary Color' },
+      { color: 'secondary', label: 'Secondary Color' },
+      { color: 'muted', label: 'Muted Color' },
+      { color: 'accent', label: 'Accent Color' },
+      { color: 'gradient', label: 'Gradient Color' },
+    ] as const)('color prop: $color', ({ color, label }) => {
+      it(`renders with ${color} color prop`, () => {
+        render(<Title color={color}>{label}</Title>)
 
-    const heading = screen.getByRole('heading', {
-      level: 3,
-      name: 'Test-Driven Development',
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('accepts custom className', () => {
-    render(<Title className="custom-class">Test</Title>)
+    describe.each([
+      { align: 'left', label: 'Left Aligned' },
+      { align: 'center', label: 'Center Aligned' },
+      { align: 'right', label: 'Right Aligned' },
+    ] as const)('alignment prop: $align', ({ align, label }) => {
+      it(`renders with ${align} alignment prop`, () => {
+        render(<Title align={align}>{label}</Title>)
 
-    const title = screen.getByText('Test')
-    expect(title).toHaveClass('custom-class')
-  })
-
-  it('renders with custom element type', () => {
-    render(<Title as="h3">Custom Heading</Title>)
-
-    const heading = screen.getByRole('heading', {
-      level: 3,
-      name: 'Custom Heading',
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('renders footer-author variant as h3', () => {
-    render(<Title variant="footer-author">Jordy van Vorselen</Title>)
+    it('combines multiple props correctly', () => {
+      render(
+        <Title size="lg" weight="semibold" color="secondary" align="center">
+          Combined Props
+        </Title>
+      )
 
-    const heading = screen.getByRole('heading', {
-      level: 3,
-      name: 'Jordy van Vorselen',
+      const heading = screen.getByRole('heading', { name: 'Combined Props' })
+      expect(heading).toBeVisible()
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('renders footer-section variant as h4', () => {
-    render(<Title variant="footer-section">Quick Links</Title>)
+    it('accepts custom className with new API', () => {
+      render(<Title className="custom-class">Custom Class</Title>)
 
-    const heading = screen.getByRole('heading', {
-      level: 4,
-      name: 'Quick Links',
+      const heading = screen.getByRole('heading', { name: 'Custom Class' })
+      expect(heading).toBeVisible()
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('renders section-label-small variant as h3', () => {
-    render(<Title variant="section-label-small">Featured article</Title>)
+    it('renders with custom element type using as prop', () => {
+      render(
+        <Title as="h1" size="5xl">
+          Custom Element
+        </Title>
+      )
 
-    const heading = screen.getByRole('heading', {
-      level: 3,
-      name: 'Featured article',
+      const heading = screen.getByRole('heading', {
+        level: 1,
+        name: 'Custom Element',
+      })
+      expect(heading).toBeVisible()
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('renders projects-hero-title variant as h1', () => {
-    render(<Title variant="projects-hero-title">Open Source Projects</Title>)
+    it('renders with uppercase prop', () => {
+      render(<Title uppercase>Uppercase Title</Title>)
 
-    const heading = screen.getByRole('heading', {
-      level: 1,
-      name: 'Open Source Projects',
+      const heading = screen.getByRole('heading', { name: 'Uppercase Title' })
+      expect(heading).toBeVisible()
     })
-    expect(heading).toBeVisible()
+
+    describe.each([
+      { tracking: 'normal', label: 'Normal Tracking' },
+      { tracking: 'wide', label: 'Wide Tracking' },
+      { tracking: 'wider', label: 'Wider Tracking' },
+    ] as const)('tracking prop: $tracking', ({ tracking, label }) => {
+      it(`renders with ${tracking} tracking prop`, () => {
+        render(<Title tracking={tracking}>{label}</Title>)
+
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
+    })
+
+    describe.each([
+      { hoverColor: 'teal', label: 'Teal Hover' },
+      { hoverColor: 'blue', label: 'Blue Hover' },
+      { hoverColor: 'white', label: 'White Hover' },
+      { hoverColor: 'none', label: 'No Hover' },
+    ] as const)('hoverColor prop: $hoverColor', ({ hoverColor, label }) => {
+      it(`renders with ${hoverColor} hover color prop`, () => {
+        render(<Title hoverColor={hoverColor}>{label}</Title>)
+
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
+    })
+
+    describe.each([
+      { lineClamp: 1, label: 'Single Line' },
+      { lineClamp: 2, label: 'Two Lines' },
+      { lineClamp: 3, label: 'Three Lines' },
+      { lineClamp: 4, label: 'Four Lines' },
+      { lineClamp: 'none', label: 'No Clamp' },
+    ] as const)('lineClamp prop: $lineClamp', ({ lineClamp, label }) => {
+      it(`renders with ${lineClamp} line clamp prop`, () => {
+        render(<Title lineClamp={lineClamp}>{label}</Title>)
+
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
+    })
+
+    it('combines uppercase and tracking props correctly', () => {
+      render(
+        <Title uppercase tracking="wide">
+          Uppercase Wide Tracking
+        </Title>
+      )
+
+      const heading = screen.getByRole('heading', {
+        name: 'Uppercase Wide Tracking',
+      })
+      expect(heading).toBeVisible()
+    })
   })
 
-  it('renders projects-grid-title variant', () => {
-    render(<Title variant="projects-grid-title">Featured Projects</Title>)
+  describe('TypeScript type exports', () => {
+    it('exports TitleSize type', () => {
+      // This test ensures the types are properly exported
+      const size: import('@/ui/Title').TitleSize = 'md'
+      expect(size).toBe('md')
+    })
 
-    expect(screen.getByText('Featured Projects')).toBeVisible()
-  })
+    it('exports TitleWeight type', () => {
+      const weight: import('@/ui/Title').TitleWeight = 'bold'
+      expect(weight).toBe('bold')
+    })
 
-  it('renders project-card-title variant', () => {
-    render(<Title variant="project-card-title">My Project</Title>)
+    it('exports TitleColor type', () => {
+      const color: import('@/ui/Title').TitleColor = 'primary'
+      expect(color).toBe('primary')
+    })
 
-    expect(screen.getByText('My Project')).toBeVisible()
-  })
-
-  it('renders project-section-label variant', () => {
-    render(<Title variant="project-section-label">Technologies</Title>)
-
-    expect(screen.getByText('Technologies')).toBeVisible()
+    it('exports TitleAlignment type', () => {
+      const align: import('@/ui/Title').TitleAlignment = 'center'
+      expect(align).toBe('center')
+    })
   })
 })

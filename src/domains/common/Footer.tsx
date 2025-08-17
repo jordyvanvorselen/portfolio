@@ -27,9 +27,20 @@ export const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Author Section - spans 2 columns on large screens */}
             <div className="lg:col-span-2">
-              <Title variant="footer-author">Jordy van Vorselen</Title>
+              <Title
+                size="lg"
+                weight="bold"
+                color="primary"
+                align="left"
+                as="h3"
+                className="mb-4"
+              >
+                Jordy van Vorselen
+              </Title>
               <Text
-                variant="footer-description"
+                size="base"
+                weight="normal"
+                color="secondary"
                 className="mb-6 max-w-md leading-relaxed"
               >
                 Senior Software Engineer passionate about building scalable,
@@ -37,41 +48,87 @@ export const Footer = () => {
                 challenges and collaborate with amazing teams.
               </Text>
               <div className="flex items-center text-[#cbd5e1] mb-4">
-                <Text variant="footer-info">
+                <Text size="sm" weight="normal" color="secondary">
                   📍 Noord-Brabant, the Netherlands 🇳🇱
                 </Text>
               </div>
               <div className="flex items-center text-[#cbd5e1]">
-                <Text variant="footer-info">✉️ jordyvanvorselen@gmail.com</Text>
+                <Text size="sm" weight="normal" color="secondary">
+                  ✉️ jordyvanvorselen@gmail.com
+                </Text>
               </div>
             </div>
 
             {/* Quick Links Section */}
             <div>
-              <Title variant="footer-section">Quick Links</Title>
+              <Title
+                size="md"
+                weight="semibold"
+                color="primary"
+                align="left"
+                as="h4"
+                className="mb-4 !text-lg"
+              >
+                Quick Links
+              </Title>
               <ul className="space-y-2">
                 <li>
-                  <NavigationLink href="/" variant="footer">
+                  <NavigationLink
+                    href="/"
+                    variant="default"
+                    size="md"
+                    color="primary"
+                    weight="normal"
+                    className="block"
+                  >
                     Home
                   </NavigationLink>
                 </li>
                 <li>
-                  <NavigationLink href="/blog" variant="footer">
+                  <NavigationLink
+                    href="/blog"
+                    variant="default"
+                    size="md"
+                    color="primary"
+                    weight="normal"
+                    className="block"
+                  >
                     Blog
                   </NavigationLink>
                 </li>
                 <li>
-                  <NavigationLink href="/projects" variant="footer">
+                  <NavigationLink
+                    href="/projects"
+                    variant="default"
+                    size="md"
+                    color="primary"
+                    weight="normal"
+                    className="block"
+                  >
                     Projects
                   </NavigationLink>
                 </li>
                 <li>
-                  <NavigationLink href="/experience" variant="footer">
+                  <NavigationLink
+                    href="/experience"
+                    variant="default"
+                    size="md"
+                    color="primary"
+                    weight="normal"
+                    className="block"
+                  >
                     Experience
                   </NavigationLink>
                 </li>
                 <li>
-                  <NavigationLink href="/contact" variant="footer">
+                  <NavigationLink
+                    href="/contact"
+                    variant="default"
+                    size="md"
+                    color="primary"
+                    weight="normal"
+                    className="block"
+                  >
                     Contact
                   </NavigationLink>
                 </li>
@@ -80,30 +137,50 @@ export const Footer = () => {
 
             {/* Connect Section */}
             <div>
-              <Title variant="footer-section">Let&apos;s Connect</Title>
+              <Title
+                size="md"
+                weight="semibold"
+                color="primary"
+                align="left"
+                as="h4"
+                className="mb-4 !text-lg"
+              >
+                Let&apos;s Connect
+              </Title>
               <div className="space-y-4">
                 <div className="flex flex-col space-y-3">
                   <SocialIcon
                     href="https://github.com/jordyvanvorselen"
                     label="GitHub"
                     icon={Github}
-                    variant="footer"
+                    variant="text"
+                    size="md"
+                    color="secondary"
+                    interactive="hover"
                   />
                   <SocialIcon
                     href="https://linkedin.com/in/jordy-van-vorselen"
                     label="LinkedIn"
                     icon={Linkedin}
-                    variant="footer"
+                    variant="text"
+                    size="md"
+                    color="secondary"
+                    interactive="hover"
                   />
                   <SocialIcon
                     href="mailto:jordyvanvorselen@gmail.com"
                     label="Email"
                     icon={Mail}
-                    variant="footer"
+                    variant="text"
+                    size="md"
+                    color="secondary"
+                    interactive="hover"
                   />
                 </div>
                 <Button
-                  variant="primary"
+                  variant="solid"
+                  color="primary"
+                  size="md"
                   href="mailto:jordyvanvorselen@gmail.com"
                 >
                   <Mail className="w-4 h-4 mr-2" />
@@ -118,14 +195,16 @@ export const Footer = () => {
         <div className="border-t border-gray-800/50 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center mb-4 md:mb-0">
-              <Text variant="footer-copyright">
+              <Text size="sm" weight="normal" color="secondary">
                 © 2025 Jordy van Vorselen. Made with
               </Text>
               <Heart className="w-4 h-4 mx-1 text-red-500" />
-              <Text variant="footer-copyright">and lots of coffee.</Text>
+              <Text size="sm" weight="normal" color="secondary">
+                and lots of coffee.
+              </Text>
             </div>
             <div className="flex items-center space-x-4">
-              <Text variant="footer-availability">
+              <Text size="sm" weight="normal" color="success">
                 Available for remote opportunities
               </Text>
               <BackToTopButton />
