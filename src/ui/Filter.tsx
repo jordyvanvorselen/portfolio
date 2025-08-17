@@ -65,6 +65,7 @@ export const Filter = ({
       className={`${baseStyles} ${sizeStyles[size]} ${variantStyles} ${className}`}
       onClick={variant === 'disabled' ? undefined : onClick}
       disabled={variant === 'disabled'}
+      aria-pressed={variant === 'active'}
     >
       {children}
     </button>
