@@ -100,30 +100,32 @@ jobs:
           mkdir -p processed-screenshots
 
           # Create markdown for image comparisons
-          echo "image_comparisons<<EOF" >> $GITHUB_OUTPUT
-
-          for diff_file in $(find test-results -name "*-diff.png" 2>/dev/null || true); do
-            if [ -f "$diff_file" ]; then
-              base_name=$(basename "$diff_file" -diff.png)
-              dir_name=$(dirname "$diff_file")
-              expected_file="$dir_name/$base_name-expected.png"
-              actual_file="$dir_name/$base_name-actual.png"
-              
-              # Copy files with simpler names for easier reference
-              cp "$expected_file" "processed-screenshots/${base_name}-expected.png" 2>/dev/null || true
-              cp "$actual_file" "processed-screenshots/${base_name}-actual.png" 2>/dev/null || true  
-              cp "$diff_file" "processed-screenshots/${base_name}-diff.png" 2>/dev/null || true
-              
-              echo "### 🔍 $base_name"
-              echo ""
-              echo "| Expected | Actual | Difference |"
-              echo "|----------|--------|------------|"
-              echo "| ![Expected](https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts/${base_name}-expected) | ![Actual](https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts/${base_name}-actual) | ![Diff](https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts/${base_name}-diff) |"
-              echo ""
-            fi
-          done
-
-          EOF
+          {
+            echo "image_comparisons<<SCREENSHOT_EOF"
+            
+            for diff_file in $(find test-results -name "*-diff.png" 2>/dev/null || true); do
+              if [ -f "$diff_file" ]; then
+                base_name=$(basename "$diff_file" -diff.png)
+                dir_name=$(dirname "$diff_file")
+                expected_file="$dir_name/$base_name-expected.png"
+                actual_file="$dir_name/$base_name-actual.png"
+                
+                # Copy files with simpler names for easier reference
+                cp "$expected_file" "processed-screenshots/${base_name}-expected.png" 2>/dev/null || true
+                cp "$actual_file" "processed-screenshots/${base_name}-actual.png" 2>/dev/null || true  
+                cp "$diff_file" "processed-screenshots/${base_name}-diff.png" 2>/dev/null || true
+                
+                echo "### 🔍 $base_name"
+                echo ""
+                echo "| Expected | Actual | Difference |"
+                echo "|----------|--------|------------|"
+                echo "| ![Expected](https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts/${base_name}-expected) | ![Actual](https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts/${base_name}-actual) | ![Diff](https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts/${base_name}-diff) |"
+                echo ""
+              fi
+            done
+            
+            echo "SCREENSHOT_EOF"
+          } >> $GITHUB_OUTPUT
       - name: Upload screenshot artifacts
         uses: actions/upload-artifact@v4
         if: steps.check-diff.outputs.differences == 'true'
