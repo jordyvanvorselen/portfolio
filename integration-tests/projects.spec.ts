@@ -35,4 +35,11 @@ test.describe('Projects Page', () => {
     await expect(projectsPage.collaboration.githubButton).toBeVisible()
     await expect(projectsPage.collaboration.contactButton).toBeVisible()
   })
+
+  test('collaboration section visual regression', async ({ projectsPage }) => {
+    await projectsPage.hideHeader()
+    await expect(projectsPage.collaboration.section).toHaveScreenshot(
+      'projects-collaboration.png'
+    )
+  })
 })

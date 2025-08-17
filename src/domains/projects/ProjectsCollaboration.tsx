@@ -5,7 +5,7 @@ import { Button } from '@/ui/Button'
 export const ProjectsCollaboration = () => {
   return (
     <section
-      className="relative py-24 border-t border-gray-800"
+      className="relative py-24"
       role="region"
       aria-label="collaboration"
     >
