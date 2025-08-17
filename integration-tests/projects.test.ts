@@ -24,4 +24,15 @@ test.describe('Projects Page', () => {
       projectsPage.projectsGrid.firstProjectDescription
     ).toBeVisible()
   })
+
+  test('displays collaboration section with call-to-action', async ({
+    projectsPage,
+  }) => {
+    // Collaboration section
+    await expect(projectsPage.collaboration.section).toBeVisible()
+    await expect(projectsPage.collaboration.title).toBeVisible()
+    await expect(projectsPage.collaboration.description).toBeVisible()
+    await expect(projectsPage.collaboration.githubButton).toBeVisible()
+    await expect(projectsPage.collaboration.contactButton).toBeVisible()
+  })
 })

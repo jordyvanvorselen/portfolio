@@ -120,8 +120,6 @@ export const ProjectCard = ({
             <Button
               variant="github"
               href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 shadow flex items-center gap-2"
             >
               <Github className="w-4 h-4" aria-hidden="true" />
@@ -132,8 +130,6 @@ export const ProjectCard = ({
               <Button
                 variant="demo"
                 href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex items-center gap-2"
               >
                 <ExternalLink className="w-4 h-4" aria-hidden="true" />

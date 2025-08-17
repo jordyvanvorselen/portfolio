@@ -59,7 +59,7 @@ export const Header = () => {
 
             <div className="w-px h-6 bg-gray-700"></div>
 
-            <Button variant="cta" href="mailto:jordyvanvorselen@gmail.com">
+            <Button variant="primary" href="mailto:jordyvanvorselen@gmail.com">
               <UserPlus className="w-4 h-4 mr-2" />
               Hire Me
             </Button>

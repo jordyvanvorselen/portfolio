@@ -29,6 +29,20 @@ describe('ProjectsPage', () => {
     expect(screen.getByText(/A powerful orchestration platform/)).toBeVisible()
   })
 
+  it('renders collaboration section', () => {
+    render(<ProjectsPage />)
+
+    expect(screen.getByRole('region', { name: 'collaboration' })).toBeVisible()
+    expect(
+      screen.getByRole('heading', {
+        name: /Let's Build Something Amazing Together/i,
+      })
+    ).toBeVisible()
+    expect(
+      screen.getByText(/Interested in collaborating on open source projects/i)
+    ).toBeVisible()
+  })
+
   it('has correct metadata', () => {
     expect(metadata.title).toBe('Projects - Jordy van Vorselen')
     expect(metadata.description).toBe(
