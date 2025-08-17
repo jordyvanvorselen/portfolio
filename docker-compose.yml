@@ -9,7 +9,6 @@ services:
       - CONTAINER=true
       - NEXT_PUBLIC_E2E_TESTING=true
     network_mode: host
-    command: tail -f /dev/null # Keep container running
 
 volumes:
   node_modules:

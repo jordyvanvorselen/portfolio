@@ -8,4 +8,10 @@ export abstract class BasePage {
   readonly footer: Footer = new Footer(this.page)
 
   constructor(public readonly page: Page) {}
+
+  async hideHeader(): Promise<void> {
+    await this.page.addStyleTag({
+      content: '[role="banner"] { display: none !important; }',
+    })
+  }
 }
