@@ -1,4 +1,4 @@
-name: ci/cd
+name: ci-cd
 
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -58,11 +58,14 @@ jobs:
 
   integration-test:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.54.0-noble
+      options: --user 1001
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup Playwright
-        uses: ./.github/actions/setup-playwright
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
       - name: Run integration tests
         run: pnpm test:integration
       - name: Upload test results
@@ -75,11 +78,14 @@ jobs:
 
   visual-regression-test:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.54.0-noble
+      options: --user 1001
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup Playwright
-        uses: ./.github/actions/setup-playwright
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
       - name: Run visual regression tests
         run: pnpm test:visual-regression
       - name: Upload test results
