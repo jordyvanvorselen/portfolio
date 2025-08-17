@@ -33,6 +33,7 @@ export const Footer = () => {
                 color="primary"
                 align="left"
                 as="h3"
+                className="mb-4"
               >
                 Jordy van Vorselen
               </Title>
@@ -66,6 +67,7 @@ export const Footer = () => {
                 color="primary"
                 align="left"
                 as="h4"
+                className="mb-4 !text-lg"
               >
                 Quick Links
               </Title>
@@ -74,8 +76,10 @@ export const Footer = () => {
                   <NavigationLink
                     href="/"
                     variant="default"
-                    size="sm"
-                    color="secondary"
+                    size="md"
+                    color="primary"
+                    weight="normal"
+                    className="block"
                   >
                     Home
                   </NavigationLink>
@@ -84,8 +88,10 @@ export const Footer = () => {
                   <NavigationLink
                     href="/blog"
                     variant="default"
-                    size="sm"
-                    color="secondary"
+                    size="md"
+                    color="primary"
+                    weight="normal"
+                    className="block"
                   >
                     Blog
                   </NavigationLink>
@@ -94,8 +100,10 @@ export const Footer = () => {
                   <NavigationLink
                     href="/projects"
                     variant="default"
-                    size="sm"
-                    color="secondary"
+                    size="md"
+                    color="primary"
+                    weight="normal"
+                    className="block"
                   >
                     Projects
                   </NavigationLink>
@@ -104,8 +112,10 @@ export const Footer = () => {
                   <NavigationLink
                     href="/experience"
                     variant="default"
-                    size="sm"
-                    color="secondary"
+                    size="md"
+                    color="primary"
+                    weight="normal"
+                    className="block"
                   >
                     Experience
                   </NavigationLink>
@@ -114,8 +124,10 @@ export const Footer = () => {
                   <NavigationLink
                     href="/contact"
                     variant="default"
-                    size="sm"
-                    color="secondary"
+                    size="md"
+                    color="primary"
+                    weight="normal"
+                    className="block"
                   >
                     Contact
                   </NavigationLink>
@@ -131,6 +143,7 @@ export const Footer = () => {
                 color="primary"
                 align="left"
                 as="h4"
+                className="mb-4 !text-lg"
               >
                 Let&apos;s Connect
               </Title>
@@ -165,9 +178,9 @@ export const Footer = () => {
                   />
                 </div>
                 <Button
-                  variant="ghost"
-                  color="neutral"
-                  size="xs"
+                  variant="solid"
+                  color="primary"
+                  size="md"
                   href="mailto:jordyvanvorselen@gmail.com"
                 >
                   <Mail className="w-4 h-4 mr-2" />
@@ -191,7 +204,7 @@ export const Footer = () => {
               </Text>
             </div>
             <div className="flex items-center space-x-4">
-              <Text size="sm" weight="normal" color="accent">
+              <Text size="sm" weight="normal" color="success">
                 Available for remote opportunities
               </Text>
               <BackToTopButton />

@@ -12,6 +12,7 @@ export interface BadgeProps {
     | 'info'
     | 'accent'
   size?: 'sm' | 'md' | 'lg'
+  weight?: 'medium' | 'semibold'
   rounded?: boolean
   className?: string
   style?: React.CSSProperties
@@ -22,12 +23,19 @@ export const Badge = ({
   variant = 'soft',
   color = 'default',
   size = 'md',
+  weight = 'medium',
   rounded = false,
   className = '',
   style,
 }: BadgeProps) => {
   const baseClasses =
-    'inline-flex items-center border focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 font-medium transition-all duration-200'
+    'inline-flex items-center border focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-all duration-200'
+
+  // Weight styles
+  const weightClasses = {
+    medium: 'font-medium',
+    semibold: 'font-semibold',
+  }
 
   // Size styles
   const sizeClasses = {
@@ -64,7 +72,7 @@ export const Badge = ({
     },
     soft: {
       default:
-        'bg-gray-700/50 text-gray-300 border-gray-600/30 hover:bg-gray-600/60 hover:scale-105',
+        'bg-slate-700/50 text-slate-300 hover:bg-slate-600/60 border-slate-600/30 hover:scale-105',
       primary:
         'bg-teal-600/20 text-white border-teal-400/30 hover:bg-teal-500/30 backdrop-blur-sm',
       success:
@@ -84,6 +92,7 @@ export const Badge = ({
 
   const combinedClasses = [
     baseClasses,
+    weightClasses[weight],
     sizeClasses[size],
     variantColorClasses[variant][color],
     roundedClasses,

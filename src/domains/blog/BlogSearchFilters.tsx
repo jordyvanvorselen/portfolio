@@ -60,7 +60,7 @@ export const BlogSearchFilters = () => {
             <Filter
               key={category}
               variant={activeFilter === category ? 'active' : 'default'}
-              color="primary"
+              color="default"
               onClick={() => handleFilterClick(category)}
             >
               {category}

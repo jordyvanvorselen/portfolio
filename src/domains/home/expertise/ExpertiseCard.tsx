@@ -34,7 +34,7 @@ export const ExpertiseCard = ({
           <IconContainer
             color={iconColor}
             variant="rounded"
-            effect="blur"
+            effect="glow"
             interactive="scale"
             size="md"
           >
@@ -42,7 +42,14 @@ export const ExpertiseCard = ({
           </IconContainer>
         </div>
         <div className="flex-1">
-          <Title size="lg" weight="bold" color="accent" align="left" as="h3">
+          <Title
+            size="lg"
+            weight="bold"
+            color="accent"
+            align="left"
+            as="h3"
+            className="mb-2 leading-tight"
+          >
             {title}
           </Title>
         </div>
@@ -54,13 +61,22 @@ export const ExpertiseCard = ({
           color="secondary"
           alignment="left"
           lineHeight="relaxed"
+          className="text-[15px] mb-8"
         >
           {description}
         </Text>
       </div>
       <div className="mt-auto">
         <div className="space-y-4 mb-6">
-          <Title size="xs" weight="bold" color="muted" align="left" as="h4">
+          <Title
+            size="xs"
+            weight="bold"
+            color="muted"
+            align="left"
+            as="h4"
+            uppercase
+            tracking="wide"
+          >
             KEY SKILLS & TOOLS
           </Title>
           <div className="flex flex-wrap gap-2">
@@ -71,7 +87,7 @@ export const ExpertiseCard = ({
             ))}
           </div>
         </div>
-        <Divider>
+        <Divider color="muted">
           <div className="flex items-center justify-between w-full px-4">
             <div className="flex items-center gap-3">
               <Text
@@ -79,6 +95,7 @@ export const ExpertiseCard = ({
                 weight="bold"
                 color="primary"
                 style={{ color: iconColor }}
+                className="text-4xl"
               >
                 {publicationCount}
               </Text>

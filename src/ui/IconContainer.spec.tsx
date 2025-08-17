@@ -87,16 +87,19 @@ describe('IconContainer', () => {
     })
   })
 
-  describe.each(['none', 'blur'] as const)('effect variants', effect => {
-    it(`renders with ${effect} effect without errors`, () => {
-      render(
-        <IconContainer color="#10b981" effect={effect}>
-          <Star data-testid={`icon-effect-${effect}`} />
-        </IconContainer>
-      )
-      expect(screen.getByTestId(`icon-effect-${effect}`)).toBeVisible()
-    })
-  })
+  describe.each(['none', 'blur', 'glow'] as const)(
+    'effect variants',
+    effect => {
+      it(`renders with ${effect} effect without errors`, () => {
+        render(
+          <IconContainer color="#10b981" effect={effect}>
+            <Star data-testid={`icon-effect-${effect}`} />
+          </IconContainer>
+        )
+        expect(screen.getByTestId(`icon-effect-${effect}`)).toBeVisible()
+      })
+    }
+  )
 
   describe('effect defaults', () => {
     it('renders with none effect as default', () => {

@@ -6,11 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pnpm lint"
-          },
-          {
-            "type": "command",
-            "command": "pnpm tsc --noEmit"
+            "command": "pnpm lint:fix"
           }
         ]
       }

@@ -30,15 +30,14 @@ export const Filter = ({
   const colorStyles = {
     default: {
       default:
-        'border border-gray-600 text-gray-300 hover:text-white hover:border-gray-500 bg-transparent shadow-sm hover:bg-gray-800/50',
-      active:
-        'bg-gray-700 hover:bg-gray-600 text-white shadow border border-gray-600',
+        'border border-gray-600 text-gray-300 hover:text-white hover:border-teal-500 bg-transparent shadow-sm hover:bg-accent',
+      active: 'bg-teal-500 hover:bg-teal-600 text-white shadow',
       disabled:
         'border border-gray-700 text-gray-500 bg-transparent pointer-events-none opacity-50',
     },
     primary: {
       default:
-        'border border-teal-600 text-teal-300 hover:text-white hover:border-teal-500 bg-transparent shadow-sm hover:bg-teal-800/50',
+        'border border-gray-600 text-gray-300 hover:text-white hover:border-teal-500 bg-transparent shadow-sm hover:bg-accent',
       active: 'bg-teal-500 hover:bg-teal-600 text-white shadow',
       disabled:
         'border border-teal-700 text-teal-600 bg-transparent pointer-events-none opacity-50',

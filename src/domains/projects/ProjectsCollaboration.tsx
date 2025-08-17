@@ -14,7 +14,7 @@ export const ProjectsCollaboration = () => {
           size="2xl"
           weight="bold"
           color="primary"
-          align="left"
+          align="center"
           as="h2"
           className="mb-6"
         >

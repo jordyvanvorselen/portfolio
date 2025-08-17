@@ -104,4 +104,16 @@ describe('Badge', () => {
 
     expect(screen.getByText('Styled badge')).toBeVisible()
   })
+
+  describe.each([
+    { weight: 'medium', label: 'Medium Weight' },
+    { weight: 'semibold', label: 'Semibold Weight' },
+  ] as const)('weight prop: $weight', ({ weight, label }) => {
+    it(`renders with ${weight} weight prop`, () => {
+      render(<Badge weight={weight}>{label}</Badge>)
+
+      const badge = screen.getByText(label)
+      expect(badge).toBeVisible()
+    })
+  })
 })

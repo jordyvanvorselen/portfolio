@@ -98,6 +98,22 @@ describe('Text', () => {
 
       expect(screen.getByText('Override defaults')).toBeVisible()
     })
+
+    describe.each([
+      { lineClamp: 1, label: 'Single Line Text' },
+      { lineClamp: 2, label: 'Two Lines Text' },
+      { lineClamp: 3, label: 'Three Lines Text' },
+      { lineClamp: 4, label: 'Four Lines Text' },
+      { lineClamp: 5, label: 'Five Lines Text' },
+      { lineClamp: 6, label: 'Six Lines Text' },
+      { lineClamp: 'none', label: 'No Clamp Text' },
+    ] as const)('lineClamp prop: $lineClamp', ({ lineClamp, label }) => {
+      it(`renders with ${lineClamp} line clamp prop`, () => {
+        render(<Text lineClamp={lineClamp}>{label}</Text>)
+
+        expect(screen.getByText(label)).toBeVisible()
+      })
+    })
   })
 
   it('accepts custom className prop', () => {

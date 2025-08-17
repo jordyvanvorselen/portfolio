@@ -50,7 +50,16 @@ export const BlogCard = ({
             </div>
           </div>
 
-          <Title size="lg" weight="bold" color="accent" align="left" as="h3">
+          <Title
+            size="sm"
+            weight="bold"
+            color="primary"
+            align="left"
+            as="h3"
+            hoverColor="teal"
+            lineClamp={2}
+            className="text-xl mb-3 transition-colors duration-300"
+          >
             {title}
           </Title>
 
@@ -60,6 +69,8 @@ export const BlogCard = ({
             color="secondary"
             alignment="left"
             lineHeight="relaxed"
+            lineClamp={3}
+            className="mb-4"
           >
             {description}
           </Text>

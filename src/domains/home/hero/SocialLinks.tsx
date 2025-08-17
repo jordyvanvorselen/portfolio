@@ -10,7 +10,7 @@ export const SocialLinks = () => {
         label="GitHub"
         icon={Github}
         variant="button"
-        size="lg"
+        size="md"
         color="muted"
         interactive="hover"
       />
@@ -19,7 +19,7 @@ export const SocialLinks = () => {
         label="LinkedIn"
         icon={Linkedin}
         variant="button"
-        size="lg"
+        size="md"
         color="muted"
         interactive="hover"
       />
@@ -28,7 +28,7 @@ export const SocialLinks = () => {
         label="Email"
         icon={Mail}
         variant="button"
-        size="lg"
+        size="md"
         color="muted"
         interactive="hover"
       />

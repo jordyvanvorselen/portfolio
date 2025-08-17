@@ -17,16 +17,24 @@ export const BlogHeroSection = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <Title size="4xl" weight="bold" color="gradient" align="left" as="h1">
+          <Title
+            size="4xl"
+            weight="bold"
+            color="gradient"
+            align="center"
+            as="h1"
+            className="mb-6 leading-tight"
+          >
             Engineering Insights
           </Title>
 
           <Text
-            size="xl"
+            size="2xl"
             weight="normal"
             color="secondary"
-            alignment="left"
+            alignment="center"
             lineHeight="relaxed"
+            className="max-w-4xl mx-auto mb-8"
           >
             Thoughts, tutorials, and deep dives into software engineering,
             architecture, and modern development practices.

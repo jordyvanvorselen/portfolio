@@ -11,7 +11,7 @@ export const Divider = ({
   children,
   variant = 'line',
   color = 'default',
-  thickness = 'medium',
+  thickness = 'thin',
   className = '',
   ...props
 }: DividerProps) => {

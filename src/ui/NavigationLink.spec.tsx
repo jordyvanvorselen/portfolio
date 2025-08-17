@@ -84,9 +84,32 @@ describe('NavigationLink', () => {
       })
     })
 
+    describe.each(['normal', 'medium', 'semibold', 'bold'] as const)(
+      'weight prop: %s',
+      weight => {
+        it(`accepts ${weight} weight`, () => {
+          render(
+            <NavigationLink href="/test" weight={weight}>
+              Test
+            </NavigationLink>
+          )
+
+          const link = screen.getByRole('link', { name: 'Test' })
+          expect(link).toBeVisible()
+          expect(link).toHaveAttribute('href', '/test')
+        })
+      }
+    )
+
     it('accepts multiple design system props', () => {
       render(
-        <NavigationLink href="/test" variant="active" size="lg" color="accent">
+        <NavigationLink
+          href="/test"
+          variant="active"
+          size="lg"
+          color="accent"
+          weight="bold"
+        >
           Test
         </NavigationLink>
       )

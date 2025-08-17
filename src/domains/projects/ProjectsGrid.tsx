@@ -139,10 +139,23 @@ export const ProjectsGrid = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-20">
-          <Title size="2xl" weight="bold" color="primary" align="left" as="h2">
+          <Title
+            size="2xl"
+            weight="bold"
+            color="primary"
+            align="center"
+            as="h2"
+            className="mb-4"
+          >
             Featured Projects
           </Title>
-          <Text size="xl" weight="normal" color="secondary" alignment="center">
+          <Text
+            size="xl"
+            weight="normal"
+            color="secondary"
+            alignment="center"
+            className="max-w-3xl mx-auto"
+          >
             Each project represents hours of dedication, innovative
             problem-solving, and a commitment to building tools that make
             developers&apos; lives easier.

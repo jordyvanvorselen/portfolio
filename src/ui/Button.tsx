@@ -38,7 +38,7 @@ const getVariantStyles = (
     primary: {
       solid: disabled
         ? 'bg-teal-300 text-white cursor-not-allowed'
-        : 'bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white shadow shadow-teal-500/20',
+        : 'bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white shadow shadow-teal-500/20 transition-all duration-300',
       outline: disabled
         ? 'border border-teal-300 text-teal-300 cursor-not-allowed'
         : 'border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white active:bg-teal-600',
@@ -52,7 +52,7 @@ const getVariantStyles = (
     secondary: {
       solid: disabled
         ? 'bg-gray-300 text-white cursor-not-allowed'
-        : 'bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white',
+        : 'bg-slate-900/15 hover:bg-slate-800/15 text-white border-2 border-gray-500/30',
       outline: disabled
         ? 'border border-gray-300 text-gray-300 cursor-not-allowed'
         : 'border border-gray-500 text-gray-500 hover:bg-gray-500 hover:text-white active:bg-gray-600',
@@ -112,23 +112,23 @@ const getVariantStyles = (
 
 const getSizeStyles = (size: ButtonSize, variant: ButtonVariant) => {
   const baseStyles =
-    'inline-flex items-center justify-center transition-all duration-300 font-medium'
+    'inline-flex items-center justify-center transition-all duration-300'
 
   const sizeConfig = {
-    xs: 'h-8 px-3 text-xs rounded-md',
-    sm: 'h-9 px-4 text-sm rounded-md',
-    md: 'px-4 py-2 text-base rounded-lg',
-    lg: 'px-6 py-3 text-lg rounded-lg',
+    xs: 'h-8 px-3 text-xs font-medium rounded-md',
+    sm: 'h-9 px-4 text-sm font-medium rounded-md',
+    md: 'px-4 py-2 text-base font-medium rounded-lg',
+    lg: 'px-6 py-3 text-lg font-medium rounded-lg',
     xl: 'px-8 md:px-12 lg:px-18 py-4 md:py-5 lg:py-7 text-lg md:text-xl lg:text-2xl font-bold rounded-lg lg:rounded-xl',
   }
 
   // Remove default padding for link variant
   if (variant === 'link') {
     const linkSizes = {
-      xs: 'text-xs',
-      sm: 'text-sm',
-      md: 'text-base',
-      lg: 'text-lg',
+      xs: 'text-xs font-medium',
+      sm: 'text-sm font-medium',
+      md: 'text-base font-medium',
+      lg: 'text-lg font-medium',
       xl: 'text-lg md:text-xl lg:text-2xl font-bold',
     }
     return `${baseStyles} ${linkSizes[size]}`

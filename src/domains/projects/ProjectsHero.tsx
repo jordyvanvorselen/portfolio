@@ -29,6 +29,7 @@ export const ProjectsHero = () => {
             color="primary"
             align="center"
             as="h1"
+            className="mb-6"
           >
             <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
               Open Source Projects
@@ -37,11 +38,12 @@ export const ProjectsHero = () => {
 
           {/* Description */}
           <Text
-            size="xl"
+            size="2xl"
             weight="normal"
             color="secondary"
             alignment="center"
             lineHeight="relaxed"
+            className="mb-12 max-w-3xl mx-auto"
           >
             A collection of innovative software solutions born from curiosity,
             continuous learning, and the pure joy of building something
@@ -56,6 +58,7 @@ export const ProjectsHero = () => {
               label="Projects"
               icon={<Code className="w-4 h-4" />}
               color="primary"
+              size="lg"
             />
             <div className="w-px h-6 bg-gray-600" />
             <StatItem
@@ -63,6 +66,7 @@ export const ProjectsHero = () => {
               label="Stars"
               icon={<Star className="w-4 h-4" />}
               color="accent"
+              size="lg"
             />
             <div className="w-px h-6 bg-gray-600" />
             <StatItem
@@ -70,6 +74,7 @@ export const ProjectsHero = () => {
               label="Forks"
               icon={<Github className="w-4 h-4" />}
               color="secondary"
+              size="lg"
             />
           </div>
         </div>

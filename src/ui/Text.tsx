@@ -3,9 +3,10 @@ import { ReactNode, CSSProperties } from 'react'
 // Design token types
 export type TextSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl'
 export type TextWeight = 'normal' | 'medium' | 'semibold' | 'bold'
-export type TextColor = 'primary' | 'secondary' | 'muted' | 'accent'
+export type TextColor = 'primary' | 'secondary' | 'muted' | 'accent' | 'success'
 export type TextLineHeight = 'tight' | 'normal' | 'relaxed' | 'loose'
 export type TextAlignment = 'left' | 'center' | 'right'
+export type TextLineClamp = 1 | 2 | 3 | 4 | 5 | 6 | 'none'
 
 export interface TextProps {
   children: ReactNode
@@ -14,92 +15,90 @@ export interface TextProps {
   color?: TextColor
   lineHeight?: TextLineHeight
   alignment?: TextAlignment
+  lineClamp?: TextLineClamp
   className?: string
   style?: CSSProperties
 }
 
-// Utility functions to map design tokens to Tailwind classes
-const getSizeClass = (size: TextSize): string => {
-  const sizeMap: Record<TextSize, string> = {
+export const Text = ({
+  children,
+  size = 'base',
+  weight = 'normal',
+  color = 'secondary',
+  lineHeight = 'normal',
+  alignment = 'left',
+  lineClamp = 'none',
+  className = '',
+  style,
+}: TextProps) => {
+  // Size styles
+  const sizeStyles = {
     xs: 'text-xs',
     sm: 'text-sm',
     base: 'text-base',
     lg: 'text-lg',
     xl: 'text-xl',
-    '2xl': 'text-2xl',
+    '2xl': 'text-xl lg:text-2xl',
   }
-  return sizeMap[size]
-}
 
-const getWeightClass = (weight: TextWeight): string => {
-  const weightMap: Record<TextWeight, string> = {
+  // Weight styles
+  const weightStyles = {
     normal: 'font-normal',
     medium: 'font-medium',
     semibold: 'font-semibold',
     bold: 'font-bold',
   }
-  return weightMap[weight]
-}
 
-const getColorClass = (color: TextColor): string => {
-  const colorMap: Record<TextColor, string> = {
+  // Color styles
+  const colorStyles = {
     primary: 'text-slate-100',
     secondary: 'text-gray-300',
     muted: 'text-gray-400',
     accent: 'text-teal-500',
+    success: 'text-[#10b981]',
   }
-  return colorMap[color]
-}
 
-const getLineHeightClass = (lineHeight: TextLineHeight): string => {
-  const lineHeightMap: Record<TextLineHeight, string> = {
+  // Line height styles
+  const lineHeightStyles = {
     tight: 'leading-tight',
     normal: 'leading-normal',
     relaxed: 'leading-relaxed',
     loose: 'leading-loose',
   }
-  return lineHeightMap[lineHeight]
-}
 
-const getAlignmentClass = (alignment: TextAlignment): string => {
-  const alignmentMap: Record<TextAlignment, string> = {
+  // Alignment styles
+  const alignmentStyles = {
     left: 'text-left',
     center: 'text-center',
     right: 'text-right',
   }
-  return alignmentMap[alignment]
-}
 
-export const Text = ({
-  children,
-  size,
-  weight,
-  color,
-  lineHeight,
-  alignment,
-  className = '',
-  style,
-}: TextProps) => {
-  // Use design token system with defaults
-  const defaultSize: TextSize = 'base'
-  const defaultWeight: TextWeight = 'normal'
-  const defaultColor: TextColor = 'secondary'
-  const defaultLineHeight: TextLineHeight = 'normal'
-  const defaultAlignment: TextAlignment = 'left'
+  // Line clamp styles
+  const lineClampStyles = {
+    1: 'line-clamp-1',
+    2: 'line-clamp-2',
+    3: 'line-clamp-3',
+    4: 'line-clamp-4',
+    5: 'line-clamp-5',
+    6: 'line-clamp-6',
+    none: '',
+  }
 
-  const classes = [
-    getSizeClass(size ?? defaultSize),
-    getWeightClass(weight ?? defaultWeight),
-    getColorClass(color ?? defaultColor),
-    getLineHeightClass(lineHeight ?? defaultLineHeight),
-    getAlignmentClass(alignment ?? defaultAlignment),
+  const combinedClasses = [
+    sizeStyles[size],
+    weightStyles[weight],
+    colorStyles[color],
+    lineHeightStyles[lineHeight],
+    alignmentStyles[alignment],
+    lineClampStyles[lineClamp],
     className,
   ]
     .filter(Boolean)
     .join(' ')
+    .trim()
 
   return (
-    <p className={classes} style={style}>
+    <p className={combinedClasses} style={style}>
       {children}
     </p>
   )

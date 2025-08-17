@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 // Design system types
 export type IconContainerVariant = 'default' | 'rounded' | 'circle'
 export type IconContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
-export type IconContainerEffect = 'none' | 'blur'
+export type IconContainerEffect = 'none' | 'blur' | 'glow'
 export type IconContainerInteractive = 'static' | 'hover' | 'scale'
 
 export interface IconContainerProps {
@@ -46,6 +46,7 @@ export const IconContainer = ({
   const effectClasses = {
     none: '',
     blur: 'backdrop-blur-sm',
+    glow: 'backdrop-blur-sm',
   }
 
   // Interactive classes
@@ -69,6 +70,7 @@ export const IconContainer = ({
   const containerStyle = {
     backgroundColor: `${color}20`,
     color: color,
+    ...(effect === 'glow' && { filter: `drop-shadow(0 0 8px ${color}40)` }),
   }
 
   const combinedClasses = [

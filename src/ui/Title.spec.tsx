@@ -23,6 +23,7 @@ describe('Title', () => {
       { size: '2xl', label: '2X Large' },
       { size: '3xl', label: '3X Large' },
       { size: '4xl', label: '4X Large' },
+      { size: '5xl', label: '5X Large' },
     ] as const)('size prop: $size', ({ size, label }) => {
       it(`renders with ${size} size prop`, () => {
         render(<Title size={size}>{label}</Title>)
@@ -94,7 +95,7 @@ describe('Title', () => {
 
     it('renders with custom element type using as prop', () => {
       render(
-        <Title as="h1" size="4xl">
+        <Title as="h1" size="5xl">
           Custom Element
         </Title>
       )
@@ -102,6 +103,68 @@ describe('Title', () => {
       const heading = screen.getByRole('heading', {
         level: 1,
         name: 'Custom Element',
+      })
+      expect(heading).toBeVisible()
+    })
+
+    it('renders with uppercase prop', () => {
+      render(<Title uppercase>Uppercase Title</Title>)
+
+      const heading = screen.getByRole('heading', { name: 'Uppercase Title' })
+      expect(heading).toBeVisible()
+    })
+
+    describe.each([
+      { tracking: 'normal', label: 'Normal Tracking' },
+      { tracking: 'wide', label: 'Wide Tracking' },
+      { tracking: 'wider', label: 'Wider Tracking' },
+    ] as const)('tracking prop: $tracking', ({ tracking, label }) => {
+      it(`renders with ${tracking} tracking prop`, () => {
+        render(<Title tracking={tracking}>{label}</Title>)
+
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
+    })
+
+    describe.each([
+      { hoverColor: 'teal', label: 'Teal Hover' },
+      { hoverColor: 'blue', label: 'Blue Hover' },
+      { hoverColor: 'white', label: 'White Hover' },
+      { hoverColor: 'none', label: 'No Hover' },
+    ] as const)('hoverColor prop: $hoverColor', ({ hoverColor, label }) => {
+      it(`renders with ${hoverColor} hover color prop`, () => {
+        render(<Title hoverColor={hoverColor}>{label}</Title>)
+
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
+    })
+
+    describe.each([
+      { lineClamp: 1, label: 'Single Line' },
+      { lineClamp: 2, label: 'Two Lines' },
+      { lineClamp: 3, label: 'Three Lines' },
+      { lineClamp: 4, label: 'Four Lines' },
+      { lineClamp: 'none', label: 'No Clamp' },
+    ] as const)('lineClamp prop: $lineClamp', ({ lineClamp, label }) => {
+      it(`renders with ${lineClamp} line clamp prop`, () => {
+        render(<Title lineClamp={lineClamp}>{label}</Title>)
+
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
+    })
+
+    it('combines uppercase and tracking props correctly', () => {
+      render(
+        <Title uppercase tracking="wide">
+          Uppercase Wide Tracking
+        </Title>
+      )
+
+      const heading = screen.getByRole('heading', {
+        name: 'Uppercase Wide Tracking',
       })
       expect(heading).toBeVisible()
     })
