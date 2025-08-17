@@ -65,8 +65,6 @@ test.describe('Footer', () => {
   })
 
   test('footer visual regression', async ({ homePage }) => {
-    await expect(homePage.footer.section).toHaveScreenshot('footer.png', {
-      animations: 'disabled',
-    })
+    await expect(homePage.footer.section).toHaveScreenshot('footer.png')
   })
 })

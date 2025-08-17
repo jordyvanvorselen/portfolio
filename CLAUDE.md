@@ -59,6 +59,11 @@
 - **Test (all)**: `pnpm test`
 - **Test (unit)**: `pnpm test:unit`
 - **Test (integration)**: `pnpm test:integration`
+- **Test (integration, Docker)**: `pnpm test:integration:docker`
+- **Test (visual regression)**: `pnpm test:visual-regression`
+- **Test (visual regression, Docker)**: `pnpm test:visual-regression:docker`
+- **Fix visual regression baselines**: `pnpm test:visual-regression:fix`
+- **Fix visual regression baselines (Docker)**: `pnpm test:visual-regression:fix:docker`
 
 ## 🧪 Testing Practices
 
@@ -66,7 +71,8 @@
 - **Mocking**: prefer using `msw`, use `vi.mock()` only if really necessary
 - **Test all command**: `pnpm test`
 - **Test unit command**: `pnpm test:unit`
-- **Test integration command**: `pnpm test:integration`
+- **Test integration command**: `pnpm test:integration` (excludes visual regression tests)
+- **Test visual regression command**: `pnpm test:visual-regression`
 - **Coverage requirement**: Unit tests MUST achieve 100% code coverage
 - Organize unit / component tests co-located with components
 - Organize integration tests in the `integration-tests` folder
@@ -75,7 +81,7 @@
 - Use `describe` blocks to group related tests
 - Use `beforeEach` and `afterEach` for setup/teardown
 - Use `it` for individual test cases, NOT `test`
-- Integration tests are ran with `pnpm test:integration`, unit tests are ran with `pnpm test:unit`
+- Integration tests are ran with `pnpm test:integration` (excludes visual regression), unit tests are ran with `pnpm test:unit`, visual regression tests are ran with `pnpm test:visual-regression`
 
 ### 🎭 Playwright Page Object Model
 
@@ -177,16 +183,16 @@ test('displays header branding', async ({ homePage }) => {
 
    ```typescript
    test('section visual regression', async ({ homePage }) => {
-     await expect(homePage.section.locator).toHaveScreenshot('section.png', {
-       animations: 'disabled',
-     })
+     await expect(homePage.section.locator).toHaveScreenshot('section.png')
    })
    ```
 
 2. **Generate Baselines**: Run tests with `--update-snapshots` to create initial screenshot baselines:
 
    ```bash
-   pnpm test:integration --update-snapshots
+   pnpm test:visual-regression:fix
+   # OR for Docker (ensures consistent environment):
+   pnpm test:visual-regression:fix:docker
    ```
 
 3. **Browser Coverage**: Tests run on Chrome and Firefox (WebKit excluded due to MSW compatibility)
@@ -195,8 +201,20 @@ test('displays header branding', async ({ homePage }) => {
 
 5. **Updating Screenshots**: When making intentional styling changes, regenerate baselines:
    ```bash
-   pnpm test:integration SectionName.spec.ts --update-snapshots
+   pnpm test:visual-regression:fix -- SectionName.spec.ts
+   # OR for Docker:
+   pnpm test:visual-regression:fix:docker
    ```
+
+### Docker Testing (Recommended for Visual Regression)
+
+**Docker ensures consistent test environments between local development and CI**:
+
+- **Integration Tests**: `pnpm test:integration:docker`
+- **Visual Regression**: `pnpm test:visual-regression:docker`
+- **Update Screenshots**: `pnpm test:visual-regression:fix:docker`
+
+Use Docker commands especially for visual regression tests to ensure screenshots match CI exactly.
 
 ### Manual Visual Testing Workflow (Design Comparison)
 
@@ -403,7 +421,7 @@ When working on GitHub issues, follow this precise workflow:
 
 Follow this process precisely, always prioritizing clean, well-tested code over quick implementation.
 
-Always write one test at a time, make it run, then improve structure. Always run all the tests using `pnpm test` (except long-running tests) each time.
+Always write one test at a time, make it run, then improve structure. Always run all the tests using `pnpm test` (except visual regression tests) each time.
 
 Make any necessary structural changes (Tidy First), running tests after each change
 
@@ -557,6 +575,7 @@ BREAKING-CHANGE MUST be synonymous with BREAKING CHANGE, when used as a token in
   - **orchestrator**: Complex multi-agent coordination
 - Never default to manual execution when a specialized subagent would be more effective
 - Use the qa subagent specifically for visual testing and screenshot comparisons
+- **MAXIMIZE PARALLELIZATION**: When working on multiple independent tasks (like extending UI components, refactoring different files, or similar operations), ALWAYS use multiple Task tool calls in a single message to run them in parallel for optimal performance and efficiency
 
 # MISC
 

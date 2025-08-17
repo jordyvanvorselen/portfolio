@@ -10,6 +10,8 @@ interface BaseButtonProps {
     | 'footer-action'
     | 'project-primary'
     | 'project-secondary'
+    | 'github'
+    | 'demo'
   size?: 'small' | 'large'
   className?: string
 }
@@ -52,6 +54,9 @@ export const Button = forwardRef<
         'bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white shadow-lg hover:shadow-teal-500/25 transition-all duration-300',
       'project-secondary':
         'border border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white hover:border-gray-500 transition-all duration-300',
+      github:
+        'bg-teal-500/20 text-teal-300 border border-teal-500/30 hover:bg-teal-500/30 hover:text-teal-200 transition-all duration-300 rounded-full px-6 h-9 py-2',
+      demo: 'text-gray-300 hover:text-white hover:bg-gray-800/50 transition-all duration-300 rounded-full px-6 h-9 py-2',
     }
 
     const sizeStyles = {

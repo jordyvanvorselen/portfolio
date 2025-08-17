@@ -14,9 +14,9 @@ export default defineConfig({
   },
   expect: {
     toHaveScreenshot: {
-      // Platform-specific snapshot paths organized by platform folders
+      animations: 'disabled',
       pathTemplate:
-        '{testDir}/{testFileDir}/__screenshots__/{platform}/{arg}-{testFileName}-{projectName}{ext}',
+        '{testDir}/{testFileDir}/__screenshots__/{arg}-{testFileName}-{projectName}{ext}',
     },
   },
   projects: [

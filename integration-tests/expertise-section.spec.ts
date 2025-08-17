@@ -105,10 +105,7 @@ test.describe('Expertise Section', () => {
 
   test('expertise section visual regression', async ({ homePage }) => {
     await expect(homePage.expertiseSection.section).toHaveScreenshot(
-      'expertise-section.png',
-      {
-        animations: 'disabled',
-      }
+      'expertise-section.png'
     )
   })
 })

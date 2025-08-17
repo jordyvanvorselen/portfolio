@@ -1,16 +1,12 @@
-import {
-  ExternalLinkIcon,
-  GithubIcon,
-  StarIcon,
-  GitForkIcon,
-} from 'lucide-react'
+import { ExternalLink, Github, Star, GitFork } from 'lucide-react'
 import Image from 'next/image'
 
-import { Button } from '@/ui/Button'
-import { Badge } from '@/ui/Badge'
 import { StatItem } from '@/ui/StatItem'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
+import { Badge } from '@/ui/Badge'
+import { Button } from '@/ui/Button'
+import { StatusBadge } from '@/ui/StatusBadge'
 import { Project } from '@/types/project'
 
 interface ProjectCardProps {
@@ -24,33 +20,33 @@ export const ProjectCard = ({
   reversed = false,
   index = 0,
 }: ProjectCardProps) => {
+  const isFeatured = index < 4
+  const animationDirection = reversed
+    ? 'slide-in-from-right-10'
+    : 'slide-in-from-left-10'
+
   return (
-    <article
-      className={`group relative overflow-hidden transition-all duration-700 ${
-        reversed
-          ? 'animate-in slide-in-from-right-10'
-          : 'animate-in slide-in-from-left-10'
-      }`}
+    <div
+      role="article"
+      className={`group relative overflow-hidden rounded-xl hover:bg-gray-900/20 transition-all duration-500 p-8 animate-in ${animationDirection}`}
       style={{ animationDelay: `${index * 200}ms` }}
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
+      {/* Background gradient on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
       <div
-        className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-12 py-16 px-6 lg:px-8 ${
-          reversed ? 'lg:flex-row-reverse' : ''
-        }`}
+        className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-12 ${reversed ? 'lg:flex-row-reverse' : ''}`}
       >
         {/* Image Section */}
         <div className="flex-1 relative">
-          <div className="relative overflow-hidden rounded-2xl shadow-2xl group-hover:shadow-teal-500/20 transition-all duration-500">
-            <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+          <div className="relative overflow-hidden rounded-xl shadow-2xl group-hover:shadow-teal-500/10 transition-all duration-500 border border-gray-800 group-hover:border-gray-700">
+            <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-blue-500/10 opacity-0 group-hover:opacity-30 transition-opacity duration-500 z-10" />
 
             <Image
               src={project.image}
               alt={project.title}
               width={800}
-              height={600}
+              height={400}
               className="w-full h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-700"
             />
 
@@ -59,15 +55,22 @@ export const ProjectCard = ({
               <StatItem
                 value={project.stars}
                 label="stars"
-                icon={<StarIcon className="w-3 h-3 text-yellow-400" />}
+                icon={<Star className="w-3 h-3 text-yellow-400" />}
                 variant="floating"
               />
               <StatItem
                 value={project.forks}
                 label="forks"
-                icon={<GitForkIcon className="w-3 h-3 text-gray-300" />}
+                icon={<GitFork className="w-3 h-3 text-gray-300" />}
                 variant="floating"
               />
+            </div>
+
+            {/* Status badge */}
+            <div className="absolute bottom-4 left-4 z-20">
+              <StatusBadge variant={isFeatured ? 'active' : 'maintained'}>
+                {isFeatured ? 'Active' : 'Maintained'}
+              </StatusBadge>
             </div>
           </div>
         </div>
@@ -79,11 +82,17 @@ export const ProjectCard = ({
               <Title variant="project-card-title">{project.title}</Title>
             </div>
 
-            <Text variant="project-card-description">
+            <Text
+              variant="project-card-description"
+              className="group-hover:text-gray-200 transition-colors duration-300"
+            >
               {project.description}
             </Text>
 
-            <Text variant="project-card-long-description">
+            <Text
+              variant="project-card-long-description"
+              className="group-hover:text-gray-300 transition-colors duration-300"
+            >
               {project.longDescription}
             </Text>
           </div>
@@ -94,8 +103,8 @@ export const ProjectCard = ({
             <div className="flex flex-wrap gap-2">
               {project.technologies.map((tech, techIndex) => (
                 <Badge
+                  variant="project-tech"
                   key={tech}
-                  variant="technology"
                   style={{
                     animationDelay: `${index * 200 + techIndex * 50}ms`,
                   }}
@@ -107,31 +116,33 @@ export const ProjectCard = ({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap gap-4 pt-2">
+          <div className="flex flex-wrap gap-4 pt-4 border-t border-gray-700/30">
             <Button
+              variant="github"
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              variant="project-primary"
+              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 shadow flex items-center gap-2"
             >
-              <GithubIcon className="w-4 h-4 mr-2" />
+              <Github className="w-4 h-4" aria-hidden="true" />
               View Source
             </Button>
 
             {project.liveUrl && (
               <Button
+                variant="demo"
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                variant="project-secondary"
+                className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex items-center gap-2"
               >
-                <ExternalLinkIcon className="w-4 h-4 mr-2" />
+                <ExternalLink className="w-4 h-4" aria-hidden="true" />
                 Live Demo
               </Button>
             )}
           </div>
         </div>
       </div>
-    </article>
+    </div>
   )
 }

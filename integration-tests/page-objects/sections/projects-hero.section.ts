@@ -9,9 +9,9 @@ export class ProjectsHero extends BaseSection {
 
   readonly title: Locator = this.section.getByRole('heading', { level: 1 })
   readonly description: Locator = this.section.getByText(
-    /crafting innovative solutions/i
+    /A collection of innovative software solutions/i
   )
-  readonly projectsCount: Locator = this.section.getByText('15')
-  readonly starsCount: Locator = this.section.getByText('2,500')
-  readonly forksCount: Locator = this.section.getByText('425')
+  readonly projectsCount: Locator = this.section.getByText('6')
+  readonly starsCount: Locator = this.section.getByText('12,037')
+  readonly forksCount: Locator = this.section.getByText('1,543')
 }

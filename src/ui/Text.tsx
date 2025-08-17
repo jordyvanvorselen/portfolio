@@ -21,6 +21,8 @@ export interface TextProps {
     | 'projects-grid-description'
     | 'project-card-description'
     | 'project-card-long-description'
+    | 'scroll-indicator-main'
+    | 'scroll-indicator-subtitle'
   className?: string
   style?: CSSProperties
 }
@@ -55,6 +57,10 @@ export const Text = ({
     'projects-grid-description': 'text-xl text-gray-300 max-w-3xl mx-auto',
     'project-card-description': 'text-gray-300 text-lg leading-relaxed',
     'project-card-long-description': 'text-gray-400 leading-relaxed',
+    'scroll-indicator-main':
+      'text-sm md:text-base text-slate-300 group-hover:text-teal-500 transition-colors duration-300',
+    'scroll-indicator-subtitle':
+      'text-xs text-slate-300/70 group-hover:text-slate-300 transition-colors duration-300',
   }
 
   const combinedClasses = `${variantClasses[variant]} ${className}`.trim()
