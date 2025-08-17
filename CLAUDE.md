@@ -59,8 +59,11 @@
 - **Test (all)**: `pnpm test`
 - **Test (unit)**: `pnpm test:unit`
 - **Test (integration)**: `pnpm test:integration`
+- **Test (integration, Docker)**: `pnpm test:integration:docker`
 - **Test (visual regression)**: `pnpm test:visual-regression`
+- **Test (visual regression, Docker)**: `pnpm test:visual-regression:docker`
 - **Fix visual regression baselines**: `pnpm test:visual-regression:fix`
+- **Fix visual regression baselines (Docker)**: `pnpm test:visual-regression:fix:docker`
 
 ## 🧪 Testing Practices
 
@@ -188,6 +191,8 @@ test('displays header branding', async ({ homePage }) => {
 
    ```bash
    pnpm test:visual-regression:fix
+   # OR for Docker (ensures consistent environment):
+   pnpm test:visual-regression:fix:docker
    ```
 
 3. **Browser Coverage**: Tests run on Chrome and Firefox (WebKit excluded due to MSW compatibility)
@@ -197,7 +202,19 @@ test('displays header branding', async ({ homePage }) => {
 5. **Updating Screenshots**: When making intentional styling changes, regenerate baselines:
    ```bash
    pnpm test:visual-regression:fix -- SectionName.spec.ts
+   # OR for Docker:
+   pnpm test:visual-regression:fix:docker
    ```
+
+### Docker Testing (Recommended for Visual Regression)
+
+**Docker ensures consistent test environments between local development and CI**:
+
+- **Integration Tests**: `pnpm test:integration:docker`
+- **Visual Regression**: `pnpm test:visual-regression:docker`
+- **Update Screenshots**: `pnpm test:visual-regression:fix:docker`
+
+Use Docker commands especially for visual regression tests to ensure screenshots match CI exactly.
 
 ### Manual Visual Testing Workflow (Design Comparison)
 
