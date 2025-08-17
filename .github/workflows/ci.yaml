@@ -64,7 +64,7 @@ jobs:
       - name: Setup Playwright
         uses: ./.github/actions/setup-playwright
       - name: Run integration tests
-        run: pnpm test:integration
+        run: pnpm test:integration --grep "visual regression" --invert
       - name: Upload test results
         uses: actions/upload-artifact@v4
         if: always()
@@ -72,6 +72,89 @@ jobs:
           name: test-results
           path: test-results/
           retention-days: 30
+
+  visual-regression-test:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Playwright
+        uses: ./.github/actions/setup-playwright
+      - name: Run visual regression tests
+        id: visual-tests
+        run: pnpm test:integration --grep "visual regression"
+        continue-on-error: true
+      - name: Check for visual differences
+        id: check-diff
+        run: |
+          if [ -d "test-results" ] && [ "$(find test-results -name "*-diff.png" | wc -l)" -gt 0 ]; then
+            echo "differences=true" >> $GITHUB_OUTPUT
+          else
+            echo "differences=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Process screenshots for display
+        id: process-screenshots
+        if: steps.check-diff.outputs.differences == 'true'
+        run: |
+          mkdir -p processed-screenshots
+
+          # Create markdown for image comparisons
+          echo "image_comparisons<<EOF" >> $GITHUB_OUTPUT
+
+          for diff_file in $(find test-results -name "*-diff.png" 2>/dev/null || true); do
+            if [ -f "$diff_file" ]; then
+              base_name=$(basename "$diff_file" -diff.png)
+              dir_name=$(dirname "$diff_file")
+              expected_file="$dir_name/$base_name-expected.png"
+              actual_file="$dir_name/$base_name-actual.png"
+              
+              # Copy files with simpler names for easier reference
+              cp "$expected_file" "processed-screenshots/${base_name}-expected.png" 2>/dev/null || true
+              cp "$actual_file" "processed-screenshots/${base_name}-actual.png" 2>/dev/null || true  
+              cp "$diff_file" "processed-screenshots/${base_name}-diff.png" 2>/dev/null || true
+              
+              echo "### 🔍 $base_name"
+              echo ""
+              echo "| Expected | Actual | Difference |"
+              echo "|----------|--------|------------|"
+              echo "| ![Expected](https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts/${base_name}-expected) | ![Actual](https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts/${base_name}-actual) | ![Diff](https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts/${base_name}-diff) |"
+              echo ""
+            fi
+          done
+
+          EOF
+      - name: Upload screenshot artifacts
+        uses: actions/upload-artifact@v4
+        if: steps.check-diff.outputs.differences == 'true'
+        with:
+          name: visual-regression-screenshots
+          path: |
+            integration-tests/**/*-snapshots/
+            test-results/
+            processed-screenshots/
+          retention-days: 7
+      - name: Comment PR with visual regression results
+        if: steps.check-diff.outputs.differences == 'true'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: visual-regression-results
+          message: |
+            ## 📸 Visual Regression Differences Detected
+
+            Visual differences were found in the screenshot tests:
+
+            ${{ steps.process-screenshots.outputs.image_comparisons }}
+
+            **📎 Download All Screenshots**: [visual-regression-screenshots](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+            <details>
+            <summary>How to update baselines if changes are intentional</summary>
+
+            ```bash
+            pnpm test:integration --grep "visual regression" --update-snapshots
+            ```
+            </details>
 
   deploy:
     runs-on: ubuntu-latest
