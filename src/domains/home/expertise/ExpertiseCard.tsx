@@ -31,7 +31,7 @@ export const ExpertiseCard = ({
     <Card aria-label={ariaLabel}>
       <div className="flex items-start gap-4 mb-6">
         <div className="flex-shrink-0 mt-1">
-          <IconContainer color={iconColor} variant="expertise" size="md">
+          <IconContainer color={iconColor} legacyVariant="expertise" size="md">
             {icon}
           </IconContainer>
         </div>

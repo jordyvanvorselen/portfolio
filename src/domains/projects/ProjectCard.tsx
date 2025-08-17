@@ -68,7 +68,7 @@ export const ProjectCard = ({
 
             {/* Status badge */}
             <div className="absolute bottom-4 left-4 z-20">
-              <StatusBadge variant={isFeatured ? 'active' : 'maintained'}>
+              <StatusBadge status={isFeatured ? 'active' : 'maintained'}>
                 {isFeatured ? 'Active' : 'Maintained'}
               </StatusBadge>
             </div>

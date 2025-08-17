@@ -12,32 +12,53 @@ describe('BackToTopButton', () => {
     jest.clearAllMocks()
   })
 
-  it('renders back to top button', () => {
-    render(<BackToTopButton />)
+  describe.each([
+    { scenario: 'default behavior', onClick: undefined },
+    { scenario: 'custom onClick', onClick: jest.fn() },
+  ])('onClick prop: $scenario', ({ onClick }) => {
+    it('renders back to top button', () => {
+      render(<BackToTopButton {...(onClick ? { onClick } : {})} />)
 
-    expect(screen.getByRole('button', { name: /Back to top/ })).toBeVisible()
-  })
-
-  it('scrolls to top when clicked', () => {
-    render(<BackToTopButton />)
-
-    const button = screen.getByRole('button', { name: /Back to top/ })
-    fireEvent.click(button)
-
-    expect(window.scrollTo).toHaveBeenCalledWith({
-      top: 0,
-      behavior: 'smooth',
+      expect(screen.getByRole('button', { name: /Back to top/ })).toBeVisible()
     })
   })
 
-  it('calls custom onClick when provided', () => {
-    const mockOnClick = jest.fn()
-    render(<BackToTopButton onClick={mockOnClick} />)
+  describe.each([
+    {
+      scenario: 'default behavior',
+      onClick: undefined,
+      expectedScrollToCalls: 1,
+      expectedCustomCalls: 0,
+    },
+    {
+      scenario: 'custom onClick',
+      onClick: jest.fn(),
+      expectedScrollToCalls: 0,
+      expectedCustomCalls: 1,
+    },
+  ])(
+    'click interaction: $scenario',
+    ({ scenario, onClick, expectedScrollToCalls, expectedCustomCalls }) => {
+      it(`handles ${scenario} correctly`, () => {
+        render(<BackToTopButton {...(onClick ? { onClick } : {})} />)
 
-    const button = screen.getByRole('button', { name: /Back to top/ })
-    fireEvent.click(button)
+        const button = screen.getByRole('button', { name: /Back to top/ })
+        fireEvent.click(button)
 
-    expect(mockOnClick).toHaveBeenCalledTimes(1)
-    expect(window.scrollTo).not.toHaveBeenCalled()
-  })
+        if (expectedScrollToCalls > 0) {
+          expect(window.scrollTo).toHaveBeenCalledWith({
+            top: 0,
+            behavior: 'smooth',
+          })
+          expect(window.scrollTo).toHaveBeenCalledTimes(expectedScrollToCalls)
+        } else {
+          expect(window.scrollTo).not.toHaveBeenCalled()
+        }
+
+        if (expectedCustomCalls > 0) {
+          expect(onClick).toHaveBeenCalledTimes(expectedCustomCalls)
+        }
+      })
+    }
+  )
 })

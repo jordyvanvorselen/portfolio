@@ -3,149 +3,216 @@ import { render, screen } from '@testing-library/react'
 import { Title } from '@/ui/Title'
 
 describe('Title', () => {
-  it('renders title with default variant', () => {
-    render(<Title>Test Title</Title>)
+  describe('New prop-based API', () => {
+    it('renders with default props', () => {
+      render(<Title>Default Title</Title>)
 
-    expect(screen.getByText('Test Title')).toBeVisible()
-  })
-
-  it('renders logo variant with correct styling', () => {
-    render(<Title variant="logo">Jordy van Vorselen</Title>)
-
-    const title = screen.getByText('Jordy van Vorselen')
-    expect(title).toBeVisible()
-  })
-
-  it('renders hero-name variant as h1', () => {
-    render(
-      <Title variant="hero-name" as="h1">
-        Jordy van Vorselen
-      </Title>
-    )
-
-    const heading = screen.getByRole('heading', {
-      level: 1,
-      name: 'Jordy van Vorselen',
+      const heading = screen.getByRole('heading', {
+        level: 2,
+        name: 'Default Title',
+      })
+      expect(heading).toBeVisible()
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('renders hero-title variant as paragraph', () => {
-    render(
-      <Title variant="hero-title" as="p">
-        Senior Software Engineer
-      </Title>
-    )
+    describe.each([
+      { size: 'xs', label: 'Extra Small' },
+      { size: 'sm', label: 'Small' },
+      { size: 'md', label: 'Medium' },
+      { size: 'lg', label: 'Large' },
+      { size: 'xl', label: 'Extra Large' },
+      { size: '2xl', label: '2X Large' },
+      { size: '3xl', label: '3X Large' },
+      { size: '4xl', label: '4X Large' },
+    ] as const)('size prop: $size', ({ size, label }) => {
+      it(`renders with ${size} size prop`, () => {
+        render(<Title size={size}>{label}</Title>)
 
-    expect(screen.getByText('Senior Software Engineer')).toBeVisible()
-  })
-
-  it('renders section-title variant as h2', () => {
-    render(
-      <Title variant="section-title" as="h2">
-        What I Excel At
-      </Title>
-    )
-
-    const heading = screen.getByRole('heading', {
-      level: 2,
-      name: 'What I Excel At',
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('renders subsection-label variant as h4', () => {
-    render(<Title variant="subsection-label">KEY SKILLS & TOOLS</Title>)
+    describe.each([
+      { weight: 'normal', label: 'Normal Weight' },
+      { weight: 'medium', label: 'Medium Weight' },
+      { weight: 'semibold', label: 'Semibold Weight' },
+      { weight: 'bold', label: 'Bold Weight' },
+    ] as const)('weight prop: $weight', ({ weight, label }) => {
+      it(`renders with ${weight} weight prop`, () => {
+        render(<Title weight={weight}>{label}</Title>)
 
-    const heading = screen.getByRole('heading', {
-      level: 4,
-      name: 'KEY SKILLS & TOOLS',
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('renders card-title variant as h3', () => {
-    render(<Title variant="card-title">Test-Driven Development</Title>)
+    describe.each([
+      { color: 'primary', label: 'Primary Color' },
+      { color: 'secondary', label: 'Secondary Color' },
+      { color: 'muted', label: 'Muted Color' },
+      { color: 'accent', label: 'Accent Color' },
+      { color: 'gradient', label: 'Gradient Color' },
+    ] as const)('color prop: $color', ({ color, label }) => {
+      it(`renders with ${color} color prop`, () => {
+        render(<Title color={color}>{label}</Title>)
 
-    const heading = screen.getByRole('heading', {
-      level: 3,
-      name: 'Test-Driven Development',
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('accepts custom className', () => {
-    render(<Title className="custom-class">Test</Title>)
+    describe.each([
+      { align: 'left', label: 'Left Aligned' },
+      { align: 'center', label: 'Center Aligned' },
+      { align: 'right', label: 'Right Aligned' },
+    ] as const)('alignment prop: $align', ({ align, label }) => {
+      it(`renders with ${align} alignment prop`, () => {
+        render(<Title align={align}>{label}</Title>)
 
-    const title = screen.getByText('Test')
-    expect(title).toHaveClass('custom-class')
-  })
-
-  it('renders with custom element type', () => {
-    render(<Title as="h3">Custom Heading</Title>)
-
-    const heading = screen.getByRole('heading', {
-      level: 3,
-      name: 'Custom Heading',
+        const heading = screen.getByRole('heading', { name: label })
+        expect(heading).toBeVisible()
+      })
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('renders footer-author variant as h3', () => {
-    render(<Title variant="footer-author">Jordy van Vorselen</Title>)
+    it('combines multiple props correctly', () => {
+      render(
+        <Title size="lg" weight="semibold" color="secondary" align="center">
+          Combined Props
+        </Title>
+      )
 
-    const heading = screen.getByRole('heading', {
-      level: 3,
-      name: 'Jordy van Vorselen',
+      const heading = screen.getByRole('heading', { name: 'Combined Props' })
+      expect(heading).toBeVisible()
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('renders footer-section variant as h4', () => {
-    render(<Title variant="footer-section">Quick Links</Title>)
+    it('accepts custom className with new API', () => {
+      render(<Title className="custom-class">Custom Class</Title>)
 
-    const heading = screen.getByRole('heading', {
-      level: 4,
-      name: 'Quick Links',
+      const heading = screen.getByRole('heading', { name: 'Custom Class' })
+      expect(heading).toBeVisible()
     })
-    expect(heading).toBeVisible()
-  })
 
-  it('renders section-label-small variant as h3', () => {
-    render(<Title variant="section-label-small">Featured article</Title>)
+    it('renders with custom element type using as prop', () => {
+      render(
+        <Title as="h1" size="4xl">
+          Custom Element
+        </Title>
+      )
 
-    const heading = screen.getByRole('heading', {
-      level: 3,
-      name: 'Featured article',
+      const heading = screen.getByRole('heading', {
+        level: 1,
+        name: 'Custom Element',
+      })
+      expect(heading).toBeVisible()
     })
-    expect(heading).toBeVisible()
   })
 
-  it('renders projects-hero-title variant as h1', () => {
-    render(<Title variant="projects-hero-title">Open Source Projects</Title>)
+  describe('Legacy variant support (backward compatibility)', () => {
+    it('renders title with default variant', () => {
+      render(<Title>Test Title</Title>)
 
-    const heading = screen.getByRole('heading', {
-      level: 1,
-      name: 'Open Source Projects',
+      expect(screen.getByText('Test Title')).toBeVisible()
     })
-    expect(heading).toBeVisible()
+
+    describe.each([
+      { variant: 'hero-name', text: 'Jordy van Vorselen', level: 1 },
+      { variant: 'blog-hero-title', text: 'Blog Title', level: 1 },
+      {
+        variant: 'projects-hero-title',
+        text: 'Open Source Projects',
+        level: 1,
+      },
+      { variant: 'section-title', text: 'What I Excel At', level: 2 },
+      { variant: 'section-title-compact', text: 'Compact Section', level: 2 },
+      { variant: 'projects-grid-title', text: 'Featured Projects', level: 2 },
+      { variant: 'project-card-title', text: 'My Project', level: 2 },
+      { variant: 'blog-card-title', text: 'Article Title', level: 3 },
+      { variant: 'card-title', text: 'Test-Driven Development', level: 3 },
+      { variant: 'footer-author', text: 'Jordy van Vorselen', level: 3 },
+      { variant: 'project-section-label', text: 'Technologies', level: 3 },
+      { variant: 'subsection-label', text: 'KEY SKILLS & TOOLS', level: 4 },
+      { variant: 'footer-section', text: 'Quick Links', level: 4 },
+    ] as const)('variant: $variant', ({ variant, text, level }) => {
+      it(`renders ${variant} variant as h${level}`, () => {
+        render(<Title variant={variant}>{text}</Title>)
+
+        const heading = screen.getByRole('heading', { level, name: text })
+        expect(heading).toBeVisible()
+      })
+    })
+
+    it('renders logo variant with correct element type', () => {
+      render(<Title variant="logo">Jordy van Vorselen</Title>)
+
+      const title = screen.getByText('Jordy van Vorselen')
+      expect(title).toBeVisible()
+      expect(title.tagName).toBe('SPAN')
+    })
+
+    it('renders hero-title variant as paragraph', () => {
+      render(<Title variant="hero-title">Senior Software Engineer</Title>)
+
+      const paragraph = screen.getByText('Senior Software Engineer')
+      expect(paragraph).toBeVisible()
+      expect(paragraph.tagName).toBe('P')
+    })
+
+    it('overrides variant when as prop is provided', () => {
+      render(
+        <Title variant="hero-name" as="h3">
+          Override Element
+        </Title>
+      )
+
+      const heading = screen.getByRole('heading', {
+        level: 3,
+        name: 'Override Element',
+      })
+      expect(heading).toBeVisible()
+    })
+
+    it('accepts custom className with variants', () => {
+      render(
+        <Title variant="logo" className="custom-class">
+          Test
+        </Title>
+      )
+
+      const title = screen.getByText('Test')
+      expect(title).toBeVisible()
+    })
+
+    it('renders missing legacy variants without crashing', () => {
+      render(<Title variant="section-label-small">Section Label</Title>)
+
+      const heading = screen.getByRole('heading', {
+        level: 3,
+        name: 'Section Label',
+      })
+      expect(heading).toBeVisible()
+    })
   })
 
-  it('renders projects-grid-title variant', () => {
-    render(<Title variant="projects-grid-title">Featured Projects</Title>)
+  describe('TypeScript type exports', () => {
+    it('exports TitleSize type', () => {
+      // This test ensures the types are properly exported
+      const size: import('@/ui/Title').TitleSize = 'md'
+      expect(size).toBe('md')
+    })
 
-    expect(screen.getByText('Featured Projects')).toBeVisible()
-  })
+    it('exports TitleWeight type', () => {
+      const weight: import('@/ui/Title').TitleWeight = 'bold'
+      expect(weight).toBe('bold')
+    })
 
-  it('renders project-card-title variant', () => {
-    render(<Title variant="project-card-title">My Project</Title>)
+    it('exports TitleColor type', () => {
+      const color: import('@/ui/Title').TitleColor = 'primary'
+      expect(color).toBe('primary')
+    })
 
-    expect(screen.getByText('My Project')).toBeVisible()
-  })
-
-  it('renders project-section-label variant', () => {
-    render(<Title variant="project-section-label">Technologies</Title>)
-
-    expect(screen.getByText('Technologies')).toBeVisible()
+    it('exports TitleAlignment type', () => {
+      const align: import('@/ui/Title').TitleAlignment = 'center'
+      expect(align).toBe('center')
+    })
   })
 })

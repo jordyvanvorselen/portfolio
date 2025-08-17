@@ -1,175 +1,329 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 
 import { Button } from '@/ui/Button'
 
 describe('Button', () => {
-  it('renders button with text', () => {
-    render(<Button>Click me</Button>)
+  describe('Basic Rendering', () => {
+    it('renders button with text', () => {
+      render(<Button>Click me</Button>)
 
-    expect(screen.getByRole('button', { name: 'Click me' })).toBeVisible()
+      expect(screen.getByRole('button', { name: 'Click me' })).toBeVisible()
+    })
+
+    it('forwards ref correctly', () => {
+      const ref = { current: null }
+      render(<Button ref={ref}>Button with ref</Button>)
+
+      expect(ref.current).toBeTruthy()
+    })
   })
 
-  it('accepts primary variant', () => {
-    render(<Button variant="primary">Primary Button</Button>)
+  describe('New Design System API', () => {
+    describe.each(['solid', 'outline', 'ghost', 'link'] as const)(
+      'variant prop: %s',
+      variant => {
+        it(`renders with ${variant} variant`, () => {
+          render(<Button variant={variant}>Test Button</Button>)
 
-    expect(screen.getByRole('button', { name: 'Primary Button' })).toBeVisible()
-  })
-
-  it('accepts secondary variant', () => {
-    render(<Button variant="secondary">Secondary Button</Button>)
-
-    expect(
-      screen.getByRole('button', { name: 'Secondary Button' })
-    ).toBeVisible()
-  })
-
-  it('accepts cta variant', () => {
-    render(<Button variant="primary">Get In Touch</Button>)
-
-    expect(screen.getByRole('button', { name: 'Get In Touch' })).toBeVisible()
-  })
-
-  it('accepts footer-action variant', () => {
-    render(<Button variant="footer-action">Back to top</Button>)
-
-    expect(screen.getByRole('button', { name: 'Back to top' })).toBeVisible()
-  })
-
-  it('accepts different sizes', () => {
-    render(<Button size="large">Large Button</Button>)
-
-    expect(screen.getByRole('button', { name: 'Large Button' })).toBeVisible()
-  })
-
-  it('accepts custom className', () => {
-    render(<Button className="custom-class">Custom Button</Button>)
-
-    const button = screen.getByRole('button', { name: 'Custom Button' })
-    expect(button).toHaveClass('custom-class')
-  })
-
-  it('renders as external link for mailto URLs', () => {
-    render(
-      <Button href="mailto:test@example.com" variant="primary">
-        Get In Touch
-      </Button>
+          expect(screen.getByRole('button')).toBeVisible()
+        })
+      }
     )
 
-    const link = screen.getByRole('link', { name: 'Get In Touch' })
-    expect(link).toBeVisible()
-    expect(link).toHaveAttribute('href', 'mailto:test@example.com')
+    describe.each([
+      'primary',
+      'secondary',
+      'danger',
+      'neutral',
+      'accent',
+    ] as const)('color prop: %s', color => {
+      it(`renders with ${color} color`, () => {
+        render(<Button color={color}>Test Button</Button>)
+
+        expect(screen.getByRole('button')).toBeVisible()
+      })
+    })
+
+    describe.each([
+      { size: 'xs', description: 'xs size' },
+      { size: 'sm', description: 'sm size' },
+      { size: 'md', description: 'md size (default)' },
+      { size: 'lg', description: 'lg size' },
+      { size: 'xl', description: 'xl size' },
+    ] as const)('size prop: $size', ({ size, description }) => {
+      it(`renders ${description}`, () => {
+        render(<Button size={size}>Test Button</Button>)
+
+        expect(screen.getByRole('button')).toBeVisible()
+      })
+    })
+
+    describe('Disabled State', () => {
+      it('renders disabled solid button', () => {
+        render(<Button disabled>Disabled Button</Button>)
+
+        const button = screen.getByRole('button', { name: 'Disabled Button' })
+        expect(button).toBeDisabled()
+      })
+
+      it('renders disabled outline button', () => {
+        render(
+          <Button variant="outline" disabled>
+            Disabled Outline
+          </Button>
+        )
+
+        const button = screen.getByRole('button', { name: 'Disabled Outline' })
+        expect(button).toBeDisabled()
+      })
+
+      it('does not trigger click handlers when disabled', () => {
+        const handleClick = jest.fn()
+
+        render(
+          <Button disabled onClick={handleClick}>
+            Disabled Button
+          </Button>
+        )
+
+        const button = screen.getByRole('button', { name: 'Disabled Button' })
+        fireEvent.click(button)
+
+        expect(handleClick).not.toHaveBeenCalled()
+      })
+    })
+
+    describe('Variant + Color Combinations', () => {
+      it('renders outline + accent combination', () => {
+        render(
+          <Button variant="outline" color="accent">
+            Outline Accent
+          </Button>
+        )
+
+        const button = screen.getByRole('button', { name: 'Outline Accent' })
+        expect(button).toBeVisible()
+      })
+
+      it('renders ghost + neutral combination', () => {
+        render(
+          <Button variant="ghost" color="neutral">
+            Ghost Neutral
+          </Button>
+        )
+
+        const button = screen.getByRole('button', { name: 'Ghost Neutral' })
+        expect(button).toBeVisible()
+      })
+    })
   })
 
-  it('renders as external link for https URLs', () => {
-    render(
-      <Button href="https://example.com" variant="primary">
-        External Link
-      </Button>
+  describe('Legacy Support', () => {
+    describe.each([
+      'primary',
+      'secondary',
+      'primary-blue',
+      'footer-action',
+      'github',
+      'project-secondary',
+      'demo',
+    ] as const)('legacy variant: %s', variant => {
+      it(`accepts legacy ${variant} variant`, () => {
+        render(<Button variant={variant}>Test Button</Button>)
+
+        expect(screen.getByRole('button')).toBeVisible()
+      })
+    })
+
+    describe.each([
+      { legacySize: 'small', mappedTo: 'md' },
+      { legacySize: 'large', mappedTo: 'xl' },
+    ] as const)(
+      'legacy size mapping: $legacySize',
+      ({ legacySize, mappedTo }) => {
+        it(`maps legacy ${legacySize} size to ${mappedTo}`, () => {
+          render(<Button size={legacySize}>Test Button</Button>)
+
+          expect(screen.getByRole('button')).toBeVisible()
+        })
+      }
     )
 
-    const link = screen.getByRole('link', { name: 'External Link' })
-    expect(link).toBeVisible()
-    expect(link).toHaveAttribute('href', 'https://example.com')
+    it('handles legacy secondary large special case', () => {
+      render(
+        <Button variant="secondary" size="large">
+          Large Secondary
+        </Button>
+      )
+
+      const button = screen.getByRole('button', { name: 'Large Secondary' })
+      expect(button).toBeVisible()
+    })
+
+    it('handles legacy primary-blue large special case', () => {
+      render(
+        <Button variant="primary-blue" size="large">
+          Large Primary Blue
+        </Button>
+      )
+
+      const button = screen.getByRole('button', { name: 'Large Primary Blue' })
+      expect(button).toBeVisible()
+    })
+
+    it('handles unknown legacy variant with fallback', () => {
+      // @ts-expect-error Testing unknown variant fallback
+      render(<Button variant="unknown-variant">Unknown Variant</Button>)
+
+      const button = screen.getByRole('button', { name: 'Unknown Variant' })
+      expect(button).toBeVisible()
+    })
+
+    it('maps small size with legacy variant', () => {
+      render(
+        <Button variant="primary" size="small">
+          Small Primary
+        </Button>
+      )
+
+      const button = screen.getByRole('button', { name: 'Small Primary' })
+      expect(button).toBeVisible()
+    })
   })
 
-  it('renders as Next.js Link for internal routes', () => {
-    render(
-      <Button href="/contact" variant="primary">
-        Contact Page
-      </Button>
-    )
+  describe('Link Behavior', () => {
+    it('renders as external link for mailto URLs', () => {
+      render(
+        <Button href="mailto:test@example.com" variant="primary">
+          Get In Touch
+        </Button>
+      )
 
-    const link = screen.getByRole('link', { name: 'Contact Page' })
-    expect(link).toBeVisible()
-    expect(link).toHaveAttribute('href', '/contact')
+      const link = screen.getByRole('link', { name: 'Get In Touch' })
+      expect(link).toBeVisible()
+      expect(link).toHaveAttribute('href', 'mailto:test@example.com')
+      expect(link).toHaveAttribute('target', '_blank')
+      expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+    })
+
+    it('renders as external link for https URLs', () => {
+      render(
+        <Button href="https://example.com" variant="primary">
+          External Link
+        </Button>
+      )
+
+      const link = screen.getByRole('link', { name: 'External Link' })
+      expect(link).toBeVisible()
+      expect(link).toHaveAttribute('href', 'https://example.com')
+      expect(link).toHaveAttribute('target', '_blank')
+      expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+    })
+
+    it('renders as Next.js Link for internal routes', () => {
+      render(
+        <Button href="/contact" variant="primary">
+          Contact Page
+        </Button>
+      )
+
+      const link = screen.getByRole('link', { name: 'Contact Page' })
+      expect(link).toBeVisible()
+      expect(link).toHaveAttribute('href', '/contact')
+      expect(link).not.toHaveAttribute('target')
+      expect(link).not.toHaveAttribute('rel')
+    })
+
+    it('renders as Next.js Link for anchor links', () => {
+      render(
+        <Button href="#section" variant="primary">
+          Jump to Section
+        </Button>
+      )
+
+      const link = screen.getByRole('link', { name: 'Jump to Section' })
+      expect(link).toBeVisible()
+      expect(link).toHaveAttribute('href', '#section')
+      expect(link).not.toHaveAttribute('target')
+      expect(link).not.toHaveAttribute('rel')
+    })
+
+    it('filters undefined optional properties for internal links', () => {
+      render(
+        <Button
+          href="/contact"
+          variant="primary"
+          onMouseEnter={undefined}
+          onClick={undefined}
+        >
+          Contact Page
+        </Button>
+      )
+
+      const link = screen.getByRole('link', { name: 'Contact Page' })
+      expect(link).toBeVisible()
+      expect(link).toHaveAttribute('href', '/contact')
+    })
+
+    it('forwards ref correctly for links', () => {
+      const ref = { current: null }
+      render(
+        <Button ref={ref} href="/test">
+          Link with ref
+        </Button>
+      )
+
+      expect(ref.current).toBeTruthy()
+    })
   })
 
-  it('renders as Next.js Link for anchor links', () => {
-    render(
-      <Button href="#section" variant="primary">
-        Jump to Section
-      </Button>
-    )
+  describe('Accessibility', () => {
+    it('has proper button role', () => {
+      render(<Button>Accessible Button</Button>)
 
-    const link = screen.getByRole('link', { name: 'Jump to Section' })
-    expect(link).toBeVisible()
-    expect(link).toHaveAttribute('href', '#section')
+      expect(screen.getByRole('button')).toBeInTheDocument()
+    })
+
+    it('has proper link role when href is provided', () => {
+      render(<Button href="/test">Accessible Link</Button>)
+
+      expect(screen.getByRole('link')).toBeInTheDocument()
+    })
+
+    it('supports aria attributes', () => {
+      render(
+        <Button aria-label="Custom label" aria-describedby="description">
+          Button
+        </Button>
+      )
+
+      const button = screen.getByRole('button')
+      expect(button).toHaveAttribute('aria-label', 'Custom label')
+      expect(button).toHaveAttribute('aria-describedby', 'description')
+    })
   })
 
-  it('accepts github variant', () => {
-    render(<Button variant="github">View Source</Button>)
+  describe('Event Handling', () => {
+    it('handles click events', () => {
+      const handleClick = jest.fn()
 
-    expect(screen.getByRole('button', { name: 'View Source' })).toBeVisible()
-  })
+      render(<Button onClick={handleClick}>Clickable Button</Button>)
 
-  it('accepts project-secondary variant', () => {
-    render(<Button variant="project-secondary">Live Demo</Button>)
+      const button = screen.getByRole('button', { name: 'Clickable Button' })
+      fireEvent.click(button)
 
-    expect(screen.getByRole('button', { name: 'Live Demo' })).toBeVisible()
-  })
+      expect(handleClick).toHaveBeenCalledTimes(1)
+    })
 
-  it('filters undefined optional properties for internal links', () => {
-    render(
-      <Button
-        href="/contact"
-        variant="primary"
-        onMouseEnter={undefined}
-        onClick={undefined}
-      >
-        Contact Page
-      </Button>
-    )
+    it('handles keyboard events', () => {
+      const handleKeyDown = jest.fn()
 
-    const link = screen.getByRole('link', { name: 'Contact Page' })
-    expect(link).toBeVisible()
-    expect(link).toHaveAttribute('href', '/contact')
-  })
+      render(<Button onKeyDown={handleKeyDown}>Button</Button>)
 
-  it('automatically adds target="_blank" and rel="noopener noreferrer" for external links', () => {
-    render(
-      <Button href="https://example.com" variant="primary">
-        External Link
-      </Button>
-    )
+      const button = screen.getByRole('button')
+      fireEvent.keyDown(button, { key: ' ', code: 'Space' })
 
-    const link = screen.getByRole('link', { name: 'External Link' })
-    expect(link).toHaveAttribute('target', '_blank')
-    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
-  })
-
-  it('automatically adds target="_blank" and rel="noopener noreferrer" for mailto links', () => {
-    render(
-      <Button href="mailto:test@example.com" variant="primary">
-        Email Link
-      </Button>
-    )
-
-    const link = screen.getByRole('link', { name: 'Email Link' })
-    expect(link).toHaveAttribute('target', '_blank')
-    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
-  })
-
-  it('does not add target="_blank" for internal links', () => {
-    render(
-      <Button href="/internal" variant="primary">
-        Internal Link
-      </Button>
-    )
-
-    const link = screen.getByRole('link', { name: 'Internal Link' })
-    expect(link).not.toHaveAttribute('target')
-    expect(link).not.toHaveAttribute('rel')
-  })
-
-  it('does not add target="_blank" for anchor links', () => {
-    render(
-      <Button href="#section" variant="primary">
-        Anchor Link
-      </Button>
-    )
-
-    const link = screen.getByRole('link', { name: 'Anchor Link' })
-    expect(link).not.toHaveAttribute('target')
-    expect(link).not.toHaveAttribute('rel')
+      expect(handleKeyDown).toHaveBeenCalled()
+    })
   })
 })

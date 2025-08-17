@@ -41,13 +41,13 @@ describe('BlogSearchFilters', () => {
 
     // Initially All should be active
     expect(allFilter).toHaveClass('bg-teal-500')
-    expect(apiFilter).toHaveClass('border-gray-600')
+    expect(apiFilter).toHaveClass('border-teal-600')
 
     // Click API filter
     fireEvent.click(apiFilter)
 
     // API should now be active, All should be inactive
     expect(apiFilter).toHaveClass('bg-teal-500')
-    expect(allFilter).toHaveClass('border-gray-600')
+    expect(allFilter).toHaveClass('border-teal-600')
   })
 })
