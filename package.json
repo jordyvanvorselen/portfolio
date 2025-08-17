@@ -16,7 +16,8 @@
     "test:integration:ci": "playwright test --grep-invert 'visual regression'",
     "test:visual-regression": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci'",
     "test:visual-regression:ci": "playwright test --grep='visual regression'",
-    "test:visual-regression:fix": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci --update-snapshots'"
+    "test:visual-regression:fix": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci --update-snapshots'",
+    "migration:analyze": "scripts/analyze-legacy-usage.sh"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.11",
