@@ -104,30 +104,4 @@ describe('Badge', () => {
 
     expect(screen.getByText('Styled badge')).toBeVisible()
   })
-
-  describe.each([
-    'availability',
-    'section-label',
-    'skill',
-    'technology',
-    'project-tech',
-  ] as const)('legacy variant prop: %s', variant => {
-    it(`supports legacy ${variant} variant`, () => {
-      render(<Badge variant={variant}>Test badge</Badge>)
-      expect(screen.getByText('Test badge')).toBeVisible()
-    })
-  })
-
-  describe('legacy variant support', () => {
-    it('legacy variant ignores other design system props', () => {
-      render(
-        <Badge variant="skill" color="primary" size="lg" rounded={true}>
-          Override test
-        </Badge>
-      )
-
-      const badge = screen.getByText('Override test')
-      expect(badge).toBeVisible()
-    })
-  })
 })

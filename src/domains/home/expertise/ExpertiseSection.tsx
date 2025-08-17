@@ -27,10 +27,16 @@ export const ExpertiseSection = () => {
           <div className="flex justify-center mb-2 md:mb-3 lg:mb-4">
             <ExpertiseLabel />
           </div>
-          <Title variant="section-title-compact" as="h2">
+          <Title size="3xl" weight="bold" color="gradient" align="left" as="h2">
             What I Excel At
           </Title>
-          <Text variant="description-compact">
+          <Text
+            size="base"
+            weight="medium"
+            color="secondary"
+            alignment="center"
+            lineHeight="relaxed"
+          >
             Three fundamental pillars that drive my approach to software
             engineering and ensure delivery of exceptional results.
           </Text>

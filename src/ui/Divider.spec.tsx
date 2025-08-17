@@ -21,28 +21,22 @@ describe('Divider', () => {
   })
 
   describe('variant prop', () => {
-    describe.each([
-      'line',
-      'gradient-vertical',
-      'gradient-horizontal',
-      'dotted',
-    ])('accepts %s variant', variant => {
-      it('without errors', () => {
-        render(
-          <Divider
-            variant={
-              variant as
-                | 'line'
-                | 'gradient-vertical'
-                | 'gradient-horizontal'
-                | 'dotted'
-            }
-            data-testid="divider"
-          />
-        )
-        expect(screen.getByTestId('divider')).toBeInTheDocument()
-      })
-    })
+    describe.each(['line', 'gradient-vertical', 'gradient-horizontal'])(
+      'accepts %s variant',
+      variant => {
+        it('without errors', () => {
+          render(
+            <Divider
+              variant={
+                variant as 'line' | 'gradient-vertical' | 'gradient-horizontal'
+              }
+              data-testid="divider"
+            />
+          )
+          expect(screen.getByTestId('divider')).toBeInTheDocument()
+        })
+      }
+    )
 
     it('renders line variant by default', () => {
       render(<Divider data-testid="divider" />)
@@ -177,58 +171,27 @@ describe('Divider', () => {
     })
   })
 
-  describe('backward compatibility', () => {
-    it('handles card-section legacy variant', () => {
-      render(<Divider variant="card-section" data-testid="divider" />)
-      expect(screen.getByTestId('divider')).toBeInTheDocument()
-    })
-
-    it('handles vertical-gradient legacy variant', () => {
-      render(<Divider variant="vertical-gradient" data-testid="divider" />)
-      expect(screen.getByTestId('divider')).toBeInTheDocument()
-    })
-
-    it('handles horizontal-gradient legacy variant', () => {
-      render(<Divider variant="horizontal-gradient" data-testid="divider" />)
-      expect(screen.getByTestId('divider')).toBeInTheDocument()
-    })
-
-    it('applies spacing for card-section variant', () => {
-      render(<Divider variant="card-section" data-testid="divider" />)
-
-      const divider = screen.getByTestId('divider')
-      expect(divider).toHaveClass('pt-6')
-    })
-  })
-
   describe('spacing logic', () => {
     it('applies spacing for line variant', () => {
-      render(<Divider variant="line" data-testid="divider" />)
+      render(<Divider data-testid="divider" />)
 
       const divider = screen.getByTestId('divider')
       expect(divider).toHaveClass('pt-6')
     })
 
-    it('does not apply spacing for unknown variant that falls to default case', () => {
-      // This tests the empty string branch of the spacing conditional on line 84
+    it('applies spacing for line variant fallback', () => {
+      // This tests that any non-gradient variant defaults to line behavior
       render(
         <Divider
           variant={
-            'unknown-variant' as
-              | 'line'
-              | 'gradient-vertical'
-              | 'gradient-horizontal'
-              | 'dotted'
-              | 'card-section'
-              | 'vertical-gradient'
-              | 'horizontal-gradient'
+            'line' as 'line' | 'gradient-vertical' | 'gradient-horizontal'
           }
           data-testid="divider"
         />
       )
 
       const divider = screen.getByTestId('divider')
-      expect(divider).not.toHaveClass('pt-6')
+      expect(divider).toHaveClass('pt-6')
     })
   })
 

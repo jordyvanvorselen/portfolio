@@ -61,4 +61,61 @@ describe('BackToTopButton', () => {
       })
     }
   )
+
+  describe('design system props', () => {
+    describe.each([
+      { variant: 'ghost', expectedClass: 'text-gray-300' },
+      { variant: 'outline', expectedClass: 'border-gray-600' },
+      { variant: 'solid', expectedClass: 'bg-slate-700' },
+    ] as const)('variant: $variant', ({ variant, expectedClass }) => {
+      it(`applies ${variant} variant styles`, () => {
+        render(<BackToTopButton variant={variant} />)
+
+        const button = screen.getByRole('button', { name: /Back to top/ })
+        expect(button).toHaveClass(expectedClass)
+      })
+    })
+
+    describe.each([
+      { color: 'neutral', expectedClass: 'text-gray-300' },
+      { color: 'primary', expectedClass: 'text-teal-500' },
+      { color: 'secondary', expectedClass: 'text-gray-500' },
+    ] as const)('color: $color', ({ color, expectedClass }) => {
+      it(`applies ${color} color styles`, () => {
+        render(<BackToTopButton color={color} />)
+
+        const button = screen.getByRole('button', { name: /Back to top/ })
+        expect(button).toHaveClass(expectedClass)
+      })
+    })
+
+    describe.each([
+      { size: 'xs', expectedClass: 'h-8' },
+      { size: 'sm', expectedClass: 'h-9' },
+      { size: 'md', expectedClass: 'py-2' },
+    ] as const)('size: $size', ({ size, expectedClass }) => {
+      it(`applies ${size} size styles`, () => {
+        render(<BackToTopButton size={size} />)
+
+        const button = screen.getByRole('button', { name: /Back to top/ })
+        expect(button).toHaveClass(expectedClass)
+      })
+    })
+
+    it('applies custom className', () => {
+      const customClass = 'custom-test-class'
+      render(<BackToTopButton className={customClass} />)
+
+      const button = screen.getByRole('button', { name: /Back to top/ })
+      expect(button).toHaveClass(customClass)
+    })
+
+    it('applies default props when none provided', () => {
+      render(<BackToTopButton />)
+
+      const button = screen.getByRole('button', { name: /Back to top/ })
+      // Default: variant="ghost", color="neutral", size="xs"
+      expect(button).toHaveClass('text-gray-300', 'h-8')
+    })
+  })
 })

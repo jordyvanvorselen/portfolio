@@ -2,22 +2,14 @@ import { ButtonHTMLAttributes, AnchorHTMLAttributes, forwardRef } from 'react'
 import Link from 'next/link'
 
 type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'link'
-type ButtonColor = 'primary' | 'secondary' | 'danger' | 'neutral' | 'accent'
+type ButtonColor = 'primary' | 'secondary' | 'accent' | 'neutral' | 'muted'
 type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 interface BaseButtonProps {
   children: React.ReactNode
-  variant?:
-    | ButtonVariant
-    | 'primary'
-    | 'primary-blue'
-    | 'secondary'
-    | 'footer-action'
-    | 'project-secondary'
-    | 'github'
-    | 'demo'
+  variant?: ButtonVariant
   color?: ButtonColor
-  size?: ButtonSize | 'small' | 'large'
+  size?: ButtonSize
   disabled?: boolean
   className?: string
 }
@@ -71,19 +63,19 @@ const getVariantStyles = (
         ? 'text-gray-300 cursor-not-allowed'
         : 'text-gray-500 hover:text-gray-600 active:text-gray-700 underline-offset-4 hover:underline',
     },
-    danger: {
+    muted: {
       solid: disabled
-        ? 'bg-red-300 text-white cursor-not-allowed'
-        : 'bg-red-500 hover:bg-red-600 active:bg-red-700 text-white',
+        ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+        : 'bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700',
       outline: disabled
-        ? 'border border-red-300 text-red-300 cursor-not-allowed'
-        : 'border border-red-500 text-red-500 hover:bg-red-500 hover:text-white active:bg-red-600',
+        ? 'border border-gray-200 text-gray-400 cursor-not-allowed'
+        : 'border border-gray-300 text-gray-600 hover:bg-gray-100 hover:text-gray-700 active:bg-gray-200',
       ghost: disabled
-        ? 'text-red-300 cursor-not-allowed'
-        : 'text-red-500 hover:bg-red-500/10 hover:text-red-600 active:bg-red-500/20',
+        ? 'text-gray-400 cursor-not-allowed'
+        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-700 active:bg-gray-200',
       link: disabled
-        ? 'text-red-300 cursor-not-allowed'
-        : 'text-red-500 hover:text-red-600 active:text-red-700 underline-offset-4 hover:underline',
+        ? 'text-gray-400 cursor-not-allowed'
+        : 'text-gray-600 hover:text-gray-700 active:text-gray-800 underline-offset-4 hover:underline',
     },
     neutral: {
       solid: disabled
@@ -145,37 +137,6 @@ const getSizeStyles = (size: ButtonSize, variant: ButtonVariant) => {
   return `${baseStyles} ${sizeConfig[size]}`
 }
 
-// Legacy variant mapping function
-const mapLegacyVariant = (
-  variant: string,
-  size?: string
-): { variant: ButtonVariant; color: ButtonColor; mappedSize: ButtonSize } => {
-  const legacyMap: Record<
-    string,
-    { variant: ButtonVariant; color: ButtonColor; size?: ButtonSize }
-  > = {
-    primary: { variant: 'solid', color: 'primary' },
-    'primary-blue': { variant: 'solid', color: 'accent' },
-    secondary: { variant: 'solid', color: 'secondary' },
-    'footer-action': { variant: 'ghost', color: 'neutral', size: 'xs' },
-    'project-secondary': { variant: 'outline', color: 'neutral' },
-    github: { variant: 'outline', color: 'accent' },
-    demo: { variant: 'ghost', color: 'neutral' },
-  }
-
-  const mapped = legacyMap[variant] || {
-    variant: 'solid' as ButtonVariant,
-    color: 'primary' as ButtonColor,
-  }
-
-  // Handle size mapping
-  let mappedSize: ButtonSize = mapped.size || 'md'
-  if (size === 'small') mappedSize = 'md'
-  if (size === 'large') mappedSize = 'xl'
-
-  return { variant: mapped.variant, color: mapped.color, mappedSize }
-}
-
 export const Button = forwardRef<
   HTMLButtonElement | HTMLAnchorElement,
   ButtonProps
@@ -192,56 +153,11 @@ export const Button = forwardRef<
     },
     ref
   ) => {
-    // Handle legacy variants
-    let finalVariant: ButtonVariant = variant as ButtonVariant
-    let finalColor: ButtonColor = color
-    let finalSize: ButtonSize = size as ButtonSize
-
-    // Check if this is a legacy variant or unknown variant
-    const legacyVariants = [
-      'primary',
-      'primary-blue',
-      'secondary',
-      'footer-action',
-      'project-secondary',
-      'github',
-      'demo',
-    ]
-    const isNewVariant = ['solid', 'outline', 'ghost', 'link'].includes(
-      variant as string
-    )
-
-    if (legacyVariants.includes(variant as string) || !isNewVariant) {
-      const mapped = mapLegacyVariant(variant as string, size as string)
-      finalVariant = mapped.variant
-      finalColor = mapped.color
-      finalSize = mapped.mappedSize
-    } else if (size === 'small' || size === 'large') {
-      // Handle legacy size mapping for new variants
-      finalSize = size === 'small' ? 'md' : 'xl'
-    }
-
-    const variantStyles = getVariantStyles(finalVariant, finalColor, disabled)
-    const sizeStyles = getSizeStyles(finalSize, finalVariant)
-
-    // Special handling for github and demo variants (rounded-full)
-    const specialRounding =
-      variant === 'github' || variant === 'demo' ? 'rounded-full' : ''
-
-    // Special handling for large secondary variant
-    const specialStyles =
-      variant === 'secondary' && size === 'large'
-        ? 'bg-slate-900/15 hover:bg-slate-800/15 text-white border-2 border-gray-500/30'
-        : ''
-
-    // Special handling for primary-blue large variant
-    const primaryBlueSpecial =
-      variant === 'primary-blue' && size === 'large'
-        ? 'bg-teal-500 hover:bg-teal-600 text-white border-transparent shadow-xl shadow-teal-500/25'
-        : ''
+    const variantStyles = getVariantStyles(variant, color, disabled)
+    const sizeStyles = getSizeStyles(size, variant)
 
     const baseClassName =
-      `${sizeStyles} ${specialStyles || primaryBlueSpecial || variantStyles} ${specialRounding} ${className || ''}`.trim()
+      `${sizeStyles} ${variantStyles} ${className || ''}`.trim()
 
     if ('href' in props && props.href) {
       const { href, ...anchorProps } = props as ButtonAsLink

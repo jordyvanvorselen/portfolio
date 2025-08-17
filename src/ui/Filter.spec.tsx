@@ -68,27 +68,6 @@ describe('Filter', () => {
     })
   })
 
-  describe('backward compatibility', () => {
-    it('handles active prop true', () => {
-      render(<Filter active>Active True</Filter>)
-      expect(screen.getByText('Active True')).toBeVisible()
-    })
-
-    it('handles active prop false', () => {
-      render(<Filter active={false}>Active False</Filter>)
-      expect(screen.getByText('Active False')).toBeVisible()
-    })
-
-    it('prioritizes variant prop over active prop', () => {
-      render(
-        <Filter active variant="default">
-          Variant Priority
-        </Filter>
-      )
-      expect(screen.getByText('Variant Priority')).toBeVisible()
-    })
-  })
-
   describe('event handling', () => {
     it('calls onClick when clicked', () => {
       const handleClick = jest.fn()

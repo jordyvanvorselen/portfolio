@@ -2,7 +2,7 @@ import { Title } from '@/ui/Title'
 
 export const HeroName = () => {
   return (
-    <Title variant="hero-name" as="h1">
+    <Title size="4xl" weight="bold" color="gradient" align="center" as="h1">
       Jordy van Vorselen
     </Title>
   )

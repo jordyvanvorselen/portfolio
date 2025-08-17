@@ -59,7 +59,7 @@ export const BlogSearchFilters = () => {
           {categories.map(category => (
             <Filter
               key={category}
-              active={activeFilter === category}
+              variant={activeFilter === category ? 'active' : 'default'}
               color="primary"
               onClick={() => handleFilterClick(category)}
             >

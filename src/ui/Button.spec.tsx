@@ -33,7 +33,7 @@ describe('Button', () => {
     describe.each([
       'primary',
       'secondary',
-      'danger',
+      'muted',
       'neutral',
       'accent',
     ] as const)('color prop: %s', color => {
@@ -118,83 +118,15 @@ describe('Button', () => {
     })
   })
 
-  describe('Legacy Support', () => {
-    describe.each([
-      'primary',
-      'secondary',
-      'primary-blue',
-      'footer-action',
-      'github',
-      'project-secondary',
-      'demo',
-    ] as const)('legacy variant: %s', variant => {
-      it(`accepts legacy ${variant} variant`, () => {
-        render(<Button variant={variant}>Test Button</Button>)
-
-        expect(screen.getByRole('button')).toBeVisible()
-      })
-    })
-
-    describe.each([
-      { legacySize: 'small', mappedTo: 'md' },
-      { legacySize: 'large', mappedTo: 'xl' },
-    ] as const)(
-      'legacy size mapping: $legacySize',
-      ({ legacySize, mappedTo }) => {
-        it(`maps legacy ${legacySize} size to ${mappedTo}`, () => {
-          render(<Button size={legacySize}>Test Button</Button>)
-
-          expect(screen.getByRole('button')).toBeVisible()
-        })
-      }
-    )
-
-    it('handles legacy secondary large special case', () => {
-      render(
-        <Button variant="secondary" size="large">
-          Large Secondary
-        </Button>
-      )
-
-      const button = screen.getByRole('button', { name: 'Large Secondary' })
-      expect(button).toBeVisible()
-    })
-
-    it('handles legacy primary-blue large special case', () => {
-      render(
-        <Button variant="primary-blue" size="large">
-          Large Primary Blue
-        </Button>
-      )
-
-      const button = screen.getByRole('button', { name: 'Large Primary Blue' })
-      expect(button).toBeVisible()
-    })
-
-    it('handles unknown legacy variant with fallback', () => {
-      // @ts-expect-error Testing unknown variant fallback
-      render(<Button variant="unknown-variant">Unknown Variant</Button>)
-
-      const button = screen.getByRole('button', { name: 'Unknown Variant' })
-      expect(button).toBeVisible()
-    })
-
-    it('maps small size with legacy variant', () => {
-      render(
-        <Button variant="primary" size="small">
-          Small Primary
-        </Button>
-      )
-
-      const button = screen.getByRole('button', { name: 'Small Primary' })
-      expect(button).toBeVisible()
-    })
-  })
-
   describe('Link Behavior', () => {
     it('renders as external link for mailto URLs', () => {
       render(
-        <Button href="mailto:test@example.com" variant="primary">
+        <Button
+          href="mailto:test@example.com"
+          variant="solid"
+          color="primary"
+          size="md"
+        >
           Get In Touch
         </Button>
       )
@@ -208,7 +140,12 @@ describe('Button', () => {
 
     it('renders as external link for https URLs', () => {
       render(
-        <Button href="https://example.com" variant="primary">
+        <Button
+          href="https://example.com"
+          variant="solid"
+          color="primary"
+          size="md"
+        >
           External Link
         </Button>
       )
@@ -222,7 +159,7 @@ describe('Button', () => {
 
     it('renders as Next.js Link for internal routes', () => {
       render(
-        <Button href="/contact" variant="primary">
+        <Button href="/contact" variant="solid" color="primary" size="md">
           Contact Page
         </Button>
       )
@@ -236,7 +173,7 @@ describe('Button', () => {
 
     it('renders as Next.js Link for anchor links', () => {
       render(
-        <Button href="#section" variant="primary">
+        <Button href="#section" variant="solid" color="primary" size="md">
           Jump to Section
         </Button>
       )
@@ -252,7 +189,9 @@ describe('Button', () => {
       render(
         <Button
           href="/contact"
-          variant="primary"
+          variant="solid"
+          color="primary"
+          size="md"
           onMouseEnter={undefined}
           onClick={undefined}
         >

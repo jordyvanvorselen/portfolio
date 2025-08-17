@@ -31,23 +31,41 @@ export const ExpertiseCard = ({
     <Card aria-label={ariaLabel}>
       <div className="flex items-start gap-4 mb-6">
         <div className="flex-shrink-0 mt-1">
-          <IconContainer color={iconColor} legacyVariant="expertise" size="md">
+          <IconContainer
+            color={iconColor}
+            variant="rounded"
+            effect="blur"
+            interactive="scale"
+            size="md"
+          >
             {icon}
           </IconContainer>
         </div>
         <div className="flex-1">
-          <Title variant="card-title">{title}</Title>
+          <Title size="lg" weight="bold" color="accent" align="left" as="h3">
+            {title}
+          </Title>
         </div>
       </div>
       <div className="flex-grow">
-        <Text variant="card-description">{description}</Text>
+        <Text
+          size="base"
+          weight="normal"
+          color="secondary"
+          alignment="left"
+          lineHeight="relaxed"
+        >
+          {description}
+        </Text>
       </div>
       <div className="mt-auto">
         <div className="space-y-4 mb-6">
-          <Title variant="subsection-label">KEY SKILLS & TOOLS</Title>
+          <Title size="xs" weight="bold" color="muted" align="left" as="h4">
+            KEY SKILLS & TOOLS
+          </Title>
           <div className="flex flex-wrap gap-2">
             {skills.map(skill => (
-              <Badge key={skill} variant="skill">
+              <Badge key={skill} variant="soft" color="default" size="sm">
                 {skill}
               </Badge>
             ))}
@@ -56,12 +74,21 @@ export const ExpertiseCard = ({
         <Divider>
           <div className="flex items-center justify-between w-full px-4">
             <div className="flex items-center gap-3">
-              <Text variant="publication-number" style={{ color: iconColor }}>
+              <Text
+                size="2xl"
+                weight="bold"
+                color="primary"
+                style={{ color: iconColor }}
+              >
                 {publicationCount}
               </Text>
               <div className="flex flex-col text-left">
-                <Text variant="publication-label">Publications</Text>
-                <Text variant="publication-description">on this topic</Text>
+                <Text size="lg" weight="semibold" color="primary">
+                  Publications
+                </Text>
+                <Text size="sm" weight="normal" color="muted">
+                  on this topic
+                </Text>
               </div>
             </div>
             <ExternalLink className="w-5 h-5 text-slate-400" />

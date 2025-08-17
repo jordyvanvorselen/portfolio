@@ -2,36 +2,19 @@ import { ReactNode, HTMLAttributes } from 'react'
 
 interface DividerProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode
-  variant?:
-    | 'line'
-    | 'gradient-vertical'
-    | 'gradient-horizontal'
-    | 'dotted'
-    | 'card-section'
-    | 'vertical-gradient'
-    | 'horizontal-gradient'
+  variant?: 'line' | 'gradient-vertical' | 'gradient-horizontal'
   color?: 'default' | 'primary' | 'secondary' | 'muted'
   thickness?: 'thin' | 'medium' | 'thick'
 }
 
 export const Divider = ({
   children,
-  variant: variantProp = 'line',
+  variant = 'line',
   color = 'default',
   thickness = 'medium',
   className = '',
   ...props
 }: DividerProps) => {
-  // Handle backward compatibility
-  const variant =
-    variantProp === 'card-section'
-      ? 'line'
-      : variantProp === 'vertical-gradient'
-        ? 'gradient-vertical'
-        : variantProp === 'horizontal-gradient'
-          ? 'gradient-horizontal'
-          : variantProp
-
   const colorClasses = {
     default: 'border-gray-600',
     primary: 'border-teal-500',
@@ -94,23 +77,10 @@ export const Divider = ({
     )
   }
 
-  if (variant === 'dotted') {
-    return (
-      <div
-        className={`border-t border-dotted ${colorClasses[color]} ${thicknessClasses[thickness]} pt-6 ${className}`}
-        {...props}
-      >
-        {children}
-      </div>
-    )
-  }
-
-  // Default line variant (including backward compatibility for 'card-section')
-  const spacing =
-    variant === 'line' || variantProp === 'card-section' ? 'pt-6' : ''
+  // Default line variant
   return (
     <div
-      className={`${thicknessClasses[thickness]} ${colorClasses[color]} ${spacing} ${className}`.trim()}
+      className={`${thicknessClasses[thickness]} ${colorClasses[color]} pt-6 ${className}`.trim()}
       {...props}
     >
       {children}

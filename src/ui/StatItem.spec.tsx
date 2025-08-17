@@ -38,8 +38,6 @@ describe('StatItem', () => {
   describe.each([
     ['default', 15, 'Projects', true, 'renders default layout by default'],
     ['floating', 2800, 'stars', false, 'renders floating layout'],
-    ['compact', 150, 'commits', true, 'renders compact layout'],
-    ['detailed', 250, 'issues', true, 'renders detailed layout'],
   ])(
     'layout prop: %s',
     (layout, value, label, shouldShowLabel, testDescription) => {
@@ -50,7 +48,7 @@ describe('StatItem', () => {
             : {
                 value,
                 label,
-                layout: layout as 'floating' | 'compact' | 'detailed',
+                layout: layout as 'floating',
               }
 
         render(<StatItem {...props} />)
@@ -72,14 +70,13 @@ describe('StatItem', () => {
     ['sm', 100, 'Small Size Test'],
     ['md', 200, 'Medium Size Test'],
     ['lg', 300, 'Large Size Test'],
-    ['xl', 400, 'Extra Large Size Test'],
   ])('size prop: %s', (size, value, label) => {
     it(`accepts ${size} size without errors`, () => {
       render(
         <StatItem
           value={value}
           label={label}
-          size={size as 'sm' | 'md' | 'lg' | 'xl'}
+          size={size as 'sm' | 'md' | 'lg'}
         />
       )
       expect(screen.getByText(value.toString())).toBeVisible()
@@ -93,63 +90,6 @@ describe('StatItem', () => {
 
       expect(screen.getByText('100')).toBeVisible()
       expect(screen.getByText('Default Size Test')).toBeVisible()
-    })
-  })
-
-  describe('backward compatibility', () => {
-    describe.each([
-      ['teal', 100, 'Teal Hover Test'],
-      ['yellow', 200, 'Yellow Hover Test'],
-      ['purple', 300, 'Purple Hover Test'],
-    ])('hoverColor prop: %s', (hoverColor, value, label) => {
-      it(`accepts ${hoverColor} hover color without errors`, () => {
-        render(
-          <StatItem
-            value={value}
-            label={label}
-            hoverColor={hoverColor as 'teal' | 'yellow' | 'purple'}
-          />
-        )
-        expect(screen.getByText(value.toString())).toBeVisible()
-        expect(screen.getByText(label)).toBeVisible()
-      })
-    })
-
-    it('renders floating variant for overlay stats', () => {
-      render(<StatItem value={2800} label="stars" variant="floating" />)
-
-      expect(screen.getByText('2,800')).toBeVisible()
-      // Floating variant doesn't display the label, only the value
-      expect(screen.queryByText('stars')).not.toBeInTheDocument()
-    })
-
-    it('prioritizes layout prop over variant prop', () => {
-      render(
-        <StatItem
-          value={100}
-          label="Layout Priority Test"
-          variant="floating"
-          layout="default"
-        />
-      )
-
-      // Should render default layout, not floating
-      expect(screen.getByText('Layout Priority Test')).toBeVisible()
-      expect(screen.getByText('100')).toBeVisible()
-    })
-
-    it('prioritizes color prop over hoverColor prop', () => {
-      render(
-        <StatItem
-          value={100}
-          label="Color Priority Test"
-          hoverColor="teal"
-          color="accent"
-        />
-      )
-
-      expect(screen.getByText('100')).toBeVisible()
-      expect(screen.getByText('Color Priority Test')).toBeVisible()
     })
   })
 
@@ -179,20 +119,20 @@ describe('StatItem', () => {
     expect(screen.getByText('No Icon Test')).toBeVisible()
   })
 
-  it('renders icon in detailed layout', () => {
+  it('renders icon in default layout', () => {
     const TestIcon = () => <div data-testid="test-icon">Icon</div>
     render(
       <StatItem
         value={25}
-        label="Detailed Icon Test"
+        label="Default Icon Test"
         icon={<TestIcon />}
-        layout="detailed"
+        layout="default"
       />
     )
 
     expect(screen.getByTestId('test-icon')).toBeVisible()
     expect(screen.getByText('25')).toBeVisible()
-    expect(screen.getByText('Detailed Icon Test')).toBeVisible()
+    expect(screen.getByText('Default Icon Test')).toBeVisible()
   })
 
   describe('number formatting', () => {
@@ -217,7 +157,7 @@ describe('StatItem', () => {
           label="Combined Props Test"
           color="primary"
           size="lg"
-          layout="detailed"
+          layout="default"
           icon={<TestIcon />}
           className="test-class"
         />

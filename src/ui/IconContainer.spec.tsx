@@ -61,7 +61,7 @@ describe('IconContainer', () => {
     })
   })
 
-  describe.each(['default', 'rounded', 'circle', 'square'] as const)(
+  describe.each(['default', 'rounded', 'circle'] as const)(
     'shape variants',
     variant => {
       it(`renders with ${variant} variant without errors`, () => {
@@ -87,22 +87,19 @@ describe('IconContainer', () => {
     })
   })
 
-  describe.each(['none', 'glow', 'shadow', 'blur'] as const)(
-    'effect variants',
-    effect => {
-      it(`renders with ${effect} effect without errors`, () => {
-        render(
-          <IconContainer color="#10b981" effect={effect}>
-            <Star data-testid={`icon-effect-${effect}`} />
-          </IconContainer>
-        )
-        expect(screen.getByTestId(`icon-effect-${effect}`)).toBeVisible()
-      })
-    }
-  )
+  describe.each(['none', 'blur'] as const)('effect variants', effect => {
+    it(`renders with ${effect} effect without errors`, () => {
+      render(
+        <IconContainer color="#10b981" effect={effect}>
+          <Star data-testid={`icon-effect-${effect}`} />
+        </IconContainer>
+      )
+      expect(screen.getByTestId(`icon-effect-${effect}`)).toBeVisible()
+    })
+  })
 
   describe('effect defaults', () => {
-    it('renders with glow effect as default', () => {
+    it('renders with none effect as default', () => {
       render(
         <IconContainer color="#10b981">
           <Star data-testid="default-effect-icon" />
@@ -156,38 +153,6 @@ describe('IconContainer', () => {
     })
   })
 
-  describe.each(['expertise', 'feature', 'highlight'] as const)(
-    'backward compatibility',
-    legacyVariant => {
-      it(`handles ${legacyVariant} legacy variant prop`, () => {
-        render(
-          <IconContainer color="#10b981" legacyVariant={legacyVariant}>
-            <Star data-testid={`icon-legacy-${legacyVariant}`} />
-          </IconContainer>
-        )
-        expect(screen.getByTestId(`icon-legacy-${legacyVariant}`)).toBeVisible()
-      })
-    }
-  )
-
-  describe('legacy variant priority', () => {
-    it('prioritizes legacy variant over new props', () => {
-      render(
-        <IconContainer
-          color="#10b981"
-          legacyVariant="feature"
-          variant="square"
-          effect="glow"
-          interactive="hover"
-        >
-          <Star data-testid="legacy-priority-icon" />
-        </IconContainer>
-      )
-
-      expect(screen.getByTestId('legacy-priority-icon')).toBeVisible()
-    })
-  })
-
   describe('combined prop usage', () => {
     it('combines all new props correctly', () => {
       render(
@@ -195,7 +160,7 @@ describe('IconContainer', () => {
           color="#10b981"
           variant="circle"
           size="lg"
-          effect="shadow"
+          effect="blur"
           interactive="hover"
           className="custom-class"
         >

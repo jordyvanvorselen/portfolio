@@ -2,15 +2,7 @@ import { ReactNode } from 'react'
 
 export interface BadgeProps {
   children: ReactNode
-  variant?:
-    | 'solid'
-    | 'outline'
-    | 'soft'
-    | 'availability'
-    | 'section-label'
-    | 'skill'
-    | 'technology'
-    | 'project-tech'
+  variant?: 'solid' | 'outline' | 'soft'
   color?:
     | 'default'
     | 'primary'
@@ -36,63 +28,6 @@ export const Badge = ({
 }: BadgeProps) => {
   const baseClasses =
     'inline-flex items-center border focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 font-medium transition-all duration-200'
-
-  // Legacy variant mapping for backward compatibility
-  const legacyVariants = [
-    'availability',
-    'section-label',
-    'skill',
-    'technology',
-    'project-tech',
-  ] as const
-  if (legacyVariants.includes(variant as (typeof legacyVariants)[number])) {
-    const legacyMapping = {
-      availability: {
-        variant: 'soft' as const,
-        color: 'primary' as const,
-        size: 'md' as const,
-        rounded: false,
-      },
-      'section-label': {
-        variant: 'soft' as const,
-        color: 'primary' as const,
-        size: 'md' as const,
-        rounded: false,
-      },
-      skill: {
-        variant: 'soft' as const,
-        color: 'default' as const,
-        size: 'sm' as const,
-        rounded: false,
-      },
-      technology: {
-        variant: 'outline' as const,
-        color: 'default' as const,
-        size: 'md' as const,
-        rounded: false,
-      },
-      'project-tech': {
-        variant: 'soft' as const,
-        color: 'default' as const,
-        size: 'sm' as const,
-        rounded: true,
-      },
-    }
-
-    const legacy = legacyMapping[variant as keyof typeof legacyMapping]
-    return (
-      <Badge
-        variant={legacy.variant}
-        color={legacy.color}
-        size={legacy.size}
-        rounded={legacy.rounded}
-        className={className}
-        {...(style ? { style } : {})}
-      >
-        {children}
-      </Badge>
-    )
-  }
 
   // Size styles
   const sizeClasses = {
@@ -150,9 +85,7 @@ export const Badge = ({
   const combinedClasses = [
     baseClasses,
     sizeClasses[size],
-    variant in variantColorClasses
-      ? variantColorClasses[variant as keyof typeof variantColorClasses][color]
-      : '',
+    variantColorClasses[variant][color],
     roundedClasses,
     className,
   ]

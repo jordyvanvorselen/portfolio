@@ -7,23 +7,16 @@ interface FilterProps {
   color?: 'default' | 'primary' | 'secondary' | 'accent'
   onClick?: () => void
   className?: string
-  // Backward compatibility
-  active?: boolean
 }
 
 export const Filter = ({
   children,
-  variant: variantProp,
+  variant = 'default',
   size = 'sm',
   color = 'default',
   onClick,
   className = '',
-  // Backward compatibility
-  active,
 }: FilterProps) => {
-  // Handle backward compatibility
-  const variant = variantProp || (active ? 'active' : 'default')
-
   const baseStyles =
     'inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer'
 

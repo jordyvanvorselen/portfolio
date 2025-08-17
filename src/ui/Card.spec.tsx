@@ -33,61 +33,48 @@ describe('Card', () => {
     expect(screen.getByRole('article')).toHaveAccessibleName('Test card')
   })
 
-  describe.each(['elevated', 'outlined', 'filled', 'glass'] as const)(
-    'variant prop: %s',
-    variant => {
-      it(`renders with ${variant} variant`, () => {
-        render(
-          <Card variant={variant}>
-            <div>Content</div>
-          </Card>
-        )
-        expect(screen.getByText('Content')).toBeVisible()
-      })
-    }
-  )
+  it('applies glass variant styling by default', () => {
+    render(
+      <Card>
+        <div>Content</div>
+      </Card>
+    )
 
-  describe.each(['none', 'sm', 'md', 'lg', 'xl'] as const)(
-    'padding prop: %s',
-    padding => {
-      it(`renders with ${padding} padding`, () => {
-        render(
-          <Card padding={padding}>
-            <div>Content</div>
-          </Card>
-        )
-        expect(screen.getByText('Content')).toBeVisible()
-      })
-    }
-  )
+    const article = screen.getByRole('article')
+    expect(article).toHaveClass('bg-gray-900/50')
+    expect(article).toHaveClass('backdrop-blur-sm')
+    expect(article).toHaveClass('border-gray-800')
+    expect(screen.getByText('Content')).toBeVisible()
+  })
 
-  describe.each(['static', 'hover', 'clickable'] as const)(
-    'interactive prop: %s',
-    interactive => {
-      it(`renders with ${interactive} interactive`, () => {
-        render(
-          <Card interactive={interactive}>
-            <div>Content</div>
-          </Card>
-        )
-        expect(screen.getByText('Content')).toBeVisible()
-      })
-    }
-  )
+  it('applies default padding and styling', () => {
+    render(
+      <Card>
+        <div>Content</div>
+      </Card>
+    )
 
-  describe.each(['none', 'sm', 'md', 'lg', 'xl'] as const)(
-    'borderRadius prop: %s',
-    borderRadius => {
-      it(`renders with ${borderRadius} borderRadius`, () => {
-        render(
-          <Card borderRadius={borderRadius}>
-            <div>Content</div>
-          </Card>
-        )
-        expect(screen.getByText('Content')).toBeVisible()
-      })
-    }
-  )
+    const article = screen.getByRole('article')
+    expect(article).toHaveClass('rounded-xl')
+    expect(article).toHaveClass('group')
+    expect(article).toHaveClass('relative')
+    expect(article).toHaveClass('overflow-hidden')
+    expect(screen.getByText('Content')).toBeVisible()
+  })
+
+  it('applies hover effects', () => {
+    render(
+      <Card>
+        <div>Content</div>
+      </Card>
+    )
+
+    const article = screen.getByRole('article')
+    expect(article).toHaveClass('hover:border-gray-700')
+    expect(article).toHaveClass('hover:transform')
+    expect(article).toHaveClass('hover:scale-[1.02]')
+    expect(screen.getByText('Content')).toBeVisible()
+  })
 
   it('accepts custom className prop', () => {
     render(

@@ -47,26 +47,12 @@ describe('NavigationLink', () => {
       }
     )
 
-    describe.each(['sm', 'md', 'lg'] as const)('size prop: %s', size => {
-      it(`accepts ${size} size`, () => {
-        render(
-          <NavigationLink href="/test" size={size}>
-            Test
-          </NavigationLink>
-        )
-
-        const link = screen.getByRole('link', { name: 'Test' })
-        expect(link).toBeVisible()
-        expect(link).toHaveAttribute('href', '/test')
-      })
-    })
-
-    describe.each(['primary', 'secondary', 'muted', 'accent'] as const)(
-      'color prop: %s',
-      color => {
-        it(`accepts ${color} color`, () => {
+    describe.each(['xs', 'sm', 'md', 'lg', 'xl'] as const)(
+      'size prop: %s',
+      size => {
+        it(`accepts ${size} size`, () => {
           render(
-            <NavigationLink href="/test" color={color}>
+            <NavigationLink href="/test" size={size}>
               Test
             </NavigationLink>
           )
@@ -77,6 +63,26 @@ describe('NavigationLink', () => {
         })
       }
     )
+
+    describe.each([
+      'primary',
+      'secondary',
+      'accent',
+      'neutral',
+      'muted',
+    ] as const)('color prop: %s', color => {
+      it(`accepts ${color} color`, () => {
+        render(
+          <NavigationLink href="/test" color={color}>
+            Test
+          </NavigationLink>
+        )
+
+        const link = screen.getByRole('link', { name: 'Test' })
+        expect(link).toBeVisible()
+        expect(link).toHaveAttribute('href', '/test')
+      })
+    })
 
     it('accepts multiple design system props', () => {
       render(
@@ -90,21 +96,4 @@ describe('NavigationLink', () => {
       expect(link).toHaveAttribute('href', '/test')
     })
   })
-
-  describe.each(['desktop', 'mobile', 'footer'] as const)(
-    'legacy variant prop: %s',
-    variant => {
-      it(`accepts ${variant} variant for backward compatibility`, () => {
-        render(
-          <NavigationLink href="/test" variant={variant}>
-            Test
-          </NavigationLink>
-        )
-
-        const link = screen.getByRole('link', { name: 'Test' })
-        expect(link).toBeVisible()
-        expect(link).toHaveAttribute('href', '/test')
-      })
-    }
-  )
 })

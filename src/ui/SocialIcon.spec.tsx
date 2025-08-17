@@ -79,18 +79,15 @@ describe('SocialIcon', () => {
   })
 
   describe('Design System Colors', () => {
-    describe.each([
-      'default',
-      'primary',
-      'secondary',
-      'muted',
-      'accent',
-    ] as const)('color prop: %s', color => {
-      it(`renders with ${color} color`, () => {
-        render(<SocialIcon {...defaultProps} color={color} />)
-        expect(screen.getByRole('link', { name: 'GitHub' })).toBeVisible()
-      })
-    })
+    describe.each(['primary', 'secondary', 'muted', 'accent'] as const)(
+      'color prop: %s',
+      color => {
+        it(`renders with ${color} color`, () => {
+          render(<SocialIcon {...defaultProps} color={color} />)
+          expect(screen.getByRole('link', { name: 'GitHub' })).toBeVisible()
+        })
+      }
+    )
   })
 
   describe('Design System Interactive States', () => {
@@ -107,49 +104,6 @@ describe('SocialIcon', () => {
     )
   })
 
-  describe('Legacy Backward Compatibility', () => {
-    it('handles legacy simple variant', () => {
-      render(<SocialIcon {...defaultProps} variant="simple" />)
-
-      const link = screen.getByRole('link', { name: 'GitHub' })
-      expect(link).toBeVisible()
-      expect(screen.queryByText('GitHub')).not.toBeInTheDocument()
-    })
-
-    it('handles legacy button variant', () => {
-      render(<SocialIcon {...defaultProps} variant="button" />)
-
-      const link = screen.getByRole('link', { name: 'GitHub' })
-      expect(link).toBeVisible()
-      expect(screen.queryByText('GitHub')).not.toBeInTheDocument()
-    })
-
-    it('handles legacy footer variant with text', () => {
-      render(<SocialIcon {...defaultProps} variant="footer" />)
-
-      const link = screen.getByRole('link', { name: 'GitHub' })
-      expect(link).toBeVisible()
-      expect(screen.getByText('GitHub')).toBeVisible()
-    })
-  })
-
-  describe('New Design System Props Override Legacy', () => {
-    it('allows new props to override legacy variant mapping', () => {
-      render(
-        <SocialIcon
-          {...defaultProps}
-          variant="simple"
-          size="xl"
-          color="primary"
-          interactive="static"
-        />
-      )
-
-      const link = screen.getByRole('link', { name: 'GitHub' })
-      expect(link).toBeVisible()
-    })
-  })
-
   describe('Multiple Icon Types', () => {
     it('works with different Lucide icons', () => {
       const { rerender } = render(
@@ -164,57 +118,6 @@ describe('SocialIcon', () => {
 
       rerender(<SocialIcon {...defaultProps} icon={Twitter} label="Twitter" />)
       expect(screen.getByRole('link', { name: 'Twitter' })).toBeVisible()
-    })
-  })
-
-  describe('Edge Cases and Coverage', () => {
-    it('handles unknown legacy variant with default props', () => {
-      // @ts-expect-error Testing invalid variant to reach default case in getLegacyMapping
-      render(<SocialIcon {...defaultProps} variant="unknown" />)
-
-      const link = screen.getByRole('link', { name: 'GitHub' })
-      expect(link).toBeVisible()
-    })
-
-    it('handles edge case when getLegacyMapping receives unknown input', () => {
-      // Create a mock scenario where getLegacyMapping might receive unexpected input
-      // by modifying the includes array check to force the function call
-      const originalIncludes = Array.prototype.includes
-      const mockIncludes = jest.fn().mockReturnValue(true)
-      Array.prototype.includes = mockIncludes
-
-      try {
-        render(
-          <SocialIcon
-            {...defaultProps}
-            // @ts-expect-error Testing edge case with unknown variant
-            variant="unknown-legacy-variant"
-            size="md"
-            color="muted"
-            interactive="hover"
-          />
-        )
-
-        const link = screen.getByRole('link', { name: 'GitHub' })
-        expect(link).toBeVisible()
-      } finally {
-        Array.prototype.includes = originalIncludes
-      }
-    })
-
-    it('uses new design system when legacy variant has custom props', () => {
-      render(<SocialIcon {...defaultProps} variant="button" size="xs" />)
-
-      const link = screen.getByRole('link', { name: 'GitHub' })
-      expect(link).toBeVisible()
-    })
-
-    it('uses new design system when legacy variant has custom color', () => {
-      render(<SocialIcon {...defaultProps} variant="footer" color="primary" />)
-
-      const link = screen.getByRole('link', { name: 'GitHub' })
-      expect(link).toBeVisible()
-      expect(screen.getByText('GitHub')).toBeVisible()
     })
   })
 })

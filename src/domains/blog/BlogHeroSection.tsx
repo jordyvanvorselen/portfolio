@@ -17,9 +17,17 @@ export const BlogHeroSection = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <Title variant="blog-hero-title">Engineering Insights</Title>
+          <Title size="4xl" weight="bold" color="gradient" align="left" as="h1">
+            Engineering Insights
+          </Title>
 
-          <Text variant="blog-hero-subtitle">
+          <Text
+            size="xl"
+            weight="normal"
+            color="secondary"
+            alignment="left"
+            lineHeight="relaxed"
+          >
             Thoughts, tutorials, and deep dives into software engineering,
             architecture, and modern development practices.
           </Text>

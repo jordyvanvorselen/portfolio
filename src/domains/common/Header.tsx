@@ -23,19 +23,44 @@ export const Header = () => {
 
           {/* Navigation - Hidden on mobile, visible on larger screens */}
           <nav className="hidden md:flex items-center space-x-8">
-            <NavigationLink href="/" variant="desktop">
+            <NavigationLink
+              href="/"
+              variant="default"
+              size="md"
+              color="primary"
+            >
               Home
             </NavigationLink>
-            <NavigationLink href="/blog" variant="desktop">
+            <NavigationLink
+              href="/blog"
+              variant="default"
+              size="md"
+              color="primary"
+            >
               Blog
             </NavigationLink>
-            <NavigationLink href="/projects" variant="desktop">
+            <NavigationLink
+              href="/projects"
+              variant="default"
+              size="md"
+              color="primary"
+            >
               Projects
             </NavigationLink>
-            <NavigationLink href="/experience" variant="desktop">
+            <NavigationLink
+              href="/experience"
+              variant="default"
+              size="md"
+              color="primary"
+            >
               Experience
             </NavigationLink>
-            <NavigationLink href="/contact" variant="desktop">
+            <NavigationLink
+              href="/contact"
+              variant="default"
+              size="md"
+              color="primary"
+            >
               Contact
             </NavigationLink>
           </nav>
@@ -47,19 +72,30 @@ export const Header = () => {
                 href="https://github.com/jordyvanvorselen"
                 label="GitHub"
                 icon={Github}
-                variant="simple"
+                variant="icon"
+                size="md"
+                color="muted"
+                interactive="hover"
               />
               <SocialIcon
                 href="https://linkedin.com/in/jordy-van-vorselen"
                 label="LinkedIn"
                 icon={Linkedin}
-                variant="simple"
+                variant="icon"
+                size="md"
+                color="muted"
+                interactive="hover"
               />
             </div>
 
             <div className="w-px h-6 bg-gray-700"></div>
 
-            <Button variant="primary" href="mailto:jordyvanvorselen@gmail.com">
+            <Button
+              variant="solid"
+              color="primary"
+              size="md"
+              href="mailto:jordyvanvorselen@gmail.com"
+            >
               <UserPlus className="w-4 h-4 mr-2" />
               Hire Me
             </Button>

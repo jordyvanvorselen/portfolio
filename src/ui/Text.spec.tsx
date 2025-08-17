@@ -98,36 +98,6 @@ describe('Text', () => {
 
       expect(screen.getByText('Override defaults')).toBeVisible()
     })
-
-    it('prioritizes variant over design token props when variant is provided', () => {
-      render(
-        <Text variant="description" size="xs" weight="normal" color="muted">
-          Variant takes precedence
-        </Text>
-      )
-
-      expect(screen.getByText('Variant takes precedence')).toBeVisible()
-    })
-  })
-
-  describe('Legacy Variant Support', () => {
-    describe.each([
-      'description',
-      'card-description',
-      'footer-description',
-      'footer-info',
-      'footer-copyright',
-      'footer-availability',
-      'projects-hero-description',
-      'projects-grid-description',
-      'project-card-description',
-      'project-card-long-description',
-    ] as const)('variant: %s', variant => {
-      it(`renders with ${variant} variant`, () => {
-        render(<Text variant={variant}>Test text</Text>)
-        expect(screen.getByText('Test text')).toBeVisible()
-      })
-    })
   })
 
   it('accepts custom className prop', () => {
