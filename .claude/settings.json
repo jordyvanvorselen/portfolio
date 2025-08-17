@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pnpm lint"
+          },
+          {
+            "type": "command",
+            "command": "pnpm tsc --noEmit"
+          }
+        ]
+      }
+    ]
+  }
+}
