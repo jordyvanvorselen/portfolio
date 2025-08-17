@@ -56,6 +56,7 @@ test.describe('Hero Section', () => {
   })
 
   test('hero section visual regression', async ({ homePage }) => {
+    await homePage.hideHeader()
     await expect(homePage.hero.section).toHaveScreenshot('hero-section.png')
   })
 })

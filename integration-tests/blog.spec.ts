@@ -41,22 +41,26 @@ test('displays latest articles section', async ({ blogPage }) => {
 })
 
 test('blog hero section visual regression', async ({ blogPage }) => {
+  await blogPage.hideHeader()
   await expect(blogPage.hero.section).toHaveScreenshot('blog-hero-section.png')
 })
 
 test('blog search filters visual regression', async ({ blogPage }) => {
+  await blogPage.hideHeader()
   await expect(blogPage.searchFilters.section).toHaveScreenshot(
     'blog-search-filters.png'
   )
 })
 
 test('featured blog section visual regression', async ({ blogPage }) => {
+  await blogPage.hideHeader()
   await expect(blogPage.featuredSection.section).toHaveScreenshot(
     'featured-blog-section.png'
   )
 })
 
 test('blog grid section visual regression', async ({ blogPage }) => {
+  await blogPage.hideHeader()
   await expect(blogPage.blogGrid.section).toHaveScreenshot(
     'blog-grid-section.png'
   )
