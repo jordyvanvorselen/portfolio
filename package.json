@@ -12,8 +12,9 @@
     "format:fix": "prettier --write . --log-level warn",
     "test": "pnpm test:unit && pnpm test:integration",
     "test:unit": "jest --coverage",
-    "test:integration": "playwright test",
-    "test:snapshots": "pnpm test:integration --grep='visual regression' --update-snapshots"
+    "test:integration": "playwright test --grep-invert 'visual regression'",
+    "test:visual-regression": "playwright test --grep='visual regression'",
+    "test:visual-regression:fix": "playwright test --grep='visual regression' --update-snapshots"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.11",

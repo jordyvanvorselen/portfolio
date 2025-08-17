@@ -64,7 +64,7 @@ jobs:
       - name: Setup Playwright
         uses: ./.github/actions/setup-playwright
       - name: Run integration tests
-        run: pnpm test:integration --grep "visual regression" --invert
+        run: pnpm test:integration
       - name: Upload test results
         uses: actions/upload-artifact@v4
         if: always()
@@ -83,7 +83,7 @@ jobs:
         uses: ./.github/actions/setup-playwright
       - name: Run visual regression tests
         id: visual-tests
-        run: pnpm test:integration --grep "visual regression"
+        run: pnpm test:visual-regression
         continue-on-error: true
       - name: Check for visual differences
         id: check-diff
@@ -152,7 +152,7 @@ jobs:
             <summary>How to update baselines if changes are intentional</summary>
 
             ```bash
-            pnpm test:integration --grep "visual regression" --update-snapshots
+            pnpm test:visual-regression:fix
             ```
             </details>
 
