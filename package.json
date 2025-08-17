@@ -10,7 +10,7 @@
     "lint:fix": "next lint --fix && pnpm format:fix",
     "format": "prettier --check .",
     "format:fix": "prettier --write . --log-level warn",
-    "test": "pnpm test:unit && pnpm test:integration",
+    "test": "pnpm test:unit && pnpm test:integration && pnpm test:visual-regression",
     "test:unit": "jest --coverage",
     "test:integration": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:integration:ci'",
     "test:integration:ci": "playwright test --grep-invert 'visual regression'",
