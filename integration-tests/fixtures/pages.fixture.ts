@@ -3,11 +3,13 @@ import { test as base } from '@playwright/test'
 import { HomePage } from '@/integration-tests/page-objects/pages/home.page'
 import { BlogPage } from '@/integration-tests/page-objects/pages/blog.page'
 import { ProjectsPage } from '@/integration-tests/page-objects/pages/projects.page'
+import { ExperiencePage } from '@/integration-tests/page-objects/pages/experience.page'
 
 type Fixture = {
   homePage: HomePage
   blogPage: BlogPage
   projectsPage: ProjectsPage
+  experiencePage: ExperiencePage
 }
 
 export const test = base.extend<Fixture>({
@@ -27,5 +29,9 @@ export const test = base.extend<Fixture>({
 
   projectsPage: async ({ page }, pwUse) => {
     await pwUse(await ProjectsPage.goto(page))
+  },
+
+  experiencePage: async ({ page }, pwUse) => {
+    await pwUse(await ExperiencePage.goto(page))
   },
 })
