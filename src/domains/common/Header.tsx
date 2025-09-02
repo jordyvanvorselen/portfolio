@@ -94,7 +94,7 @@ export const Header = () => {
               variant="solid"
               color="primary"
               size="md"
-              href="mailto:jordyvanvorselen@gmail.com"
+              href="mailto:jordy@morethanbits.io"
             >
               <UserPlus className="w-4 h-4 mr-2" />
               Hire Me

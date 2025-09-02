@@ -37,9 +37,8 @@ export const ExperienceCard = ({
   isCurrentJob = false,
 }: ExperienceCardProps) => {
   return (
-    <div className="flex justify-start mb-12 md:mb-16 lg:mb-20">
-      <div className="w-full max-w-sm sm:max-w-md md:max-w-lg pr-4 sm:pr-6 md:pr-8">
-        <Card className="transition-all duration-500 hover:shadow-2xl">
+    <div className="h-full">
+      <Card className="transition-all duration-500 hover:shadow-2xl h-full flex flex-col">
           {/* Header with logo and position */}
           <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
             <div className="relative flex-shrink-0 mt-0.5 sm:mt-1">
@@ -127,7 +126,7 @@ export const ExperienceCard = ({
           </Text>
 
           {/* Achievements */}
-          <div className="mb-6 sm:mb-8">
+          <div className="mb-6 sm:mb-8 flex-grow">
             <Title
               as="h4"
               size="xs"
@@ -155,7 +154,7 @@ export const ExperienceCard = ({
           </div>
 
           {/* Technologies */}
-          <div>
+          <div className="mt-auto">
             <Title
               as="h4"
               size="xs"
@@ -182,7 +181,6 @@ export const ExperienceCard = ({
             </div>
           </div>
         </Card>
-      </div>
     </div>
   )
 }

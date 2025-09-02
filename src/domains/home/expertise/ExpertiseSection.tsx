@@ -24,9 +24,9 @@ export const ExpertiseSection = () => {
 
       <div className="relative z-10 min-h-full flex items-center justify-center px-4 md:px-8 lg:px-12">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="flex justify-center mb-2 md:mb-3 lg:mb-4">
+          {/*<div className="flex justify-center mb-2 md:mb-3 lg:mb-4">
             <ExpertiseLabel />
-          </div>
+          </div>*/}
           <Title
             size="3xl"
             weight="bold"
@@ -35,7 +35,7 @@ export const ExpertiseSection = () => {
             as="h2"
             className="mt-12 mb-4"
           >
-            What I Excel At
+            Faster Delivery and Better Quality
           </Title>
           <Text
             size="lg"
@@ -45,8 +45,9 @@ export const ExpertiseSection = () => {
             lineHeight="relaxed"
             className="max-w-2xl mx-auto mb-4"
           >
-            Three fundamental pillars that drive my approach to software
-            engineering and ensure delivery of exceptional results.
+            Three fundamental pillars that I can help introduce to ensure
+            quality engineering and drive faster delivery of exceptional
+            results.
           </Text>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-8 lg:mt-12 max-w-7xl mx-auto">
             <TDDCard />

@@ -15,9 +15,7 @@ export class Footer extends BaseSection {
   readonly location: Locator = this.section.getByText(
     '📍 Noord-Brabant, the Netherlands 🇳🇱'
   )
-  readonly email: Locator = this.section.getByText(
-    '✉️ jordyvanvorselen@gmail.com'
-  )
+  readonly email: Locator = this.section.getByText('jordy@morethanbits.io')
   readonly quickLinksSection: Locator = this.section.getByRole('heading', {
     name: 'Quick Links',
   })

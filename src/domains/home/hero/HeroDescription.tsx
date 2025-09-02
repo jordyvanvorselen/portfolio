@@ -10,10 +10,10 @@ export const HeroDescription = () => {
       lineHeight="relaxed"
       className="md:text-xl max-w-3xl mx-auto"
     >
-      I help engineering teams deliver better software faster through
-      Test-Driven Development, solid architecture, and collaborative mentorship.
-      With 8+ years of experience, I help teams build maintainable systems that
-      stand the test of time.
+      Need someone to help your team build better software, faster? Then you're
+      in the right place! I help deliver better software, faster. With 8+ years
+      of experience, I help teams build maintainable systems that stand the test
+      of time.
     </Text>
   )
 }

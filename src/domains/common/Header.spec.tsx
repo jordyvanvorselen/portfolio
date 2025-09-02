@@ -6,7 +6,7 @@ describe(Header, () => {
     render(<Header />)
 
     const brandingLink = screen.getByRole('link', {
-      name: 'Jordy van Vorselen',
+      name: 'More Than Bits',
     })
     expect(brandingLink).toBeVisible()
   })
@@ -76,7 +76,7 @@ describe(Header, () => {
     render(<Header />)
 
     const brandingLink = screen.getByRole('link', {
-      name: 'Jordy van Vorselen',
+      name: 'More Than Bits',
     })
     expect(brandingLink).toHaveAttribute('href', '/')
   })

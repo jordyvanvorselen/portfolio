@@ -24,7 +24,7 @@ export const SocialLinks = () => {
         interactive="hover"
       />
       <SocialIcon
-        href="mailto:jordyvanvorselen@gmail.com"
+        href="mailto:jordy@morethanbits.io"
         label="Email"
         icon={Mail}
         variant="button"
