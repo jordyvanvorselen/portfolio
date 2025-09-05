@@ -3,7 +3,7 @@ import { Title } from '@/ui/Title'
 import { ExpertiseLabel } from '@/domains/home/expertise/ExpertiseLabel'
 import { TDDCard } from '@/domains/home/expertise/TDDCard'
 import { SoftwareArchitectureCard } from '@/domains/home/expertise/SoftwareArchitectureCard'
-import { AIAcceleratedDevelopmentCard } from '@/domains/home/expertise/AIAcceleratedDevelopmentCard'
+import { ContinuousDeliveryCard } from '@/domains/home/expertise/ContinuousDeliveryCard'
 import { ExpertiseCallToAction } from '@/domains/home/expertise/ExpertiseCallToAction'
 
 export const ExpertiseSection = () => {
@@ -35,7 +35,7 @@ export const ExpertiseSection = () => {
             as="h2"
             className="mt-12 mb-4"
           >
-            What I Excel At
+            Want To Deliver Faster?
           </Title>
           <Text
             size="lg"
@@ -45,13 +45,14 @@ export const ExpertiseSection = () => {
             lineHeight="relaxed"
             className="max-w-2xl mx-auto mb-4"
           >
-            Three fundamental pillars that drive my approach to software
-            engineering and ensure delivery of exceptional results.
+            I am specialized in helping teams speed up development. Embracing
+            engineering best practices drives faster delivery of exceptional
+            results.
           </Text>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-8 lg:mt-12 max-w-7xl mx-auto">
             <TDDCard />
             <SoftwareArchitectureCard />
-            <AIAcceleratedDevelopmentCard />
+            <ContinuousDeliveryCard />
           </div>
           <ExpertiseCallToAction />
         </div>

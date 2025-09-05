@@ -10,7 +10,7 @@ describe('Logo', () => {
     it(`renders logo as home link ${scenario}`, () => {
       render(<Logo {...(className ? { className } : {})} />)
 
-      const logoLink = screen.getByRole('link', { name: 'Jordy van Vorselen' })
+      const logoLink = screen.getByRole('link', { name: 'More Than Bits' })
       expect(logoLink).toBeVisible()
       expect(logoLink).toHaveAttribute('href', '/')
     })
@@ -18,7 +18,7 @@ describe('Logo', () => {
     it(`renders logo text ${scenario}`, () => {
       render(<Logo {...(className ? { className } : {})} />)
 
-      expect(screen.getByText('Jordy van Vorselen')).toBeVisible()
+      expect(screen.getByText('More Than Bits')).toBeVisible()
     })
 
     if (className) {
@@ -26,7 +26,7 @@ describe('Logo', () => {
         render(<Logo {...(className ? { className } : {})} />)
 
         const logoLink = screen.getByRole('link', {
-          name: 'Jordy van Vorselen',
+          name: 'More Than Bits',
         })
         expect(logoLink).toHaveClass(className)
       })

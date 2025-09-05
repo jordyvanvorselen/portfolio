@@ -21,7 +21,7 @@ describe('Footer', () => {
     expect(
       screen.getByText('📍 Noord-Brabant, the Netherlands 🇳🇱')
     ).toBeVisible()
-    expect(screen.getByText('✉️ jordyvanvorselen@gmail.com')).toBeVisible()
+    expect(screen.getByText(/jordy@morethanbits.io/)).toBeVisible()
   })
 
   it('displays quick links section', () => {

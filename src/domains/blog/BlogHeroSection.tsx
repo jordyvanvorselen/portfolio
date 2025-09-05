@@ -23,7 +23,7 @@ export const BlogHeroSection = () => {
             color="gradient"
             align="center"
             as="h1"
-            className="mb-6 leading-tight"
+            className="mb-6"
           >
             Engineering Insights
           </Title>

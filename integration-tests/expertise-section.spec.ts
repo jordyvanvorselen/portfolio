@@ -73,25 +73,39 @@ test.describe('Expertise Section', () => {
     ).toBeVisible()
   })
 
-  test('displays ai accelerated development expertise card', async ({
-    homePage,
-  }) => {
-    await expect(homePage.aiCard.section).toBeVisible()
-    await expect(homePage.aiCard.title).toBeVisible()
-    await expect(homePage.aiCard.description).toBeVisible()
-    await expect(homePage.aiCard.keySkillsLabel).toBeVisible()
+  test('displays continuous delivery expertise card', async ({ homePage }) => {
+    await expect(homePage.continuousDeliveryCard.section).toBeVisible()
+    await expect(homePage.continuousDeliveryCard.title).toBeVisible()
+    await expect(homePage.continuousDeliveryCard.description).toBeVisible()
+    await expect(homePage.continuousDeliveryCard.keySkillsLabel).toBeVisible()
 
     // Check for skill badges
-    await expect(homePage.aiCard.claudeCodeBadge).toBeVisible()
-    await expect(homePage.aiCard.trunkBasedBadge).toBeVisible()
-    await expect(homePage.aiCard.continuousDeploymentBadge).toBeVisible()
-    await expect(homePage.aiCard.pairProgrammingBadge).toBeVisible()
-    await expect(homePage.aiCard.automatedTestingBadge).toBeVisible()
+    await expect(
+      homePage.continuousDeliveryCard.githubActionsBadge
+    ).toBeVisible()
+    await expect(
+      homePage.continuousDeliveryCard.dockerKubernetesBadge
+    ).toBeVisible()
+    await expect(
+      homePage.continuousDeliveryCard.infrastructureAsCodeBadge
+    ).toBeVisible()
+    await expect(
+      homePage.continuousDeliveryCard.progressiveDeploymentBadge
+    ).toBeVisible()
+    await expect(
+      homePage.continuousDeliveryCard.automatedRollbacksBadge
+    ).toBeVisible()
 
     // Check for publications section
-    await expect(homePage.aiCard.publicationsCount).toBeVisible()
-    await expect(homePage.aiCard.publicationsLabel).toBeVisible()
-    await expect(homePage.aiCard.publicationsSubtext).toBeVisible()
+    await expect(
+      homePage.continuousDeliveryCard.publicationsCount
+    ).toBeVisible()
+    await expect(
+      homePage.continuousDeliveryCard.publicationsLabel
+    ).toBeVisible()
+    await expect(
+      homePage.continuousDeliveryCard.publicationsSubtext
+    ).toBeVisible()
   })
 
   test('displays call-to-action section', async ({ homePage }) => {

@@ -54,7 +54,7 @@ export const Footer = () => {
               </div>
               <div className="flex items-center text-[#cbd5e1]">
                 <Text size="sm" weight="normal" color="secondary">
-                  ✉️ jordyvanvorselen@gmail.com
+                  ✉️ jordy@morethanbits.io
                 </Text>
               </div>
             </div>
@@ -168,7 +168,7 @@ export const Footer = () => {
                     interactive="hover"
                   />
                   <SocialIcon
-                    href="mailto:jordyvanvorselen@gmail.com"
+                    href="mailto:jordy@morethanbits.io"
                     label="Email"
                     icon={Mail}
                     variant="text"
@@ -181,7 +181,7 @@ export const Footer = () => {
                   variant="solid"
                   color="primary"
                   size="md"
-                  href="mailto:jordyvanvorselen@gmail.com"
+                  href="mailto:jordy@morethanbits.io"
                 >
                   <Mail className="w-4 h-4 mr-2" />
                   Get In Touch

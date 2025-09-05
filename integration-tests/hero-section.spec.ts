@@ -29,7 +29,7 @@ test.describe('Hero Section', () => {
     )
     await expect(homePage.hero.scrollIndicatorSubtitle).toBeVisible()
     await expect(homePage.hero.scrollIndicatorSubtitle).toHaveText(
-      'Explore the skills I master'
+      'Explore what I can bring to your project'
     )
     await expect(homePage.hero.scrollIndicatorIcon).toBeVisible()
   })

@@ -49,17 +49,21 @@ export const Title = ({
   lineClamp = 'none',
   className = '',
 }: TitleProps) => {
-  // Size styles
+  // Size styles with appropriate line heights
   const sizeStyles = {
-    xs: 'text-xs',
-    sm: 'text-sm',
-    md: 'text-xl md:text-2xl',
-    lg: 'text-2xl',
-    xl: 'text-2xl md:text-3xl lg:text-4xl',
-    '2xl': 'text-3xl md:text-3xl lg:text-4xl',
-    '3xl': 'text-3xl md:text-4xl lg:text-5xl',
-    '4xl': 'text-5xl md:text-5xl lg:text-6xl xl:text-7xl',
-    '5xl': 'text-4xl md:text-6xl lg:text-7xl xl:text-8xl',
+    xs: 'text-xs leading-4',
+    sm: 'text-sm leading-5',
+    md: 'text-xl md:text-2xl leading-7 md:leading-8',
+    lg: 'text-2xl leading-8',
+    xl: 'text-2xl md:text-3xl lg:text-4xl leading-8 md:leading-9 lg:leading-10',
+    '2xl':
+      'text-3xl md:text-3xl lg:text-4xl leading-9 md:leading-9 lg:leading-10',
+    '3xl':
+      'text-3xl md:text-4xl lg:text-5xl leading-10 md:leading-12 lg:leading-14',
+    '4xl':
+      'text-5xl md:text-5xl lg:text-6xl xl:text-7xl leading-16 md:leading-16 lg:leading-20 xl:leading-24',
+    '5xl':
+      'text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-10 md:leading-14 lg:leading-16 xl:leading-20',
   }
 
   // Weight styles

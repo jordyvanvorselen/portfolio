@@ -34,7 +34,7 @@ export const ScrollIndicator = () => {
           Discover My Core Expertise
         </Text>
         <Text size="xs" weight="normal" color="muted" alignment="center">
-          Explore the skills I master
+          Explore what I can bring to your project
         </Text>
       </div>
       <ChevronDown

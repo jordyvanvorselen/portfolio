@@ -16,10 +16,12 @@ describe('ScrollIndicator', () => {
     expect(screen.getByText('Discover My Core Expertise')).toBeVisible()
   })
 
-  it('renders Explore the skills I master subtitle', () => {
+  it('renders Explore what I can bring to your project subtitle', () => {
     render(<ScrollIndicator />)
 
-    expect(screen.getByText('Explore the skills I master')).toBeVisible()
+    expect(
+      screen.getByText('Explore what I can bring to your project')
+    ).toBeVisible()
   })
 
   it('renders chevron down icon', () => {

@@ -17,7 +17,7 @@ export const Logo = ({ className = '' }: LogoProps) => {
         align="left"
         className="hover:text-gray-300 transition-colors"
       >
-        Jordy van Vorselen
+        More Than Bits
       </Title>
     </Link>
   )

@@ -14,17 +14,17 @@
 
 ```warp-runnable-command
 .
-├── app/                     # App Router structure
-│   ├── layout.tsx
-│   ├── page.tsx
-│   ├── api/
 ├── src/                     # Source code root
+│   ├── app/                 # App Router structure (moved inside src/)
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   ├── api/
 │   ├── ui/                  # Generic UI components with design system
+│   ├── hooks/               # Custom React hooks
 │   └── domains/             # Domain-based feature organization
 │       ├── header/          # Header domain components
 │       ├── hero-section/    # Hero section domain components
 │       └── expertise-section/ # Expertise section domain components
-├── hooks/                   # Custom React hooks
 ├── lib/                     # Client helpers, API wrappers, etc.
 ├── styles/                  # Tailwind customizations
 ├── integration-tests/       # Integration tests
@@ -72,12 +72,13 @@
 - **Test all command**: `pnpm test`
 - **Test unit command**: `pnpm test:unit`
 - **Test integration command**: `pnpm test:integration` (excludes visual regression tests)
+- **Test single integration file**: `pnpm test:integration -- <filename>.spec.ts` (e.g., `pnpm test:integration -- experience.spec.ts`)
 - **Test visual regression command**: `pnpm test:visual-regression`
 - **Coverage requirement**: Unit tests MUST achieve 100% code coverage
 - Organize unit / component tests co-located with components
 - Organize integration tests in the `integration-tests` folder
 - Focus on testing behavior, not implementation details
-- The naming convention is `*.spec.tsx` for component tests and `*.test.ts` for integration tests
+- The naming convention is `*.spec.tsx` for component tests and `*.spec.ts` for integration tests
 - Use `describe` blocks to group related tests
 - Use `beforeEach` and `afterEach` for setup/teardown
 - Use `it` for individual test cases, NOT `test`
@@ -353,7 +354,7 @@ import { Github, Linkedin, UserPlus } from "lucide-react";
 ## 🔍 Documentation & Onboarding
 
 - Each component and hook should include a short comment on usage
-- Document top-level files (like `app/layout.tsx`) and configs
+- Document top-level files (like `src/app/layout.tsx`) and configs
 - Keep `README.md` up to date with getting started, design tokens, and component usage notes
 - Do not add comments for self-explanatory code
 - When adding a comment, ensure it explains WHY the code is written in a certain way - NOT WHAT IT DOES

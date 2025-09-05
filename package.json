@@ -12,7 +12,7 @@
     "format:fix": "prettier --write . --log-level warn",
     "test": "pnpm test:unit && pnpm test:integration && pnpm test:visual-regression",
     "test:unit": "jest --coverage",
-    "test:integration": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:integration:ci'",
+    "test:integration": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:integration:ci -- \"$@\"' --",
     "test:integration:ci": "playwright test --grep-invert 'visual regression'",
     "test:visual-regression": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci'",
     "test:visual-regression:ci": "playwright test --grep='visual regression'",
