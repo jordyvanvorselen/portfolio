@@ -9,10 +9,10 @@ export class ExpertiseSection extends BaseSection {
 
   readonly label: Locator = this.section.getByText('Core Expertise')
   readonly title: Locator = this.section.getByRole('heading', {
-    name: 'What I Excel At',
+    name: 'Want To Deliver Faster?',
   })
   readonly description: Locator = this.section.getByText(
-    'Three fundamental pillars that drive my approach to software engineering and ensure delivery of exceptional results.'
+    'I am specialized in helping teams speed up development. Embracing engineering best practices drives faster delivery of exceptional results.'
   )
   readonly tddCard: Locator = this.section.getByRole('article', {
     name: /test-driven development/i,
@@ -23,12 +23,9 @@ export class ExpertiseSection extends BaseSection {
       name: /software architecture/i,
     }
   )
-  readonly aiAcceleratedDevelopmentCard: Locator = this.section.getByRole(
-    'article',
-    {
-      name: /ai-accelerated development/i,
-    }
-  )
+  readonly continuousDeliveryCard: Locator = this.section.getByRole('article', {
+    name: /continuous delivery/i,
+  })
   readonly callToAction: Locator = this.section.locator(
     '[data-testid="call-to-action"]'
   )

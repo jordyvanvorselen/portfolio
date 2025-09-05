@@ -27,13 +27,13 @@ describe('Experience Page', () => {
     render(<ExperiencePage />)
 
     expect(
-      screen.getByRole('heading', { name: 'Senior Software Engineer' })
-    ).toBeVisible()
-    expect(screen.getByText('TechCorp Solutions')).toBeVisible()
-    expect(screen.getByText('3+ years')).toBeVisible()
-    expect(screen.getByText('San Francisco, CA')).toBeVisible()
-    expect(screen.getAllByText('Full-time')).toHaveLength(3)
-    expect(screen.getByText('Current')).toBeVisible()
+      screen.getAllByRole('heading', { name: 'Senior Software Engineer' })
+    ).toHaveLength(2) // One for mobile, one for desktop
+    expect(screen.getAllByText('TechCorp Solutions')).toHaveLength(2) // One for mobile, one for desktop
+    expect(screen.getAllByText('3+ years')).toHaveLength(2) // One for mobile, one for desktop
+    expect(screen.getAllByText('San Francisco, CA')).toHaveLength(2) // One for mobile, one for desktop
+    expect(screen.getAllByText('Full-time')).toHaveLength(6) // 3 Full-time jobs × 2 layouts (mobile + desktop)
+    expect(screen.getAllByText('Current')).toHaveLength(2) // One for mobile, one for desktop
   })
 
   it('displays experience card achievements and technologies', () => {
@@ -41,35 +41,41 @@ describe('Experience Page', () => {
 
     expect(
       screen.getAllByRole('heading', { name: /Key Achievements/i })
-    ).toHaveLength(4)
-    expect(screen.getByText(/Reduced system latency by 40% through optimization/)).toBeVisible()
-    expect(screen.getByText(/Led team of 8 engineers on critical projects/)).toBeVisible()
+    ).toHaveLength(8) // 4 cards × 2 layouts (mobile + desktop)
+    expect(
+      screen.getAllByText(/Reduced system latency by 40% through optimization/)
+    ).toHaveLength(2) // One for mobile, one for desktop
+    expect(
+      screen.getAllByText(/Led team of 8 engineers on critical projects/)
+    ).toHaveLength(2) // One for mobile, one for desktop
 
     expect(
       screen.getAllByRole('heading', { name: /Technologies Used/i })
-    ).toHaveLength(4)
-    expect(screen.getAllByText('React')).toHaveLength(2)
-    expect(screen.getByText('Node.js')).toBeVisible()
-    expect(screen.getByText('TypeScript')).toBeVisible()
+    ).toHaveLength(8) // 4 cards × 2 layouts (mobile + desktop)
+    expect(screen.getAllByText('React')).toHaveLength(4) // 2 cards × 2 layouts (mobile + desktop)
+    expect(screen.getAllByText('Node.js')).toHaveLength(2) // One for mobile, one for desktop
+    expect(screen.getAllByText('TypeScript')).toHaveLength(2) // One for mobile, one for desktop
   })
 
   it('renders multiple experience cards in a responsive grid', () => {
     render(<ExperiencePage />)
 
     expect(
-      screen.getByRole('heading', { name: 'Senior Software Engineer' })
-    ).toBeVisible()
+      screen.getAllByRole('heading', { name: 'Senior Software Engineer' })
+    ).toHaveLength(2) // One for mobile, one for desktop
     expect(
-      screen.getByRole('heading', { name: 'Full Stack Developer' })
-    ).toBeVisible()
-    expect(screen.getByRole('heading', { name: 'Junior Developer' })).toBeVisible()
+      screen.getAllByRole('heading', { name: 'Full Stack Developer' })
+    ).toHaveLength(2) // One for mobile, one for desktop
     expect(
-      screen.getByRole('heading', { name: 'Software Engineering Intern' })
-    ).toBeVisible()
+      screen.getAllByRole('heading', { name: 'Junior Developer' })
+    ).toHaveLength(2) // One for mobile, one for desktop
+    expect(
+      screen.getAllByRole('heading', { name: 'Software Engineering Intern' })
+    ).toHaveLength(2) // One for mobile, one for desktop
 
-    expect(screen.getByText('InnovateLabs')).toBeVisible()
-    expect(screen.getByText('StartupHub')).toBeVisible()
-    expect(screen.getByText('DataTech Inc')).toBeVisible()
-    expect(screen.getByText('Internship')).toBeVisible()
+    expect(screen.getAllByText('InnovateLabs')).toHaveLength(2) // One for mobile, one for desktop
+    expect(screen.getAllByText('StartupHub')).toHaveLength(2) // One for mobile, one for desktop
+    expect(screen.getAllByText('DataTech Inc')).toHaveLength(2) // One for mobile, one for desktop
+    expect(screen.getAllByText('Internship')).toHaveLength(2) // One for mobile, one for desktop
   })
 })

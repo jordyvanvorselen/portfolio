@@ -83,6 +83,7 @@ describe('ExperienceCard', () => {
   })
 
   it('does not display external link when companyUrl is not provided', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { companyUrl, ...propsWithoutCompanyUrl } = mockProps
 
     render(<ExperienceCard {...propsWithoutCompanyUrl} />)

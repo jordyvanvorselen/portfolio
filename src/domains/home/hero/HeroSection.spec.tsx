@@ -29,9 +29,7 @@ describe('HeroSection', () => {
     render(<HeroSection />)
 
     expect(
-      screen.getByText(
-        /I help engineering teams deliver better software faster/
-      )
+      screen.getByText(/I help deliver better software, faster/)
     ).toBeVisible()
   })
 })

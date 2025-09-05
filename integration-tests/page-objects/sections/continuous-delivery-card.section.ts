@@ -2,16 +2,16 @@ import { Locator } from '@playwright/test'
 
 import { BaseSection } from '@/integration-tests/page-objects/base.section'
 
-export class AiCard extends BaseSection {
+export class ContinuousDeliveryCard extends BaseSection {
   override readonly section: Locator = this.page.getByRole('article', {
-    name: /ai-accelerated development/i,
+    name: /continuous delivery/i,
   })
 
   readonly title: Locator = this.section.getByRole('heading', {
-    name: 'AI-Accelerated Development',
+    name: 'Continuous Delivery',
   })
   readonly description: Locator = this.section.getByText(
-    /I leverage AI tools to accelerate team velocity while maintaining code quality/
+    /I implement robust CI\/CD pipelines that enable teams to ship features rapidly/
   )
   readonly keySkillsLabel: Locator =
     this.section.getByText('KEY SKILLS & TOOLS')
@@ -23,24 +23,24 @@ export class AiCard extends BaseSection {
     .first()
 
   // Skill badges
-  readonly claudeCodeBadge: Locator = this.skillsSection
+  readonly githubActionsBadge: Locator = this.skillsSection
     .getByRole('status')
-    .filter({ hasText: 'Claude Code' })
-  readonly trunkBasedBadge: Locator = this.skillsSection
+    .filter({ hasText: 'GitHub Actions' })
+  readonly dockerKubernetesBadge: Locator = this.skillsSection
     .getByRole('status')
-    .filter({ hasText: 'Trunk-Based Development' })
-  readonly continuousDeploymentBadge: Locator = this.skillsSection
+    .filter({ hasText: 'Docker & Kubernetes' })
+  readonly infrastructureAsCodeBadge: Locator = this.skillsSection
     .getByRole('status')
-    .filter({ hasText: 'Continuous Deployment' })
-  readonly pairProgrammingBadge: Locator = this.skillsSection
+    .filter({ hasText: 'Infrastructure as Code' })
+  readonly progressiveDeploymentBadge: Locator = this.skillsSection
     .getByRole('status')
-    .filter({ hasText: 'Pair Programming' })
-  readonly automatedTestingBadge: Locator = this.skillsSection
+    .filter({ hasText: 'Progressive Deployment' })
+  readonly automatedRollbacksBadge: Locator = this.skillsSection
     .getByRole('status')
-    .filter({ hasText: 'Automated Testing' })
+    .filter({ hasText: 'Automated Rollbacks' })
 
   // Publications section
-  readonly publicationsCount: Locator = this.section.getByText('15')
+  readonly publicationsCount: Locator = this.section.getByText('18')
   readonly publicationsLabel: Locator = this.section.getByText('Publications')
   readonly publicationsSubtext: Locator =
     this.section.getByText('on this topic')

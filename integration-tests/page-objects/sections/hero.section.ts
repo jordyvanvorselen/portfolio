@@ -13,7 +13,7 @@ export class Hero extends BaseSection {
   })
   readonly title: Locator = this.section.getByText('Senior Software Engineer')
   readonly description: Locator = this.section.getByText(
-    /I help engineering teams deliver better software faster/
+    /I help deliver better software, faster/
   )
   readonly getInTouchButton: Locator = this.section.getByRole('link', {
     name: 'Get In Touch',
@@ -34,7 +34,7 @@ export class Hero extends BaseSection {
     'Discover My Core Expertise'
   )
   readonly scrollIndicatorSubtitle: Locator = this.section.getByText(
-    'Explore the skills I master'
+    'Explore what I can bring to your project'
   )
   readonly scrollIndicatorIcon: Locator =
     this.section.getByTestId('chevron-down-icon')
