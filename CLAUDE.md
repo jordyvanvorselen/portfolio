@@ -20,11 +20,11 @@
 │   │   ├── page.tsx
 │   │   ├── api/
 │   ├── ui/                  # Generic UI components with design system
+│   ├── hooks/               # Custom React hooks
 │   └── domains/             # Domain-based feature organization
 │       ├── header/          # Header domain components
 │       ├── hero-section/    # Hero section domain components
 │       └── expertise-section/ # Expertise section domain components
-├── hooks/                   # Custom React hooks
 ├── lib/                     # Client helpers, API wrappers, etc.
 ├── styles/                  # Tailwind customizations
 ├── integration-tests/       # Integration tests
