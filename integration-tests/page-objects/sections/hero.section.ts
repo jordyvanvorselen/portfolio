@@ -4,16 +4,13 @@ import { BaseSection } from '@/integration-tests/page-objects/base.section'
 
 export class Hero extends BaseSection {
   override readonly section: Locator = this.page.locator('section').first()
-  readonly availabilityBadge: Locator = this.section.getByText(
-    'Available for new remote opportunities'
-  )
   readonly name: Locator = this.section.getByRole('heading', {
     name: 'Jordy van Vorselen',
     level: 1,
   })
   readonly title: Locator = this.section.getByText('Senior Software Engineer')
   readonly description: Locator = this.section.getByText(
-    /I help deliver better software, faster/
+    /I help teams deliver software of exceptional quality/
   )
   readonly getInTouchButton: Locator = this.section.getByRole('link', {
     name: 'Get In Touch',
@@ -30,12 +27,16 @@ export class Hero extends BaseSection {
   readonly emailLink: Locator = this.section.getByRole('link', {
     name: 'Email',
   })
-  readonly scrollIndicatorTitle: Locator = this.section.getByText(
-    'Discover My Core Expertise'
-  )
-  readonly scrollIndicatorSubtitle: Locator = this.section.getByText(
-    'Explore what I can bring to your project'
-  )
-  readonly scrollIndicatorIcon: Locator =
-    this.section.getByTestId('chevron-down-icon')
+  readonly scrollIndicatorTitle: Locator = this.section
+    .getByText('Discover My Core Expertise')
+    .locator('visible=true')
+    .first()
+  readonly scrollIndicatorSubtitle: Locator = this.section
+    .getByText('Explore what I can bring to your project')
+    .locator('visible=true')
+    .first()
+  readonly scrollIndicatorIcon: Locator = this.section
+    .getByTestId('chevron-down-icon')
+    .locator('visible=true')
+    .first()
 }

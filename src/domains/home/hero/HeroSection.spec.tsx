@@ -3,14 +3,6 @@ import { render, screen } from '@testing-library/react'
 import { HeroSection } from '@/domains/home/hero/HeroSection'
 
 describe('HeroSection', () => {
-  it('renders availability badge', () => {
-    render(<HeroSection />)
-
-    expect(
-      screen.getByText('Available for new remote opportunities')
-    ).toBeVisible()
-  })
-
   it('renders name heading', () => {
     render(<HeroSection />)
 
@@ -29,7 +21,12 @@ describe('HeroSection', () => {
     render(<HeroSection />)
 
     expect(
-      screen.getByText(/I help deliver better software, faster/)
+      screen.getByText((_content, element) => {
+        return (
+          element?.textContent ===
+          "I help teams deliver software of exceptional quality — and help them deliver it to the customers a lot faster, while we're at it."
+        )
+      })
     ).toBeVisible()
   })
 })

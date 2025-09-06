@@ -7,7 +7,6 @@ export class ExpertiseSection extends BaseSection {
     name: 'Core Expertise',
   })
 
-  readonly label: Locator = this.section.getByText('Core Expertise')
   readonly title: Locator = this.section.getByRole('heading', {
     name: 'Want To Deliver Faster?',
   })

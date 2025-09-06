@@ -1,6 +1,5 @@
 import { Text } from '@/ui/Text'
 import { Title } from '@/ui/Title'
-import { ExpertiseLabel } from '@/domains/home/expertise/ExpertiseLabel'
 import { TDDCard } from '@/domains/home/expertise/TDDCard'
 import { SoftwareArchitectureCard } from '@/domains/home/expertise/SoftwareArchitectureCard'
 import { ContinuousDeliveryCard } from '@/domains/home/expertise/ContinuousDeliveryCard'
@@ -24,9 +23,6 @@ export const ExpertiseSection = () => {
 
       <div className="relative z-10 min-h-full flex items-center justify-center px-4 md:px-8 lg:px-12">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="flex justify-center mb-2 md:mb-3 lg:mb-4">
-            <ExpertiseLabel />
-          </div>
           <Title
             size="3xl"
             weight="bold"
