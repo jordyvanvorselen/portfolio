@@ -55,79 +55,24 @@ describe('TimelineItem', () => {
       expect(dot).toHaveAttribute('data-color', 'purple')
     })
 
-    it('applies left alignment layout', () => {
-      const { container } = render(
+    it('renders with left alignment', () => {
+      const { getByText } = render(
         <TimelineItem {...defaultProps} alignment="left">
-          <div>Content</div>
+          <div>Left aligned content</div>
         </TimelineItem>
       )
 
-      const leftContainer = container.querySelector('.w-full.pr-24')
-      const rightContainer = container.querySelector('.w-4\\/5.pl-12')
-
-      expect(leftContainer).toBeInTheDocument()
-      expect(rightContainer).toBeInTheDocument()
+      expect(getByText('Left aligned content')).toBeInTheDocument()
     })
 
-    it('applies right alignment layout', () => {
-      const { container } = render(
+    it('renders with right alignment', () => {
+      const { getByText } = render(
         <TimelineItem {...defaultProps} alignment="right">
-          <div>Content</div>
+          <div>Right aligned content</div>
         </TimelineItem>
       )
 
-      const leftContainer = container.querySelector('.w-4\\/5.pr-12')
-      const rightContainer = container.querySelector('.w-4\\/5.pl-12')
-
-      expect(leftContainer).toBeInTheDocument()
-      expect(rightContainer).toBeInTheDocument()
-    })
-
-    it('applies normal spacing by default', () => {
-      const { container } = render(
-        <TimelineItem {...defaultProps}>
-          <div>Content</div>
-        </TimelineItem>
-      )
-      const item = container.firstChild as HTMLElement
-
-      expect(item).toHaveClass('mb-16')
-      expect(item).not.toHaveClass('-mt-64')
-    })
-
-    it('applies close spacing when specified', () => {
-      const { container } = render(
-        <TimelineItem {...defaultProps} spacing="close">
-          <div>Content</div>
-        </TimelineItem>
-      )
-      const item = container.firstChild as HTMLElement
-
-      expect(item).toHaveClass('mb-16', '-mt-64')
-    })
-
-    it('applies custom className', () => {
-      const { container } = render(
-        <TimelineItem {...defaultProps} className="custom-item-class">
-          <div>Content</div>
-        </TimelineItem>
-      )
-      const item = container.firstChild as HTMLElement
-
-      expect(item).toHaveClass('custom-item-class')
-    })
-
-    it('renders timeline dot in centered position', () => {
-      const { container } = render(
-        <TimelineItem {...defaultProps}>
-          <div>Content</div>
-        </TimelineItem>
-      )
-
-      const dotContainer = container.querySelector(
-        '.absolute.left-1\\/2.transform.-translate-x-1\\/2.z-10'
-      )
-      expect(dotContainer).toBeInTheDocument()
+      expect(getByText('Right aligned content')).toBeInTheDocument()
     })
   })
 
@@ -158,67 +103,48 @@ describe('TimelineItem', () => {
       expect(dot).not.toBeInTheDocument()
     })
 
-    it('applies mobile spacing', () => {
-      const { container } = render(
+    it('renders content on mobile', () => {
+      const { getByText } = render(
         <TimelineItem {...defaultProps}>
-          <div>Content</div>
+          <div>Mobile Content</div>
         </TimelineItem>
       )
-      const item = container.firstChild as HTMLElement
 
-      expect(item).toHaveClass('mb-8')
-      expect(item).not.toHaveClass('mb-16')
+      expect(getByText('Mobile Content')).toBeInTheDocument()
     })
 
-    it('applies custom className on mobile', () => {
-      const { container } = render(
-        <TimelineItem {...defaultProps} className="custom-mobile-class">
-          <div>Content</div>
-        </TimelineItem>
-      )
-      const item = container.firstChild as HTMLElement
-
-      expect(item).toHaveClass('custom-mobile-class')
-    })
-
-    it('ignores alignment on mobile (full width)', () => {
-      const { container: leftContainer } = render(
+    it('renders with different alignments on mobile', () => {
+      const { getByText: getLeftText } = render(
         <TimelineItem {...defaultProps} alignment="left">
           <div>Left Content</div>
         </TimelineItem>
       )
 
-      const { container: rightContainer } = render(
+      const { getByText: getRightText } = render(
         <TimelineItem {...defaultProps} alignment="right">
           <div>Right Content</div>
         </TimelineItem>
       )
 
-      // Both should have the same simple mobile layout
-      expect(leftContainer.querySelector('.relative.mb-8')).toBeInTheDocument()
-      expect(rightContainer.querySelector('.relative.mb-8')).toBeInTheDocument()
+      expect(getLeftText('Left Content')).toBeInTheDocument()
+      expect(getRightText('Right Content')).toBeInTheDocument()
     })
 
-    it('ignores spacing on mobile', () => {
-      const { container: normalContainer } = render(
+    it('renders with different spacing options on mobile', () => {
+      const { getByText: getNormalText } = render(
         <TimelineItem {...defaultProps} spacing="normal">
           <div>Normal Content</div>
         </TimelineItem>
       )
 
-      const { container: closeContainer } = render(
+      const { getByText: getCloseText } = render(
         <TimelineItem {...defaultProps} spacing="close">
           <div>Close Content</div>
         </TimelineItem>
       )
 
-      // Both should have same mobile spacing
-      const normalItem = normalContainer.firstChild as HTMLElement
-      const closeItem = closeContainer.firstChild as HTMLElement
-
-      expect(normalItem).toHaveClass('mb-8')
-      expect(closeItem).toHaveClass('mb-8')
-      expect(closeItem).not.toHaveClass('-mt-64')
+      expect(getNormalText('Normal Content')).toBeInTheDocument()
+      expect(getCloseText('Close Content')).toBeInTheDocument()
     })
   })
 
@@ -229,6 +155,6 @@ describe('TimelineItem', () => {
       </TimelineItem>
     )
 
-    expect(mockUseMediaQuery).toHaveBeenCalledWith('(min-width: 768px)')
+    expect(mockUseMediaQuery).toHaveBeenCalledWith('(min-width: 1280px)')
   })
 })

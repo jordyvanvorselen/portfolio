@@ -32,13 +32,13 @@ describe('Experience Page', () => {
     render(<ExperiencePage />)
 
     expect(
-      screen.getByRole('heading', { name: 'Senior Software Engineer' })
-    ).toBeInTheDocument()
-    expect(screen.getByText('TechCorp Solutions')).toBeInTheDocument()
-    expect(screen.getByText('3+ years')).toBeInTheDocument()
-    expect(screen.getByText('San Francisco, CA')).toBeInTheDocument()
-    expect(screen.getAllByText('Full-time')).toHaveLength(3) // 3 Full-time jobs
-    expect(screen.getByText('Current')).toBeInTheDocument()
+      screen.getAllByRole('heading', { name: 'Lead Developer' })
+    ).toHaveLength(3)
+    expect(screen.getAllByText('Hertek GmbH')).toHaveLength(2)
+    expect(screen.getByText('1 year 8 months')).toBeInTheDocument()
+    expect(screen.getAllByText('Remote - Weert, NL')).toHaveLength(4)
+    expect(screen.getAllByText('Full-time')).toHaveLength(7) // 7 Full-time jobs
+    expect(screen.getAllByText('Current')).toHaveLength(2)
   })
 
   it('displays experience card achievements and technologies', () => {
@@ -46,41 +46,41 @@ describe('Experience Page', () => {
 
     expect(
       screen.getAllByRole('heading', { name: /Key Achievements/i })
-    ).toHaveLength(4) // 4 cards
+    ).toHaveLength(10) // 10 cards
     expect(
-      screen.getByText(/Reduced system latency by 40% through optimization/)
+      screen.getByText(/Developed multiple Java backend services/)
     ).toBeInTheDocument()
     expect(
-      screen.getByText(/Led team of 8 engineers on critical projects/)
+      screen.getByText(/Full-stack development across multiple technologies/)
     ).toBeInTheDocument()
 
     expect(
       screen.getAllByRole('heading', { name: /Technologies Used/i })
-    ).toHaveLength(4) // 4 cards
-    expect(screen.getAllByText('React')).toHaveLength(2) // 2 cards have React
-    expect(screen.getByText('Node.js')).toBeInTheDocument()
-    expect(screen.getByText('TypeScript')).toBeInTheDocument()
+    ).toHaveLength(10) // 10 cards
+    expect(screen.getAllByText('React')).toHaveLength(4) // 4 cards have React
+    expect(screen.getAllByText('Java')).toHaveLength(4) // 4 cards have Java
+    expect(screen.getAllByText('Spring Boot')).toHaveLength(4)
   })
 
   it('renders multiple experience cards in a responsive grid', () => {
     render(<ExperiencePage />)
 
     expect(
-      screen.getByRole('heading', { name: 'Senior Software Engineer' })
+      screen.getAllByRole('heading', { name: 'Lead Developer' })
+    ).toHaveLength(3)
+    expect(
+      screen.getByRole('heading', { name: 'Back-End Tech Lead' })
     ).toBeInTheDocument()
     expect(
-      screen.getByRole('heading', { name: 'Full Stack Developer' })
-    ).toBeInTheDocument()
-    expect(
-      screen.getByRole('heading', { name: 'Junior Developer' })
+      screen.getByRole('heading', { name: 'Full-Stack Engineer' })
     ).toBeInTheDocument()
     expect(
       screen.getByRole('heading', { name: 'Software Engineering Intern' })
     ).toBeInTheDocument()
 
-    expect(screen.getByText('InnovateLabs')).toBeInTheDocument()
-    expect(screen.getByText('StartupHub')).toBeInTheDocument()
-    expect(screen.getByText('DataTech Inc')).toBeInTheDocument()
+    expect(screen.getAllByText('Hertek GmbH')).toHaveLength(2)
+    expect(screen.getAllByText('Kabisa')).toHaveLength(2)
+    expect(screen.getAllByText('ASML')).toHaveLength(2)
     expect(screen.getByText('Internship')).toBeInTheDocument()
   })
 })
