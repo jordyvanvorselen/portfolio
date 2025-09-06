@@ -13,7 +13,7 @@ interface ExperienceCardProps {
   logoAlt: string
   duration: string
   location: string
-  employmentType: 'Full-time' | 'Contract' | 'Internship'
+  employmentType: 'Full-time' | 'Part-time' | 'Internship' | 'Graduation'
   description: string
   achievements: string[]
   technologies: string[]
@@ -41,15 +41,16 @@ export const ExperienceCard = ({
       <Card className="transition-all duration-500 hover:shadow-2xl h-full flex flex-col">
         {/* Header with logo and position */}
         <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
-          <div className="relative flex-shrink-0 mt-0.5 sm:mt-1">
-            <div className="absolute inset-0 bg-teal-500/20 rounded-lg sm:rounded-xl blur-sm sm:blur-lg" />
-            <Image
-              src={logoUrl}
-              alt={logoAlt}
-              width={48}
-              height={48}
-              className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl object-cover border border-gray-700 group-hover:scale-105 transition-all duration-300 shadow-lg"
-            />
+          <div className="relative flex-shrink-0">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-xl border border-gray-800 bg-gray-900/50 p-3 flex items-center justify-center">
+              <Image
+                src={logoUrl}
+                alt={logoAlt}
+                width={96}
+                height={96}
+                className="w-full h-full object-contain relative z-10"
+              />
+            </div>
           </div>
 
           <div className="flex-1 min-w-0">
@@ -59,17 +60,17 @@ export const ExperienceCard = ({
               weight="bold"
               color="primary"
               hoverColor="white"
-              className="mb-1 sm:mb-2 leading-tight transition-colors duration-300"
+              className="mb-2 sm:mb-3 leading-tight transition-colors duration-300"
             >
               {position}
             </Title>
 
-            <div className="flex items-center gap-2 mb-2 sm:mb-3">
+            <div className="flex items-center gap-2 mb-2">
               <Text
                 size="base"
                 weight="semibold"
                 color="accent"
-                className="sm:text-lg truncate"
+                className="truncate"
               >
                 {company}
               </Text>
@@ -81,43 +82,41 @@ export const ExperienceCard = ({
                   className="text-gray-400 hover:text-teal-400 transition-colors duration-200 flex-shrink-0"
                   aria-label={`Visit ${company} website`}
                 >
-                  <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <ExternalLink className="w-4 h-4" />
                 </a>
               )}
             </div>
 
             {/* Meta information */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-400 mb-2 sm:mb-3">
-              <div className="flex items-center gap-1">
-                <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>{duration}</span>
-                {isCurrentJob && (
-                  <Badge
-                    variant="soft"
-                    color="primary"
-                    size="sm"
-                    className="ml-1 sm:ml-2"
-                  >
-                    Current
-                  </Badge>
-                )}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5 text-sm text-gray-400">
+              <div className="flex items-center gap-1.5 flex-shrink-0">
+                <Calendar className="w-4 h-4" />
+                <span className="whitespace-nowrap">{duration}</span>
               </div>
 
-              <div className="flex items-center gap-1">
-                <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />
+              <div className="flex items-center gap-1.5 min-w-0">
+                <MapPin className="w-4 h-4 flex-shrink-0" />
                 <span className="truncate">{location}</span>
               </div>
             </div>
-
-            <Badge variant="soft" color="success" size="sm" className="w-fit">
-              {employmentType}
-            </Badge>
           </div>
+        </div>
+
+        {/* Employment Type Badge */}
+        <div className="mb-4 flex items-center gap-2">
+          <Badge variant="soft" color="success" size="sm" className="w-fit">
+            {employmentType}
+          </Badge>
+          {isCurrentJob && (
+            <Badge variant="soft" color="primary" size="sm" className="w-fit">
+              Current
+            </Badge>
+          )}
         </div>
 
         {/* Description */}
         <Text
-          size="sm"
+          size="base"
           color="secondary"
           lineHeight="relaxed"
           className="mb-6 sm:mb-8 group-hover:text-gray-200 transition-colors duration-300"
@@ -129,23 +128,28 @@ export const ExperienceCard = ({
         <div className="mb-6 sm:mb-8 flex-grow">
           <Title
             as="h4"
-            size="xs"
-            weight="bold"
-            color="muted"
+            size="sm"
+            weight="semibold"
+            color="secondary"
             uppercase
             tracking="wide"
-            className="mb-3 sm:mb-4"
+            className="mb-4 sm:mb-5"
           >
             Key Achievements
           </Title>
-          <ul className="space-y-2 sm:space-y-3">
+          <ul className="space-y-2 sm:space-y-2.5">
             {achievements.map((achievement, index) => (
               <li
                 key={index}
-                className="flex items-center gap-2 sm:gap-3 group-hover:text-gray-200 transition-colors duration-300"
+                className="flex items-start gap-3 group-hover:text-gray-200 transition-colors duration-300"
               >
-                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-teal-400 rounded-full flex-shrink-0" />
-                <Text size="xs" color="secondary" className="flex-1">
+                <div className="w-1.5 h-1.5 bg-teal-400 rounded-full flex-shrink-0 mt-1.5" />
+                <Text
+                  size="sm"
+                  color="secondary"
+                  lineHeight="normal"
+                  className="flex-1"
+                >
                   {achievement}
                 </Text>
               </li>
@@ -157,22 +161,22 @@ export const ExperienceCard = ({
         <div className="mt-auto">
           <Title
             as="h4"
-            size="xs"
-            weight="bold"
-            color="muted"
+            size="sm"
+            weight="semibold"
+            color="secondary"
             uppercase
             tracking="wide"
-            className="mb-3 sm:mb-4"
+            className="mb-4 sm:mb-5"
           >
             Technologies Used
           </Title>
-          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+          <div className="flex flex-wrap gap-2 sm:gap-2.5">
             {technologies.map((tech, index) => (
               <Badge
                 key={index}
                 variant="outline"
                 color="default"
-                size="sm"
+                size="md"
                 className="hover:scale-105 transition-transform duration-200"
               >
                 {tech}

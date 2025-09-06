@@ -37,20 +37,20 @@ test.describe('Experience Page', () => {
 
     await expect(
       experiencePage.firstExperienceCard.getByRole('heading', {
-        name: /Senior Software Engineer/i,
+        name: /Lead Developer/i,
       })
     ).toBeVisible()
 
     await expect(
-      experiencePage.firstExperienceCard.getByText('TechCorp Solutions')
+      experiencePage.firstExperienceCard.getByText('Hertek GmbH')
     ).toBeVisible()
 
     await expect(
-      experiencePage.firstExperienceCard.getByText('3+ years')
+      experiencePage.firstExperienceCard.getByText('1 year 8 months')
     ).toBeVisible()
 
     await expect(
-      experiencePage.firstExperienceCard.getByText('San Francisco, CA')
+      experiencePage.firstExperienceCard.getByText('Remote - Weert, NL')
     ).toBeVisible()
 
     await expect(
@@ -69,7 +69,7 @@ test.describe('Experience Page', () => {
 
     await expect(
       experiencePage.firstExperienceCard.getByText(
-        /Reduced system latency by 40%/
+        /Developed multiple Java backend services/
       )
     ).toBeVisible()
 
@@ -80,7 +80,7 @@ test.describe('Experience Page', () => {
     ).toBeVisible()
 
     await expect(
-      experiencePage.firstExperienceCard.getByText('React')
+      experiencePage.firstExperienceCard.getByText('React', { exact: true })
     ).toBeVisible()
   })
 })

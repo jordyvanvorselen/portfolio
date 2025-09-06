@@ -6,7 +6,17 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 interface TimelineItemProps {
   children: ReactNode
-  dotColor: 'teal' | 'purple' | 'amber' | 'pink'
+  dotColor:
+    | 'teal'
+    | 'purple'
+    | 'amber'
+    | 'pink'
+    | 'blue'
+    | 'emerald'
+    | 'red'
+    | 'orange'
+    | 'cyan'
+    | 'indigo'
   alignment: 'left' | 'right'
   spacing?: 'normal' | 'close'
   className?: string
@@ -19,7 +29,7 @@ export const TimelineItem = ({
   spacing = 'normal',
   className = '',
 }: TimelineItemProps) => {
-  const isDesktop = useMediaQuery('(min-width: 768px)')
+  const isDesktop = useMediaQuery('(min-width: 1280px)')
 
   // Mobile layout: simple stacked layout
   if (!isDesktop) {
@@ -32,7 +42,7 @@ export const TimelineItem = ({
   }
 
   // Desktop layout: timeline with dots and positioning
-  const spacingClasses = spacing === 'normal' ? 'mb-16' : 'mb-16 -mt-64'
+  const spacingClasses = spacing === 'normal' ? 'mb-16' : 'mb-16 -mt-76'
   const desktopClasses = [
     'relative flex items-center',
     spacingClasses,
@@ -46,7 +56,7 @@ export const TimelineItem = ({
     return (
       <div className={desktopClasses}>
         {/* Left Card Container */}
-        <div className="w-full pr-24">{children}</div>
+        <div className="w-1/2 pr-8">{children}</div>
 
         {/* Timeline Dot - Centered */}
         <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
@@ -54,7 +64,7 @@ export const TimelineItem = ({
         </div>
 
         {/* Right Side Empty */}
-        <div className="w-4/5 pl-12"></div>
+        <div className="w-1/2 pl-8"></div>
       </div>
     )
   }
@@ -63,7 +73,7 @@ export const TimelineItem = ({
   return (
     <div className={desktopClasses}>
       {/* Left Side Empty */}
-      <div className="w-4/5 pr-12"></div>
+      <div className="w-1/2 pr-8"></div>
 
       {/* Timeline Dot - Centered */}
       <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
@@ -71,7 +81,7 @@ export const TimelineItem = ({
       </div>
 
       {/* Right Card Container */}
-      <div className="w-4/5 pl-12">{children}</div>
+      <div className="w-1/2 pl-8">{children}</div>
     </div>
   )
 }
