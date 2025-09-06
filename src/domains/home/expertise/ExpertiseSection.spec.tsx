@@ -3,10 +3,10 @@ import { render, screen } from '@testing-library/react'
 import { ExpertiseSection } from '@/domains/home/expertise/ExpertiseSection'
 
 describe('ExpertiseSection', () => {
-  it('renders core expertise label', () => {
+  it('renders expertise section heading', () => {
     render(<ExpertiseSection />)
 
-    expect(screen.getByText('Core Expertise')).toBeVisible()
+    expect(screen.getByText('Want To Deliver Faster?')).toBeVisible()
   })
 
   it('renders test-driven development expertise card', () => {

@@ -265,6 +265,20 @@ The project uses a **modular reusable actions architecture** with smart caching 
 - Style components with Tailwind utility classes
 - Co-locate CSS modules or component-specific styling in the same directory
 
+### CSS Utility Classes (globals.css)
+
+**CRITICAL**: The project defines custom CSS utility classes in `src/app/globals.css` for layout management:
+
+- **`.content-section`**: Applies **FIXED** height of `calc(100vh - 4rem)` - prevents section expansion beyond viewport
+- **`.content-section-min`**: Applies **MINIMUM** height of `calc(100vh - 4rem)` - allows section expansion as needed
+- **`.header-offset`**: Adds top margin of `4rem` to account for fixed header
+
+**Usage Guidelines:**
+
+- Use `.content-section-min` for sections that need to expand beyond viewport (mobile scroll, dynamic content)
+- Use `.content-section` only for sections that should be strictly constrained to viewport height
+- Always pair with `.header-offset` for proper header spacing
+
 ### Domain-Based Architecture
 
 **MANDATORY**: Follow the domain-based folder structure for all feature development:

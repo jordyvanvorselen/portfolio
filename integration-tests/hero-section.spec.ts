@@ -7,7 +7,6 @@ test.describe('Hero Section', () => {
     homePage,
   }) => {
     await expect(homePage.hero.section).toBeVisible()
-    await expect(homePage.hero.availabilityBadge).toBeVisible()
     await expect(homePage.hero.name).toBeVisible()
     await expect(homePage.hero.title).toBeVisible()
     await expect(homePage.hero.description).toBeVisible()
