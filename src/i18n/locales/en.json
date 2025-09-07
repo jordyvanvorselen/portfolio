@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "name": "Jordy van Vorselen",
+    "title": "Freelance Software Engineer",
+    "description": {
+      "main": "I help teams deliver software of <b>exceptional quality</b> — and help them deliver it to the customers <b>a lot faster</b> at the same time.",
+      "cta": "Need someone like me to strengthen your team?"
+    },
+    "actions": {
+      "getInTouch": "Get In Touch",
+      "downloadResume": "Download Resume"
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "blog": "Blog",
+    "projects": "Projects",
+    "experience": "Experience",
+    "contact": "Contact",
+    "available": "Available"
+  },
+  "expertise": {
+    "tdd": {
+      "ariaLabel": "Test-Driven Development",
+      "title": "Test-Driven Development",
+      "description": "I write tests first, then code. This approach ensures robust, bug-free software with comprehensive test coverage. My TDD practice leads to better design decisions and maintainable codebases.",
+      "skills": [
+        "Jest",
+        "Cypress",
+        "Testing Library",
+        "Unit Testing",
+        "Integration Testing",
+        "E2E Testing"
+      ]
+    },
+    "architecture": {
+      "ariaLabel": "Software Architecture",
+      "title": "Software Architecture",
+      "description": "I design scalable, maintainable systems using proven architectural patterns. From monoliths to microservices, I choose the simplest architecture based on the requirements of each unique project.",
+      "skills": [
+        "Microservices",
+        "Domain-Driven Design",
+        "Event Sourcing",
+        "CQRS",
+        "Clean Architecture",
+        "Hexagonal Architecture"
+      ]
+    },
+    "delivery": {
+      "ariaLabel": "Continuous Delivery",
+      "title": "Continuous Delivery",
+      "description": "I implement robust CI/CD pipelines that enable teams to ship features rapidly and reliably. Through automated testing, progressive deployments, and infrastructure as code, I help organizations achieve true continuous delivery with confidence.",
+      "skills": [
+        "GitHub Actions",
+        "Docker & Kubernetes",
+        "Infrastructure as Code",
+        "Progressive Deployment",
+        "Automated Rollbacks"
+      ]
+    }
+  },
+  "footer": {
+    "author": {
+      "name": "Jordy van Vorselen",
+      "description": "Senior Software Engineer passionate about building scalable, maintainable software solutions. Always eager to tackle new challenges and collaborate with amazing teams.",
+      "location": "📍 Noord-Brabant, the Netherlands 🇳🇱",
+      "email": "✉️ jordy@morethanbits.io"
+    },
+    "quickLinks": "Quick Links",
+    "connect": "Let's Connect",
+    "getInTouch": "Get In Touch",
+    "copyright": "© 2025 Jordy van Vorselen. Made with",
+    "coffeeText": "and lots of coffee.",
+    "availability": "Available for remote opportunities"
+  },
+  "social": {
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "Email"
+  }
+}

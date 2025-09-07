@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "name": "Jordy van Vorselen",
+    "title": "Freelance Software Engineer",
+    "description": {
+      "main": "Ik help teams software van <b>uitzonderlijke kwaliteit</b> te leveren — en help hen dit <b>veel sneller</b> bij de klanten te brengen.",
+      "cta": "Heb je iemand zoals ik nodig om je team te versterken?"
+    },
+    "actions": {
+      "getInTouch": "Neem Contact Op",
+      "downloadResume": "Download CV"
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "blog": "Blog",
+    "projects": "Projecten",
+    "experience": "Ervaring",
+    "contact": "Contact",
+    "available": "Beschikbaar"
+  },
+  "expertise": {
+    "tdd": {
+      "ariaLabel": "Test-Driven Development",
+      "title": "Test-Driven Development",
+      "description": "Ik schrijf eerst tests, dan code. Deze aanpak zorgt voor robuuste, bugvrije software met uitgebreide testdekking. Mijn TDD-praktijk leidt tot betere ontwerpbeslissingen en onderhoudbare codebases.",
+      "skills": [
+        "Jest",
+        "Cypress",
+        "Testing Library",
+        "Unit Testing",
+        "Integration Testing",
+        "E2E Testing"
+      ]
+    },
+    "architecture": {
+      "ariaLabel": "Software Architectuur",
+      "title": "Software Architectuur",
+      "description": "Ik ontwerp schaalbare, onderhoudbare systemen met bewezen architectuurpatronen. Van monolith tot microservices, ik kies de eenvoudigste architectuur op basis van de eisen van elk uniek project.",
+      "skills": [
+        "Microservices",
+        "Domain-Driven Design",
+        "Event Sourcing",
+        "CQRS",
+        "Clean Architecture",
+        "Hexagonal Architecture"
+      ]
+    },
+    "delivery": {
+      "ariaLabel": "Continuous Delivery",
+      "title": "Continuous Delivery",
+      "description": "Ik implementeer robuuste CI/CD-pijplijnen waarmee teams snel en betrouwbaar functies kunnen uitbrengen. Door geautomatiseerde tests, geleidelijke implementaties en infrastructuur als code help ik organisaties echte continuous delivery met vertrouwen te bereiken.",
+      "skills": [
+        "GitHub Actions",
+        "Docker & Kubernetes",
+        "Infrastructure as Code",
+        "Progressive Deployment",
+        "Automated Rollbacks"
+      ]
+    }
+  },
+  "footer": {
+    "author": {
+      "name": "Jordy van Vorselen",
+      "description": "Senior Software Engineer gepassioneerd over het bouwen van schaalbare, onderhoudbare softwareoplossingen. Altijd enthousiast om nieuwe uitdagingen aan te gaan en samen te werken met geweldige teams.",
+      "location": "📍 Noord-Brabant, Nederland 🇳🇱",
+      "email": "✉️ jordy@morethanbits.io"
+    },
+    "quickLinks": "Snelle Links",
+    "connect": "Laten we Connecten",
+    "getInTouch": "Neem Contact Op",
+    "copyright": "© 2025 Jordy van Vorselen. Gemaakt met",
+    "coffeeText": "en veel koffie.",
+    "availability": "Beschikbaar voor remote mogelijkheden"
+  },
+  "social": {
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "E-mail"
+  }
+}

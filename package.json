@@ -37,10 +37,12 @@
     "@radix-ui/react-toast": "^1.2.14",
     "@radix-ui/react-tooltip": "^1.2.7",
     "devicon": "^2.17.0",
+    "i18next": "^25.5.2",
     "lucide-react": "^0.542.0",
     "next": "15.4.5",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-i18next": "^15.7.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
