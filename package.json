@@ -19,6 +19,7 @@
     "test:visual-regression:fix": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci --update-snapshots'"
   },
   "dependencies": {
+    "@devicon/react": "^0.0.3",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-avatar": "^1.1.10",
@@ -35,7 +36,8 @@
     "@radix-ui/react-tabs": "^1.1.12",
     "@radix-ui/react-toast": "^1.2.14",
     "@radix-ui/react-tooltip": "^1.2.7",
-    "lucide-react": "^0.536.0",
+    "devicon": "^2.17.0",
+    "lucide-react": "^0.542.0",
     "next": "15.4.5",
     "react": "19.1.0",
     "react-dom": "19.1.0"

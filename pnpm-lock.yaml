@@ -7,6 +7,9 @@ settings:
 importers:
   .:
     dependencies:
+      '@devicon/react':
+        specifier: ^0.0.3
+        version: 0.0.3
       '@radix-ui/react-accordion':
         specifier: ^1.2.11
         version: 1.2.11(@types/react-dom@19.1.7(@types/react@19.1.9))(@types/react@19.1.9)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -55,9 +58,12 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.2.7
         version: 1.2.7(@types/react-dom@19.1.7(@types/react@19.1.9))(@types/react@19.1.9)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      devicon:
+        specifier: ^2.17.0
+        version: 2.17.0
       lucide-react:
-        specifier: ^0.536.0
-        version: 0.536.0(react@19.1.0)
+        specifier: ^0.542.0
+        version: 0.542.0(react@19.1.0)
       next:
         specifier: 15.4.5
         version: 15.4.5(@babel/core@7.28.0)(@playwright/test@1.54.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -463,6 +469,12 @@ packages:
         integrity: sha512-Vd/9EVDiu6PPJt9yAh6roZP6El1xHrdvIVGjyBsHR0RYwNHgL7FJPyIIW4fANJNG6FtyZfvlRPpFI4ZM/lubvw==,
       }
     engines: { node: '>=18' }
+
+  '@devicon/react@0.0.3':
+    resolution:
+      {
+        integrity: sha512-r8Td7z0hyC8Y1PSgZs9NBGDcEosmFjSLWlhbez/8nOR+5HNXFpaFryc7OkKk6F2J+WXEpyxKx81CjXcCW3qO7A==,
+      }
 
   '@emnapi/core@1.4.5':
     resolution:
@@ -2930,6 +2942,12 @@ packages:
         integrity: sha512-ypdmJU/TbBby2Dxibuv7ZLW3Bs1QEmM7nHjEANfohJLvE0XVujisn1qPJcZxg+qDucsr+bP6fLD1rPS3AhJ7EQ==,
       }
 
+  devicon@2.17.0:
+    resolution:
+      {
+        integrity: sha512-2nKUdjobJlmRSaCHa50PGsVq0VDURnq9gVzQoJggsM/NKN0tLhC/Uq2zmy2pH36Q/1q3gvYwp/GjTgv/R0Ysbg==,
+      }
+
   doctrine@2.1.0:
     resolution:
       {
@@ -4475,10 +4493,10 @@ packages:
         integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==,
       }
 
-  lucide-react@0.536.0:
+  lucide-react@0.542.0:
     resolution:
       {
-        integrity: sha512-2PgvNa9v+qz4Jt/ni8vPLt4jwoFybXHuubQT8fv4iCW5TjDxkbZjNZZHa485ad73NSEn/jdsEtU57eE1g+ma8A==,
+        integrity: sha512-w3hD8/SQB7+lzU2r4VdFyzzOzKnUjTZIF/MQJGSSvni7Llewni4vuViRppfRAa2guOsY5k4jZyxw/i9DQHv+dw==,
       }
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -6132,6 +6150,8 @@ snapshots:
       '@csstools/css-tokenizer': 3.0.4
 
   '@csstools/css-tokenizer@3.0.4': {}
+
+  '@devicon/react@0.0.3': {}
 
   '@emnapi/core@1.4.5':
     dependencies:
@@ -7834,6 +7854,8 @@ snapshots:
 
   detect-node-es@1.1.0: {}
 
+  devicon@2.17.0: {}
+
   doctrine@2.1.0:
     dependencies:
       esutils: 2.0.3
@@ -9089,7 +9111,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@0.536.0(react@19.1.0):
+  lucide-react@0.542.0(react@19.1.0):
     dependencies:
       react: 19.1.0
 

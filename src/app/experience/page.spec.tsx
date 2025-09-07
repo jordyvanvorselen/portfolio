@@ -34,7 +34,7 @@ describe('Experience Page', () => {
     expect(
       screen.getAllByRole('heading', { name: 'Lead Developer' })
     ).toHaveLength(3)
-    expect(screen.getAllByText('Hertek GmbH')).toHaveLength(2)
+    expect(screen.getAllByText('Hertek Safety')).toHaveLength(2)
     expect(screen.getByText('1 year 8 months')).toBeInTheDocument()
     expect(screen.getAllByText('Remote - Weert, NL')).toHaveLength(4)
     expect(screen.getAllByText('Full-time')).toHaveLength(7) // 7 Full-time jobs
@@ -78,7 +78,7 @@ describe('Experience Page', () => {
       screen.getByRole('heading', { name: 'Software Engineering Intern' })
     ).toBeInTheDocument()
 
-    expect(screen.getAllByText('Hertek GmbH')).toHaveLength(2)
+    expect(screen.getAllByText('Hertek Safety')).toHaveLength(2)
     expect(screen.getAllByText('Kabisa')).toHaveLength(2)
     expect(screen.getAllByText('ASML')).toHaveLength(2)
     expect(screen.getByText('Internship')).toBeInTheDocument()

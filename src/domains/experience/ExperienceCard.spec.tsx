@@ -15,7 +15,11 @@ describe('ExperienceCard', () => {
     description:
       'Leading the development of scalable microservices architecture.',
     achievements: ['Reduced system latency by 40%'],
-    technologies: ['React', 'Node.js', 'TypeScript'],
+    technologies: [
+      { name: 'React', iconKey: 'react' },
+      { name: 'Node.js', iconKey: 'nodejs' },
+      { name: 'TypeScript', iconKey: 'typescript' },
+    ],
     isCurrentJob: true,
     alignment: 'left' as const,
     dotColor: '#14b8a6',

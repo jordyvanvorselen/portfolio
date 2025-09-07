@@ -4,6 +4,12 @@ import { Card } from '@/ui/Card'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 import { Badge } from '@/ui/Badge'
+import { DevIcon } from '@/ui/DevIcon'
+
+interface Technology {
+  name: string
+  iconKey: string
+}
 
 interface ExperienceCardProps {
   position: string
@@ -16,7 +22,7 @@ interface ExperienceCardProps {
   employmentType: 'Full-time' | 'Part-time' | 'Internship' | 'Graduation'
   description: string
   achievements: string[]
-  technologies: string[]
+  technologies: Technology[]
   isCurrentJob?: boolean
   alignment: 'left' | 'right'
   dotColor: string
@@ -177,9 +183,10 @@ export const ExperienceCard = ({
                 variant="outline"
                 color="default"
                 size="md"
+                icon={<DevIcon name={tech.iconKey} />}
                 className="hover:scale-105 transition-transform duration-200"
               >
-                {tech}
+                {tech.name}
               </Badge>
             ))}
           </div>

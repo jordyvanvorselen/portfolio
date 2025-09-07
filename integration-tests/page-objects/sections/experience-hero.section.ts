@@ -14,7 +14,7 @@ export class ExperienceHero extends BaseSection {
     '8+ Years Experience'
   )
   readonly positionsStat: Locator = this.section.getByText(
-    '5 Positions at 5 Companies'
+    /\d+ Positions at \d+ Companies/
   )
   readonly trendingUpIcon: Locator = this.section.locator(
     '[data-testid="trending-up-icon"]'

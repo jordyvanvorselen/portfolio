@@ -261,7 +261,7 @@ The project uses a **modular reusable actions architecture** with smart caching 
 ## 🧱 Component Guidelines
 
 - Use `radix-ui` components by default for form elements, cards, dialogs, etc.
-- Use `lucide-react` for all icons - import specific icons and use proper aria-label attributes for accessibility
+- Use `lucide-react` for all UI icons and `DevIcon` component for technology icons, always use proper aria-label attributes for accessibility
 - Style components with Tailwind utility classes
 - Co-locate CSS modules or component-specific styling in the same directory
 
@@ -345,13 +345,30 @@ export function Header(): JSX.Element {
 
 ### Icon Usage
 
+**All icons come from lucide-react, except technology icons which use devicon**
+
 ```typescript
-import { Github, Linkedin, UserPlus } from "lucide-react";
+// Use lucide-react for all UI icons
+import { Github, Linkedin, UserPlus, Mail, Calendar } from "lucide-react";
 
 // Always use aria-label for icon-only links/buttons
 <a href="https://github.com/user" aria-label="GitHub">
   <Github className="w-5 h-5" />
 </a>
+
+// For technology/developer icons, use DevIcon component from @src/ui/DevIcon.tsx
+import { DevIcon } from '@/ui/DevIcon'
+
+// Technology icons for portfolio with brand colors
+<div className="flex gap-2">
+  <DevIcon name="java" className="w-6 h-6" />
+  <DevIcon name="python" className="w-6 h-6" />
+  <DevIcon name="react" className="w-6 h-6" />
+  <DevIcon name="nodejs" className="w-6 h-6" />
+</div>
+
+// DevIcon supports wordmark variants
+<DevIcon name="amazonwebservices" wordmark className="w-8 h-8" />
 ```
 
 ## 📝 Code Style Standards
