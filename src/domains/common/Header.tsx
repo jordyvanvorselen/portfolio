@@ -1,9 +1,11 @@
-import { Github, Linkedin, UserPlus } from 'lucide-react'
+import { Github, Linkedin } from 'lucide-react'
 
 import { Logo } from '@/ui/Logo'
 import { NavigationLink } from '@/ui/NavigationLink'
 import { SocialIcon } from '@/ui/SocialIcon'
-import { Button } from '@/ui/Button'
+import { CircleCheckBig } from 'lucide-react'
+
+import { Text } from '@/ui/Text'
 
 export const Header = () => {
   return (
@@ -90,15 +92,12 @@ export const Header = () => {
 
             <div className="w-px h-6 bg-gray-700"></div>
 
-            <Button
-              variant="solid"
-              color="primary"
-              size="md"
-              href="mailto:jordy@morethanbits.io"
-            >
-              <UserPlus className="w-4 h-4 mr-2" />
-              Hire Me
-            </Button>
+            <address className="flex items-center justify-center space-x-2 not-italic">
+              <CircleCheckBig className="w-5 h-5 text-[#10b981]" role="img" />
+              <Text size="base" weight="semibold" color="success">
+                Available
+              </Text>
+            </address>
           </div>
 
           {/* Mobile menu button */}

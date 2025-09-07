@@ -7,7 +7,7 @@ describe('BlogHeroSection', () => {
     render(<BlogHeroSection />)
 
     expect(
-      screen.getByRole('heading', { name: 'Engineering Insights' })
+      screen.getByRole('heading', { name: 'More Than Bits' })
     ).toBeVisible()
   })
 

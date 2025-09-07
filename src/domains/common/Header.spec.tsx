@@ -51,11 +51,17 @@ describe(Header, () => {
     contactLinks.forEach(link => expect(link).toBeVisible())
   })
 
-  it('renders hire me link', () => {
+  it('renders availability status', () => {
     render(<Header />)
 
-    const hireMeLink = screen.getByRole('link', { name: 'Hire Me' })
-    expect(hireMeLink).toBeVisible()
+    expect(screen.getByText('Available')).toBeVisible()
+  })
+
+  it('renders availability icon', () => {
+    render(<Header />)
+
+    const icon = screen.getByRole('img')
+    expect(icon).toBeVisible()
   })
 
   it('renders github social link', () => {

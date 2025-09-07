@@ -14,7 +14,7 @@ describe('HeroSection', () => {
   it('renders title', () => {
     render(<HeroSection />)
 
-    expect(screen.getByText('Senior Software Engineer')).toBeVisible()
+    expect(screen.getByText('Freelance Software Engineer')).toBeVisible()
   })
 
   it('renders description', () => {
@@ -24,7 +24,7 @@ describe('HeroSection', () => {
       screen.getByText((_content, element) => {
         return (
           element?.textContent ===
-          "I help teams deliver software of exceptional quality — and help them deliver it to the customers a lot faster, while we're at it."
+          'I help teams deliver software of exceptional quality — and help them deliver it to the customers a lot faster at the same time.'
         )
       })
     ).toBeVisible()

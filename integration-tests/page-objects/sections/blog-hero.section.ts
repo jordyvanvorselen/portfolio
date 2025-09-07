@@ -6,7 +6,7 @@ export class BlogHero extends BaseSection {
   override readonly section: Locator =
     this.page.getByTestId('blog-hero-section')
   readonly title: Locator = this.section.getByRole('heading', {
-    name: /engineering insights/i,
+    name: /more than bits/i,
   })
   readonly subtitle: Locator = this.section.getByText(
     /thoughts, tutorials, and deep dives/i

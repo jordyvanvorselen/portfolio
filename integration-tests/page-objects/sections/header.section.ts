@@ -33,9 +33,8 @@ export class Header extends BaseSection {
       name: 'Contact',
     })
     .first()
-  readonly hireMeButton: Locator = this.section.getByRole('link', {
-    name: 'Hire Me',
-  })
+  readonly availabilityStatus: Locator = this.section.getByText('Available')
+  readonly availabilityIcon: Locator = this.section.getByRole('img')
   readonly githubLink: Locator = this.section.getByRole('link', {
     name: 'GitHub',
   })

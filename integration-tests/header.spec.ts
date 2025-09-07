@@ -16,9 +16,13 @@ test.describe('Header Component', () => {
     await expect(homePage.header.contactLink).toBeVisible()
   })
 
-  test('displays hire me button', async ({ homePage }) => {
-    await expect(homePage.header.hireMeButton).toBeVisible()
-    await expect(homePage.header.hireMeButton).toContainText('Hire')
+  test('displays availability status', async ({ homePage }) => {
+    await expect(homePage.header.availabilityStatus).toBeVisible()
+    await expect(homePage.header.availabilityStatus).toHaveText('Available')
+  })
+
+  test('displays availability icon', async ({ homePage }) => {
+    await expect(homePage.header.availabilityIcon).toBeVisible()
   })
 
   test('displays social icons', async ({ homePage }) => {
@@ -71,11 +75,6 @@ test.describe('Header Component', () => {
     await expect(linkedinPage.url()).toContain('linkedin.com')
     await expect(linkedinPage.url()).toContain('jordy-van-vorselen')
     await linkedinPage.close()
-  })
-
-  test('hire me button is clickable', async ({ homePage }) => {
-    await expect(homePage.header.hireMeButton).toBeEnabled()
-    await homePage.header.hireMeButton.click()
   })
 
   test('header visual regression', async ({ homePage }) => {
