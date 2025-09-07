@@ -8,7 +8,9 @@ export class Hero extends BaseSection {
     name: 'Jordy van Vorselen',
     level: 1,
   })
-  readonly title: Locator = this.section.getByText('Senior Software Engineer')
+  readonly title: Locator = this.section.getByText(
+    'Freelance Software Engineer'
+  )
   readonly description: Locator = this.section.getByText(
     /I help teams deliver software of exceptional quality/
   )

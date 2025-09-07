@@ -25,7 +25,7 @@ export const BlogHeroSection = () => {
             as="h1"
             className="mb-6"
           >
-            Engineering Insights
+            More Than Bits
           </Title>
 
           <Text

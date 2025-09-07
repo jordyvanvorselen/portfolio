@@ -7,7 +7,7 @@ describe('BlogPage', () => {
     render(<BlogPage />)
 
     expect(
-      screen.getByRole('heading', { name: 'Engineering Insights' })
+      screen.getByRole('heading', { name: 'More Than Bits' })
     ).toBeVisible()
     expect(
       screen.getByText(/thoughts, tutorials, and deep dives/i)

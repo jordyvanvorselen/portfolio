@@ -6,6 +6,6 @@ describe('HeroTitle', () => {
   it('displays title text', () => {
     render(<HeroTitle />)
 
-    expect(screen.getByText('Senior Software Engineer')).toBeVisible()
+    expect(screen.getByText('Freelance Software Engineer')).toBeVisible()
   })
 })
