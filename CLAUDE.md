@@ -261,7 +261,7 @@ The project uses a **modular reusable actions architecture** with smart caching 
 ## 🧱 Component Guidelines
 
 - Use `radix-ui` components by default for form elements, cards, dialogs, etc.
-- Use `react-icons` for all icons - import from `/lu` for UI icons and `/si` for technology/brand icons, always use proper aria-label attributes for accessibility
+- Use `lucide-react` for all UI icons and `DevIcon` component for technology icons, always use proper aria-label attributes for accessibility
 - Style components with Tailwind utility classes
 - Co-locate CSS modules or component-specific styling in the same directory
 
