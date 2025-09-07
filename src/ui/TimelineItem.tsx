@@ -42,7 +42,7 @@ export const TimelineItem = ({
   }
 
   // Desktop layout: timeline with dots and positioning
-  const spacingClasses = spacing === 'normal' ? 'mb-16' : 'mb-16 -mt-76'
+  const spacingClasses = spacing === 'normal' ? 'mb-16' : 'mb-16 -mt-80'
   const desktopClasses = [
     'relative flex items-center',
     spacingClasses,

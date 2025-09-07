@@ -2,7 +2,15 @@ import { TrendingUp } from 'lucide-react'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 
-export const ExperienceHero = () => {
+interface ExperienceHeroProps {
+  positionCount: number
+  companyCount: number
+}
+
+export const ExperienceHero = ({
+  positionCount,
+  companyCount,
+}: ExperienceHeroProps) => {
   return (
     <section className="header-offset relative pt-16 pb-20 overflow-hidden mt-8">
       {/* Animated gradient background */}
@@ -50,7 +58,9 @@ export const ExperienceHero = () => {
                 data-testid="animated-dot"
                 className="w-2 h-2 bg-teal-500 rounded-full animate-pulse"
               ></div>
-              <span className="text-lg">5 Positions at 5 Companies</span>
+              <span className="text-lg">
+                {positionCount} Positions at {companyCount} Companies
+              </span>
             </div>
           </div>
         </div>

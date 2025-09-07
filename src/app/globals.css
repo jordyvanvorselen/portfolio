@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
+@import 'devicon/devicon.min.css';
 
 @theme {
   --font-sans: 'DM Sans', system-ui, sans-serif;

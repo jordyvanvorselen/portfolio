@@ -20,7 +20,7 @@ test.describe('Experience Page', () => {
 
     await expect(experiencePage.hero.positionsStat).toBeVisible()
     await expect(experiencePage.hero.positionsStat).toContainText(
-      '5 Positions at 5 Companies'
+      /\d+ Positions at \d+ Companies/
     )
 
     await expect(experiencePage.hero.trendingUpIcon).toBeVisible()
@@ -42,7 +42,7 @@ test.describe('Experience Page', () => {
     ).toBeVisible()
 
     await expect(
-      experiencePage.firstExperienceCard.getByText('Hertek GmbH')
+      experiencePage.firstExperienceCard.getByText('Hertek Safety')
     ).toBeVisible()
 
     await expect(

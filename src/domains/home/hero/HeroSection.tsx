@@ -22,7 +22,7 @@ export const HeroSection = () => {
 
       <div className="relative z-10 min-h-full xl:h-full flex flex-col xl:flex-row">
         {/* Left side - all content */}
-        <div className="flex-1 xl:w-5/7 flex flex-col">
+        <div className="flex-1 xl:w-5/7 flex flex-col 2xl:mt-24 xl:mt-12">
           <div className="flex-1 flex flex-col xl:justify-center items-center px-4 md:px-8 lg:px-12 py-8 xl:py-0">
             <div className="w-full max-w-4xl">
               {/* Mobile circular image - only visible on mobile */}
