@@ -47,6 +47,18 @@ test('blog hero section visual regression', async ({ blogPage }) => {
 
 test('blog search filters visual regression', async ({ blogPage }) => {
   await blogPage.hideHeader()
+
+  // Wait for all filter buttons to be rendered and stable (23 categories + "All" button = 24 total)
+  await expect(blogPage.searchFilters.section.getByRole('button')).toHaveCount(
+    24
+  )
+
+  // Wait for search input to be ready
+  await expect(blogPage.searchFilters.searchBar).toBeVisible()
+
+  // Additional wait for hydration and layout stability
+  await blogPage.page.waitForTimeout(100)
+
   await expect(blogPage.searchFilters.section).toHaveScreenshot(
     'blog-search-filters.png'
   )
