@@ -14,7 +14,10 @@ export const ExperienceHero = ({
 }: ExperienceHeroProps) => {
   const t = useTranslations()
   return (
-    <section className="header-offset relative pt-16 pb-20 overflow-hidden mt-8">
+    <section
+      className="header-offset relative pt-16 pb-20 overflow-hidden mt-8"
+      aria-label="Experience Hero"
+    >
       {/* Animated gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-950 to-black"></div>
 

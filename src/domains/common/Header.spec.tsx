@@ -1,11 +1,12 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent, within } from '@testing-library/react'
 import { Header } from '@/domains/common/Header'
 
 describe(Header, () => {
   it('renders branding link with correct text', () => {
     render(<Header />)
 
-    const brandingLink = screen.getByRole('link', {
+    const header = screen.getByRole('banner')
+    const brandingLink = within(header).getByRole('link', {
       name: 'layout.brandName',
     })
     expect(brandingLink).toBeVisible()
@@ -14,60 +15,66 @@ describe(Header, () => {
   it('renders home navigation link', () => {
     render(<Header />)
 
-    const homeLinks = screen.getAllByRole('link', { name: 'navigation.home' })
-    expect(homeLinks.length).toBeGreaterThan(0)
-    homeLinks.forEach(link => expect(link).toBeVisible())
+    const header = screen.getByRole('banner')
+    const homeLink = within(header).getByRole('link', {
+      name: 'navigation.home',
+    })
+    expect(homeLink).toBeVisible()
   })
 
   it('renders blog navigation link', () => {
     render(<Header />)
 
-    const blogLinks = screen.getAllByRole('link', { name: 'navigation.blog' })
-    expect(blogLinks.length).toBeGreaterThan(0)
-    blogLinks.forEach(link => expect(link).toBeVisible())
+    const header = screen.getByRole('banner')
+    const blogLink = within(header).getByRole('link', {
+      name: 'navigation.blog',
+    })
+    expect(blogLink).toBeVisible()
   })
 
   it('renders projects navigation link', () => {
     render(<Header />)
 
-    const projectsLinks = screen.getAllByRole('link', {
+    const header = screen.getByRole('banner')
+    const projectsLink = within(header).getByRole('link', {
       name: 'navigation.projects',
     })
-    expect(projectsLinks.length).toBeGreaterThan(0)
-    projectsLinks.forEach(link => expect(link).toBeVisible())
+    expect(projectsLink).toBeVisible()
   })
 
   it('renders experience navigation link', () => {
     render(<Header />)
 
-    const experienceLinks = screen.getAllByRole('link', {
+    const header = screen.getByRole('banner')
+    const experienceLink = within(header).getByRole('link', {
       name: 'navigation.experience',
     })
-    expect(experienceLinks.length).toBeGreaterThan(0)
-    experienceLinks.forEach(link => expect(link).toBeVisible())
+    expect(experienceLink).toBeVisible()
   })
 
   it('renders contact navigation link', () => {
     render(<Header />)
 
-    const contactLinks = screen.getAllByRole('link', {
+    const header = screen.getByRole('banner')
+    const contactLink = within(header).getByRole('link', {
       name: 'navigation.contact',
     })
-    expect(contactLinks.length).toBeGreaterThan(0)
-    contactLinks.forEach(link => expect(link).toBeVisible())
+    expect(contactLink).toBeVisible()
   })
 
   it('renders availability status', () => {
     render(<Header />)
 
-    expect(screen.getByText('navigation.available')).toBeVisible()
+    const header = screen.getByRole('banner')
+    expect(within(header).getByText('navigation.available')).toBeVisible()
   })
 
   it('renders availability icon', () => {
     render(<Header />)
 
+    const header = screen.getByRole('banner')
     // Check for the CircleCheckBig icon by looking within the availability text context
-    const availabilityText = screen.getByText('navigation.available')
+    const availabilityText = within(header).getByText('navigation.available')
     expect(availabilityText).toBeVisible()
 
     // The icon should be present within the same address container
@@ -78,21 +85,28 @@ describe(Header, () => {
   it('renders github social link', () => {
     render(<Header />)
 
-    const githubLink = screen.getByRole('link', { name: 'social.github' })
-    expect(githubLink).toBeVisible()
+    const header = screen.getByRole('banner')
+    const githubLink = within(header).getByRole('link', {
+      name: 'social.github',
+    })
+    expect(githubLink).toBeInTheDocument()
   })
 
   it('renders linkedin social link', () => {
     render(<Header />)
 
-    const linkedinLink = screen.getByRole('link', { name: 'social.linkedin' })
-    expect(linkedinLink).toBeVisible()
+    const header = screen.getByRole('banner')
+    const linkedinLink = within(header).getByRole('link', {
+      name: 'social.linkedin',
+    })
+    expect(linkedinLink).toBeInTheDocument()
   })
 
   it('branding link has correct href', () => {
     render(<Header />)
 
-    const brandingLink = screen.getByRole('link', {
+    const header = screen.getByRole('banner')
+    const brandingLink = within(header).getByRole('link', {
       name: 'layout.brandName',
     })
     expect(brandingLink).toHaveAttribute('href', '/')
@@ -101,52 +115,112 @@ describe(Header, () => {
   it('navigation links have correct href attributes', () => {
     render(<Header />)
 
-    const homeLinks = screen.getAllByRole('link', { name: 'navigation.home' })
-    const blogLinks = screen.getAllByRole('link', { name: 'navigation.blog' })
-    const projectsLinks = screen.getAllByRole('link', {
+    const header = screen.getByRole('banner')
+    const homeLink = within(header).getByRole('link', {
+      name: 'navigation.home',
+    })
+    const blogLink = within(header).getByRole('link', {
+      name: 'navigation.blog',
+    })
+    const projectsLink = within(header).getByRole('link', {
       name: 'navigation.projects',
     })
-    const experienceLinks = screen.getAllByRole('link', {
+    const experienceLink = within(header).getByRole('link', {
       name: 'navigation.experience',
     })
-    const contactLinks = screen.getAllByRole('link', {
+    const contactLink = within(header).getByRole('link', {
       name: 'navigation.contact',
     })
 
-    homeLinks.forEach(link => expect(link).toHaveAttribute('href', '/'))
-    blogLinks.forEach(link => expect(link).toHaveAttribute('href', '/blog'))
-    projectsLinks.forEach(link =>
-      expect(link).toHaveAttribute('href', '/projects')
-    )
-    experienceLinks.forEach(link =>
-      expect(link).toHaveAttribute('href', '/experience')
-    )
-    contactLinks.forEach(link =>
-      expect(link).toHaveAttribute('href', '/contact')
-    )
+    expect(homeLink).toHaveAttribute('href', '/')
+    expect(blogLink).toHaveAttribute('href', '/blog')
+    expect(projectsLink).toHaveAttribute('href', '/projects')
+    expect(experienceLink).toHaveAttribute('href', '/experience')
+    expect(contactLink).toHaveAttribute('href', '/contact')
   })
 
   it('social links have correct href attributes', () => {
     render(<Header />)
 
-    expect(screen.getByRole('link', { name: 'social.github' })).toHaveAttribute(
+    const header = screen.getByRole('banner')
+    const githubLink = within(header).getByRole('link', {
+      name: 'social.github',
+    })
+    expect(githubLink).toHaveAttribute(
       'href',
       'https://github.com/jordyvanvorselen'
     )
-    expect(
-      screen.getByRole('link', { name: 'social.linkedin' })
-    ).toHaveAttribute('href', 'https://linkedin.com/in/jordy-van-vorselen')
+
+    const linkedinLink = within(header).getByRole('link', {
+      name: 'social.linkedin',
+    })
+    expect(linkedinLink).toHaveAttribute(
+      'href',
+      'https://linkedin.com/in/jordy-van-vorselen'
+    )
   })
 
   it('external links have security attributes', () => {
     render(<Header />)
 
-    const githubLink = screen.getByRole('link', { name: 'social.github' })
+    const header = screen.getByRole('banner')
+    const githubLink = within(header).getByRole('link', {
+      name: 'social.github',
+    })
     expect(githubLink).toHaveAttribute('target', '_blank')
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer')
 
-    const linkedinLink = screen.getByRole('link', { name: 'social.linkedin' })
+    const linkedinLink = within(header).getByRole('link', {
+      name: 'social.linkedin',
+    })
     expect(linkedinLink).toHaveAttribute('target', '_blank')
     expect(linkedinLink).toHaveAttribute('rel', 'noopener noreferrer')
+  })
+
+  it('renders mobile menu button', () => {
+    render(<Header />)
+
+    const header = screen.getByRole('banner')
+    const mobileMenuButton = within(header).getByRole('button', {
+      name: 'Open navigation menu',
+    })
+    expect(mobileMenuButton).toBeVisible()
+  })
+
+  it('opens mobile menu when button is clicked', () => {
+    render(<Header />)
+
+    const header = screen.getByRole('banner')
+    const mobileMenuButton = within(header).getByRole('button', {
+      name: 'Open navigation menu',
+    })
+    fireEvent.click(mobileMenuButton)
+
+    expect(screen.getByTestId('mobile-menu')).toBeVisible()
+  })
+
+  it('closes mobile menu when close handler is called', () => {
+    render(<Header />)
+
+    const header = screen.getByRole('banner')
+    // Open the menu first
+    const mobileMenuButton = within(header).getByRole('button', {
+      name: 'Open navigation menu',
+    })
+    fireEvent.click(mobileMenuButton)
+    expect(screen.getByTestId('mobile-menu')).toBeVisible()
+
+    // Close the menu
+    const closeButton = screen.getByRole('button', {
+      name: 'Close navigation menu',
+    })
+    fireEvent.click(closeButton)
+
+    const mobileMenu = screen.getByTestId('mobile-menu')
+    expect(mobileMenu).toHaveClass(
+      'translate-x-full',
+      'opacity-0',
+      'pointer-events-none'
+    )
   })
 })

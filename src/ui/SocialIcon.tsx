@@ -15,6 +15,7 @@ export interface SocialIconProps {
   color?: SocialIconColor
   interactive?: SocialIconInteractive
   className?: string
+  onClick?: () => void
 }
 
 export const SocialIcon = ({
@@ -26,6 +27,7 @@ export const SocialIcon = ({
   color = 'primary',
   interactive = 'hover',
   className,
+  onClick,
 }: SocialIconProps) => {
   // Base classes
   const baseClasses = 'transition-colors duration-200'
@@ -132,6 +134,7 @@ export const SocialIcon = ({
       rel="noopener noreferrer"
       aria-label={label}
       className={combinedClasses}
+      onClick={onClick}
     >
       <Icon className={iconClasses} />
       {variant === 'text' && label}
