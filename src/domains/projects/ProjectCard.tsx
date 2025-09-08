@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { ExternalLink, Github, Star, GitFork } from 'lucide-react'
 import Image from 'next/image'
 
@@ -20,6 +21,7 @@ export const ProjectCard = ({
   reversed = false,
   index = 0,
 }: ProjectCardProps) => {
+  const t = useTranslations()
   const isFeatured = index < 4
   const animationDirection = reversed
     ? 'slide-in-from-right-10'
@@ -54,13 +56,13 @@ export const ProjectCard = ({
             <div className="absolute top-4 right-4 flex gap-2 z-20">
               <StatItem
                 value={project.stars}
-                label="stars"
+                label={t('projects.card.stats.stars')}
                 icon={<Star className="w-3 h-3 text-yellow-400" />}
                 layout="floating"
               />
               <StatItem
                 value={project.forks}
-                label="forks"
+                label={t('projects.card.stats.forks')}
                 icon={<GitFork className="w-3 h-3 text-gray-300" />}
                 layout="floating"
               />
@@ -72,7 +74,9 @@ export const ProjectCard = ({
                 variant="soft"
                 color={isFeatured ? 'success' : 'info'}
               >
-                {isFeatured ? 'Active' : 'Maintained'}
+                {isFeatured
+                  ? t('projects.card.status.active')
+                  : t('projects.card.status.maintained')}
               </StatusBadge>
             </div>
           </div>
@@ -123,7 +127,7 @@ export const ProjectCard = ({
               align="left"
               as="h3"
             >
-              Technologies
+              {t('projects.card.technologies')}
             </Title>
             <div className="flex flex-wrap gap-2">
               {project.technologies.map((tech, techIndex) => (
@@ -153,7 +157,7 @@ export const ProjectCard = ({
               className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 shadow flex items-center gap-2 rounded-full"
             >
               <Github className="w-4 h-4" aria-hidden="true" />
-              View Source
+              {t('projects.card.viewSource')}
             </Button>
 
             {project.liveUrl && (
@@ -165,7 +169,7 @@ export const ProjectCard = ({
                 className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex items-center gap-2 rounded-full"
               >
                 <ExternalLink className="w-4 h-4" aria-hidden="true" />
-                Live Demo
+                {t('projects.card.liveDemo')}
               </Button>
             )}
           </div>

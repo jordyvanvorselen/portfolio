@@ -1,8 +1,10 @@
+import { useTranslations } from 'next-intl'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 import { Button } from '@/ui/Button'
 
 export const ProjectsCollaboration = () => {
+  const t = useTranslations()
   return (
     <section
       className="relative py-24"
@@ -18,7 +20,7 @@ export const ProjectsCollaboration = () => {
           as="h2"
           className="mb-6"
         >
-          Let&apos;s Build Something Amazing Together
+          {t('projects.collaboration.title')}
         </Title>
 
         <Text
@@ -28,9 +30,7 @@ export const ProjectsCollaboration = () => {
           alignment="center"
           className="mb-8"
         >
-          Interested in collaborating on open source projects or have an idea
-          you&apos;d like to discuss? I&apos;m always excited to start new
-          initiatives.
+          {t('projects.collaboration.description')}
         </Text>
 
         <div className="flex flex-wrap justify-center gap-4">
@@ -40,7 +40,7 @@ export const ProjectsCollaboration = () => {
             color="primary"
             size="md"
           >
-            Follow on GitHub
+            {t('projects.collaboration.actions.followGithub')}
           </Button>
 
           <Button
@@ -49,7 +49,7 @@ export const ProjectsCollaboration = () => {
             color="neutral"
             size="md"
           >
-            Get in Touch
+            {t('projects.collaboration.actions.getInTouch')}
           </Button>
         </div>
       </div>

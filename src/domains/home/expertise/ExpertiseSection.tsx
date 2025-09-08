@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl'
+
 import { Text } from '@/ui/Text'
 import { Title } from '@/ui/Title'
 import { TDDCard } from '@/domains/home/expertise/TDDCard'
@@ -6,10 +8,11 @@ import { ContinuousDeliveryCard } from '@/domains/home/expertise/ContinuousDeliv
 import { ExpertiseCallToAction } from '@/domains/home/expertise/ExpertiseCallToAction'
 
 export const ExpertiseSection = () => {
+  const t = useTranslations()
   return (
     <section
       id="expertise-section"
-      aria-label="Core Expertise"
+      aria-label={t('expertise.section.ariaLabel')}
       className="content-section-min relative overflow-hidden py-4 md:py-6 lg:py-8 bg-gray-950 border-t border-gray-800"
     >
       {/* Main gradient background */}
@@ -31,7 +34,7 @@ export const ExpertiseSection = () => {
             as="h2"
             className="mt-12 mb-4"
           >
-            Want To Deliver Faster?
+            {t('expertise.section.title')}
           </Title>
           <Text
             size="lg"
@@ -41,9 +44,7 @@ export const ExpertiseSection = () => {
             lineHeight="relaxed"
             className="max-w-2xl mx-auto mb-4"
           >
-            I am specialized in helping teams speed up development. Embracing
-            engineering best practices drives faster delivery of exceptional
-            results.
+            {t('expertise.section.description')}
           </Text>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-8 lg:mt-12 max-w-7xl mx-auto">
             <TDDCard />

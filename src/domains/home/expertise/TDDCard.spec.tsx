@@ -3,6 +3,12 @@ import { render, screen } from '@testing-library/react'
 import { TDDCard } from '@/domains/home/expertise/TDDCard'
 
 describe('TDDCard', () => {
+  it('has correct aria-label', () => {
+    render(<TDDCard />)
+
+    expect(screen.getByLabelText('expertise.tdd.ariaLabel')).toBeVisible()
+  })
+
   it('displays test tube icon', () => {
     render(<TDDCard />)
 
@@ -14,18 +20,14 @@ describe('TDDCard', () => {
     render(<TDDCard />)
 
     expect(
-      screen.getByRole('heading', { name: 'Test-Driven Development' })
+      screen.getByRole('heading', { name: 'expertise.tdd.title' })
     ).toBeVisible()
   })
 
   it('displays description text', () => {
     render(<TDDCard />)
 
-    expect(
-      screen.getByText(
-        'I write tests first, then code. This approach ensures robust, bug-free software with comprehensive test coverage. My TDD practice leads to better design decisions and maintainable codebases.'
-      )
-    ).toBeVisible()
+    expect(screen.getByText('expertise.tdd.description')).toBeVisible()
   })
 
   it('displays KEY SKILLS & TOOLS section heading', () => {

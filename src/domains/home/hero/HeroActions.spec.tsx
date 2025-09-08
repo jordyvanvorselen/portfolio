@@ -6,14 +6,16 @@ describe('HeroActions', () => {
   it('renders Get In Touch link', () => {
     render(<HeroActions />)
 
-    expect(screen.getByRole('link', { name: 'Get In Touch' })).toBeVisible()
+    expect(
+      screen.getByRole('link', { name: 'hero.actions.getInTouch' })
+    ).toBeVisible()
   })
 
   it('renders Download Resume button', () => {
     render(<HeroActions />)
 
     expect(
-      screen.getByRole('button', { name: 'Download Resume' })
+      screen.getByRole('button', { name: 'hero.actions.downloadResume' })
     ).toBeVisible()
   })
 })

@@ -609,6 +609,76 @@ BREAKING-CHANGE MUST be synonymous with BREAKING CHANGE, when used as a token in
 - Use the qa subagent specifically for visual testing and screenshot comparisons
 - **MAXIMIZE PARALLELIZATION**: When working on multiple independent tasks (like extending UI components, refactoring different files, or similar operations), ALWAYS use multiple Task tool calls in a single message to run them in parallel for optimal performance and efficiency
 
+# I18N SETUP AND TESTING
+
+## i18next Configuration
+
+The project uses i18next for internationalization with support for English (en) and Dutch (nl) locales:
+
+- **Configuration**: `src/i18n/config.ts` - language settings and locale mapping
+- **Common utilities**: `src/i18n/common.ts` - shared i18n initialization logic
+- **Client-side provider**: `src/i18n/client.tsx` - TranslationsProvider for client components
+- **Server-side utilities**: `src/i18n/server.ts` - getI18n function for server components
+- **Translation files**: `src/i18n/locales/en.json` and `src/i18n/locales/nl.json`
+- **TypeScript support**: `src/types/i18next.d.ts` - type-safe translation keys
+
+## Testing Setup - CRITICAL
+
+**DO NOT use any I18nTestWrapper or similar test wrappers!**
+
+The i18n testing is handled by Jest mocks in `jest.setup.js`:
+
+```javascript
+jest.mock('react-i18next', () => {
+  return {
+    ...jest.requireActual('react-i18next'),
+    Trans: jest.fn(({ i18nKey, components }) => {
+      return (
+        <>
+          {i18nKey}
+          {Object.values(components || {})}
+        </>
+      )
+    }),
+    useTranslation: (_, { keyPrefix } = {}) => ({
+      t: assertableTranslationKeys(keyPrefix ?? ''),
+      i18n: {
+        language: 'en',
+        changeLanguage: jest.fn(),
+      },
+    }),
+  }
+})
+```
+
+This setup:
+
+- **Mocks useTranslation hook** to return translation keys directly (e.g., 'hero.title')
+- **Mocks Trans component** to render i18nKey and components
+- **Enables direct testing** of translation key usage without providers
+- **Uses assertableTranslationKeys** from `src/test/utils/translations.ts`
+
+### Testing Pattern
+
+```typescript
+// ✅ CORRECT - Direct component rendering
+describe('MyComponent', () => {
+  it('displays translated text', () => {
+    render(<MyComponent />)
+    expect(screen.getByText('hero.title')).toBeVisible()
+  })
+})
+
+// ❌ WRONG - Never use wrappers
+render(
+  <I18nTestWrapper>
+    <MyComponent />
+  </I18nTestWrapper>
+)
+```
+
+The Jest mock handles everything - no additional setup needed in tests!
+
 # MISC
 
 - The owner of the portfolio is "Jordy van Vorselen", use this name everywhere instead of "Alex Johnson"

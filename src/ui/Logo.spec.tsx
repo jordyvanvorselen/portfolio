@@ -3,6 +3,12 @@ import { render, screen } from '@testing-library/react'
 import { Logo } from '@/ui/Logo'
 
 describe('Logo', () => {
+  it('uses translation for brand name', () => {
+    render(<Logo />)
+
+    expect(screen.getByText('layout.brandName')).toBeVisible()
+  })
+
   describe.each([
     { scenario: 'without className', className: undefined },
     { scenario: 'with custom className', className: 'custom-class' },
@@ -10,7 +16,7 @@ describe('Logo', () => {
     it(`renders logo as home link ${scenario}`, () => {
       render(<Logo {...(className ? { className } : {})} />)
 
-      const logoLink = screen.getByRole('link', { name: 'More Than Bits' })
+      const logoLink = screen.getByRole('link', { name: 'layout.brandName' })
       expect(logoLink).toBeVisible()
       expect(logoLink).toHaveAttribute('href', '/')
     })
@@ -18,7 +24,7 @@ describe('Logo', () => {
     it(`renders logo text ${scenario}`, () => {
       render(<Logo {...(className ? { className } : {})} />)
 
-      expect(screen.getByText('More Than Bits')).toBeVisible()
+      expect(screen.getByText('layout.brandName')).toBeVisible()
     })
 
     if (className) {
@@ -26,7 +32,7 @@ describe('Logo', () => {
         render(<Logo {...(className ? { className } : {})} />)
 
         const logoLink = screen.getByRole('link', {
-          name: 'More Than Bits',
+          name: 'layout.brandName',
         })
         expect(logoLink).toHaveClass(className)
       })

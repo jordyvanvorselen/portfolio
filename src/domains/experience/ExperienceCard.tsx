@@ -1,5 +1,8 @@
+'use client'
+
 import { ExternalLink, Calendar, MapPin } from 'lucide-react'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { Card } from '@/ui/Card'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
@@ -42,6 +45,7 @@ export const ExperienceCard = ({
   technologies,
   isCurrentJob = false,
 }: ExperienceCardProps) => {
+  const t = useTranslations()
   return (
     <div className="h-full">
       <Card className="transition-all duration-500 hover:shadow-2xl h-full flex flex-col">
@@ -86,7 +90,7 @@ export const ExperienceCard = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-teal-400 transition-colors duration-200 flex-shrink-0"
-                  aria-label={`Visit ${company} website`}
+                  aria-label={t('experience.card.visitWebsite', { company })}
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
@@ -115,7 +119,7 @@ export const ExperienceCard = ({
           </Badge>
           {isCurrentJob && (
             <Badge variant="soft" color="primary" size="sm" className="w-fit">
-              Current
+              {t('experience.card.current')}
             </Badge>
           )}
         </div>
@@ -141,7 +145,7 @@ export const ExperienceCard = ({
             tracking="wide"
             className="mb-4 sm:mb-5"
           >
-            Key Achievements
+            {t('experience.card.keyAchievements')}
           </Title>
           <ul className="space-y-2 sm:space-y-2.5">
             {achievements.map((achievement, index) => (
@@ -174,7 +178,7 @@ export const ExperienceCard = ({
             tracking="wide"
             className="mb-4 sm:mb-5"
           >
-            Technologies Used
+            {t('experience.card.technologiesUsed')}
           </Title>
           <div className="flex flex-wrap gap-2 sm:gap-2.5">
             {technologies.map((tech, index) => (

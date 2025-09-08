@@ -1,12 +1,17 @@
 import { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 
 import { ProjectsHero } from '@/domains/projects/ProjectsHero'
 import { ProjectsGrid } from '@/domains/projects/ProjectsGrid'
 import { ProjectsCollaboration } from '@/domains/projects/ProjectsCollaboration'
 
-export const metadata: Metadata = {
-  title: 'Projects - Jordy van Vorselen',
-  description: 'Projects and open source contributions by Jordy van Vorselen',
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('pages.projects')
+
+  return {
+    title: t('title'),
+    description: t('description'),
+  }
 }
 
 const ProjectsPage = () => {

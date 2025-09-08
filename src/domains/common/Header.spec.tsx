@@ -6,7 +6,7 @@ describe(Header, () => {
     render(<Header />)
 
     const brandingLink = screen.getByRole('link', {
-      name: 'More Than Bits',
+      name: 'layout.brandName',
     })
     expect(brandingLink).toBeVisible()
   })
@@ -14,7 +14,7 @@ describe(Header, () => {
   it('renders home navigation link', () => {
     render(<Header />)
 
-    const homeLinks = screen.getAllByRole('link', { name: 'Home' })
+    const homeLinks = screen.getAllByRole('link', { name: 'navigation.home' })
     expect(homeLinks.length).toBeGreaterThan(0)
     homeLinks.forEach(link => expect(link).toBeVisible())
   })
@@ -22,7 +22,7 @@ describe(Header, () => {
   it('renders blog navigation link', () => {
     render(<Header />)
 
-    const blogLinks = screen.getAllByRole('link', { name: 'Blog' })
+    const blogLinks = screen.getAllByRole('link', { name: 'navigation.blog' })
     expect(blogLinks.length).toBeGreaterThan(0)
     blogLinks.forEach(link => expect(link).toBeVisible())
   })
@@ -30,7 +30,9 @@ describe(Header, () => {
   it('renders projects navigation link', () => {
     render(<Header />)
 
-    const projectsLinks = screen.getAllByRole('link', { name: 'Projects' })
+    const projectsLinks = screen.getAllByRole('link', {
+      name: 'navigation.projects',
+    })
     expect(projectsLinks.length).toBeGreaterThan(0)
     projectsLinks.forEach(link => expect(link).toBeVisible())
   })
@@ -38,7 +40,9 @@ describe(Header, () => {
   it('renders experience navigation link', () => {
     render(<Header />)
 
-    const experienceLinks = screen.getAllByRole('link', { name: 'Experience' })
+    const experienceLinks = screen.getAllByRole('link', {
+      name: 'navigation.experience',
+    })
     expect(experienceLinks.length).toBeGreaterThan(0)
     experienceLinks.forEach(link => expect(link).toBeVisible())
   })
@@ -46,7 +50,9 @@ describe(Header, () => {
   it('renders contact navigation link', () => {
     render(<Header />)
 
-    const contactLinks = screen.getAllByRole('link', { name: 'Contact' })
+    const contactLinks = screen.getAllByRole('link', {
+      name: 'navigation.contact',
+    })
     expect(contactLinks.length).toBeGreaterThan(0)
     contactLinks.forEach(link => expect(link).toBeVisible())
   })
@@ -54,27 +60,32 @@ describe(Header, () => {
   it('renders availability status', () => {
     render(<Header />)
 
-    expect(screen.getByText('Available')).toBeVisible()
+    expect(screen.getByText('navigation.available')).toBeVisible()
   })
 
   it('renders availability icon', () => {
     render(<Header />)
 
-    const icon = screen.getByRole('img')
-    expect(icon).toBeVisible()
+    // Check for the CircleCheckBig icon by looking within the availability text context
+    const availabilityText = screen.getByText('navigation.available')
+    expect(availabilityText).toBeVisible()
+
+    // The icon should be present within the same address container
+    const addressSection = availabilityText.closest('address')
+    expect(addressSection).toBeInTheDocument()
   })
 
   it('renders github social link', () => {
     render(<Header />)
 
-    const githubLink = screen.getByRole('link', { name: 'GitHub' })
+    const githubLink = screen.getByRole('link', { name: 'social.github' })
     expect(githubLink).toBeVisible()
   })
 
   it('renders linkedin social link', () => {
     render(<Header />)
 
-    const linkedinLink = screen.getByRole('link', { name: 'LinkedIn' })
+    const linkedinLink = screen.getByRole('link', { name: 'social.linkedin' })
     expect(linkedinLink).toBeVisible()
   })
 
@@ -82,7 +93,7 @@ describe(Header, () => {
     render(<Header />)
 
     const brandingLink = screen.getByRole('link', {
-      name: 'More Than Bits',
+      name: 'layout.brandName',
     })
     expect(brandingLink).toHaveAttribute('href', '/')
   })
@@ -90,11 +101,17 @@ describe(Header, () => {
   it('navigation links have correct href attributes', () => {
     render(<Header />)
 
-    const homeLinks = screen.getAllByRole('link', { name: 'Home' })
-    const blogLinks = screen.getAllByRole('link', { name: 'Blog' })
-    const projectsLinks = screen.getAllByRole('link', { name: 'Projects' })
-    const experienceLinks = screen.getAllByRole('link', { name: 'Experience' })
-    const contactLinks = screen.getAllByRole('link', { name: 'Contact' })
+    const homeLinks = screen.getAllByRole('link', { name: 'navigation.home' })
+    const blogLinks = screen.getAllByRole('link', { name: 'navigation.blog' })
+    const projectsLinks = screen.getAllByRole('link', {
+      name: 'navigation.projects',
+    })
+    const experienceLinks = screen.getAllByRole('link', {
+      name: 'navigation.experience',
+    })
+    const contactLinks = screen.getAllByRole('link', {
+      name: 'navigation.contact',
+    })
 
     homeLinks.forEach(link => expect(link).toHaveAttribute('href', '/'))
     blogLinks.forEach(link => expect(link).toHaveAttribute('href', '/blog'))
@@ -112,24 +129,23 @@ describe(Header, () => {
   it('social links have correct href attributes', () => {
     render(<Header />)
 
-    expect(screen.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'social.github' })).toHaveAttribute(
       'href',
       'https://github.com/jordyvanvorselen'
     )
-    expect(screen.getByRole('link', { name: 'LinkedIn' })).toHaveAttribute(
-      'href',
-      'https://linkedin.com/in/jordy-van-vorselen'
-    )
+    expect(
+      screen.getByRole('link', { name: 'social.linkedin' })
+    ).toHaveAttribute('href', 'https://linkedin.com/in/jordy-van-vorselen')
   })
 
   it('external links have security attributes', () => {
     render(<Header />)
 
-    const githubLink = screen.getByRole('link', { name: 'GitHub' })
+    const githubLink = screen.getByRole('link', { name: 'social.github' })
     expect(githubLink).toHaveAttribute('target', '_blank')
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer')
 
-    const linkedinLink = screen.getByRole('link', { name: 'LinkedIn' })
+    const linkedinLink = screen.getByRole('link', { name: 'social.linkedin' })
     expect(linkedinLink).toHaveAttribute('target', '_blank')
     expect(linkedinLink).toHaveAttribute('rel', 'noopener noreferrer')
   })

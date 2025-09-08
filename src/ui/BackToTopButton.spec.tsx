@@ -19,7 +19,7 @@ describe('BackToTopButton', () => {
     it('renders back to top button', () => {
       render(<BackToTopButton {...(onClick ? { onClick } : {})} />)
 
-      expect(screen.getByRole('button', { name: /Back to top/ })).toBeVisible()
+      expect(screen.getByRole('button', { name: 'ui.backToTop' })).toBeVisible()
     })
   })
 
@@ -42,7 +42,7 @@ describe('BackToTopButton', () => {
       it(`handles ${scenario} correctly`, () => {
         render(<BackToTopButton {...(onClick ? { onClick } : {})} />)
 
-        const button = screen.getByRole('button', { name: /Back to top/ })
+        const button = screen.getByRole('button', { name: 'ui.backToTop' })
         fireEvent.click(button)
 
         if (expectedScrollToCalls > 0) {
@@ -71,7 +71,7 @@ describe('BackToTopButton', () => {
       it(`applies ${variant} variant styles`, () => {
         render(<BackToTopButton variant={variant} />)
 
-        const button = screen.getByRole('button', { name: /Back to top/ })
+        const button = screen.getByRole('button', { name: 'ui.backToTop' })
         expect(button).toHaveClass(expectedClass)
       })
     })
@@ -84,7 +84,7 @@ describe('BackToTopButton', () => {
       it(`applies ${color} color styles`, () => {
         render(<BackToTopButton color={color} />)
 
-        const button = screen.getByRole('button', { name: /Back to top/ })
+        const button = screen.getByRole('button', { name: 'ui.backToTop' })
         expect(button).toHaveClass(expectedClass)
       })
     })
@@ -97,7 +97,7 @@ describe('BackToTopButton', () => {
       it(`applies ${size} size styles`, () => {
         render(<BackToTopButton size={size} />)
 
-        const button = screen.getByRole('button', { name: /Back to top/ })
+        const button = screen.getByRole('button', { name: 'ui.backToTop' })
         expect(button).toHaveClass(expectedClass)
       })
     })
@@ -106,14 +106,14 @@ describe('BackToTopButton', () => {
       const customClass = 'custom-test-class'
       render(<BackToTopButton className={customClass} />)
 
-      const button = screen.getByRole('button', { name: /Back to top/ })
+      const button = screen.getByRole('button', { name: 'ui.backToTop' })
       expect(button).toHaveClass(customClass)
     })
 
     it('applies default props when none provided', () => {
       render(<BackToTopButton />)
 
-      const button = screen.getByRole('button', { name: /Back to top/ })
+      const button = screen.getByRole('button', { name: 'ui.backToTop' })
       // Default: variant="ghost", color="neutral", size="xs"
       expect(button).toHaveClass('text-gray-300', 'h-8')
     })

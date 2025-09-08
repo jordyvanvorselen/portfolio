@@ -1,24 +1,35 @@
 import type { Metadata } from 'next'
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages, getTranslations } from 'next-intl/server'
 import './globals.css'
 import { Header } from '@/domains/common/Header'
 import { Footer } from '@/domains/common/Footer'
 
-export const metadata: Metadata = {
-  title: 'Jordy van Vorselen - Portfolio',
-  description: 'Full-stack developer and software engineer portfolio',
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('layout')
+
+  return {
+    title: t('title'),
+    description: t('description'),
+  }
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const locale = await getLocale()
+  const messages = await getMessages()
+
   return (
-    <html lang="en" className="bg-gray-900">
+    <html lang={locale} className="bg-gray-900">
       <body className="antialiased min-h-full flex flex-col bg-gray-900">
-        <Header />
-        {children}
-        <Footer />
+        <NextIntlClientProvider messages={messages}>
+          <Header />
+          {children}
+          <Footer />
+        </NextIntlClientProvider>
       </body>
     </html>
   )

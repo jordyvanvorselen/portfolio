@@ -4,8 +4,7 @@ import { useState } from 'react'
 import { Search } from 'lucide-react'
 import { Filter } from '@/ui/Filter'
 
-const categories = [
-  'All',
+const technicalCategories = [
   'API',
   'Architecture',
   'Backend',
@@ -31,7 +30,15 @@ const categories = [
   'TypeScript',
 ]
 
-export const BlogSearchFilters = () => {
+interface BlogSearchFiltersProps {
+  searchPlaceholder: string
+  allFilterLabel: string
+}
+
+export const BlogSearchFiltersClient = ({
+  searchPlaceholder,
+  allFilterLabel,
+}: BlogSearchFiltersProps) => {
   const [activeFilter, setActiveFilter] = useState('All')
 
   const handleFilterClick = (category: string) => {
@@ -48,7 +55,7 @@ export const BlogSearchFilters = () => {
           />
           <input
             type="text"
-            placeholder="Search articles..."
+            placeholder={searchPlaceholder}
             className="w-full pl-12 pr-6 py-4 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-lg"
           />
         </div>
@@ -56,7 +63,15 @@ export const BlogSearchFilters = () => {
 
       <div className="flex justify-center">
         <div className="flex flex-wrap gap-2 justify-center max-w-5xl">
-          {categories.map(category => (
+          <Filter
+            key="All"
+            variant={activeFilter === 'All' ? 'active' : 'default'}
+            color="default"
+            onClick={() => handleFilterClick('All')}
+          >
+            {allFilterLabel}
+          </Filter>
+          {technicalCategories.map(category => (
             <Filter
               key={category}
               variant={activeFilter === category ? 'active' : 'default'}
@@ -69,5 +84,18 @@ export const BlogSearchFilters = () => {
         </div>
       </div>
     </div>
+  )
+}
+
+import { useTranslations } from 'next-intl'
+
+export const BlogSearchFilters = () => {
+  const t = useTranslations()
+
+  return (
+    <BlogSearchFiltersClient
+      searchPlaceholder={t('blog.search.placeholder')}
+      allFilterLabel={t('blog.search.filters.all')}
+    />
   )
 }

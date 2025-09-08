@@ -4,24 +4,29 @@ import Image from 'next/image'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 import { Badge } from '@/ui/Badge'
+import { useTranslations, useMessages } from 'next-intl'
 
 export interface BlogCardProps {
-  title: string
-  description: string
-  date: string
-  readTime: string
+  translationKey: string
   image: string
-  tags: string[]
 }
 
-export const BlogCard = ({
-  title,
-  description,
-  date,
-  readTime,
-  image,
-  tags,
-}: BlogCardProps) => {
+export const BlogCard = ({ translationKey, image }: BlogCardProps) => {
+  const t = useTranslations()
+  const messages = useMessages() as Record<string, unknown> // We need raw access for arrays
+
+  const title = t(`blog.posts.${translationKey}.title`)
+  const description = t(`blog.posts.${translationKey}.description`)
+  const date = t(`blog.posts.${translationKey}.date`)
+  const readTime = t(`blog.posts.${translationKey}.readTime`)
+  const blogMessages = messages['blog'] as Record<string, unknown> | undefined
+  const postsMessages = blogMessages?.['posts'] as
+    | Record<string, unknown>
+    | undefined
+  const postMessages = postsMessages?.[translationKey] as
+    | Record<string, unknown>
+    | undefined
+  const tags = (postMessages?.['tags'] as string[]) || []
   return (
     <article className="group relative overflow-hidden rounded-xl bg-gray-800/50 border border-gray-700 hover:border-teal-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-teal-500/5 backdrop-blur-sm cursor-pointer">
       <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -83,7 +88,7 @@ export const BlogCard = ({
             ))}
             {tags.length > 3 && (
               <Badge variant="soft" color="default" size="sm">
-                +{tags.length - 3} more
+                {t('blog.card.moreCount', { count: tags.length - 3 })}
               </Badge>
             )}
           </div>

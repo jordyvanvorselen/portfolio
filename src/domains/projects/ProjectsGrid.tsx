@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { ProjectCard } from '@/domains/projects/ProjectCard'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
@@ -130,6 +131,7 @@ const mockProjects: Project[] = [
 ]
 
 export const ProjectsGrid = () => {
+  const t = useTranslations()
   return (
     <section
       role="region"
@@ -147,7 +149,7 @@ export const ProjectsGrid = () => {
             as="h2"
             className="mb-4"
           >
-            Featured Projects
+            {t('projects.grid.title')}
           </Title>
           <Text
             size="xl"
@@ -156,9 +158,7 @@ export const ProjectsGrid = () => {
             alignment="center"
             className="max-w-3xl mx-auto"
           >
-            Each project represents hours of dedication, innovative
-            problem-solving, and a commitment to building tools that make
-            developers&apos; lives easier.
+            {t('projects.grid.description')}
           </Text>
         </div>
 

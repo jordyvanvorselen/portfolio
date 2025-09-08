@@ -77,6 +77,60 @@ test.describe('Header Component', () => {
     await linkedinPage.close()
   })
 
+  test('toggles language switcher correctly', async ({ homePage }) => {
+    // Verify initial state (English)
+    await expect(homePage.header.languageSwitcher).toBeVisible()
+    await expect(homePage.header.languageSwitcher).toHaveAttribute(
+      'aria-label',
+      'Switch to Dutch'
+    )
+
+    // Verify initial content is in English
+    await expect(homePage.hero.description).toContainText('exceptional quality')
+
+    // Verify Dutch flag is visible
+    await expect(
+      homePage.header.languageSwitcher.locator('.fi-nl')
+    ).toBeVisible()
+
+    // Click to switch to Dutch
+    await homePage.header.languageSwitcher.click()
+
+    // Wait for page reload
+    await homePage.page.waitForLoadState('networkidle')
+
+    // Verify switched state (should now show British flag and switch to English option)
+    await expect(homePage.header.languageSwitcher).toHaveAttribute(
+      'aria-label',
+      'Switch to English'
+    )
+
+    // Verify content is now in Dutch
+    await expect(homePage.hero.description).toContainText(
+      'uitzonderlijke kwaliteit'
+    )
+
+    // Verify British flag is visible
+    await expect(
+      homePage.header.languageSwitcher.locator('.fi-gb')
+    ).toBeVisible()
+
+    // Click to switch back to English
+    await homePage.header.languageSwitcher.click()
+
+    // Wait for page reload
+    await homePage.page.waitForLoadState('networkidle')
+
+    // Verify back to original state
+    await expect(homePage.header.languageSwitcher).toHaveAttribute(
+      'aria-label',
+      'Switch to Dutch'
+    )
+
+    // Verify content is back to English
+    await expect(homePage.hero.description).toContainText('exceptional quality')
+  })
+
   test('header visual regression', async ({ homePage }) => {
     await expect(homePage.header.section).toHaveScreenshot('header.png')
   })

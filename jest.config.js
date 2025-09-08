@@ -5,8 +5,9 @@ const createJestConfig = nextJest({
 })
 
 const customJestConfig = {
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testEnvironment: 'jsdom',
+  restoreMocks: true,
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@src/(.*)$': '<rootDir>/src/$1',
@@ -17,7 +18,12 @@ const customJestConfig = {
     '<rootDir>/node_modules/',
     '<rootDir>/tests/',
   ],
-  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/i18n/**/*',
+    '!src/test/**/*',
+  ],
   coverageThreshold: {
     global: {
       branches: 100,

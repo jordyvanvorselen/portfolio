@@ -1,4 +1,5 @@
 import { TrendingUp } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 
@@ -11,6 +12,7 @@ export const ExperienceHero = ({
   positionCount,
   companyCount,
 }: ExperienceHeroProps) => {
+  const t = useTranslations()
   return (
     <section className="header-offset relative pt-16 pb-20 overflow-hidden mt-8">
       {/* Animated gradient background */}
@@ -31,7 +33,7 @@ export const ExperienceHero = ({
             align="center"
             className="mb-6"
           >
-            Work Experience
+            {t('experience.hero.title')}
           </Title>
           <Text
             size="2xl"
@@ -40,8 +42,7 @@ export const ExperienceHero = ({
             alignment="center"
             className="max-w-4xl mx-auto mb-8"
           >
-            A journey through innovative companies and challenging projects that
-            shaped my expertise in software engineering
+            {t('experience.hero.description')}
           </Text>
           <div className="flex items-center justify-center gap-8 text-gray-400">
             <div className="flex items-center gap-2">
@@ -50,7 +51,9 @@ export const ExperienceHero = ({
                 className="w-5 h-5"
                 aria-hidden="true"
               />
-              <span className="text-lg">8+ Years Experience</span>
+              <span className="text-lg">
+                {t('experience.hero.stats.yearsExperience')}
+              </span>
             </div>
             <div className="w-px h-6 bg-gray-600"></div>
             <div className="flex items-center gap-2">
@@ -59,7 +62,10 @@ export const ExperienceHero = ({
                 className="w-2 h-2 bg-teal-500 rounded-full animate-pulse"
               ></div>
               <span className="text-lg">
-                {positionCount} Positions at {companyCount} Companies
+                {t('experience.hero.stats.positionsAndCompanies', {
+                  positionCount,
+                  companyCount,
+                })}
               </span>
             </div>
           </div>

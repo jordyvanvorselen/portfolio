@@ -1,8 +1,10 @@
 import { BookOpen } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 
 export const BlogHeroSection = () => {
+  const t = useTranslations()
   return (
     <section
       data-testid="blog-hero-section"
@@ -25,7 +27,7 @@ export const BlogHeroSection = () => {
             as="h1"
             className="mb-6"
           >
-            More Than Bits
+            {t('blog.hero.title')}
           </Title>
 
           <Text
@@ -36,19 +38,22 @@ export const BlogHeroSection = () => {
             lineHeight="relaxed"
             className="max-w-4xl mx-auto mb-8"
           >
-            Thoughts, tutorials, and deep dives into software engineering,
-            architecture, and modern development practices.
+            {t('blog.hero.description')}
           </Text>
 
           <div className="flex items-center justify-center gap-8 text-gray-400">
             <div className="flex items-center gap-2">
               <BookOpen className="w-5 h-5" />
-              <span className="text-lg">6 Articles</span>
+              <span className="text-lg">
+                {t('blog.hero.stats.articlesCount', { count: 6 })}
+              </span>
             </div>
             <div className="w-px h-6 bg-gray-600"></div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-teal-500 rounded-full animate-pulse"></div>
-              <span className="text-lg">Regularly Updated</span>
+              <span className="text-lg">
+                {t('blog.hero.stats.regularlyUpdated')}
+              </span>
             </div>
           </div>
         </div>

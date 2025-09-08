@@ -1,3 +1,5 @@
+import { Metadata } from 'next'
+import { getTranslations, getMessages } from 'next-intl/server'
 import { ExperienceHero } from '@/domains/experience/ExperienceHero'
 import { ExperienceCard } from '@/domains/experience/ExperienceCard'
 import { Title } from '@/ui/Title'
@@ -11,9 +13,30 @@ import signifyLogo from '@/assets/images/signify.webp'
 import syntouchLogo from '@/assets/images/syntouch.svg'
 import hertekLogo from '@/assets/images/hertek.png'
 
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('pages.experience')
+
+  return {
+    title: t('title'),
+    description: t('description'),
+  }
+}
+
 interface Technology {
   name: string
   iconKey: string
+}
+
+type EmploymentType = 'Full-time' | 'Part-time' | 'Internship' | 'Graduation'
+
+interface Messages {
+  experience: {
+    positions: {
+      [key: string]: {
+        achievements: string[]
+      }
+    }
+  }
 }
 
 interface Experience {
@@ -24,284 +47,181 @@ interface Experience {
   logoAlt: string
   duration: string
   location: string
-  employmentType: 'Full-time' | 'Part-time' | 'Internship' | 'Graduation'
+  employmentType: EmploymentType
   description: string
   achievements: string[]
   technologies: Technology[]
   isCurrentJob: boolean
 }
 
-const experiences: Experience[] = [
-  {
-    position: 'Lead Developer',
-    company: 'Hertek Safety',
-    companyUrl: 'https://hertek.nl',
-    logoUrl: hertekLogo.src,
-    logoAlt: 'Hertek logo',
-    duration: '1 year 8 months',
-    location: 'Remote - Weert, NL',
-    employmentType: 'Full-time',
-    description:
-      'Via Kabisa · Development of high-performance Java backend services with Spring Boot and reactive programming.',
-    achievements: [
-      'Developed multiple Java backend services with Spring Boot and Vertx',
-      'Implemented AWS services: ECS, MemoryDB and SQS FiFo',
-      'Backend processes thousands of messages with high performance',
-      'Built: React SPA, SSR Thymeleaf, Cordova and Flutter apps',
-      'Horizontal scalability for enterprise applications',
-    ],
-    technologies: [
-      { name: 'Java', iconKey: 'java' },
-      { name: 'Spring Boot', iconKey: 'spring' },
-      { name: 'Vertx', iconKey: 'vertx' },
-      { name: 'AWS', iconKey: 'amazonwebservices' },
-      { name: 'React', iconKey: 'react' },
-      { name: 'Flutter', iconKey: 'flutter' },
-      { name: 'Dart', iconKey: 'dart' },
-    ],
-    isCurrentJob: true,
-  },
-  {
-    position: 'Lead Developer',
-    company: 'ASML',
-    companyUrl: 'https://asml.com',
-    logoUrl: asmlLogo.src,
-    logoAlt: 'ASML logo',
-    duration: '3 months',
-    location: 'Remote - Veldhoven, NL',
-    employmentType: 'Full-time',
-    description:
-      'Via Kabisa · Development of business-critical web tools used by tens of thousands of developers.',
-    achievements: [
-      'Developed business-critical web tools for 10,000+ developers',
-      'Worked with Ruby on Rails, React, Flask & Django',
-      'Kubernetes and Docker containerization',
-      'Optimization of tool performance and scalability',
-      'Agile development in large teams',
-    ],
-    technologies: [
-      { name: 'Ruby on Rails', iconKey: 'rails' },
-      { name: 'React', iconKey: 'react' },
-      { name: 'Flask', iconKey: 'flask' },
-      { name: 'Django', iconKey: 'django' },
-      { name: 'Kubernetes', iconKey: 'kubernetes' },
-      { name: 'Docker', iconKey: 'docker' },
-    ],
-    isCurrentJob: false,
-  },
-  {
-    position: 'Lead Developer',
-    company: 'Hertek Safety',
-    companyUrl: 'https://hertek.nl',
-    logoUrl: hertekLogo.src,
-    logoAlt: 'Hertek logo',
-    duration: '8 months',
-    location: 'Remote - Weert, NL',
-    employmentType: 'Full-time',
-    description:
-      'Via Kabisa · Development of Flutter app with strict certification standards for fire safety.',
-    achievements: [
-      'Built new Flutter (Dart) mobile app',
-      'Java Spring Boot backend development',
-      'Met strict certification standards',
-      'Direct relationship with fire safety systems',
-      'Implementation of security best practices',
-    ],
-    technologies: [
-      { name: 'Flutter', iconKey: 'flutter' },
-      { name: 'Dart', iconKey: 'dart' },
-      { name: 'Java', iconKey: 'java' },
-      { name: 'Spring Boot', iconKey: 'spring' },
-    ],
-    isCurrentJob: false,
-  },
-  {
-    position: 'Full-Stack Software Engineer',
-    company: 'ASML',
-    companyUrl: 'https://asml.com',
-    logoUrl: asmlLogo.src,
-    logoAlt: 'ASML logo',
-    duration: '3 years 9 months',
-    location: 'Veldhoven, NL',
-    employmentType: 'Full-time',
-    description:
-      'Via Kabisa · Long-term development of enterprise web tools for developers worldwide.',
-    achievements: [
-      'Developed business-critical web tools for 10,000+ developers',
-      'Expertise in Ruby on Rails, React, Flask & Django',
-      'Container orchestration with Kubernetes',
-      'Performance optimization for large scale',
-      'Cross-functional collaboration with international teams',
-    ],
-    technologies: [
-      { name: 'Ruby on Rails', iconKey: 'rails' },
-      { name: 'React', iconKey: 'react' },
-      { name: 'Flask', iconKey: 'flask' },
-      { name: 'Django', iconKey: 'django' },
-      { name: 'Kubernetes', iconKey: 'kubernetes' },
-      { name: 'Docker', iconKey: 'docker' },
-    ],
-    isCurrentJob: false,
-  },
-  {
-    position: 'Full-Stack Software Engineer',
-    company: 'Signify',
-    companyUrl: 'https://signify.com',
-    logoUrl: signifyLogo.src,
-    logoAlt: 'Signify logo',
-    duration: '5 months',
-    location: 'Eindhoven, NL',
-    employmentType: 'Full-time',
-    description:
-      'Via Kabisa · Development of the Hue Labs platform and Philips Hue mobile app.',
-    achievements: [
-      'Developed Hue Labs platform',
-      'Contributed to Philips Hue mobile app',
-      'React (JavaScript) frontend development',
-      'Phoenix (Elixir) backend development',
-      'IoT integration for smart lighting',
-    ],
-    technologies: [
-      { name: 'React', iconKey: 'react' },
-      { name: 'JavaScript', iconKey: 'javascript' },
-      { name: 'Phoenix', iconKey: 'phoenix' },
-      { name: 'Elixir', iconKey: 'elixir' },
-    ],
-    isCurrentJob: false,
-  },
-  {
-    position: 'Back-End Tech Lead',
-    company: 'Kabisa',
-    companyUrl: 'https://kabisa.nl',
-    logoUrl: kabisaLogo.src,
-    logoAlt: 'Kabisa logo',
-    duration: '3 years 9 months',
-    location: 'Remote - Weert, NL',
-    employmentType: 'Full-time',
-    description:
-      'Full-Stack Engineer at Kabisa, specialized in developing elegant (enterprise) software solutions.',
-    achievements: [
-      'Full-stack development across multiple technologies',
-      'Architecture of enterprise software solutions',
-      'Expertise in Java, Python, Ruby, Elixir and Front-end development',
-      'Implementation of scalable microservices architecture',
-      'Mentoring and coaching of development teams',
-    ],
-    technologies: [
-      { name: 'Java', iconKey: 'java' },
-      { name: 'Python', iconKey: 'python' },
-      { name: 'Ruby', iconKey: 'ruby' },
-      { name: 'Elixir', iconKey: 'elixir' },
-      { name: 'Spring Boot', iconKey: 'spring' },
-    ],
-    isCurrentJob: false,
-  },
-  {
-    position: 'Full-Stack Engineer',
-    company: 'Kabisa',
-    companyUrl: 'https://kabisa.nl',
-    logoUrl: kabisaLogo.src,
-    logoAlt: 'Kabisa logo',
-    duration: '3 years 11 months',
-    location: 'Remote - Weert, NL',
-    employmentType: 'Full-time',
-    description:
-      'Backend Tech Lead at Kabisa, specialized in developing elegant (enterprise) software solutions.',
-    achievements: [
-      'Leading backend development teams',
-      'Architecture of enterprise software solutions',
-      'Expertise in Java, Python, Ruby, Elixir and Front-end development',
-      'Implementation of scalable microservices architecture',
-      'Mentoring and coaching of development teams',
-    ],
-    technologies: [
-      { name: 'Java', iconKey: 'java' },
-      { name: 'Python', iconKey: 'python' },
-      { name: 'Ruby', iconKey: 'ruby' },
-      { name: 'Elixir', iconKey: 'elixir' },
-      { name: 'Spring Boot', iconKey: 'spring' },
-    ],
-    isCurrentJob: true,
-  },
-  {
-    position: 'Blockchain Software Engineer',
-    company: 'SynTouch',
-    companyUrl: 'https://syntouch.nl',
-    logoUrl: syntouchLogo.src,
-    logoAlt: 'SynTouch logo',
-    duration: '6 months',
-    location: 'Eindhoven, NL',
-    employmentType: 'Graduation',
-    description:
-      'Graduated Cum Laude · Development of ERC-20 token and blockchain applications.',
-    achievements: [
-      'Developed ERC-20 token SynCoin with Ethereum smart contracts',
-      'Built escrow, order and crowdsale system in Solidity',
-      'Research on upgradeable smart contracts',
-      'Node.js backend with Swagger + Express',
-      'Vue.js frontend for blockchain interaction',
-    ],
-    technologies: [
-      { name: 'Solidity', iconKey: 'solidity' },
-      { name: 'Node.js', iconKey: 'nodejs' },
-      { name: 'Vue.js', iconKey: 'vuejs' },
-      { name: 'Web3', iconKey: 'web3js' },
-    ],
-    isCurrentJob: false,
-  },
-  {
-    position: 'Junior Software Engineer',
-    company: 'Scorito.com',
-    companyUrl: 'https://scorito.com',
-    logoUrl: scoritoLogo.src,
-    logoAlt: 'Scorito.com logo',
-    duration: '1 year',
-    location: 'Breda, NL',
-    employmentType: 'Part-time',
-    description: 'Web development with C# ASP.NET MVC in a Scrum team.',
-    achievements: [
-      'Web development with C# ASP.NET MVC',
-      'Agile development in Scrum team',
-      'Implementation of new features',
-      'Unit testing and code reviews',
-      'Database design with SQL Server',
-    ],
-    technologies: [
-      { name: 'C#', iconKey: 'csharp' },
-      { name: 'ASP.NET MVC', iconKey: 'dot-net' },
-      { name: 'SQL Server', iconKey: 'microsoftsqlserver' },
-      { name: 'JavaScript', iconKey: 'javascript' },
-    ],
-    isCurrentJob: false,
-  },
-  {
-    position: 'Software Engineering Intern',
-    company: 'Scorito.com',
-    companyUrl: 'https://scorito.com',
-    logoUrl: scoritoLogo.src,
-    logoAlt: 'Scorito.com logo',
-    duration: '6 months',
-    location: 'Breda, NL',
-    employmentType: 'Internship',
-    description: 'Development of test framework for acceptance testing.',
-    achievements: [
-      'Developed test framework with Selenium and C#',
-      'Simple setup of acceptance tests',
-      'Test automation implementation',
-      'Documentation and training for team',
-      'Integration with CI/CD pipeline',
-    ],
-    technologies: [
-      { name: 'C#', iconKey: 'csharp' },
-      { name: 'Selenium', iconKey: 'selenium' },
-      { name: 'ASP.NET', iconKey: 'dot-net' },
-      { name: 'Test Automation', iconKey: 'selenium' },
-    ],
-    isCurrentJob: false,
-  },
-]
+const createExperienceFromTranslations = (
+  t: (key: string) => string,
+  messages: Messages
+): Experience[] => {
+  const experiencePositions = [
+    {
+      key: 'hertek2024',
+      companyUrl: 'https://hertek.nl',
+      logoUrl: hertekLogo.src,
+      logoAlt: 'Hertek logo',
+      technologies: [
+        { name: 'Java', iconKey: 'java' },
+        { name: 'Spring Boot', iconKey: 'spring' },
+        { name: 'Vertx', iconKey: 'vertx' },
+        { name: 'AWS', iconKey: 'amazonwebservices' },
+        { name: 'React', iconKey: 'react' },
+        { name: 'Flutter', iconKey: 'flutter' },
+        { name: 'Dart', iconKey: 'dart' },
+      ],
+      isCurrentJob: true,
+    },
+    {
+      key: 'asml2024',
+      companyUrl: 'https://asml.com',
+      logoUrl: asmlLogo.src,
+      logoAlt: 'ASML logo',
+      technologies: [
+        { name: 'Ruby on Rails', iconKey: 'rails' },
+        { name: 'React', iconKey: 'react' },
+        { name: 'Flask', iconKey: 'flask' },
+        { name: 'Django', iconKey: 'django' },
+        { name: 'Kubernetes', iconKey: 'kubernetes' },
+        { name: 'Docker', iconKey: 'docker' },
+      ],
+      isCurrentJob: false,
+    },
+    {
+      key: 'hertek2023',
+      companyUrl: 'https://hertek.nl',
+      logoUrl: hertekLogo.src,
+      logoAlt: 'Hertek logo',
+      technologies: [
+        { name: 'Flutter', iconKey: 'flutter' },
+        { name: 'Dart', iconKey: 'dart' },
+        { name: 'Java', iconKey: 'java' },
+        { name: 'Spring Boot', iconKey: 'spring' },
+      ],
+      isCurrentJob: false,
+    },
+    {
+      key: 'asml2021',
+      companyUrl: 'https://asml.com',
+      logoUrl: asmlLogo.src,
+      logoAlt: 'ASML logo',
+      technologies: [
+        { name: 'Ruby on Rails', iconKey: 'rails' },
+        { name: 'React', iconKey: 'react' },
+        { name: 'Flask', iconKey: 'flask' },
+        { name: 'Django', iconKey: 'django' },
+        { name: 'Kubernetes', iconKey: 'kubernetes' },
+        { name: 'Docker', iconKey: 'docker' },
+      ],
+      isCurrentJob: false,
+    },
+    {
+      key: 'signify',
+      companyUrl: 'https://signify.com',
+      logoUrl: signifyLogo.src,
+      logoAlt: 'Signify logo',
+      technologies: [
+        { name: 'React', iconKey: 'react' },
+        { name: 'JavaScript', iconKey: 'javascript' },
+        { name: 'Phoenix', iconKey: 'phoenix' },
+        { name: 'Elixir', iconKey: 'elixir' },
+      ],
+      isCurrentJob: false,
+    },
+    {
+      key: 'kabisa2020',
+      companyUrl: 'https://kabisa.nl',
+      logoUrl: kabisaLogo.src,
+      logoAlt: 'Kabisa logo',
+      technologies: [
+        { name: 'Java', iconKey: 'java' },
+        { name: 'Python', iconKey: 'python' },
+        { name: 'Ruby', iconKey: 'ruby' },
+        { name: 'Elixir', iconKey: 'elixir' },
+        { name: 'Spring Boot', iconKey: 'spring' },
+      ],
+      isCurrentJob: false,
+    },
+    {
+      key: 'kabisa2016',
+      companyUrl: 'https://kabisa.nl',
+      logoUrl: kabisaLogo.src,
+      logoAlt: 'Kabisa logo',
+      technologies: [
+        { name: 'Java', iconKey: 'java' },
+        { name: 'Python', iconKey: 'python' },
+        { name: 'Ruby', iconKey: 'ruby' },
+        { name: 'Elixir', iconKey: 'elixir' },
+        { name: 'Spring Boot', iconKey: 'spring' },
+      ],
+      isCurrentJob: true,
+    },
+    {
+      key: 'syntouch',
+      companyUrl: 'https://syntouch.nl',
+      logoUrl: syntouchLogo.src,
+      logoAlt: 'SynTouch logo',
+      technologies: [
+        { name: 'Solidity', iconKey: 'solidity' },
+        { name: 'Node.js', iconKey: 'nodejs' },
+        { name: 'Vue.js', iconKey: 'vuejs' },
+        { name: 'Web3', iconKey: 'web3js' },
+      ],
+      isCurrentJob: false,
+    },
+    {
+      key: 'scorito',
+      companyUrl: 'https://scorito.com',
+      logoUrl: scoritoLogo.src,
+      logoAlt: 'Scorito.com logo',
+      technologies: [
+        { name: 'C#', iconKey: 'csharp' },
+        { name: 'ASP.NET MVC', iconKey: 'dot-net' },
+        { name: 'SQL Server', iconKey: 'microsoftsqlserver' },
+        { name: 'JavaScript', iconKey: 'javascript' },
+      ],
+      isCurrentJob: false,
+    },
+    {
+      key: 'scoritoIntern',
+      companyUrl: 'https://scorito.com',
+      logoUrl: scoritoLogo.src,
+      logoAlt: 'Scorito.com logo',
+      technologies: [
+        { name: 'C#', iconKey: 'csharp' },
+        { name: 'Selenium', iconKey: 'selenium' },
+        { name: 'ASP.NET', iconKey: 'dot-net' },
+        { name: 'Test Automation', iconKey: 'selenium' },
+      ],
+      isCurrentJob: false,
+    },
+  ]
 
-export default function ExperiencePage() {
+  return experiencePositions.map(exp => ({
+    position: t(`experience.positions.${exp.key}.position`),
+    company: t(`experience.positions.${exp.key}.company`),
+    companyUrl: exp.companyUrl,
+    logoUrl: exp.logoUrl,
+    logoAlt: exp.logoAlt,
+    duration: t(`experience.positions.${exp.key}.duration`),
+    location: t(`experience.positions.${exp.key}.location`),
+    employmentType: t(
+      `experience.positions.${exp.key}.employmentType`
+    ) as EmploymentType,
+    description: t(`experience.positions.${exp.key}.description`),
+    achievements: messages.experience.positions[exp.key]?.achievements || [],
+    technologies: exp.technologies,
+    isCurrentJob: exp.isCurrentJob,
+  }))
+}
+
+export default async function ExperiencePage() {
+  const t = await getTranslations()
+  const messages = (await getMessages()) as Messages
+  const experiences = createExperienceFromTranslations(t, messages)
   // Calculate unique positions and companies
   const uniquePositions = new Set(experiences.map(exp => exp.position)).size
   const uniqueCompanies = new Set(experiences.map(exp => exp.company)).size
@@ -322,7 +242,7 @@ export default function ExperiencePage() {
               align="center"
               className="mb-6"
             >
-              Professional Journey
+              {t('pages.experience.professionalJourney')}
             </Title>
             <Text
               size="lg"
@@ -331,9 +251,7 @@ export default function ExperiencePage() {
               alignment="center"
               className="max-w-3xl mx-auto"
             >
-              From early internships to senior engineering roles, here&apos;s
-              how my journey in software development has evolved through
-              continuous learning and impactful contributions.
+              {t('pages.experience.journeyDescription')}
             </Text>
           </div>
         </div>

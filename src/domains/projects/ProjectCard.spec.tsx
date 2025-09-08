@@ -25,18 +25,19 @@ describe('ProjectCard', () => {
     expect(screen.getByText('A test project description')).toBeVisible()
   })
 
-  it('displays project technologies', () => {
+  it('displays project technologies with translated label', () => {
     render(<ProjectCard project={mockProject} />)
 
+    expect(screen.getByText('projects.card.technologies')).toBeVisible()
     expect(screen.getByText('React')).toBeVisible()
     expect(screen.getByText('TypeScript')).toBeVisible()
   })
 
-  it('shows GitHub and live demo links', () => {
+  it('shows GitHub and live demo links with translated labels', () => {
     render(<ProjectCard project={mockProject} />)
 
-    expect(screen.getByRole('link', { name: /view source/i })).toBeVisible()
-    expect(screen.getByRole('link', { name: /live demo/i })).toBeVisible()
+    expect(screen.getByText('projects.card.viewSource')).toBeVisible()
+    expect(screen.getByText('projects.card.liveDemo')).toBeVisible()
   })
 
   it('displays stars and forks count', () => {

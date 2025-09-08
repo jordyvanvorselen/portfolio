@@ -1,9 +1,13 @@
 'use client'
 
 import { ChevronDown } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+
 import { Text } from '@/ui/Text'
 
 export const ScrollIndicator = () => {
+  const t = useTranslations()
+
   const handleScrollToExpertise = () => {
     const expertiseSection = document.getElementById('expertise-section')
     if (expertiseSection) {
@@ -31,10 +35,10 @@ export const ScrollIndicator = () => {
           alignment="center"
           className="mb-1"
         >
-          Discover My Core Expertise
+          {t('hero.scrollIndicator.title')}
         </Text>
         <Text size="xs" weight="normal" color="muted" alignment="center">
-          Explore what I can bring to your project
+          {t('hero.scrollIndicator.subtitle')}
         </Text>
       </div>
       <ChevronDown

@@ -1,0 +1,400 @@
+{
+  "hero": {
+    "name": "Jordy van Vorselen",
+    "title": "Freelance Software Engineer",
+    "description": {
+      "main": "Ik help teams software van <b>uitzonderlijke kwaliteit</b> te leveren — en help hen dit <b>veel sneller</b> bij de klanten te brengen.",
+      "cta": "Heb je iemand zoals ik nodig om je team te versterken?"
+    },
+    "actions": {
+      "getInTouch": "Neem Contact Op",
+      "downloadResume": "Download CV"
+    },
+    "scrollIndicator": {
+      "title": "Ontdek Mijn Kernexpertise",
+      "subtitle": "Verken wat ik kan bijdragen aan jouw project"
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "blog": "Blog",
+    "projects": "Projecten",
+    "experience": "Ervaring",
+    "contact": "Contact",
+    "available": "Beschikbaar"
+  },
+  "expertise": {
+    "section": {
+      "title": "Wil Je Sneller Leveren?",
+      "description": "Ik ben gespecialiseerd in het helpen van teams om sneller te ontwikkelen. Het omarmen van engineering best practices drijft snellere levering van uitzonderlijke resultaten.",
+      "ariaLabel": "Kernexpertise"
+    },
+    "tdd": {
+      "ariaLabel": "Test-Driven Development",
+      "title": "Test-Driven Development",
+      "description": "Ik schrijf eerst tests, dan code. Deze aanpak zorgt voor robuuste, bugvrije software met uitgebreide testdekking. Mijn TDD-praktijk leidt tot betere ontwerpbeslissingen en onderhoudbare codebases.",
+      "skills": [
+        "Jest",
+        "Cypress",
+        "Testing Library",
+        "Unit Testing",
+        "Integration Testing",
+        "E2E Testing"
+      ]
+    },
+    "architecture": {
+      "ariaLabel": "Software Architectuur",
+      "title": "Software Architectuur",
+      "description": "Ik ontwerp schaalbare, onderhoudbare systemen met bewezen architectuurpatronen. Van monolith tot microservices, ik kies de eenvoudigste architectuur op basis van de eisen van elk uniek project.",
+      "skills": [
+        "Microservices",
+        "Domain-Driven Design",
+        "Event Sourcing",
+        "CQRS",
+        "Clean Architecture",
+        "Hexagonal Architecture"
+      ]
+    },
+    "delivery": {
+      "ariaLabel": "Continuous Delivery",
+      "title": "Continuous Delivery",
+      "description": "Ik implementeer robuuste CI/CD-pijplijnen waarmee teams snel en betrouwbaar functies kunnen uitbrengen. Door geautomatiseerde tests, geleidelijke implementaties en infrastructuur als code help ik organisaties echte continuous delivery met vertrouwen te bereiken.",
+      "skills": [
+        "GitHub Actions",
+        "Docker & Kubernetes",
+        "Infrastructure as Code",
+        "Progressive Deployment",
+        "Automated Rollbacks"
+      ]
+    },
+    "callToAction": {
+      "description": "Klaar om te bespreken hoe deze vaardigheden jouw project kunnen helpen?",
+      "availability": "Beschikbaar voor remote consulting en fulltime kansen"
+    }
+  },
+  "footer": {
+    "author": {
+      "name": "Jordy van Vorselen",
+      "description": "Senior Software Engineer gepassioneerd over het bouwen van schaalbare, onderhoudbare softwareoplossingen. Altijd enthousiast om nieuwe uitdagingen aan te gaan en samen te werken met geweldige teams.",
+      "location": "📍 Noord-Brabant, Nederland 🇳🇱",
+      "email": "✉️ jordy@morethanbits.io"
+    },
+    "quickLinks": "Snelle Links",
+    "connect": "Laten we Connecten",
+    "getInTouch": "Neem Contact Op",
+    "copyright": "© 2025 Jordy van Vorselen. Gemaakt met",
+    "coffeeText": "en veel koffie.",
+    "availability": "Beschikbaar voor remote mogelijkheden"
+  },
+  "social": {
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "E-mail"
+  },
+  "experience": {
+    "hero": {
+      "title": "Werkervaring",
+      "description": "Een reis door innovatieve bedrijven en uitdagende projecten die mijn expertise in software engineering hebben gevormd",
+      "stats": {
+        "yearsExperience": "8+ Jaar Ervaring",
+        "positionsAndCompanies": "{positionCount} Posities bij {companyCount} Bedrijven"
+      }
+    },
+    "card": {
+      "current": "Huidig",
+      "keyAchievements": "Belangrijkste Prestaties",
+      "technologiesUsed": "Gebruikte Technologieën",
+      "visitWebsite": "Bezoek {company} website"
+    },
+    "positions": {
+      "hertek2024": {
+        "position": "Lead Developer",
+        "company": "Hertek Safety",
+        "duration": "1 jaar 8 maanden",
+        "location": "Remote - Weert, NL",
+        "employmentType": "Fulltime",
+        "description": "Via Kabisa · Ontwikkeling van hoogperformante Java backend services met Spring Boot en reactive programming.",
+        "achievements": [
+          "Ontwikkelde meerdere Java backend services met Spring Boot en Vertx",
+          "Implementeerde AWS services: ECS, MemoryDB en SQS FiFo",
+          "Backend verwerkt duizenden berichten met hoge prestaties",
+          "Bouwde: React SPA, SSR Thymeleaf, Cordova en Flutter apps",
+          "Horizontale schaalbaarheid voor enterprise applicaties"
+        ]
+      },
+      "asml2024": {
+        "position": "Lead Developer",
+        "company": "ASML",
+        "duration": "3 maanden",
+        "location": "Remote - Veldhoven, NL",
+        "employmentType": "Fulltime",
+        "description": "Via Kabisa · Ontwikkeling van bedrijfskritieke webtools gebruikt door tienduizenden ontwikkelaars.",
+        "achievements": [
+          "Ontwikkelde bedrijfskritieke webtools voor 10.000+ ontwikkelaars",
+          "Werkte met Ruby on Rails, React, Flask & Django",
+          "Kubernetes en Docker containerisatie",
+          "Optimalisatie van tool prestaties en schaalbaarheid",
+          "Agile ontwikkeling in grote teams"
+        ]
+      },
+      "hertek2023": {
+        "position": "Lead Developer",
+        "company": "Hertek Safety",
+        "duration": "8 maanden",
+        "location": "Remote - Weert, NL",
+        "employmentType": "Fulltime",
+        "description": "Via Kabisa · Ontwikkeling van Flutter app met strikte certificatiestandaarden voor brandveiligheid.",
+        "achievements": [
+          "Bouwde nieuwe Flutter (Dart) mobiele app",
+          "Java Spring Boot backend ontwikkeling",
+          "Voldeed aan strikte certificatiestandaarden",
+          "Directe relatie met brandveiligheidssystemen",
+          "Implementatie van security best practices"
+        ]
+      },
+      "asml2021": {
+        "position": "Full-Stack Software Engineer",
+        "company": "ASML",
+        "duration": "3 jaar 9 maanden",
+        "location": "Veldhoven, NL",
+        "employmentType": "Fulltime",
+        "description": "Via Kabisa · Langetermijn ontwikkeling van enterprise webtools voor ontwikkelaars wereldwijd.",
+        "achievements": [
+          "Ontwikkelde bedrijfskritieke webtools voor 10.000+ ontwikkelaars",
+          "Expertise in Ruby on Rails, React, Flask & Django",
+          "Container orkestratie met Kubernetes",
+          "Prestatie optimalisatie voor grote schaal",
+          "Cross-functionele samenwerking met internationale teams"
+        ]
+      },
+      "signify": {
+        "position": "Full-Stack Software Engineer",
+        "company": "Signify",
+        "duration": "5 maanden",
+        "location": "Eindhoven, NL",
+        "employmentType": "Fulltime",
+        "description": "Via Kabisa · Ontwikkeling van het Hue Labs platform en Philips Hue mobiele app.",
+        "achievements": [
+          "Ontwikkelde Hue Labs platform",
+          "Bijgedragen aan Philips Hue mobiele app",
+          "React (JavaScript) frontend ontwikkeling",
+          "Phoenix (Elixir) backend ontwikkeling",
+          "IoT integratie voor slimme verlichting"
+        ]
+      },
+      "kabisa2020": {
+        "position": "Back-End Tech Lead",
+        "company": "Kabisa",
+        "duration": "3 jaar 9 maanden",
+        "location": "Remote - Weert, NL",
+        "employmentType": "Fulltime",
+        "description": "Full-Stack Engineer bij Kabisa, gespecialiseerd in het ontwikkelen van elegante (enterprise) softwareoplossingen.",
+        "achievements": [
+          "Full-stack ontwikkeling met meerdere technologieën",
+          "Architectuur van enterprise softwareoplossingen",
+          "Expertise in Java, Python, Ruby, Elixir en Front-end ontwikkeling",
+          "Implementatie van schaalbare microservices architectuur",
+          "Mentoring en coaching van ontwikkelteams"
+        ]
+      },
+      "kabisa2016": {
+        "position": "Full-Stack Engineer",
+        "company": "Kabisa",
+        "duration": "3 jaar 11 maanden",
+        "location": "Remote - Weert, NL",
+        "employmentType": "Fulltime",
+        "description": "Backend Tech Lead bij Kabisa, gespecialiseerd in het ontwikkelen van elegante (enterprise) softwareoplossingen.",
+        "achievements": [
+          "Leidde backend ontwikkelteams",
+          "Architectuur van enterprise softwareoplossingen",
+          "Expertise in Java, Python, Ruby, Elixir en Front-end ontwikkeling",
+          "Implementatie van schaalbare microservices architectuur",
+          "Mentoring en coaching van ontwikkelteams"
+        ]
+      },
+      "syntouch": {
+        "position": "Blockchain Software Engineer",
+        "company": "SynTouch",
+        "duration": "6 maanden",
+        "location": "Eindhoven, NL",
+        "employmentType": "Afstuderen",
+        "description": "Afgestudeerd Cum Laude · Ontwikkeling van ERC-20 token en blockchain applicaties.",
+        "achievements": [
+          "Ontwikkelde ERC-20 token SynCoin met Ethereum smart contracts",
+          "Bouwde escrow, order en crowdsale systeem in Solidity",
+          "Onderzoek naar upgradeable smart contracts",
+          "Node.js backend met Swagger + Express",
+          "Vue.js frontend voor blockchain interactie"
+        ]
+      },
+      "scorito": {
+        "position": "Junior Software Engineer",
+        "company": "Scorito.com",
+        "duration": "1 jaar",
+        "location": "Breda, NL",
+        "employmentType": "Parttime",
+        "description": "Webontwikkeling met C# ASP.NET MVC in een Scrum team.",
+        "achievements": [
+          "Webontwikkeling met C# ASP.NET MVC",
+          "Agile ontwikkeling in Scrum team",
+          "Implementatie van nieuwe features",
+          "Unit testing en code reviews",
+          "Database ontwerp met SQL Server"
+        ]
+      },
+      "scoritoIntern": {
+        "position": "Software Engineering Stagiair",
+        "company": "Scorito.com",
+        "duration": "6 maanden",
+        "location": "Breda, NL",
+        "employmentType": "Stage",
+        "description": "Ontwikkeling van test framework voor acceptatie testen.",
+        "achievements": [
+          "Ontwikkelde test framework met Selenium en C#",
+          "Eenvoudige setup van acceptatie tests",
+          "Test automatisering implementatie",
+          "Documentatie en training voor team",
+          "Integratie met CI/CD pipeline"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "hero": {
+      "title": "Open Source Projecten",
+      "description": "Een verzameling innovatieve softwareoplossingen geboren uit nieuwsgierigheid, continu leren, en de pure vreugde van het bouwen van iets betekenisvols. Elk project vertegenwoordigt een ontdekkingsreis en plezier in de wereld van code.",
+      "stats": {
+        "projects": "Projecten",
+        "stars": "Sterren",
+        "forks": "Forks"
+      }
+    },
+    "grid": {
+      "title": "Uitgelichte Projecten",
+      "description": "Elk project vertegenwoordigt uren van toewijding, innovatieve probleemoplossing, en een commitment om tools te bouwen die het leven van ontwikkelaars makkelijker maken."
+    },
+    "card": {
+      "technologies": "Technologieën",
+      "viewSource": "Bekijk Code",
+      "liveDemo": "Live Demo",
+      "status": {
+        "active": "Actief",
+        "maintained": "Onderhouden"
+      },
+      "stats": {
+        "stars": "sterren",
+        "forks": "forks"
+      }
+    },
+    "collaboration": {
+      "title": "Laten We Samen Iets Geweldigs Bouwen",
+      "description": "Geïnteresseerd in samenwerking aan open source projecten of heb je een idee dat je wilt bespreken? Ik ben altijd enthousiast om nieuwe initiatieven te starten.",
+      "actions": {
+        "followGithub": "Volg op GitHub",
+        "getInTouch": "Neem Contact Op"
+      }
+    }
+  },
+  "blog": {
+    "hero": {
+      "title": "More Than Bits",
+      "description": "Gedachten, tutorials, en diepgaande duiken in software engineering, architectuur, en moderne ontwikkelingspraktijken.",
+      "stats": {
+        "articlesCount": "{count} Artikelen",
+        "regularlyUpdated": "Regelmatig Bijgewerkt"
+      }
+    },
+    "search": {
+      "placeholder": "Zoek artikelen...",
+      "filters": {
+        "all": "Alle"
+      }
+    },
+    "card": {
+      "featured": "Uitgelicht",
+      "moreCount": "+{count} meer"
+    },
+    "sections": {
+      "featuredArticle": "Uitgelicht artikel",
+      "latestArticles": "Nieuwste artikelen"
+    },
+    "posts": {
+      "advancedTypeScript": {
+        "title": "Advanced TypeScript Patterns for Enterprise Applications",
+        "description": "Explore advanced TypeScript patterns and techniques that will help you build more maintainable and type-safe enterprise applications. From conditional types to template literals.",
+        "date": "January 8, 2024",
+        "readTime": "8 min read",
+        "image": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400&fit=crop",
+        "tags": ["TypeScript", "JavaScript", "Enterprise"]
+      },
+      "cleanArchitecture": {
+        "title": "Implementing Clean Architecture in React Applications",
+        "description": "Learn how to structure your React applications using Clean Architecture principles. This approach will make your code more testable, maintainable, and independent of frameworks.",
+        "date": "January 1, 2024",
+        "readTime": "15 min read",
+        "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop",
+        "tags": ["React", "Architecture", "Clean Code"]
+      },
+      "databaseOptimization": {
+        "title": "Database Optimization Strategies for High-Traffic Applications",
+        "description": "Discover proven database optimization techniques that can dramatically improve your application's performance. From indexing strategies to query optimization and caching.",
+        "date": "December 20, 2023",
+        "readTime": "10 min read",
+        "image": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&h=400&fit=crop",
+        "tags": ["Database", "Performance", "SQL"]
+      },
+      "testingStrategies": {
+        "title": "Testing Strategies for Modern Web Applications",
+        "description": "A deep dive into testing methodologies for modern web applications. Learn about unit testing, integration testing, and end-to-end testing with practical examples.",
+        "date": "December 15, 2023",
+        "readTime": "11 min read",
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop",
+        "tags": ["Testing", "Quality Assurance", "Jest"]
+      },
+      "graphqlVsRest": {
+        "title": "GraphQL vs REST: Choosing the Right API Architecture",
+        "description": "An in-depth comparison of GraphQL and REST APIs. Learn when to use each approach and how to implement them effectively in your applications.",
+        "date": "December 10, 2023",
+        "readTime": "9 min read",
+        "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop",
+        "tags": ["GraphQL", "REST", "API"]
+      },
+      "scalableNodejs": {
+        "title": "Building Scalable Node.js Applications",
+        "description": "Best practices for building scalable Node.js applications that can handle high loads. Learn about clustering, caching, and performance monitoring.",
+        "date": "December 5, 2023",
+        "readTime": "12 min read",
+        "image": "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=400&fit=crop",
+        "tags": ["Node.js", "Scalability", "Performance"]
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Jordy van Vorselen - Portfolio",
+      "description": "Full-stack ontwikkelaar en software engineer portfolio"
+    },
+    "projects": {
+      "title": "Projecten - Jordy van Vorselen",
+      "description": "Projecten en open source bijdragen door Jordy van Vorselen"
+    },
+    "blog": {
+      "title": "Blog - Jordy van Vorselen",
+      "description": "Blog artikelen door Jordy van Vorselen"
+    },
+    "experience": {
+      "title": "Ervaring - Jordy van Vorselen",
+      "description": "Professionele werkervaring en carrièrereis door Jordy van Vorselen",
+      "professionalJourney": "Professionele Reis",
+      "journeyDescription": "Van vroege stages tot senior engineering rollen, zo is mijn reis in software ontwikkeling geëvolueerd door continu leren en impactvolle bijdragen."
+    }
+  },
+  "layout": {
+    "title": "Jordy van Vorselen - Portfolio",
+    "description": "Full-stack ontwikkelaar en software engineer portfolio",
+    "brandName": "More Than Bits"
+  },
+  "ui": {
+    "backToTop": "Terug naar boven"
+  }
+}

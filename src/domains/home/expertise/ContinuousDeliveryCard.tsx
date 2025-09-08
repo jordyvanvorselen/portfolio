@@ -1,15 +1,18 @@
 import { Rocket } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { ExpertiseCard } from '@/domains/home/expertise/ExpertiseCard'
 
 export const ContinuousDeliveryCard = () => {
+  const t = useTranslations()
+
   return (
     <ExpertiseCard
-      ariaLabel="Continuous Delivery"
+      ariaLabel={t('expertise.delivery.ariaLabel')}
       icon={<Rocket className="w-7 h-7" aria-label="rocket icon" />}
       iconColor="#10b981"
-      title="Continuous Delivery"
-      description="I implement robust CI/CD pipelines that enable teams to ship features rapidly and reliably. Through automated testing, progressive deployments, and infrastructure as code, I help organizations achieve true continuous delivery with confidence."
+      title={t('expertise.delivery.title')}
+      description={t('expertise.delivery.description')}
       skills={[
         'GitHub Actions',
         'Docker & Kubernetes',
