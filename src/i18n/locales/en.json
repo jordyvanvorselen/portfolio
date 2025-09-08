@@ -97,14 +97,14 @@
       "description": "A journey through innovative companies and challenging projects that shaped my expertise in software engineering",
       "stats": {
         "yearsExperience": "8+ Years Experience",
-        "positionsAndCompanies": "{{positionCount}} Positions at {{companyCount}} Companies"
+        "positionsAndCompanies": "{positionCount} Positions at {companyCount} Companies"
       }
     },
     "card": {
       "current": "Current",
       "keyAchievements": "Key Achievements",
       "technologiesUsed": "Technologies Used",
-      "visitWebsite": "Visit {{company}} website"
+      "visitWebsite": "Visit {company} website"
     },
     "positions": {
       "hertek2024": {
@@ -300,7 +300,7 @@
       "title": "More Than Bits",
       "description": "Thoughts, tutorials, and deep dives into software engineering, architecture, and modern development practices.",
       "stats": {
-        "articlesCount": "{{count}} Articles",
+        "articlesCount": "{count} Articles",
         "regularlyUpdated": "Regularly Updated"
       }
     },
@@ -312,7 +312,7 @@
     },
     "card": {
       "featured": "Featured",
-      "moreCount": "+{{count}} more"
+      "moreCount": "+{count} more"
     },
     "sections": {
       "featuredArticle": "Featured article",

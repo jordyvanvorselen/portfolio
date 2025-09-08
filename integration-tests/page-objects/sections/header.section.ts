@@ -34,7 +34,9 @@ export class Header extends BaseSection {
     })
     .first()
   readonly availabilityStatus: Locator = this.section.getByText('Available')
-  readonly availabilityIcon: Locator = this.section.getByRole('img')
+  readonly availabilityIcon: Locator = this.section
+    .locator('address')
+    .getByRole('img')
   readonly githubLink: Locator = this.section.getByRole('link', {
     name: 'GitHub',
   })
@@ -44,5 +46,8 @@ export class Header extends BaseSection {
   readonly navigation: Locator = this.section.getByRole('navigation')
   readonly mobileMenuButton: Locator = this.section.getByRole('button', {
     name: 'Open navigation menu',
+  })
+  readonly languageSwitcher: Locator = this.section.getByRole('button', {
+    name: /Switch to (Dutch|English)/,
   })
 }

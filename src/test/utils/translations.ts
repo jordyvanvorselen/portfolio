@@ -1,5 +1,6 @@
 export const assertableTranslationKeys =
-  (prefix?: string) => (key: string, params?: { [key: string]: string }) => {
+  (prefix?: string) =>
+  (key: string, params?: { [key: string]: string | number }) => {
     const translation = prefix ? `${prefix}.${key}` : key
 
     // Return arrays for specific tag translation keys to test tag rendering logic
@@ -13,8 +14,10 @@ export const assertableTranslationKeys =
       : translation
   }
 
-export const varsToKeyValueString = (vars: { [key: string]: string }) =>
+export const varsToKeyValueString = (vars: {
+  [key: string]: string | number
+}) =>
   Object.entries(vars)
-    .map(([k, v]) => (v ? `${k}=${v}` : undefined))
+    .map(([k, v]) => (v !== undefined && v !== null ? `${k}=${v}` : undefined))
     .filter(Boolean)
     .join(' ')

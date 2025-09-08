@@ -97,14 +97,14 @@
       "description": "Een reis door innovatieve bedrijven en uitdagende projecten die mijn expertise in software engineering hebben gevormd",
       "stats": {
         "yearsExperience": "8+ Jaar Ervaring",
-        "positionsAndCompanies": "{{positionCount}} Posities bij {{companyCount}} Bedrijven"
+        "positionsAndCompanies": "{positionCount} Posities bij {companyCount} Bedrijven"
       }
     },
     "card": {
       "current": "Huidig",
       "keyAchievements": "Belangrijkste Prestaties",
       "technologiesUsed": "Gebruikte Technologieën",
-      "visitWebsite": "Bezoek {{company}} website"
+      "visitWebsite": "Bezoek {company} website"
     },
     "positions": {
       "hertek2024": {
@@ -300,7 +300,7 @@
       "title": "More Than Bits",
       "description": "Gedachten, tutorials, en diepgaande duiken in software engineering, architectuur, en moderne ontwikkelingspraktijken.",
       "stats": {
-        "articlesCount": "{{count}} Artikelen",
+        "articlesCount": "{count} Artikelen",
         "regularlyUpdated": "Regelmatig Bijgewerkt"
       }
     },
@@ -312,7 +312,7 @@
     },
     "card": {
       "featured": "Uitgelicht",
-      "moreCount": "+{{count}} meer"
+      "moreCount": "+{count} meer"
     },
     "sections": {
       "featuredArticle": "Uitgelicht artikel",
