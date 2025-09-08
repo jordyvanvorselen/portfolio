@@ -394,6 +394,11 @@
     "description": "Full-stack ontwikkelaar en software engineer portfolio",
     "brandName": "More Than Bits"
   },
+  "skills": {
+    "title": "Ingehuurd Door De Besten",
+    "subtitle": "Ik heb gewerkt met de grootste Nederlandse bedrijven met deze technologieën",
+    "experienceOverview": "Compleet overzicht van ervaring"
+  },
   "ui": {
     "backToTop": "Terug naar boven",
     "languageSwitcher": {
