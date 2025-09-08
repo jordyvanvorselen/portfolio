@@ -29,8 +29,10 @@ export const SocialIcon = ({
   className,
   onClick,
 }: SocialIconProps) => {
-  // Base classes
-  const baseClasses = 'transition-colors duration-200'
+  // Base classes - use different feedback based on variant
+  const feedbackClass =
+    variant === 'icon' ? 'click-feedback-bounce' : 'click-feedback'
+  const baseClasses = `transition-colors duration-200 ${feedbackClass}`
 
   // Variant classes
   const variantClasses = {

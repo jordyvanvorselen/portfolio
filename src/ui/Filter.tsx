@@ -18,7 +18,7 @@ export const Filter = ({
   className = '',
 }: FilterProps) => {
   const baseStyles =
-    'inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer'
+    'inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer click-feedback'
 
   const sizeStyles = {
     xs: 'h-6 rounded px-2 text-xs',

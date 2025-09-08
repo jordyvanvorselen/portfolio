@@ -19,6 +19,8 @@ export interface NavigationLinkProps {
 }
 
 // Style configurations extracted as constants for maintainability
+const BASE_STYLES = 'click-feedback-subtle'
+
 const DESIGN_VARIANT_STYLES: Record<DesignVariant, string> = {
   default: 'hover:text-white transition-colors',
   active: 'text-white',
@@ -65,6 +67,7 @@ export const NavigationLink = ({
   onClick,
 }: NavigationLinkProps) => {
   const combinedClasses = combineClasses(
+    BASE_STYLES,
     DESIGN_VARIANT_STYLES[variant],
     SIZE_STYLES[size],
     COLOR_STYLES[color],

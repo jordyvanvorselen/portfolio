@@ -36,7 +36,16 @@ describe('MobileMenuButton', () => {
     )
 
     const button = container.firstChild as HTMLElement
-    expect(button).toHaveClass('scale-95', 'opacity-75')
+    expect(button).toHaveClass('opacity-75')
+  })
+
+  it('applies click feedback classes', () => {
+    const { container } = render(
+      <MobileMenuButton>Test Button</MobileMenuButton>
+    )
+
+    const button = container.firstChild as HTMLElement
+    expect(button).toHaveClass('click-feedback-bounce')
   })
 
   describe('Design System Props', () => {

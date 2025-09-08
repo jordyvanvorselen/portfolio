@@ -133,4 +133,24 @@ describe('NavigationLink', () => {
 
     expect(mockOnClick).toHaveBeenCalledTimes(1)
   })
+
+  describe('Click Feedback', () => {
+    it('applies click-feedback-subtle class for all variants', () => {
+      render(<NavigationLink href="/test">Test Link</NavigationLink>)
+
+      const link = screen.getByRole('link', { name: 'Test Link' })
+      expect(link).toHaveClass('click-feedback-subtle')
+    })
+
+    it('applies click-feedback-subtle class with other design system props', () => {
+      render(
+        <NavigationLink href="/test" variant="active" color="primary">
+          Test Link
+        </NavigationLink>
+      )
+
+      const link = screen.getByRole('link', { name: 'Test Link' })
+      expect(link).toHaveClass('click-feedback-subtle')
+    })
+  })
 })
