@@ -24,17 +24,18 @@ The project demonstrates expertise in modern frontend development, featuring a c
 
 <div align="center">
 
-| Category                  | Technologies                                                                                                                                                          |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Frontend Framework**    | ![Next.js](https://img.shields.io/badge/Next.js-App%20Router-000000?logo=next.js)                                                                                     |
-| **Language**              | ![TypeScript](https://img.shields.io/badge/TypeScript-Strict%20Mode-3178C6?logo=typescript)                                                                           |
-| **Styling**               | ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-Utility%20First-06B6D4?logo=tailwindcss)                                                                  |
-| **Component Library**     | ![Radix UI](https://img.shields.io/badge/Radix%20UI-Accessible-000000?logo=radixui)                                                                                   |
-| **Icons**                 | ![Lucide React](https://img.shields.io/badge/Lucide%20React-Beautiful%20Icons-F56565?logo=lucide)                                                                     |
-| **Testing (Unit)**        | ![Jest](https://img.shields.io/badge/Jest-React%20Testing%20Library-C21325?logo=jest)                                                                                 |
-| **Testing (Integration)** | ![Playwright](https://img.shields.io/badge/Playwright-E2E%20Testing-45ba4b?logo=playwright)                                                                           |
-| **Code Quality**          | ![ESLint](https://img.shields.io/badge/ESLint-TypeScript-4B32C3?logo=eslint) ![Prettier](https://img.shields.io/badge/Prettier-Code%20Formatter-F7B93E?logo=prettier) |
-| **Package Manager**       | ![pnpm](https://img.shields.io/badge/pnpm-Fast%20&%20Efficient-F69220?logo=pnpm)                                                                                      |
+| Category                  | Technologies                                                                                                                                                                      |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Frontend Framework**    | ![Next.js](https://img.shields.io/badge/Next.js-15.4%20App%20Router-000000?logo=next.js) ![React](https://img.shields.io/badge/React-19.1-61DAFB?logo=react)                      |
+| **Language**              | ![TypeScript](https://img.shields.io/badge/TypeScript-5.8%20Strict%20Mode-3178C6?logo=typescript)                                                                                 |
+| **Styling**               | ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.0%20Utility%20First-06B6D4?logo=tailwindcss)                                                                        |
+| **Component Library**     | ![Radix UI](https://img.shields.io/badge/Radix%20UI-Accessible-000000?logo=radixui)                                                                                               |
+| **Internationalization**  | ![next-intl](https://img.shields.io/badge/next--intl-4.3-009639?logo=i18next)                                                                                                     |
+| **Icons**                 | ![Lucide React](https://img.shields.io/badge/Lucide%20React-0.542-F56565?logo=lucide) ![DevIcon](https://img.shields.io/badge/DevIcon-Tech%20Icons-FF6B35)                        |
+| **Testing (Unit)**        | ![Jest](https://img.shields.io/badge/Jest-30.0%20+%20React%20Testing%20Library-C21325?logo=jest)                                                                                  |
+| **Testing (Integration)** | ![Playwright](https://img.shields.io/badge/Playwright-1.54%20E2E%20Testing-45ba4b?logo=playwright)                                                                                |
+| **Code Quality**          | ![ESLint](https://img.shields.io/badge/ESLint-9.0%20TypeScript-4B32C3?logo=eslint) ![Prettier](https://img.shields.io/badge/Prettier-3.6%20Code%20Formatter-F7B93E?logo=prettier) |
+| **Package Manager**       | ![pnpm](https://img.shields.io/badge/pnpm-Fast%20&%20Efficient-F69220?logo=pnpm)                                                                                                  |
 
 </div>
 
@@ -44,23 +45,41 @@ This project follows a **domain-driven architecture** with clear separation of c
 
 ```
 📦 Portfolio
-├── 🚀 app/                      # Next.js App Router
+├── 🚀 src/app/                  # Next.js App Router
 │   ├── layout.tsx               # Root layout & metadata
 │   ├── page.tsx                 # Home page
 │   ├── blog/                    # Blog pages
-│   └── api/                     # API routes
+│   ├── experience/              # Experience pages
+│   ├── projects/                # Projects pages
+│   └── globals.css              # Global styles & utility classes
 ├── 🎨 src/
-│   ├── ui/                      # 🧩 Generic UI Components
+│   ├── ui/                      # 🧩 Generic UI Components (25+ components)
 │   │   ├── Badge.tsx            # Design system badges
 │   │   ├── Text.tsx             # Typography system
+│   │   ├── Button.tsx           # Interactive buttons
+│   │   ├── Card.tsx             # Content containers
 │   │   ├── SocialIcon.tsx       # Social media icons
-│   │   └── NavigationLink.tsx   # Navigation links
-│   └── domains/                 # 🏗️ Feature Domains
-│       ├── common/              # Shared components (Header, Footer)
-│       ├── home/                # Home page features
-│       │   ├── hero/            # Landing introduction
-│       │   └── expertise/       # Skills showcase
-│       └── blog/                # Blog functionality
+│   │   ├── NavigationLink.tsx   # Navigation links
+│   │   ├── LanguageSwitcher.tsx # i18n language selection
+│   │   ├── MobileMenu*.tsx      # Mobile navigation components
+│   │   └── Timeline*.tsx        # Timeline components
+│   ├── domains/                 # 🏗️ Feature Domains
+│   │   ├── common/              # Shared components (Header, Footer, MobileMenu)
+│   │   ├── home/                # Home page features
+│   │   │   ├── hero/            # Landing introduction & social links
+│   │   │   └── expertise/       # Skills showcase & expertise cards
+│   │   ├── blog/                # Blog functionality & search
+│   │   ├── experience/          # Experience timeline & cards
+│   │   └── projects/            # Projects showcase & collaboration
+│   ├── i18n/                    # 🌐 Internationalization
+│   │   ├── config.ts            # i18n configuration
+│   │   ├── request.ts           # Server-side i18n utilities
+│   │   └── locales/             # Translation files (en.json, nl.json)
+│   ├── assets/images/           # 📸 Optimized images & logos
+│   ├── types/                   # 📝 TypeScript type definitions
+│   ├── hooks/                   # 🔧 Custom React hooks
+│   ├── test/utils/              # 🧪 Test utilities & helpers
+│   └── utils/                   # 📚 Utility functions
 ├── 🧪 integration-tests/        # E2E Testing Suite
 │   ├── page-objects/            # Page Object Model Architecture
 │   │   ├── pages/               # Page-level objects (HomePage, BlogPage)
@@ -68,10 +87,8 @@ This project follows a **domain-driven architecture** with clear separation of c
 │   │   ├── base.page.ts         # Abstract base class for pages
 │   │   └── base.section.ts      # Abstract base class for sections
 │   ├── fixtures/                # Test fixtures & dependency injection
-│   └── msw/                     # Mock Service Worker handlers
-├── 🔧 hooks/                    # Custom React hooks
-├── 📚 lib/                      # Utilities & helpers
-└── 🎯 public/                   # Static assets
+│   └── *.spec.ts-snapshots/    # Visual regression baselines
+└── 🎯 public/                   # Static assets & favicons
 ```
 
 ### 🏗️ Domain-Based Architecture
@@ -79,6 +96,22 @@ This project follows a **domain-driven architecture** with clear separation of c
 **Design System First**: Every UI pattern is first created as a reusable component in `src/ui/` with comprehensive variant systems, then utilized across domain-specific features.
 
 **Domain Separation**: Features are organized by business domains, each containing components specific to that functionality while leveraging shared UI components.
+
+### 🌐 Internationalization & Mobile-First Design
+
+**Multi-Language Support**: Built with `next-intl` providing seamless English/Dutch language switching with:
+
+- Server-side rendering support for SEO optimization
+- Cookie-based language persistence across sessions
+- Type-safe translation keys with TypeScript integration
+- Dedicated translation files in `src/i18n/locales/`
+
+**Mobile-First Experience**: Responsive design with dedicated mobile components:
+
+- Hamburger menu with smooth animations and overlay
+- Touch-friendly navigation and interactions
+- Optimized layouts for all device sizes
+- Progressive enhancement from mobile to desktop
 
 ## 🧪 Testing Strategy
 
@@ -92,7 +125,7 @@ This project maintains **100% code coverage** through a comprehensive three-tier
 - **Run**: `pnpm test:unit`
 
 ```bash
-✅ 191 unit tests passing
+✅ 591 unit tests passing
 ✅ 100% code coverage maintained
 ```
 
@@ -105,11 +138,10 @@ This project maintains **100% code coverage** through a comprehensive three-tier
 - **Run**: `pnpm test:integration`
 
 ```bash
-✅ 82 integration tests passing
+✅ 88 integration tests passing
 ✅ Chrome & Firefox coverage
 ✅ Section-based page object architecture
 ✅ Strict mode violation prevention
-✅ Visual regression testing included
 ```
 
 **Page Object Architecture Features:**
@@ -129,6 +161,7 @@ This project maintains **100% code coverage** through a comprehensive three-tier
 - **Storage**: Baselines in `integration-tests/*.spec.ts-snapshots/` directories
 
 ```bash
+✅ 20 visual regression tests passing
 ✅ Visual regression tests for major UI sections
 ✅ Multi-browser screenshot validation (Chrome/Firefox)
 ✅ Automated baseline management with --update-snapshots
@@ -196,17 +229,20 @@ pnpm dev
 
 ### Development Commands
 
-| Command                 | Description                  |
-| ----------------------- | ---------------------------- |
-| `pnpm dev`              | 🔥 Start development server  |
-| `pnpm build`            | 🏗️ Build for production      |
-| `pnpm start`            | ▶️ Start production server   |
-| `pnpm test`             | 🧪 Run all tests             |
-| `pnpm test:unit`        | 🔬 Run unit tests only       |
-| `pnpm test:integration` | 🌐 Run integration tests     |
-| `pnpm lint`             | 🔍 Check code quality        |
-| `pnpm lint:fix`         | 🛠️ Fix linting issues        |
-| `pnpm format`           | ✨ Format code with Prettier |
+| Command                           | Description                                    |
+| --------------------------------- | ---------------------------------------------- |
+| `pnpm dev`                        | 🔥 Start development server (Turbopack)        |
+| `pnpm build`                      | 🏗️ Build for production                        |
+| `pnpm start`                      | ▶️ Start production server                     |
+| `pnpm test`                       | 🧪 Run all tests (unit + integration + visual) |
+| `pnpm test:unit`                  | 🔬 Run unit tests with coverage                |
+| `pnpm test:integration`           | 🌐 Run integration tests (Docker)              |
+| `pnpm test:visual-regression`     | 🖼️ Run visual regression tests                 |
+| `pnpm test:visual-regression:fix` | 🔧 Update visual regression baselines          |
+| `pnpm lint`                       | 🔍 Check code quality & formatting             |
+| `pnpm lint:fix`                   | 🛠️ Fix linting & formatting issues             |
+| `pnpm format`                     | ✨ Check code formatting                       |
+| `pnpm format:fix`                 | 🎨 Fix code formatting                         |
 
 ## 🔄 CI/CD Pipeline
 
@@ -237,13 +273,14 @@ graph LR
 
 ### ⚡ Pipeline Stages
 
-| Stage                | Purpose                            | Tools             | Status                                                                |
-| -------------------- | ---------------------------------- | ----------------- | --------------------------------------------------------------------- |
-| **🔍 Lint & Format** | Code style & quality enforcement   | ESLint + Prettier | ![Badge](https://img.shields.io/badge/ESLint-Passing-brightgreen)     |
-| **🏗️ Build**         | Application build verification     | Next.js           | ![Badge](https://img.shields.io/badge/Build-Passing-brightgreen)      |
-| **📋 Typecheck**     | Static type analysis               | TypeScript        | ![Badge](https://img.shields.io/badge/TypeScript-Strict-blue)         |
-| **🧪 Unit Tests**    | Component & logic testing          | Jest + RTL        | ![Badge](https://img.shields.io/badge/Coverage-100%25-brightgreen)    |
-| **🌐 Integration**   | E2E testing with visual regression | Playwright        | ![Badge](https://img.shields.io/badge/Tests-82%20passing-brightgreen) |
+| Stage                | Purpose                          | Tools             | Status                                                                |
+| -------------------- | -------------------------------- | ----------------- | --------------------------------------------------------------------- |
+| **🔍 Lint & Format** | Code style & quality enforcement | ESLint + Prettier | ![Badge](https://img.shields.io/badge/ESLint-Passing-brightgreen)     |
+| **🏗️ Build**         | Application build verification   | Next.js           | ![Badge](https://img.shields.io/badge/Build-Passing-brightgreen)      |
+| **📋 Typecheck**     | Static type analysis             | TypeScript        | ![Badge](https://img.shields.io/badge/TypeScript-Strict-blue)         |
+| **🧪 Unit Tests**    | Component & logic testing        | Jest + RTL        | ![Badge](https://img.shields.io/badge/Coverage-100%25-brightgreen)    |
+| **🌐 Integration**   | E2E testing workflows            | Playwright        | ![Badge](https://img.shields.io/badge/Tests-88%20passing-brightgreen) |
+| **🖼️ Visual**        | Visual regression testing        | Playwright        | ![Badge](https://img.shields.io/badge/Tests-20%20passing-brightgreen) |
 
 ### 🎯 Key Features
 
