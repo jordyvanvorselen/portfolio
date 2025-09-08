@@ -1,6 +1,7 @@
 'use client'
 
 import { useLocale } from 'next-intl'
+import { FlagIcon } from '@/ui/FlagIcon'
 
 interface LanguageSwitcherProps {
   className?: string
@@ -19,8 +20,8 @@ export const LanguageSwitcher = ({ className = '' }: LanguageSwitcherProps) => {
     window.location.reload()
   }
 
-  const getFlagEmoji = () => {
-    return currentLocale === 'en' ? '🇳🇱' : '🇬🇧'
+  const getFlagCountry = () => {
+    return currentLocale === 'en' ? 'nl' : 'gb'
   }
 
   return (
@@ -30,12 +31,7 @@ export const LanguageSwitcher = ({ className = '' }: LanguageSwitcherProps) => {
       aria-label={`Switch to ${currentLocale === 'en' ? 'Dutch' : 'English'}`}
       title={`Switch to ${currentLocale === 'en' ? 'Dutch' : 'English'}`}
     >
-      <span
-        role="img"
-        aria-label={`${currentLocale === 'en' ? 'Dutch' : 'English'} flag`}
-      >
-        {getFlagEmoji()}
-      </span>
+      <FlagIcon country={getFlagCountry()} className="w-4 h-4" />
     </button>
   )
 }

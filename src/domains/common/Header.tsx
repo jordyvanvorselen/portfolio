@@ -70,7 +70,16 @@ export const Header = () => {
 
           {/* Actions - Hidden on mobile */}
           <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center space-x-3">
+            <address className="flex items-center justify-center space-x-2 not-italic">
+              <CircleCheckBig className="w-5 h-5 text-[#10b981]" role="img" />
+              <Text size="base" weight="semibold" color="success">
+                {t('navigation.available')}
+              </Text>
+            </address>
+
+            <div className="w-px h-6 bg-gray-700"></div>
+
+            <div className="flex items-center space-x-4">
               <SocialIcon
                 href="https://github.com/jordyvanvorselen"
                 label={t('social.github')}
@@ -92,15 +101,6 @@ export const Header = () => {
             </div>
 
             <LanguageSwitcher />
-
-            <div className="w-px h-6 bg-gray-700"></div>
-
-            <address className="flex items-center justify-center space-x-2 not-italic">
-              <CircleCheckBig className="w-5 h-5 text-[#10b981]" role="img" />
-              <Text size="base" weight="semibold" color="success">
-                {t('navigation.available')}
-              </Text>
-            </address>
           </div>
 
           {/* Mobile actions */}

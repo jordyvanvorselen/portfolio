@@ -88,10 +88,10 @@ test.describe('Header Component', () => {
     // Verify initial content is in English
     await expect(homePage.hero.description).toContainText('exceptional quality')
 
-    // Verify Dutch flag emoji is visible
+    // Verify Dutch flag is visible
     await expect(
-      homePage.header.languageSwitcher.locator('span')
-    ).toHaveAttribute('aria-label', 'Dutch flag')
+      homePage.header.languageSwitcher.locator('.fi-nl')
+    ).toBeVisible()
 
     // Click to switch to Dutch
     await homePage.header.languageSwitcher.click()
@@ -110,10 +110,10 @@ test.describe('Header Component', () => {
       'uitzonderlijke kwaliteit'
     )
 
-    // Verify British flag emoji is visible
+    // Verify British flag is visible
     await expect(
-      homePage.header.languageSwitcher.locator('span')
-    ).toHaveAttribute('aria-label', 'English flag')
+      homePage.header.languageSwitcher.locator('.fi-gb')
+    ).toBeVisible()
 
     // Click to switch back to English
     await homePage.header.languageSwitcher.click()

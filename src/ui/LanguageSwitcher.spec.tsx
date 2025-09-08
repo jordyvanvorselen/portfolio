@@ -26,16 +26,17 @@ describe('LanguageSwitcher', () => {
     })
 
     it('renders button with Dutch flag when current locale is English', () => {
-      render(<LanguageSwitcher />)
+      const { container } = render(<LanguageSwitcher />)
 
       const button = screen.getByRole('button')
       expect(button).toBeInTheDocument()
       expect(button).toHaveAttribute('aria-label', 'Switch to Dutch')
       expect(button).toHaveAttribute('title', 'Switch to Dutch')
 
-      const flag = screen.getByRole('img')
-      expect(flag).toHaveAttribute('aria-label', 'Dutch flag')
-      expect(flag).toHaveTextContent('🇳🇱')
+      const flagElement = container.querySelector('.fi-nl')
+      expect(flagElement).toBeInTheDocument()
+      expect(flagElement).toHaveClass('fi', 'fi-nl', 'w-4', 'h-4')
+      expect(flagElement).toHaveAttribute('aria-hidden', 'true')
     })
 
     it('switches to Dutch locale when clicked', () => {
@@ -69,15 +70,16 @@ describe('LanguageSwitcher', () => {
     })
 
     it('renders button with British flag when current locale is Dutch', () => {
-      render(<LanguageSwitcher />)
+      const { container } = render(<LanguageSwitcher />)
 
       const button = screen.getByRole('button')
       expect(button).toHaveAttribute('aria-label', 'Switch to English')
       expect(button).toHaveAttribute('title', 'Switch to English')
 
-      const flag = screen.getByRole('img')
-      expect(flag).toHaveAttribute('aria-label', 'English flag')
-      expect(flag).toHaveTextContent('🇬🇧')
+      const flagElement = container.querySelector('.fi-gb')
+      expect(flagElement).toBeInTheDocument()
+      expect(flagElement).toHaveClass('fi', 'fi-gb', 'w-4', 'h-4')
+      expect(flagElement).toHaveAttribute('aria-hidden', 'true')
     })
 
     it('switches to English locale when clicked', () => {
@@ -131,14 +133,14 @@ describe('LanguageSwitcher', () => {
     it('has proper ARIA attributes', () => {
       mockUseLocale.mockReturnValue('en')
 
-      render(<LanguageSwitcher />)
+      const { container } = render(<LanguageSwitcher />)
 
       const button = screen.getByRole('button')
       expect(button).toHaveAttribute('aria-label')
       expect(button).toHaveAttribute('title')
 
-      const flag = screen.getByRole('img')
-      expect(flag).toHaveAttribute('aria-label')
+      const flagElement = container.querySelector('.fi-nl')
+      expect(flagElement).toHaveAttribute('aria-hidden', 'true')
     })
 
     it('has focus management classes', () => {
