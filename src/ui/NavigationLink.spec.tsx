@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 
 import { NavigationLink } from '@/ui/NavigationLink'
 
@@ -30,7 +30,7 @@ describe('NavigationLink', () => {
   })
 
   describe('Design System Props', () => {
-    describe.each(['default', 'active', 'muted'] as const)(
+    describe.each(['default', 'active', 'muted', 'ghost'] as const)(
       'variant prop: %s',
       variant => {
         it(`accepts ${variant} variant`, () => {
@@ -118,5 +118,19 @@ describe('NavigationLink', () => {
       expect(link).toBeVisible()
       expect(link).toHaveAttribute('href', '/test')
     })
+  })
+
+  it('calls onClick handler when provided', () => {
+    const mockOnClick = jest.fn()
+    render(
+      <NavigationLink href="/test" onClick={mockOnClick}>
+        Test
+      </NavigationLink>
+    )
+
+    const link = screen.getByRole('link', { name: 'Test' })
+    fireEvent.click(link)
+
+    expect(mockOnClick).toHaveBeenCalledTimes(1)
   })
 })

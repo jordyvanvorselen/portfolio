@@ -156,7 +156,7 @@
         "position": "Full-Stack Software Engineer",
         "company": "ASML",
         "duration": "3 years 9 months",
-        "location": "Veldhoven, NL",
+        "location": "Remote - Veldhoven, NL",
         "employmentType": "Full-time",
         "description": "Via Kabisa · Long-term development of enterprise web tools for developers worldwide.",
         "achievements": [
@@ -395,6 +395,10 @@
     "brandName": "More Than Bits"
   },
   "ui": {
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "languageSwitcher": {
+      "english": "English",
+      "dutch": "Nederlands"
+    }
   }
 }

@@ -9,7 +9,10 @@ import jordy from '@/assets/images/jordy.svg'
 
 export const HeroSection = () => {
   return (
-    <section className="content-section-min xl:h-[calc(100vh-4rem)] header-offset relative overflow-hidden">
+    <section
+      className="content-section-min xl:h-[calc(100vh-4rem)] header-offset relative overflow-hidden"
+      aria-label="Hero"
+    >
       {/* Main gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-950 to-black" />
 

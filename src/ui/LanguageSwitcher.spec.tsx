@@ -1,28 +1,37 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { LanguageSwitcher } from '@/ui/LanguageSwitcher'
 
-// Mock next-intl
-jest.mock('next-intl', () => ({
-  useLocale: jest.fn(() => 'en'),
+const mockUseTranslations = jest.fn(() => jest.fn((key: string) => key))
+const mockSwitchLanguage = jest.fn()
+const mockUseLanguageSwitch = jest.fn(() => ({
+  currentLocale: 'en',
+  targetLocale: 'nl',
+  switchLanguage: mockSwitchLanguage,
+  availableLocales: ['en', 'nl'],
 }))
 
-// Mock document.cookie
-Object.defineProperty(document, 'cookie', {
-  writable: true,
-  value: '',
-})
+jest.mock('next-intl', () => ({
+  useTranslations: () => mockUseTranslations(),
+}))
+
+// Override the global mock to use our local controllable mock
+jest.mock('@/hooks/useLanguageSwitch', () => ({
+  useLanguageSwitch: () => mockUseLanguageSwitch(),
+}))
 
 describe('LanguageSwitcher', () => {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const mockUseLocale = require('next-intl').useLocale as jest.Mock
-
   beforeEach(() => {
-    document.cookie = ''
+    jest.clearAllMocks()
   })
 
   describe('English locale (en)', () => {
     beforeEach(() => {
-      mockUseLocale.mockReturnValue('en')
+      mockUseLanguageSwitch.mockReturnValue({
+        currentLocale: 'en',
+        targetLocale: 'nl',
+        switchLanguage: mockSwitchLanguage,
+        availableLocales: ['en', 'nl'],
+      })
     })
 
     it('renders button with Dutch flag when current locale is English', () => {
@@ -30,8 +39,8 @@ describe('LanguageSwitcher', () => {
 
       const button = screen.getByRole('button')
       expect(button).toBeInTheDocument()
-      expect(button).toHaveAttribute('aria-label', 'Switch to Dutch')
-      expect(button).toHaveAttribute('title', 'Switch to Dutch')
+      expect(button).toHaveAttribute('aria-label', 'dutch')
+      expect(button).toHaveAttribute('title', 'dutch')
 
       const flagElement = container.querySelector('.fi-nl')
       expect(flagElement).toBeInTheDocument()
@@ -39,42 +48,32 @@ describe('LanguageSwitcher', () => {
       expect(flagElement).toHaveAttribute('aria-hidden', 'true')
     })
 
-    it('switches to Dutch locale when clicked', () => {
-      const implSymbol = Reflect.ownKeys(window.location).find(
-        i => typeof i === 'symbol'
-      )!
-
-      const reload = jest
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .spyOn((window.location as any)[implSymbol], 'reload')
-        .mockImplementation(() => {})
-
+    it('calls switchLanguage when clicked', () => {
       render(<LanguageSwitcher />)
 
       const button = screen.getByRole('button')
       fireEvent.click(button)
 
-      // Should set cookie for Dutch locale
-      expect(document.cookie).toContain('locale=nl')
-      expect(document.cookie).toContain('path=/')
-      expect(document.cookie).toContain('max-age=31536000') // 1 year in seconds
-
-      // Should reload the page
-      expect(reload).toHaveBeenCalledTimes(1)
+      expect(mockSwitchLanguage).toHaveBeenCalledTimes(1)
     })
   })
 
   describe('Dutch locale (nl)', () => {
     beforeEach(() => {
-      mockUseLocale.mockReturnValue('nl')
+      mockUseLanguageSwitch.mockReturnValue({
+        currentLocale: 'nl',
+        targetLocale: 'en',
+        switchLanguage: mockSwitchLanguage,
+        availableLocales: ['en', 'nl'],
+      })
     })
 
     it('renders button with British flag when current locale is Dutch', () => {
       const { container } = render(<LanguageSwitcher />)
 
       const button = screen.getByRole('button')
-      expect(button).toHaveAttribute('aria-label', 'Switch to English')
-      expect(button).toHaveAttribute('title', 'Switch to English')
+      expect(button).toHaveAttribute('aria-label', 'english')
+      expect(button).toHaveAttribute('title', 'english')
 
       const flagElement = container.querySelector('.fi-gb')
       expect(flagElement).toBeInTheDocument()
@@ -82,33 +81,27 @@ describe('LanguageSwitcher', () => {
       expect(flagElement).toHaveAttribute('aria-hidden', 'true')
     })
 
-    it('switches to English locale when clicked', () => {
-      const implSymbol = Reflect.ownKeys(window.location).find(
-        i => typeof i === 'symbol'
-      )!
-
-      const reload = jest
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .spyOn((window.location as any)[implSymbol], 'reload')
-        .mockImplementation(() => {})
-
+    it('calls switchLanguage when clicked', () => {
       render(<LanguageSwitcher />)
 
       const button = screen.getByRole('button')
       fireEvent.click(button)
 
-      // Should set cookie for English locale
-      expect(document.cookie).toContain('locale=en')
-
-      // Should reload the page
-      expect(reload).toHaveBeenCalledTimes(1)
+      expect(mockSwitchLanguage).toHaveBeenCalledTimes(1)
     })
   })
 
   describe('className prop', () => {
-    it('applies custom className', () => {
-      mockUseLocale.mockReturnValue('en')
+    beforeEach(() => {
+      mockUseLanguageSwitch.mockReturnValue({
+        currentLocale: 'en',
+        targetLocale: 'nl',
+        switchLanguage: mockSwitchLanguage,
+        availableLocales: ['en', 'nl'],
+      })
+    })
 
+    it('applies custom className', () => {
       render(<LanguageSwitcher className="custom-class" />)
 
       const button = screen.getByRole('button')
@@ -116,8 +109,6 @@ describe('LanguageSwitcher', () => {
     })
 
     it('applies default empty className when not provided', () => {
-      mockUseLocale.mockReturnValue('en')
-
       render(<LanguageSwitcher />)
 
       const button = screen.getByRole('button')
@@ -130,9 +121,16 @@ describe('LanguageSwitcher', () => {
   })
 
   describe('accessibility', () => {
-    it('has proper ARIA attributes', () => {
-      mockUseLocale.mockReturnValue('en')
+    beforeEach(() => {
+      mockUseLanguageSwitch.mockReturnValue({
+        currentLocale: 'en',
+        targetLocale: 'nl',
+        switchLanguage: mockSwitchLanguage,
+        availableLocales: ['en', 'nl'],
+      })
+    })
 
+    it('has proper ARIA attributes', () => {
       const { container } = render(<LanguageSwitcher />)
 
       const button = screen.getByRole('button')
@@ -144,8 +142,6 @@ describe('LanguageSwitcher', () => {
     })
 
     it('has focus management classes', () => {
-      mockUseLocale.mockReturnValue('en')
-
       render(<LanguageSwitcher />)
 
       const button = screen.getByRole('button')
@@ -153,6 +149,77 @@ describe('LanguageSwitcher', () => {
         'focus-visible:outline-none',
         'focus-visible:ring-1'
       )
+    })
+  })
+
+  describe('showText prop', () => {
+    beforeEach(() => {
+      mockUseLanguageSwitch.mockReturnValue({
+        currentLocale: 'en',
+        targetLocale: 'nl',
+        switchLanguage: mockSwitchLanguage,
+        availableLocales: ['en', 'nl'],
+      })
+    })
+
+    it('shows text when showText prop is true', () => {
+      render(<LanguageSwitcher showText={true} />)
+
+      expect(screen.getByText('dutch')).toBeVisible()
+    })
+
+    it('does not show text when showText prop is false or not provided', () => {
+      render(<LanguageSwitcher showText={false} />)
+
+      expect(screen.queryByText('dutch')).not.toBeInTheDocument()
+    })
+
+    it('applies different styling when showText is true', () => {
+      render(<LanguageSwitcher showText={true} />)
+
+      const button = screen.getByRole('button', { name: 'dutch' })
+      expect(button).toHaveClass('gap-3', 'px-4', 'py-3')
+      expect(button).not.toHaveClass('w-10', 'h-10')
+    })
+
+    it('applies compact styling when showText is false', () => {
+      render(<LanguageSwitcher showText={false} />)
+
+      const button = screen.getByRole('button', { name: 'dutch' })
+      expect(button).toHaveClass('w-10', 'h-10')
+      expect(button).not.toHaveClass('gap-3', 'px-4', 'py-3')
+    })
+  })
+
+  describe('onClick callback', () => {
+    beforeEach(() => {
+      mockUseLanguageSwitch.mockReturnValue({
+        currentLocale: 'en',
+        targetLocale: 'nl',
+        switchLanguage: mockSwitchLanguage,
+        availableLocales: ['en', 'nl'],
+      })
+    })
+
+    it('calls onClick callback when provided', () => {
+      const mockOnClick = jest.fn()
+      render(<LanguageSwitcher onClick={mockOnClick} />)
+
+      const button = screen.getByRole('button')
+      fireEvent.click(button)
+
+      expect(mockSwitchLanguage).toHaveBeenCalledTimes(1)
+      expect(mockOnClick).toHaveBeenCalledTimes(1)
+    })
+
+    it('does not error when onClick callback is not provided', () => {
+      render(<LanguageSwitcher />)
+
+      const button = screen.getByRole('button')
+      fireEvent.click(button)
+
+      expect(mockSwitchLanguage).toHaveBeenCalledTimes(1)
+      // No error should be thrown
     })
   })
 })

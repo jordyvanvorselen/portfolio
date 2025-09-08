@@ -2,7 +2,9 @@ import { Locator } from '@playwright/test'
 import { BaseSection } from '@/integration-tests/page-objects/base.section'
 
 export class ExperienceHero extends BaseSection {
-  override readonly section: Locator = this.page.locator('section').first()
+  override readonly section: Locator = this.page.getByRole('region', {
+    name: 'Experience Hero',
+  })
 
   readonly title: Locator = this.section.getByRole('heading', {
     name: 'Work Experience',

@@ -1,6 +1,7 @@
 import { Locator } from '@playwright/test'
 
 import { BaseSection } from '@/integration-tests/page-objects/base.section'
+import { MobileMenu } from '@/integration-tests/page-objects/sections/mobile-menu.section'
 
 export class Header extends BaseSection {
   override readonly section: Locator = this.page.getByRole('banner')
@@ -48,6 +49,11 @@ export class Header extends BaseSection {
     name: 'Open navigation menu',
   })
   readonly languageSwitcher: Locator = this.section.getByRole('button', {
-    name: /Switch to (Dutch|English)/,
+    name: /(English|Nederlands)/,
   })
+
+  async openMobileMenu(): Promise<MobileMenu> {
+    await this.mobileMenuButton.click()
+    return new MobileMenu(this.page)
+  }
 }

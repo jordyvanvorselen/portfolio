@@ -532,6 +532,7 @@ This ensures each commit represents a stable state and provides clear history of
 
 4. Commit messages clearly state whether the commit contains structural or behavioral changes
 
+- **CRITICAL**: After running `pnpm format:fix` to fix linting issues, ALWAYS run `git add .` to stage the formatting changes before attempting to commit
 - Use small, frequent commits rather than large, infrequent ones
 
 - Always use semantic commits following the specification:

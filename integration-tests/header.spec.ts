@@ -82,7 +82,7 @@ test.describe('Header Component', () => {
     await expect(homePage.header.languageSwitcher).toBeVisible()
     await expect(homePage.header.languageSwitcher).toHaveAttribute(
       'aria-label',
-      'Switch to Dutch'
+      'Nederlands'
     )
 
     // Verify initial content is in English
@@ -102,7 +102,7 @@ test.describe('Header Component', () => {
     // Verify switched state (should now show British flag and switch to English option)
     await expect(homePage.header.languageSwitcher).toHaveAttribute(
       'aria-label',
-      'Switch to English'
+      'English'
     )
 
     // Verify content is now in Dutch
@@ -124,7 +124,7 @@ test.describe('Header Component', () => {
     // Verify back to original state
     await expect(homePage.header.languageSwitcher).toHaveAttribute(
       'aria-label',
-      'Switch to Dutch'
+      'Nederlands'
     )
 
     // Verify content is back to English

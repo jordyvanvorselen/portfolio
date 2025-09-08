@@ -67,3 +67,23 @@ jest.mock('next-intl/server', () => ({
   getNow: jest.fn(() => Promise.resolve(new Date())),
   getTimeZone: jest.fn(() => Promise.resolve('UTC')),
 }))
+
+// Mock next/navigation globally since useLanguageSwitch depends on it
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    refresh: jest.fn(),
+    push: jest.fn(),
+    replace: jest.fn(),
+    prefetch: jest.fn(),
+    back: jest.fn(),
+    forward: jest.fn(),
+  }),
+}))
+
+// Mock cookies-next/client globally since useLanguageSwitch depends on it
+jest.mock('cookies-next/client', () => ({
+  setCookie: jest.fn(),
+  getCookie: jest.fn(),
+  deleteCookie: jest.fn(),
+  hasCookie: jest.fn(),
+}))
