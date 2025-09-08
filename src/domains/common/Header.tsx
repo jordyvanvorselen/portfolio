@@ -1,13 +1,14 @@
-import { Github, Linkedin } from 'lucide-react'
+import { Github, Linkedin, CircleCheckBig } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { Logo } from '@/ui/Logo'
 import { NavigationLink } from '@/ui/NavigationLink'
 import { SocialIcon } from '@/ui/SocialIcon'
-import { CircleCheckBig } from 'lucide-react'
-
 import { Text } from '@/ui/Text'
+import { LanguageSwitcher } from '@/ui/LanguageSwitcher'
 
 export const Header = () => {
+  const t = useTranslations()
   return (
     <header
       role="banner"
@@ -31,7 +32,7 @@ export const Header = () => {
               size="md"
               color="primary"
             >
-              Home
+              {t('navigation.home')}
             </NavigationLink>
             <NavigationLink
               href="/blog"
@@ -39,7 +40,7 @@ export const Header = () => {
               size="md"
               color="primary"
             >
-              Blog
+              {t('navigation.blog')}
             </NavigationLink>
             <NavigationLink
               href="/projects"
@@ -47,7 +48,7 @@ export const Header = () => {
               size="md"
               color="primary"
             >
-              Projects
+              {t('navigation.projects')}
             </NavigationLink>
             <NavigationLink
               href="/experience"
@@ -55,7 +56,7 @@ export const Header = () => {
               size="md"
               color="primary"
             >
-              Experience
+              {t('navigation.experience')}
             </NavigationLink>
             <NavigationLink
               href="/contact"
@@ -63,7 +64,7 @@ export const Header = () => {
               size="md"
               color="primary"
             >
-              Contact
+              {t('navigation.contact')}
             </NavigationLink>
           </nav>
 
@@ -72,7 +73,7 @@ export const Header = () => {
             <div className="flex items-center space-x-3">
               <SocialIcon
                 href="https://github.com/jordyvanvorselen"
-                label="GitHub"
+                label={t('social.github')}
                 icon={Github}
                 variant="icon"
                 size="md"
@@ -81,7 +82,7 @@ export const Header = () => {
               />
               <SocialIcon
                 href="https://linkedin.com/in/jordy-van-vorselen"
-                label="LinkedIn"
+                label={t('social.linkedin')}
                 icon={Linkedin}
                 variant="icon"
                 size="md"
@@ -90,18 +91,22 @@ export const Header = () => {
               />
             </div>
 
+            <LanguageSwitcher />
+
             <div className="w-px h-6 bg-gray-700"></div>
 
             <address className="flex items-center justify-center space-x-2 not-italic">
               <CircleCheckBig className="w-5 h-5 text-[#10b981]" role="img" />
               <Text size="base" weight="semibold" color="success">
-                Available
+                {t('navigation.available')}
               </Text>
             </address>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Mobile actions */}
+          <div className="md:hidden flex items-center space-x-2">
+            <LanguageSwitcher />
+
             <button
               aria-label="Open navigation menu"
               className="inline-flex items-center justify-center whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-8 rounded-md px-3 text-xs text-gray-300 hover:text-white hover:bg-gray-800 transition-all duration-300"

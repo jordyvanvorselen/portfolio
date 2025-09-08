@@ -4,24 +4,32 @@ import Image from 'next/image'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 import { Badge } from '@/ui/Badge'
+import { useTranslations, useMessages } from 'next-intl'
 
 export interface FeaturedBlogCardProps {
-  title: string
-  description: string
-  date: string
-  readTime: string
+  translationKey: string
   image: string
-  tags: string[]
 }
 
 export const FeaturedBlogCard = ({
-  title,
-  description,
-  date,
-  readTime,
+  translationKey,
   image,
-  tags,
 }: FeaturedBlogCardProps) => {
+  const t = useTranslations()
+  const messages = useMessages() as Record<string, unknown> // We need raw access for arrays
+
+  const title = t(`blog.posts.${translationKey}.title`)
+  const description = t(`blog.posts.${translationKey}.description`)
+  const date = t(`blog.posts.${translationKey}.date`)
+  const readTime = t(`blog.posts.${translationKey}.readTime`)
+  const blogMessages = messages['blog'] as Record<string, unknown> | undefined
+  const postsMessages = blogMessages?.['posts'] as
+    | Record<string, unknown>
+    | undefined
+  const postMessages = postsMessages?.[translationKey] as
+    | Record<string, unknown>
+    | undefined
+  const tags = (postMessages?.['tags'] as string[]) || []
   return (
     <article
       data-featured="true"
@@ -31,7 +39,7 @@ export const FeaturedBlogCard = ({
       <div className="absolute top-4 left-4 z-20">
         <div className="flex items-center gap-2 bg-teal-500/20 border border-teal-400/40 text-teal-400 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm">
           <Star className="w-3 h-3 fill-current" aria-hidden="true" />
-          Featured
+          {t('blog.card.featured')}
         </div>
       </div>
 
@@ -100,7 +108,7 @@ export const FeaturedBlogCard = ({
             ))}
             {tags.length > 4 && (
               <Badge variant="soft" color="default" size="sm" rounded={false}>
-                +{tags.length - 4} more
+                {t('blog.card.moreCount', { count: tags.length - 4 })}
               </Badge>
             )}
           </div>

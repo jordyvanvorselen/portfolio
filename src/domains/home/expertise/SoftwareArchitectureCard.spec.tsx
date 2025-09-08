@@ -3,6 +3,14 @@ import { render, screen } from '@testing-library/react'
 import { SoftwareArchitectureCard } from '@/domains/home/expertise/SoftwareArchitectureCard'
 
 describe('SoftwareArchitectureCard', () => {
+  it('has correct aria-label', () => {
+    render(<SoftwareArchitectureCard />)
+
+    expect(
+      screen.getByLabelText('expertise.architecture.ariaLabel')
+    ).toBeVisible()
+  })
+
   it('displays layers icon', () => {
     render(<SoftwareArchitectureCard />)
 
@@ -14,21 +22,17 @@ describe('SoftwareArchitectureCard', () => {
     render(<SoftwareArchitectureCard />)
 
     expect(
-      screen.getByRole('heading', { name: 'Software Architecture' })
+      screen.getByRole('heading', { name: 'expertise.architecture.title' })
     ).toBeVisible()
   })
 
   it('displays description text', () => {
     render(<SoftwareArchitectureCard />)
 
-    expect(
-      screen.getByText(
-        /I design scalable, maintainable systems using proven architectural patterns/
-      )
-    ).toBeVisible()
+    expect(screen.getByText('expertise.architecture.description')).toBeVisible()
   })
 
-  it('displays key skills and tools section', () => {
+  it('displays KEY SKILLS & TOOLS section heading', () => {
     render(<SoftwareArchitectureCard />)
 
     expect(screen.getByText('KEY SKILLS & TOOLS')).toBeVisible()

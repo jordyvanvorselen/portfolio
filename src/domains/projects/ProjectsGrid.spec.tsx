@@ -3,10 +3,12 @@ import { render, screen } from '@testing-library/react'
 import { ProjectsGrid } from '@/domains/projects/ProjectsGrid'
 
 describe('ProjectsGrid', () => {
-  it('renders projects grid section', () => {
+  it('renders projects grid section with translated content', () => {
     render(<ProjectsGrid />)
 
     expect(screen.getByRole('region', { name: 'projects grid' })).toBeVisible()
+    expect(screen.getByText('projects.grid.title')).toBeVisible()
+    expect(screen.getByText('projects.grid.description')).toBeVisible()
   })
 
   it('renders project cards from mock data', () => {

@@ -7,37 +7,45 @@ describe('ExperienceHero', () => {
     companyCount: 6,
   }
 
-  it('renders the title', () => {
+  it('renders the title using translation key', () => {
     render(<ExperienceHero {...defaultProps} />)
 
     expect(
-      screen.getByRole('heading', { name: 'Work Experience' })
+      screen.getByRole('heading', { name: 'experience.hero.title' })
     ).toBeInTheDocument()
   })
 
-  it('renders the description', () => {
+  it('renders the description using translation key', () => {
+    render(<ExperienceHero {...defaultProps} />)
+
+    expect(screen.getByText('experience.hero.description')).toBeInTheDocument()
+  })
+
+  it('renders the experience stat using translation key', () => {
     render(<ExperienceHero {...defaultProps} />)
 
     expect(
-      screen.getByText(/A journey through innovative companies/)
+      screen.getByText('experience.hero.stats.yearsExperience')
     ).toBeInTheDocument()
   })
 
-  it('renders the experience stat', () => {
+  it('renders the positions stat with correct counts using translation key', () => {
     render(<ExperienceHero {...defaultProps} />)
 
-    expect(screen.getByText('8+ Years Experience')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'experience.hero.stats.positionsAndCompanies positionCount=7 companyCount=6'
+      )
+    ).toBeInTheDocument()
   })
 
-  it('renders the positions stat with correct counts', () => {
-    render(<ExperienceHero {...defaultProps} />)
-
-    expect(screen.getByText('7 Positions at 6 Companies')).toBeInTheDocument()
-  })
-
-  it('renders positions stat with different counts', () => {
+  it('renders positions stat with different counts using translation key', () => {
     render(<ExperienceHero positionCount={10} companyCount={8} />)
 
-    expect(screen.getByText('10 Positions at 8 Companies')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'experience.hero.stats.positionsAndCompanies positionCount=10 companyCount=8'
+      )
+    ).toBeInTheDocument()
   })
 })

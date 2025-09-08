@@ -14,18 +14,14 @@ describe('ContinuousDeliveryCard', () => {
     render(<ContinuousDeliveryCard />)
 
     expect(
-      screen.getByRole('heading', { name: 'Continuous Delivery' })
+      screen.getByRole('heading', { name: 'expertise.delivery.title' })
     ).toBeVisible()
   })
 
   it('displays description text', () => {
     render(<ContinuousDeliveryCard />)
 
-    expect(
-      screen.getByText(
-        /I implement robust CI\/CD pipelines that enable teams to ship features rapidly/
-      )
-    ).toBeVisible()
+    expect(screen.getByText('expertise.delivery.description')).toBeVisible()
   })
 
   it('displays key skills and tools section', () => {

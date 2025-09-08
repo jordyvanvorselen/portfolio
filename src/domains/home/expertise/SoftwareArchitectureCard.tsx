@@ -1,15 +1,18 @@
 import { Layers } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { ExpertiseCard } from '@/domains/home/expertise/ExpertiseCard'
 
 export const SoftwareArchitectureCard = () => {
+  const t = useTranslations()
+
   return (
     <ExpertiseCard
-      ariaLabel="Software Architecture"
+      ariaLabel={t('expertise.architecture.ariaLabel')}
       icon={<Layers className="w-7 h-7" aria-label="layers icon" />}
       iconColor="#14b8a6"
-      title="Software Architecture"
-      description="I design scalable, maintainable systems using proven architectural patterns. From monoliths to microservices, I choose the simplest architecture based on the requirements of each unique project."
+      title={t('expertise.architecture.title')}
+      description={t('expertise.architecture.description')}
       skills={[
         'Microservices',
         'Domain-Driven Design',

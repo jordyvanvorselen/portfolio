@@ -3,31 +3,19 @@ import { render, screen } from '@testing-library/react'
 import { BlogHeroSection } from '@/domains/blog/BlogHeroSection'
 
 describe('BlogHeroSection', () => {
-  it('displays the main heading', () => {
+  it('displays the hero section with translated content', () => {
+    render(<BlogHeroSection />)
+
+    expect(screen.getByText('blog.hero.title')).toBeVisible()
+    expect(screen.getByText('blog.hero.description')).toBeVisible()
+  })
+
+  it('displays blog stats with translated labels', () => {
     render(<BlogHeroSection />)
 
     expect(
-      screen.getByRole('heading', { name: 'More Than Bits' })
+      screen.getByText('blog.hero.stats.articlesCount count=6')
     ).toBeVisible()
-  })
-
-  it('displays the subtitle text', () => {
-    render(<BlogHeroSection />)
-
-    expect(
-      screen.getByText(/thoughts, tutorials, and deep dives/i)
-    ).toBeVisible()
-  })
-
-  it('displays articles count stat', () => {
-    render(<BlogHeroSection />)
-
-    expect(screen.getByText('6 Articles')).toBeVisible()
-  })
-
-  it('displays regularly updated status', () => {
-    render(<BlogHeroSection />)
-
-    expect(screen.getByText('Regularly Updated')).toBeVisible()
+    expect(screen.getByText('blog.hero.stats.regularlyUpdated')).toBeVisible()
   })
 })

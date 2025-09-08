@@ -6,11 +6,7 @@ describe('ExpertiseCallToAction', () => {
   it('displays the main question text', () => {
     render(<ExpertiseCallToAction />)
 
-    expect(
-      screen.getByText(
-        'Ready to discuss how these skills can benefit your project?'
-      )
-    ).toBeVisible()
+    expect(screen.getByText('expertise.callToAction.description')).toBeVisible()
   })
 
   it('displays check icon', () => {
@@ -24,9 +20,7 @@ describe('ExpertiseCallToAction', () => {
     render(<ExpertiseCallToAction />)
 
     expect(
-      screen.getByText(
-        'Available for remote consulting and full-time opportunities'
-      )
+      screen.getByText('expertise.callToAction.availability')
     ).toBeVisible()
   })
 })

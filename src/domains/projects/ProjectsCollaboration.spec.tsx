@@ -3,35 +3,21 @@ import { render, screen } from '@testing-library/react'
 import { ProjectsCollaboration } from '@/domains/projects/ProjectsCollaboration'
 
 describe('ProjectsCollaboration', () => {
-  it('renders collaboration title', () => {
+  it('renders collaboration section with translated content', () => {
+    render(<ProjectsCollaboration />)
+
+    expect(screen.getByText('projects.collaboration.title')).toBeVisible()
+    expect(screen.getByText('projects.collaboration.description')).toBeVisible()
+  })
+
+  it('renders action buttons with translated labels', () => {
     render(<ProjectsCollaboration />)
 
     expect(
-      screen.getByRole('heading', {
-        name: /Let's Build Something Amazing Together/i,
-      })
+      screen.getByText('projects.collaboration.actions.followGithub')
     ).toBeVisible()
-  })
-
-  it('renders collaboration description', () => {
-    render(<ProjectsCollaboration />)
-
     expect(
-      screen.getByText(/Interested in collaborating on open source projects/i)
+      screen.getByText('projects.collaboration.actions.getInTouch')
     ).toBeVisible()
-  })
-
-  it('renders github button with correct link', () => {
-    render(<ProjectsCollaboration />)
-
-    const githubButton = screen.getByRole('link', { name: /Follow on GitHub/i })
-    expect(githubButton).toBeVisible()
-  })
-
-  it('renders contact button', () => {
-    render(<ProjectsCollaboration />)
-
-    const contactButton = screen.getByRole('link', { name: /Get in Touch/i })
-    expect(contactButton).toBeVisible()
   })
 })

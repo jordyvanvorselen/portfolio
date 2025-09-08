@@ -10,18 +10,16 @@ describe('ScrollIndicator', () => {
     global.document.getElementById = jest.fn()
   })
 
-  it('renders Discover My Core Expertise title', () => {
+  it('renders title using translation key', () => {
     render(<ScrollIndicator />)
 
-    expect(screen.getByText('Discover My Core Expertise')).toBeVisible()
+    expect(screen.getByText('hero.scrollIndicator.title')).toBeVisible()
   })
 
-  it('renders Explore what I can bring to your project subtitle', () => {
+  it('renders subtitle using translation key', () => {
     render(<ScrollIndicator />)
 
-    expect(
-      screen.getByText('Explore what I can bring to your project')
-    ).toBeVisible()
+    expect(screen.getByText('hero.scrollIndicator.subtitle')).toBeVisible()
   })
 
   it('renders chevron down icon', () => {

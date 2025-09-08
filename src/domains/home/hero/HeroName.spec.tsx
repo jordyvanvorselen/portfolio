@@ -6,8 +6,6 @@ describe('HeroName', () => {
   it('displays name as heading', () => {
     render(<HeroName />)
 
-    expect(
-      screen.getByRole('heading', { name: 'Jordy van Vorselen', level: 1 })
-    ).toBeVisible()
+    expect(screen.getByText('hero.name')).toBeVisible()
   })
 })

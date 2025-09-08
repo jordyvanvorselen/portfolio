@@ -1,4 +1,5 @@
 import { Github, Linkedin, Mail, Heart } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
@@ -8,6 +9,8 @@ import { BackToTopButton } from '@/ui/BackToTopButton'
 import { Button } from '@/ui/Button'
 
 export const Footer = () => {
+  const t = useTranslations()
+
   return (
     <footer
       role="contentinfo"
@@ -35,7 +38,7 @@ export const Footer = () => {
                 as="h3"
                 className="mb-4"
               >
-                Jordy van Vorselen
+                {t('footer.author.name')}
               </Title>
               <Text
                 size="base"
@@ -43,18 +46,16 @@ export const Footer = () => {
                 color="secondary"
                 className="mb-6 max-w-md leading-relaxed"
               >
-                Senior Software Engineer passionate about building scalable,
-                maintainable software solutions. Always eager to tackle new
-                challenges and collaborate with amazing teams.
+                {t('footer.author.description')}
               </Text>
               <div className="flex items-center text-[#cbd5e1] mb-4">
                 <Text size="sm" weight="normal" color="secondary">
-                  📍 Noord-Brabant, the Netherlands 🇳🇱
+                  {t('footer.author.location')}
                 </Text>
               </div>
               <div className="flex items-center text-[#cbd5e1]">
                 <Text size="sm" weight="normal" color="secondary">
-                  ✉️ jordy@morethanbits.io
+                  {t('footer.author.email')}
                 </Text>
               </div>
             </div>
@@ -69,7 +70,7 @@ export const Footer = () => {
                 as="h4"
                 className="mb-4 !text-lg"
               >
-                Quick Links
+                {t('footer.quickLinks')}
               </Title>
               <ul className="space-y-2">
                 <li>
@@ -81,7 +82,7 @@ export const Footer = () => {
                     weight="normal"
                     className="block"
                   >
-                    Home
+                    {t('navigation.home')}
                   </NavigationLink>
                 </li>
                 <li>
@@ -93,7 +94,7 @@ export const Footer = () => {
                     weight="normal"
                     className="block"
                   >
-                    Blog
+                    {t('navigation.blog')}
                   </NavigationLink>
                 </li>
                 <li>
@@ -105,7 +106,7 @@ export const Footer = () => {
                     weight="normal"
                     className="block"
                   >
-                    Projects
+                    {t('navigation.projects')}
                   </NavigationLink>
                 </li>
                 <li>
@@ -117,7 +118,7 @@ export const Footer = () => {
                     weight="normal"
                     className="block"
                   >
-                    Experience
+                    {t('navigation.experience')}
                   </NavigationLink>
                 </li>
                 <li>
@@ -129,7 +130,7 @@ export const Footer = () => {
                     weight="normal"
                     className="block"
                   >
-                    Contact
+                    {t('navigation.contact')}
                   </NavigationLink>
                 </li>
               </ul>
@@ -145,13 +146,13 @@ export const Footer = () => {
                 as="h4"
                 className="mb-4 !text-lg"
               >
-                Let&apos;s Connect
+                {t('footer.connect')}
               </Title>
               <div className="space-y-4">
                 <div className="flex flex-col space-y-3">
                   <SocialIcon
                     href="https://github.com/jordyvanvorselen"
-                    label="GitHub"
+                    label={t('social.github')}
                     icon={Github}
                     variant="text"
                     size="md"
@@ -160,7 +161,7 @@ export const Footer = () => {
                   />
                   <SocialIcon
                     href="https://linkedin.com/in/jordy-van-vorselen"
-                    label="LinkedIn"
+                    label={t('social.linkedin')}
                     icon={Linkedin}
                     variant="text"
                     size="md"
@@ -169,7 +170,7 @@ export const Footer = () => {
                   />
                   <SocialIcon
                     href="mailto:jordy@morethanbits.io"
-                    label="Email"
+                    label={t('social.email')}
                     icon={Mail}
                     variant="text"
                     size="md"
@@ -184,7 +185,7 @@ export const Footer = () => {
                   href="mailto:jordy@morethanbits.io"
                 >
                   <Mail className="w-4 h-4 mr-2" />
-                  Get In Touch
+                  {t('footer.getInTouch')}
                 </Button>
               </div>
             </div>
@@ -196,16 +197,16 @@ export const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center mb-4 md:mb-0">
               <Text size="sm" weight="normal" color="secondary">
-                © 2025 Jordy van Vorselen. Made with
+                {t('footer.copyright')}
               </Text>
               <Heart className="w-4 h-4 mx-1 text-red-500" />
               <Text size="sm" weight="normal" color="secondary">
-                and lots of coffee.
+                {t('footer.coffeeText')}
               </Text>
             </div>
             <div className="flex items-center space-x-4">
               <Text size="sm" weight="normal" color="success">
-                Available for remote opportunities
+                {t('footer.availability')}
               </Text>
               <BackToTopButton />
             </div>

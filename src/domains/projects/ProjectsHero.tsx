@@ -1,9 +1,11 @@
+import { useTranslations } from 'next-intl'
 import { Code, Star, Github } from 'lucide-react'
 import { StatItem } from '@/ui/StatItem'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 
 export const ProjectsHero = () => {
+  const t = useTranslations()
   return (
     <section
       className="header-offset relative pt-16 pb-20 overflow-hidden mt-8"
@@ -32,7 +34,7 @@ export const ProjectsHero = () => {
             className="mb-6"
           >
             <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
-              Open Source Projects
+              {t('projects.hero.title')}
             </span>
           </Title>
 
@@ -45,17 +47,14 @@ export const ProjectsHero = () => {
             lineHeight="relaxed"
             className="mb-12 max-w-3xl mx-auto"
           >
-            A collection of innovative software solutions born from curiosity,
-            continuous learning, and the pure joy of building something
-            meaningful. Each project represents a journey of discovery and fun
-            in the world of code.
+            {t('projects.hero.description')}
           </Text>
 
           {/* Stats */}
           <div className="flex items-center justify-center gap-8 text-gray-400">
             <StatItem
               value={6}
-              label="Projects"
+              label={t('projects.hero.stats.projects')}
               icon={<Code className="w-4 h-4" />}
               color="primary"
               size="lg"
@@ -63,7 +62,7 @@ export const ProjectsHero = () => {
             <div className="w-px h-6 bg-gray-600" />
             <StatItem
               value={12037}
-              label="Stars"
+              label={t('projects.hero.stats.stars')}
               icon={<Star className="w-4 h-4" />}
               color="accent"
               size="lg"
@@ -71,7 +70,7 @@ export const ProjectsHero = () => {
             <div className="w-px h-6 bg-gray-600" />
             <StatItem
               value={1543}
-              label="Forks"
+              label={t('projects.hero.stats.forks')}
               icon={<Github className="w-4 h-4" />}
               color="secondary"
               size="lg"

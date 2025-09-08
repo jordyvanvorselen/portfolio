@@ -1,6 +1,7 @@
 'use client'
 
 import { ArrowUp } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 type BackToTopButtonVariant = 'ghost' | 'outline' | 'solid'
 type BackToTopButtonColor = 'neutral' | 'primary' | 'secondary'
@@ -73,6 +74,8 @@ export const BackToTopButton = ({
   size = 'xs',
   className = '',
 }: BackToTopButtonProps) => {
+  const t = useTranslations()
+
   const handleClick = () => {
     if (onClick) {
       onClick()
@@ -92,14 +95,16 @@ export const BackToTopButton = ({
     .join(' ')
     .trim()
 
+  const backToTopText = t('ui.backToTop')
+
   return (
     <button
       onClick={handleClick}
       className={combinedClasses}
-      aria-label="Back to top"
+      aria-label={backToTopText}
     >
       <ArrowUp className={`${iconSizeClass} mr-1`} />
-      Back to top
+      {backToTopText}
     </button>
   )
 }

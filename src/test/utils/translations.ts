@@ -2,6 +2,12 @@ export const assertableTranslationKeys =
   (prefix?: string) => (key: string, params?: { [key: string]: string }) => {
     const translation = prefix ? `${prefix}.${key}` : key
 
+    // Return arrays for specific tag translation keys to test tag rendering logic
+    // Only return arrays for known blog post keys, not all keys containing '.tags'
+    if (translation === 'blog.posts.advancedTypeScript.tags') {
+      return ['TypeScript', 'React', 'Testing', 'Node.js', 'GraphQL']
+    }
+
     return params
       ? `${translation} ${varsToKeyValueString(params)}`
       : translation

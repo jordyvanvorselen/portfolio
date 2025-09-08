@@ -1,9 +1,9 @@
-import { useTranslation, Trans } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 
 import { Text } from '@/ui/Text'
 
 export const HeroDescription = () => {
-  const { t } = useTranslation()
+  const t = useTranslations()
 
   return (
     <div className="flex flex-col">
@@ -15,7 +15,7 @@ export const HeroDescription = () => {
         lineHeight="relaxed"
         className="md:text-xl pt-6 lg:pt-8 max-w-3xl mx-auto"
       >
-        <Trans i18nKey="hero.description.main" components={{ b: <b /> }} />
+        {t.rich('hero.description.main', { b: chunks => <b>{chunks}</b> })}
       </Text>
       <Text
         size="lg"

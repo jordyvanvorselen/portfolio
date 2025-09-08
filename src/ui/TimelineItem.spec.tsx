@@ -74,6 +74,26 @@ describe('TimelineItem', () => {
 
       expect(getByText('Right aligned content')).toBeInTheDocument()
     })
+
+    it('renders with normal spacing on desktop', () => {
+      const { getByText } = render(
+        <TimelineItem {...defaultProps} spacing="normal">
+          <div>Normal spacing content</div>
+        </TimelineItem>
+      )
+
+      expect(getByText('Normal spacing content')).toBeInTheDocument()
+    })
+
+    it('renders with close spacing on desktop', () => {
+      const { getByText } = render(
+        <TimelineItem {...defaultProps} spacing="close">
+          <div>Close spacing content</div>
+        </TimelineItem>
+      )
+
+      expect(getByText('Close spacing content')).toBeInTheDocument()
+    })
   })
 
   describe('Mobile layout (max-width: 767px)', () => {

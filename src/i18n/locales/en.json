@@ -9,6 +9,10 @@
     "actions": {
       "getInTouch": "Get In Touch",
       "downloadResume": "Download Resume"
+    },
+    "scrollIndicator": {
+      "title": "Discover My Core Expertise",
+      "subtitle": "Explore what I can bring to your project"
     }
   },
   "navigation": {
@@ -20,6 +24,11 @@
     "available": "Available"
   },
   "expertise": {
+    "section": {
+      "title": "Want To Deliver Faster?",
+      "description": "I am specialized in helping teams speed up development. Embracing engineering best practices drives faster delivery of exceptional results.",
+      "ariaLabel": "Core Expertise"
+    },
     "tdd": {
       "ariaLabel": "Test-Driven Development",
       "title": "Test-Driven Development",
@@ -57,6 +66,10 @@
         "Progressive Deployment",
         "Automated Rollbacks"
       ]
+    },
+    "callToAction": {
+      "description": "Ready to discuss how these skills can benefit your project?",
+      "availability": "Available for remote consulting and full-time opportunities"
     }
   },
   "footer": {
@@ -77,5 +90,311 @@
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "email": "Email"
+  },
+  "experience": {
+    "hero": {
+      "title": "Work Experience",
+      "description": "A journey through innovative companies and challenging projects that shaped my expertise in software engineering",
+      "stats": {
+        "yearsExperience": "8+ Years Experience",
+        "positionsAndCompanies": "{{positionCount}} Positions at {{companyCount}} Companies"
+      }
+    },
+    "card": {
+      "current": "Current",
+      "keyAchievements": "Key Achievements",
+      "technologiesUsed": "Technologies Used",
+      "visitWebsite": "Visit {{company}} website"
+    },
+    "positions": {
+      "hertek2024": {
+        "position": "Lead Developer",
+        "company": "Hertek Safety",
+        "duration": "1 year 8 months",
+        "location": "Remote - Weert, NL",
+        "employmentType": "Full-time",
+        "description": "Via Kabisa · Development of high-performance Java backend services with Spring Boot and reactive programming.",
+        "achievements": [
+          "Developed multiple Java backend services with Spring Boot and Vertx",
+          "Implemented AWS services: ECS, MemoryDB and SQS FiFo",
+          "Backend processes thousands of messages with high performance",
+          "Built: React SPA, SSR Thymeleaf, Cordova and Flutter apps",
+          "Horizontal scalability for enterprise applications"
+        ]
+      },
+      "asml2024": {
+        "position": "Lead Developer",
+        "company": "ASML",
+        "duration": "3 months",
+        "location": "Remote - Veldhoven, NL",
+        "employmentType": "Full-time",
+        "description": "Via Kabisa · Development of business-critical web tools used by tens of thousands of developers.",
+        "achievements": [
+          "Developed business-critical web tools for 10,000+ developers",
+          "Worked with Ruby on Rails, React, Flask & Django",
+          "Kubernetes and Docker containerization",
+          "Optimization of tool performance and scalability",
+          "Agile development in large teams"
+        ]
+      },
+      "hertek2023": {
+        "position": "Lead Developer",
+        "company": "Hertek Safety",
+        "duration": "8 months",
+        "location": "Remote - Weert, NL",
+        "employmentType": "Full-time",
+        "description": "Via Kabisa · Development of Flutter app with strict certification standards for fire safety.",
+        "achievements": [
+          "Built new Flutter (Dart) mobile app",
+          "Java Spring Boot backend development",
+          "Met strict certification standards",
+          "Direct relationship with fire safety systems",
+          "Implementation of security best practices"
+        ]
+      },
+      "asml2021": {
+        "position": "Full-Stack Software Engineer",
+        "company": "ASML",
+        "duration": "3 years 9 months",
+        "location": "Veldhoven, NL",
+        "employmentType": "Full-time",
+        "description": "Via Kabisa · Long-term development of enterprise web tools for developers worldwide.",
+        "achievements": [
+          "Developed business-critical web tools for 10,000+ developers",
+          "Expertise in Ruby on Rails, React, Flask & Django",
+          "Container orchestration with Kubernetes",
+          "Performance optimization for large scale",
+          "Cross-functional collaboration with international teams"
+        ]
+      },
+      "signify": {
+        "position": "Full-Stack Software Engineer",
+        "company": "Signify",
+        "duration": "5 months",
+        "location": "Eindhoven, NL",
+        "employmentType": "Full-time",
+        "description": "Via Kabisa · Development of the Hue Labs platform and Philips Hue mobile app.",
+        "achievements": [
+          "Developed Hue Labs platform",
+          "Contributed to Philips Hue mobile app",
+          "React (JavaScript) frontend development",
+          "Phoenix (Elixir) backend development",
+          "IoT integration for smart lighting"
+        ]
+      },
+      "kabisa2020": {
+        "position": "Back-End Tech Lead",
+        "company": "Kabisa",
+        "duration": "3 years 9 months",
+        "location": "Remote - Weert, NL",
+        "employmentType": "Full-time",
+        "description": "Full-Stack Engineer at Kabisa, specialized in developing elegant (enterprise) software solutions.",
+        "achievements": [
+          "Full-stack development across multiple technologies",
+          "Architecture of enterprise software solutions",
+          "Expertise in Java, Python, Ruby, Elixir and Front-end development",
+          "Implementation of scalable microservices architecture",
+          "Mentoring and coaching of development teams"
+        ]
+      },
+      "kabisa2016": {
+        "position": "Full-Stack Engineer",
+        "company": "Kabisa",
+        "duration": "3 years 11 months",
+        "location": "Remote - Weert, NL",
+        "employmentType": "Full-time",
+        "description": "Backend Tech Lead at Kabisa, specialized in developing elegant (enterprise) software solutions.",
+        "achievements": [
+          "Leading backend development teams",
+          "Architecture of enterprise software solutions",
+          "Expertise in Java, Python, Ruby, Elixir and Front-end development",
+          "Implementation of scalable microservices architecture",
+          "Mentoring and coaching of development teams"
+        ]
+      },
+      "syntouch": {
+        "position": "Blockchain Software Engineer",
+        "company": "SynTouch",
+        "duration": "6 months",
+        "location": "Eindhoven, NL",
+        "employmentType": "Graduation",
+        "description": "Graduated Cum Laude · Development of ERC-20 token and blockchain applications.",
+        "achievements": [
+          "Developed ERC-20 token SynCoin with Ethereum smart contracts",
+          "Built escrow, order and crowdsale system in Solidity",
+          "Research on upgradeable smart contracts",
+          "Node.js backend with Swagger + Express",
+          "Vue.js frontend for blockchain interaction"
+        ]
+      },
+      "scorito": {
+        "position": "Junior Software Engineer",
+        "company": "Scorito.com",
+        "duration": "1 year",
+        "location": "Breda, NL",
+        "employmentType": "Part-time",
+        "description": "Web development with C# ASP.NET MVC in a Scrum team.",
+        "achievements": [
+          "Web development with C# ASP.NET MVC",
+          "Agile development in Scrum team",
+          "Implementation of new features",
+          "Unit testing and code reviews",
+          "Database design with SQL Server"
+        ]
+      },
+      "scoritoIntern": {
+        "position": "Software Engineering Intern",
+        "company": "Scorito.com",
+        "duration": "6 months",
+        "location": "Breda, NL",
+        "employmentType": "Internship",
+        "description": "Development of test framework for acceptance testing.",
+        "achievements": [
+          "Developed test framework with Selenium and C#",
+          "Simple setup of acceptance tests",
+          "Test automation implementation",
+          "Documentation and training for team",
+          "Integration with CI/CD pipeline"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "hero": {
+      "title": "Open Source Projects",
+      "description": "A collection of innovative software solutions born from curiosity, continuous learning, and the pure joy of building something meaningful. Each project represents a journey of discovery and fun in the world of code.",
+      "stats": {
+        "projects": "Projects",
+        "stars": "Stars",
+        "forks": "Forks"
+      }
+    },
+    "grid": {
+      "title": "Featured Projects",
+      "description": "Each project represents hours of dedication, innovative problem-solving, and a commitment to building tools that make developers' lives easier."
+    },
+    "card": {
+      "technologies": "Technologies",
+      "viewSource": "View Source",
+      "liveDemo": "Live Demo",
+      "status": {
+        "active": "Active",
+        "maintained": "Maintained"
+      },
+      "stats": {
+        "stars": "stars",
+        "forks": "forks"
+      }
+    },
+    "collaboration": {
+      "title": "Let's Build Something Amazing Together",
+      "description": "Interested in collaborating on open source projects or have an idea you'd like to discuss? I'm always excited to start new initiatives.",
+      "actions": {
+        "followGithub": "Follow on GitHub",
+        "getInTouch": "Get in Touch"
+      }
+    }
+  },
+  "blog": {
+    "hero": {
+      "title": "More Than Bits",
+      "description": "Thoughts, tutorials, and deep dives into software engineering, architecture, and modern development practices.",
+      "stats": {
+        "articlesCount": "{{count}} Articles",
+        "regularlyUpdated": "Regularly Updated"
+      }
+    },
+    "search": {
+      "placeholder": "Search articles...",
+      "filters": {
+        "all": "All"
+      }
+    },
+    "card": {
+      "featured": "Featured",
+      "moreCount": "+{{count}} more"
+    },
+    "sections": {
+      "featuredArticle": "Featured article",
+      "latestArticles": "Latest articles"
+    },
+    "posts": {
+      "advancedTypeScript": {
+        "title": "Advanced TypeScript Patterns for Enterprise Applications",
+        "description": "Explore advanced TypeScript patterns and techniques that will help you build more maintainable and type-safe enterprise applications. From conditional types to template literals.",
+        "date": "January 8, 2024",
+        "readTime": "8 min read",
+        "image": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400&fit=crop",
+        "tags": ["TypeScript", "JavaScript", "Enterprise"]
+      },
+      "cleanArchitecture": {
+        "title": "Implementing Clean Architecture in React Applications",
+        "description": "Learn how to structure your React applications using Clean Architecture principles. This approach will make your code more testable, maintainable, and independent of frameworks.",
+        "date": "January 1, 2024",
+        "readTime": "15 min read",
+        "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop",
+        "tags": ["React", "Architecture", "Clean Code"]
+      },
+      "databaseOptimization": {
+        "title": "Database Optimization Strategies for High-Traffic Applications",
+        "description": "Discover proven database optimization techniques that can dramatically improve your application's performance. From indexing strategies to query optimization and caching.",
+        "date": "December 20, 2023",
+        "readTime": "10 min read",
+        "image": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&h=400&fit=crop",
+        "tags": ["Database", "Performance", "SQL"]
+      },
+      "testingStrategies": {
+        "title": "Testing Strategies for Modern Web Applications",
+        "description": "A deep dive into testing methodologies for modern web applications. Learn about unit testing, integration testing, and end-to-end testing with practical examples.",
+        "date": "December 15, 2023",
+        "readTime": "11 min read",
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop",
+        "tags": ["Testing", "Quality Assurance", "Jest"]
+      },
+      "graphqlVsRest": {
+        "title": "GraphQL vs REST: Choosing the Right API Architecture",
+        "description": "An in-depth comparison of GraphQL and REST APIs. Learn when to use each approach and how to implement them effectively in your applications.",
+        "date": "December 10, 2023",
+        "readTime": "9 min read",
+        "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop",
+        "tags": ["GraphQL", "REST", "API"]
+      },
+      "scalableNodejs": {
+        "title": "Building Scalable Node.js Applications",
+        "description": "Best practices for building scalable Node.js applications that can handle high loads. Learn about clustering, caching, and performance monitoring.",
+        "date": "December 5, 2023",
+        "readTime": "12 min read",
+        "image": "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=400&fit=crop",
+        "tags": ["Node.js", "Scalability", "Performance"]
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Jordy van Vorselen - Portfolio",
+      "description": "Full-stack developer and software engineer portfolio"
+    },
+    "projects": {
+      "title": "Projects - Jordy van Vorselen",
+      "description": "Projects and open source contributions by Jordy van Vorselen"
+    },
+    "blog": {
+      "title": "Blog - Jordy van Vorselen",
+      "description": "Blog posts by Jordy van Vorselen"
+    },
+    "experience": {
+      "title": "Experience - Jordy van Vorselen",
+      "description": "Professional work experience and career journey by Jordy van Vorselen",
+      "professionalJourney": "Professional Journey",
+      "journeyDescription": "From early internships to senior engineering roles, here's how my journey in software development has evolved through continuous learning and impactful contributions."
+    }
+  },
+  "layout": {
+    "title": "Jordy van Vorselen - Portfolio",
+    "description": "Full-stack developer and software engineer portfolio",
+    "brandName": "More Than Bits"
+  },
+  "ui": {
+    "backToTop": "Back to top"
   }
 }

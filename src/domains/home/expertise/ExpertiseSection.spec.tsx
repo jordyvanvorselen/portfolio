@@ -6,14 +6,28 @@ describe('ExpertiseSection', () => {
   it('renders expertise section heading', () => {
     render(<ExpertiseSection />)
 
-    expect(screen.getByText('Want To Deliver Faster?')).toBeVisible()
+    expect(screen.getByText('expertise.section.title')).toBeVisible()
+  })
+
+  it('renders expertise section description', () => {
+    render(<ExpertiseSection />)
+
+    expect(screen.getByText('expertise.section.description')).toBeVisible()
+  })
+
+  it('has correct aria-label', () => {
+    render(<ExpertiseSection />)
+
+    expect(
+      screen.getByRole('region', { name: 'expertise.section.ariaLabel' })
+    ).toBeInTheDocument()
   })
 
   it('renders test-driven development expertise card', () => {
     render(<ExpertiseSection />)
 
     expect(
-      screen.getByRole('article', { name: /test-driven development/i })
+      screen.getByRole('article', { name: /expertise\.tdd\.ariaLabel/i })
     ).toBeInTheDocument()
   })
 })
