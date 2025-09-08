@@ -265,4 +265,20 @@ describe('Button', () => {
       expect(handleKeyDown).toHaveBeenCalled()
     })
   })
+
+  describe('Click Feedback', () => {
+    it('applies click-feedback class to button elements', () => {
+      render(<Button>Test Button</Button>)
+
+      const button = screen.getByRole('button', { name: 'Test Button' })
+      expect(button).toHaveClass('click-feedback')
+    })
+
+    it('applies click-feedback class to link elements', () => {
+      render(<Button href="/test">Test Link</Button>)
+
+      const link = screen.getByRole('link', { name: 'Test Link' })
+      expect(link).toHaveClass('click-feedback')
+    })
+  })
 })

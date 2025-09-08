@@ -37,3 +37,33 @@ html {
 body {
   background-color: #030712; /* gray-950 */
 }
+
+/* Click feedback animations for interactive elements */
+.click-feedback {
+  @apply transition-all duration-150;
+}
+
+.click-feedback:active {
+  @apply scale-[0.97];
+}
+
+.click-feedback-subtle {
+  @apply transition-all duration-150;
+}
+
+.click-feedback-subtle:active {
+  @apply scale-[0.98] opacity-90;
+}
+
+.click-feedback-bounce {
+  @apply transition-all duration-200;
+}
+
+.click-feedback-bounce:active {
+  @apply scale-95;
+}
+
+/* Optional: Ripple effect for premium CTAs */
+.click-ripple {
+  @apply relative overflow-hidden;
+}

@@ -85,7 +85,7 @@ export const BackToTopButton = ({
   }
 
   const baseClasses =
-    'inline-flex items-center justify-center transition-all duration-200 cursor-pointer rounded-md font-medium'
+    'inline-flex items-center justify-center transition-all duration-200 cursor-pointer rounded-md font-medium click-feedback'
   const variantStyles = getVariantStyles(variant, color)
   const sizeStyles = getSizeStyles(size)
   const iconSizeClass = getIconSize(size)

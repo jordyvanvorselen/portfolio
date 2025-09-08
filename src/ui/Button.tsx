@@ -112,7 +112,7 @@ const getVariantStyles = (
 
 const getSizeStyles = (size: ButtonSize, variant: ButtonVariant) => {
   const baseStyles =
-    'inline-flex items-center justify-center transition-all duration-300'
+    'inline-flex items-center justify-center transition-all duration-300 click-feedback'
 
   const sizeConfig = {
     xs: 'h-8 px-3 text-xs font-medium rounded-md',

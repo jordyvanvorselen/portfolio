@@ -40,14 +40,14 @@ export const MobileMenuButton = ({
   isPressed = false,
 }: MobileMenuButtonProps) => {
   const baseClasses =
-    'w-full flex border border-gray-700/50 rounded-lg bg-gray-800/40 hover:bg-gray-700/60 transition-all duration-150'
-  const animationClasses = isPressed ? 'scale-95 opacity-75' : 'hover:scale-105'
+    'w-full flex border border-gray-700/50 rounded-lg bg-gray-800/40 hover:bg-gray-700/60 transition-all duration-150 click-feedback-bounce'
+  const pressedClasses = isPressed ? 'opacity-75' : ''
 
   const combinedClasses = combineClasses(
     baseClasses,
     SIZE_STYLES[size],
     COLOR_STYLES[color],
-    animationClasses,
+    pressedClasses,
     className
   )
 
