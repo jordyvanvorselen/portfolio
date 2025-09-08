@@ -13,7 +13,8 @@ Object.defineProperty(document, 'cookie', {
 })
 
 describe('LanguageSwitcher', () => {
-  const mockUseLocale = jest.fn(() => 'en')
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const mockUseLocale = require('next-intl').useLocale as jest.Mock
 
   beforeEach(() => {
     document.cookie = ''
@@ -38,15 +39,14 @@ describe('LanguageSwitcher', () => {
     })
 
     it('switches to Dutch locale when clicked', () => {
-      // Mock window.location.reload
-      const mockReload = jest.fn()
-      Object.defineProperty(window, 'location', {
-        value: {
-          ...window.location,
-          reload: mockReload,
-        },
-        writable: true,
-      })
+      const implSymbol = Reflect.ownKeys(window.location).find(
+        i => typeof i === 'symbol'
+      )!
+
+      const reload = jest
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .spyOn((window.location as any)[implSymbol], 'reload')
+        .mockImplementation(() => {})
 
       render(<LanguageSwitcher />)
 
@@ -59,7 +59,7 @@ describe('LanguageSwitcher', () => {
       expect(document.cookie).toContain('max-age=31536000') // 1 year in seconds
 
       // Should reload the page
-      expect(mockReload).toHaveBeenCalledTimes(1)
+      expect(reload).toHaveBeenCalledTimes(1)
     })
   })
 
@@ -81,15 +81,14 @@ describe('LanguageSwitcher', () => {
     })
 
     it('switches to English locale when clicked', () => {
-      // Mock window.location.reload
-      const mockReload = jest.fn()
-      Object.defineProperty(window, 'location', {
-        value: {
-          ...window.location,
-          reload: mockReload,
-        },
-        writable: true,
-      })
+      const implSymbol = Reflect.ownKeys(window.location).find(
+        i => typeof i === 'symbol'
+      )!
+
+      const reload = jest
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .spyOn((window.location as any)[implSymbol], 'reload')
+        .mockImplementation(() => {})
 
       render(<LanguageSwitcher />)
 
@@ -100,7 +99,7 @@ describe('LanguageSwitcher', () => {
       expect(document.cookie).toContain('locale=en')
 
       // Should reload the page
-      expect(mockReload).toHaveBeenCalledTimes(1)
+      expect(reload).toHaveBeenCalledTimes(1)
     })
   })
 
