@@ -12,7 +12,8 @@ export default getRequestConfig(async () => {
   // Get the current hostname and cookies
   const requestHeaders = await headers()
   const cookieStore = await cookies()
-  const hostname = requestHeaders.get('host') ?? ''
+  const hostname =
+    requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host') ?? ''
 
   // Check for locale cookie first
   const cookieLocale = cookieStore.get('locale')?.value as Locale | undefined
@@ -22,13 +23,8 @@ export default getRequestConfig(async () => {
     cookieLocale && LOCALES.includes(cookieLocale) ? cookieLocale : null
 
   // Determine locale priority: cookie > hostname > fallback
-  console.log(`QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ Hostname: ${hostname}`)
   const hostnameLocale = HOSTNAME_LOCALE_MAP[hostname] ?? LOCALE_FALLBACK
-  console.log(
-    `QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ Hostname locale: ${hostnameLocale}`
-  )
   const locale: Locale = validCookieLocale ?? hostnameLocale
-  console.log(`QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ Set locale to: ${locale}`)
 
   return {
     locale,
