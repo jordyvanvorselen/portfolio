@@ -18,7 +18,6 @@ const customJestConfig = {
     '<rootDir>/node_modules/',
     '<rootDir>/tests/',
   ],
-  transformIgnorePatterns: ['node_modules/(?!(next-intl)/)'],
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.d.ts',
