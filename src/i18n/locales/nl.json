@@ -3,8 +3,8 @@
     "name": "Jordy van Vorselen",
     "title": "Freelance Software Engineer",
     "description": {
-      "main": "Ik help teams software van <b>uitzonderlijke kwaliteit</b> te leveren — en help hen dit <b>veel sneller</b> bij de klanten te brengen.",
-      "cta": "Heb je iemand zoals ik nodig om je team te versterken?"
+      "main": "Ik help teams software te leveren van <b>uitzonderlijke kwaliteit</b> — en help hen dit <b>veel sneller</b> aan de klanten te leveren.",
+      "cta": "Iemand zoals ik nodig om je team te versterken?"
     },
     "actions": {
       "getInTouch": "Neem Contact Op",
@@ -26,13 +26,13 @@
   "expertise": {
     "section": {
       "title": "Wil Je Sneller Leveren?",
-      "description": "Ik ben gespecialiseerd in het helpen van teams om sneller te ontwikkelen. Het omarmen van engineering best practices drijft snellere levering van uitzonderlijke resultaten.",
+      "description": "Ik help teams hun ontwikkelsnelheid te verhogen door het toepassen van bewezen engineering best practices. Dat zorgt voor vertrouwen en snelheid.",
       "ariaLabel": "Kernexpertise"
     },
     "tdd": {
       "ariaLabel": "Test-Driven Development",
       "title": "Test-Driven Development",
-      "description": "Ik schrijf eerst tests, dan code. Deze aanpak zorgt voor robuuste, bugvrije software met uitgebreide testdekking. Mijn TDD-praktijk leidt tot betere ontwerpbeslissingen en onderhoudbare codebases.",
+      "description": "Mijn aanpak is test-first: eerst tests, dan code. Dit levert betrouwbare software op, volledig gedekt door tests. TDD ondersteunt in het nemen van sterke ontwerpkeuzes en het bouwen van duurzame codebases.",
       "skills": [
         "Jest",
         "Cypress",
@@ -58,7 +58,7 @@
     "delivery": {
       "ariaLabel": "Continuous Delivery",
       "title": "Continuous Delivery",
-      "description": "Ik implementeer robuuste CI/CD-pijplijnen waarmee teams snel en betrouwbaar functies kunnen uitbrengen. Door geautomatiseerde tests, geleidelijke implementaties en infrastructuur als code help ik organisaties echte continuous delivery met vertrouwen te bereiken.",
+      "description": "Ik zorg voor CI/CD-pijplijnen waarmee we snel en betrouwbaar functionaliteit kunnen uitbrengen. Door geautomatiseerde tests, kleine iteraties en infrastructure as code help ik organisaties echte continuous delivery met vertrouwen te bereiken.",
       "skills": [
         "GitHub Actions",
         "Docker & Kubernetes",
@@ -68,8 +68,8 @@
       ]
     },
     "callToAction": {
-      "description": "Klaar om te bespreken hoe deze vaardigheden jouw project kunnen helpen?",
-      "availability": "Beschikbaar voor remote consulting en fulltime kansen"
+      "description": "Eens bespreken hoe deze vaardigheden jouw project kunnen versnellen?",
+      "availability": "Beschikbaar voor remote consulting en fulltime opportunities"
     }
   },
   "footer": {
@@ -84,7 +84,7 @@
     "getInTouch": "Neem Contact Op",
     "copyright": "© 2025 Jordy van Vorselen. Gemaakt met",
     "coffeeText": "en veel koffie.",
-    "availability": "Beschikbaar voor remote mogelijkheden"
+    "availability": "Beschikbaar voor remote opportunities"
   },
   "social": {
     "github": "GitHub",
@@ -395,9 +395,9 @@
     "brandName": "More Than Bits"
   },
   "skills": {
-    "title": "Ingehuurd Door De Besten",
-    "subtitle": "Ik heb gewerkt met de grootste Nederlandse bedrijven met deze technologieën",
-    "experienceOverview": "Compleet overzicht van ervaring"
+    "title": "Vertrouwd Door De Besten",
+    "subtitle": "Ik heb samengewerkt met de grootste bedrijven in Nederland, met deze technologieën",
+    "experienceOverview": "Compleet overzicht van technologieën"
   },
   "ui": {
     "backToTop": "Terug naar boven",

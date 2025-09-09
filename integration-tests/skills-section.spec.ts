@@ -26,10 +26,10 @@ test.describe('Skills Section', () => {
 
     // Verify main heading and subtitle
     await expect(homePage.skillsSection.title).toBeVisible()
-    await expect(homePage.skillsSection.title).toHaveText('Hired By The Best')
+    await expect(homePage.skillsSection.title).toHaveText('Trusted By The Best')
     await expect(homePage.skillsSection.subtitle).toBeVisible()
     await expect(homePage.skillsSection.subtitle).toContainText(
-      'biggest Dutch companies using these technologies'
+      'biggest Dutch companies, using these technologies'
     )
 
     // Verify all 10 technology cards are displayed

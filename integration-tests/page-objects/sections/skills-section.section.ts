@@ -12,16 +12,16 @@ export class SkillsSection extends BaseSection {
 
   // Main heading and text - using role and text (Priority 1: Accessible queries)
   readonly title: Locator = this.section.getByRole('heading', {
-    name: 'Hired By The Best',
+    name: 'Trusted By The Best',
     level: 2,
   })
   readonly subtitle: Locator = this.section.getByText(
-    /I've worked with.*companies using these technologies/
+    /biggest Dutch companies, using these technologies/
   )
 
   // Experience link - using role (Priority 1: Accessible queries)
   readonly experienceLink: Locator = this.section.getByRole('link', {
-    name: /Complete experience overview/,
+    name: /Complete technology overview/,
   })
 
   // Technology cards - using text content (Priority 1: Accessible queries)
