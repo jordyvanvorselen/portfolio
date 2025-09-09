@@ -14,7 +14,7 @@ export const SkillSection = () => {
   return (
     <section
       id="skills-section"
-      className="content-section-min relative overflow-hidden py-4 md:py-6 lg:py-8 border-t border-gray-800 flex flex-col"
+      className="content-section-min relative overflow-hidden py-4 md:py-6 lg:py-8 border-t border-gray-900 flex flex-col"
     >
       <div className="absolute inset-0 bg-gradient-to-bl from-gray-900 via-gray-950 to-black" />
 
