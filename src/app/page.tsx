@@ -1,6 +1,7 @@
 import { HeroSection } from '@/domains/home/hero/HeroSection'
 import { SkillSection } from '@/domains/home/skills/SkillSection'
 import { ExpertiseSection } from '@/domains/home/expertise/ExpertiseSection'
+import { FaqSection } from '@/domains/home/faq/FaqSection'
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <HeroSection />
       <ExpertiseSection />
       <SkillSection />
+      <FaqSection />
     </main>
   )
 }

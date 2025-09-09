@@ -53,7 +53,7 @@ export const Title = ({
   const sizeStyles = {
     xs: 'text-xs leading-4',
     sm: 'text-sm leading-5',
-    md: 'text-xl md:text-2xl leading-7 md:leading-8',
+    md: 'text-xl leading-7',
     lg: 'text-2xl leading-8',
     xl: 'text-2xl md:text-3xl lg:text-4xl leading-8 md:leading-9 lg:leading-10',
     '2xl':
