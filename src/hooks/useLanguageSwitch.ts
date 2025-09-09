@@ -1,9 +1,9 @@
 'use client'
 
 import { useLocale } from 'next-intl'
-import { setCookie } from 'cookies-next/client'
 import { useRouter } from 'next/navigation'
-import { LOCALES, type Locale } from '@/i18n/config'
+import { setCookie } from 'cookies-next/client'
+import { routing, type Locale } from '@/i18n/routing'
 
 export const useLanguageSwitch = () => {
   const currentLocale = useLocale() as Locale
@@ -12,7 +12,8 @@ export const useLanguageSwitch = () => {
   const targetLocale: Locale = currentLocale === 'en' ? 'nl' : 'en'
 
   const switchLanguage = () => {
-    // Set cookie using cookies-next for better handling
+    // With domain routing, we still need to set a cookie for locale preference
+    // The middleware will use this to determine which locale to serve on the current domain
     setCookie('locale', targetLocale, {
       maxAge: 60 * 60 * 24 * 365, // 1 year
       path: '/',
@@ -20,7 +21,7 @@ export const useLanguageSwitch = () => {
       sameSite: 'lax',
     })
 
-    // Refresh the current page to apply the new locale
+    // Refresh to apply the new locale (domain routing with cookie preference)
     router.refresh()
   }
 
@@ -28,6 +29,6 @@ export const useLanguageSwitch = () => {
     currentLocale,
     targetLocale,
     switchLanguage,
-    availableLocales: LOCALES,
+    availableLocales: routing.locales,
   }
 }

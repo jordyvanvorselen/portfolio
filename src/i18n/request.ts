@@ -1,30 +1,21 @@
 import { getRequestConfig } from 'next-intl/server'
-import { headers, cookies } from 'next/headers'
+import { cookies } from 'next/headers'
+import { routing, type Locale } from '@/i18n/routing'
 
-import {
-  HOSTNAME_LOCALE_MAP,
-  LOCALE_FALLBACK,
-  LOCALES,
-  type Locale,
-} from '@/i18n/config'
+export default getRequestConfig(async ({ requestLocale }) => {
+  let locale = await requestLocale
 
-export default getRequestConfig(async () => {
-  // Get the current hostname and cookies
-  const requestHeaders = await headers()
-  const cookieStore = await cookies()
-  const hostname =
-    requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host') ?? ''
+  // If no locale from domain routing, check for cookie preference
+  if (!locale || !routing.locales.includes(locale as Locale)) {
+    const cookieStore = await cookies()
+    const cookieLocale = cookieStore.get('locale')?.value
 
-  // Check for locale cookie first
-  const cookieLocale = cookieStore.get('locale')?.value as Locale | undefined
-
-  // Validate cookie locale
-  const validCookieLocale =
-    cookieLocale && LOCALES.includes(cookieLocale) ? cookieLocale : null
-
-  // Determine locale priority: cookie > hostname > fallback
-  const hostnameLocale = HOSTNAME_LOCALE_MAP[hostname] ?? LOCALE_FALLBACK
-  const locale: Locale = validCookieLocale ?? hostnameLocale
+    if (cookieLocale && routing.locales.includes(cookieLocale as Locale)) {
+      locale = cookieLocale
+    } else {
+      locale = routing.defaultLocale
+    }
+  }
 
   return {
     locale,
