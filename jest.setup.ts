@@ -87,3 +87,11 @@ jest.mock('cookies-next/client', () => ({
   deleteCookie: jest.fn(),
   hasCookie: jest.fn(),
 }))
+
+// Mock i18n routing globally to avoid Jest ESM issues
+jest.mock('@/i18n/routing', () => ({
+  routing: {
+    locales: ['en', 'nl'],
+    defaultLocale: 'en',
+  },
+}))
