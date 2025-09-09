@@ -22,7 +22,9 @@ export default getRequestConfig(async () => {
     cookieLocale && LOCALES.includes(cookieLocale) ? cookieLocale : null
 
   // Determine locale priority: cookie > hostname > fallback
+  console.log(hostname)
   const hostnameLocale = HOSTNAME_LOCALE_MAP[hostname] ?? LOCALE_FALLBACK
+  console.log(hostnameLocale)
   const locale: Locale = validCookieLocale ?? hostnameLocale
 
   return {
