@@ -399,6 +399,39 @@
     "subtitle": "Ik heb samengewerkt met de grootste bedrijven in Nederland, met deze technologieën",
     "experienceOverview": "Compleet overzicht van technologieën"
   },
+  "faq": {
+    "section": {
+      "title": "Veelgestelde Vragen",
+      "description": "Vind antwoorden op veelgestelde vragen over mijn werk, expertise en aanpak van softwareontwikkeling.",
+      "ariaLabel": "Veelgestelde Vragen"
+    },
+    "items": {
+      "availability": {
+        "question": "Ben je beschikbaar voor nieuwe projecten?",
+        "answer": "Ja, ik sta momenteel open voor nieuwe kansen en projecten. Neem gerust contact op om te bespreken hoe ik kan bijdragen aan jouw team of project."
+      },
+      "rate": {
+        "question": "Wat is jouw uurtarief?",
+        "answer": "Mijn uurtarief is €95,00 per uur."
+      },
+      "technology": {
+        "question": "Heb je ervaring met [Een Andere Technologie]?",
+        "answer": "Als freelancer en consultant ben ik gewend om snel nieuwe technologieën onder de knie te krijgen. Hoewel ik misschien geen directe ervaring heb met [Een Andere Technologie], heb ik een sterke basis in gerelateerde technologieën en project na project bewezen dat ik snel kan leren en mezelf snel aanpas aan nieuwe tools en frameworks. Uiteindelijk zijn het de solide fundamentele principes die ertoe doen, niet de specifieke technologie. Een groot voordeel hiervan is dat ik frisse perspectieven en innovatieve oplossingen kan aandragen voor jouw project."
+      },
+      "remote": {
+        "question": "Werk je op afstand?",
+        "answer": "Absoluut! Ik ben Nederlander, maar heb uitgebreide ervaring met werken in gedistribueerde teams over verschillende tijdzones. Ik ben bedreven in asynchrone communicatie, samenwerkingstools en het opbouwen van sterke remote werkrelaties. Ik geloof dat met de juiste tools en mindset, remote werk veel effectiever kan zijn dan kantoorwerk. Ik neig ertoe om zoveel mogelijk in de tijdzone van de klant te werken om real-time communicatie en samenwerking te faciliteren. Ik ben zeer flexibel — zelfs Amerikaanse, Aziatische of Australische tijdzones zijn mogelijk geen probleem — dus aarzel niet om contact op te nemen om de mogelijkheden te bespreken."
+      },
+      "advice": {
+        "question": "Ik wil gewoon wat advies, kun je helpen?",
+        "answer": "Zeker! Ik bied consultancydiensten waar ik deskundig advies kan geven over software-architectuur, technologieselectie, projectmanagement en best practices. Of je nu een eenmalige consultatie of doorlopende ondersteuning nodig hebt, ik ben er om je te helpen geïnformeerde beslissingen te nemen en je projectdoelen te bereiken."
+      },
+      "startup": {
+        "question": "Ik ben een startup en heb geen groot budget. Kun je nog steeds helpen?",
+        "answer": "Absoluut! Ik begrijp de uitdagingen waarmee startups worden geconfronteerd, en ik ben toegewijd om je te helpen slagen. Ik bied flexibele prijsopties en kan met je samenwerken om een oplossing te vinden die bij jouw budget past terwijl ik nog steeds hoogwaardige resultaten lever. Laten we jouw behoeften bespreken en kijken hoe we effectief kunnen samenwerken."
+      }
+    }
+  },
   "ui": {
     "backToTop": "Terug naar boven",
     "languageSwitcher": {

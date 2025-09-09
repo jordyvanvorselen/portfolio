@@ -1,11 +1,14 @@
+import { useTranslations } from 'next-intl'
+
 import { FaqHeader } from '@/domains/home/faq/FaqHeader'
 import { FaqList } from '@/domains/home/faq/FaqList'
 
 export const FaqSection = () => {
+  const t = useTranslations()
   return (
     <section
       id="faq-section"
-      aria-label="FAQ"
+      aria-label={t('faq.section.ariaLabel')}
       className="content-section-min relative overflow-hidden py-4 md:py-6 lg:py-8 bg-gray-950 border-t border-gray-800"
     >
       {/* Main gradient background */}

@@ -39,7 +39,7 @@ export const AccordionItem = ({
     <div
       onClick={handleToggle}
       onKeyDown={handleKeyDown}
-      className="cursor-pointer active:bg-transparent focus:outline-none"
+      className="cursor-pointer space-x-4 active:bg-transparent focus:outline-none"
       aria-expanded={isOpen}
       role="button"
       tabIndex={0}
@@ -49,7 +49,7 @@ export const AccordionItem = ({
         className={`[&>div:last-child]:p-5 ${className}`}
         hoverZoom={false}
       >
-        <div className="flex justify-between items-start gap-4">
+        <div className="flex justify-between items-start px-2 gap-4">
           <div className="flex-1">{trigger}</div>
           <ChevronDown
             className={`w-5 h-5 text-gray-400 transition-all duration-300 flex-shrink-0 mt-1 hover:text-teal-400 ${

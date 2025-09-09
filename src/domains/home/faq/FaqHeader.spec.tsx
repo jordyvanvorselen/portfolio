@@ -7,7 +7,7 @@ describe('FaqHeader', () => {
     render(<FaqHeader />)
 
     const heading = screen.getByRole('heading', {
-      name: 'Frequently Asked Questions',
+      name: 'faq.section.title',
     })
     expect(heading).toBeVisible()
     expect(heading.tagName).toBe('H2')
@@ -16,9 +16,7 @@ describe('FaqHeader', () => {
   it('renders the subtitle with descriptive text', () => {
     render(<FaqHeader />)
 
-    const subtitle = screen.getByText(
-      'Find answers to common questions about my work, expertise, and approach to software development.'
-    )
+    const subtitle = screen.getByText('faq.section.description')
     expect(subtitle).toBeVisible()
   })
 
@@ -35,8 +33,8 @@ describe('FaqHeader', () => {
     render(<FaqHeader />)
 
     // Title should come before subtitle in DOM order
-    const title = screen.getByText('Frequently Asked Questions')
-    const subtitle = screen.getByText(/Find answers to common questions/)
+    const title = screen.getByText('faq.section.title')
+    const subtitle = screen.getByText('faq.section.description')
 
     expect(
       title.compareDocumentPosition(subtitle) & Node.DOCUMENT_POSITION_FOLLOWING

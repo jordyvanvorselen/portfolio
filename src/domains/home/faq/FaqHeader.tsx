@@ -1,7 +1,10 @@
+import { useTranslations } from 'next-intl'
+
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 
 export const FaqHeader = () => {
+  const t = useTranslations()
   return (
     <div className="text-center mb-12">
       <Title
@@ -12,7 +15,7 @@ export const FaqHeader = () => {
         as="h2"
         className="mb-6"
       >
-        Frequently Asked Questions
+        {t('faq.section.title')}
       </Title>
 
       <Text
@@ -23,8 +26,7 @@ export const FaqHeader = () => {
         lineHeight="relaxed"
         className="max-w-2xl mx-auto"
       >
-        Find answers to common questions about my work, expertise, and approach
-        to software development.
+        {t('faq.section.description')}
       </Text>
     </div>
   )

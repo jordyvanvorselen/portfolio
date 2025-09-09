@@ -5,9 +5,8 @@ import { AccordionContext } from '@/ui/Accordion'
 
 describe('FaqItem', () => {
   const mockFaq = {
-    question: 'What is your experience with React?',
-    answer:
-      'I have extensive experience with React, including hooks, context, and modern patterns.',
+    questionKey: 'faq.items.test.question',
+    answerKey: 'faq.items.test.answer',
   }
 
   const mockSetOpenIndex = jest.fn()
@@ -33,42 +32,28 @@ describe('FaqItem', () => {
   it('displays the FAQ question', () => {
     renderFaqItem()
 
-    expect(
-      screen.getByText('What is your experience with React?')
-    ).toBeVisible()
+    expect(screen.getByText('faq.items.test.question')).toBeVisible()
   })
 
   it('displays the FAQ answer when expanded', () => {
     // Render as expanded (openIndex matches this item's index)
     renderFaqItem(0, mockFaq, 0)
 
-    expect(
-      screen.getByText(
-        'I have extensive experience with React, including hooks, context, and modern patterns.'
-      )
-    ).toBeVisible()
+    expect(screen.getByText('faq.items.test.answer')).toBeVisible()
   })
 
   it('hides the FAQ answer when collapsed', () => {
     // Render as collapsed (openIndex is null)
     renderFaqItem(0, mockFaq, null)
 
-    expect(
-      screen.queryByText(
-        'I have extensive experience with React, including hooks, context, and modern patterns.'
-      )
-    ).not.toBeInTheDocument()
+    expect(screen.queryByText('faq.items.test.answer')).not.toBeInTheDocument()
   })
 
   it('hides the FAQ answer when another item is open', () => {
     // Render with openIndex pointing to different item
     renderFaqItem(0, mockFaq, 1)
 
-    expect(
-      screen.queryByText(
-        'I have extensive experience with React, including hooks, context, and modern patterns.'
-      )
-    ).not.toBeInTheDocument()
+    expect(screen.queryByText('faq.items.test.answer')).not.toBeInTheDocument()
   })
 
   it('calls setOpenIndex when clicked to expand', () => {
@@ -91,35 +76,27 @@ describe('FaqItem', () => {
 
   it('handles different FAQ data correctly', () => {
     const differentFaq = {
-      question: 'How do you approach testing?',
-      answer:
-        'I use comprehensive testing strategies including unit, integration, and e2e tests.',
+      questionKey: 'faq.items.testing.question',
+      answerKey: 'faq.items.testing.answer',
     }
 
     renderFaqItem(1, differentFaq)
 
-    expect(screen.getByText('How do you approach testing?')).toBeVisible()
+    expect(screen.getByText('faq.items.testing.question')).toBeVisible()
     expect(
-      screen.queryByText(
-        'I use comprehensive testing strategies including unit, integration, and e2e tests.'
-      )
+      screen.queryByText('faq.items.testing.answer')
     ).not.toBeInTheDocument()
   })
 
   it('shows answer for different FAQ when expanded', () => {
     const differentFaq = {
-      question: 'How do you approach testing?',
-      answer:
-        'I use comprehensive testing strategies including unit, integration, and e2e tests.',
+      questionKey: 'faq.items.testing.question',
+      answerKey: 'faq.items.testing.answer',
     }
 
     renderFaqItem(1, differentFaq, 1) // This item is expanded
 
-    expect(
-      screen.getByText(
-        'I use comprehensive testing strategies including unit, integration, and e2e tests.'
-      )
-    ).toBeVisible()
+    expect(screen.getByText('faq.items.testing.answer')).toBeVisible()
   })
 
   it('handles keyboard interaction', () => {
@@ -157,9 +134,7 @@ describe('FaqItem', () => {
   it('has proper aria-label for accessibility', () => {
     renderFaqItem(0, mockFaq)
 
-    const card = screen.getByLabelText(
-      'FAQ: What is your experience with React?'
-    )
+    const card = screen.getByLabelText('FAQ: faq.items.test.question')
     expect(card).toBeVisible()
   })
 

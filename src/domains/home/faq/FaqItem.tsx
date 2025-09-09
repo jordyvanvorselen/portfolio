@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl'
+
 import { AccordionItem } from '@/ui/AccordionItem'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
@@ -9,6 +11,7 @@ export interface FaqItemProps {
 }
 
 export const FaqItem = ({ index, faq }: FaqItemProps) => {
+  const t = useTranslations()
   const trigger = (
     <Title
       size="md"
@@ -18,7 +21,7 @@ export const FaqItem = ({ index, faq }: FaqItemProps) => {
       as="h3"
       className="leading-relaxed"
     >
-      {faq.question}
+      {t(faq.questionKey)}
     </Title>
   )
 
@@ -26,7 +29,7 @@ export const FaqItem = ({ index, faq }: FaqItemProps) => {
     <AccordionItem
       index={index}
       trigger={trigger}
-      ariaLabel={`FAQ: ${faq.question}`}
+      ariaLabel={`FAQ: ${t(faq.questionKey)}`}
     >
       <Text
         size="base"
@@ -36,7 +39,7 @@ export const FaqItem = ({ index, faq }: FaqItemProps) => {
         lineHeight="relaxed"
         className="p-3"
       >
-        {faq.answer}
+        {t(faq.answerKey)}
       </Text>
     </AccordionItem>
   )

@@ -7,22 +7,12 @@ describe('FaqList', () => {
     render(<FaqList />)
 
     // Check that all FAQ questions are rendered
-    expect(
-      screen.getByText('Are you available for new projects?')
-    ).toBeVisible()
-    expect(screen.getByText('What is your hourly rate?')).toBeVisible()
-    expect(
-      screen.getByText('Are you experienced with <Some Other Technology>?')
-    ).toBeVisible()
-    expect(screen.getByText('Do you work remotely?')).toBeVisible()
-    expect(
-      screen.getByText('I just want a bit of advice, can you help?')
-    ).toBeVisible()
-    expect(
-      screen.getByText(
-        "I'm a startup and I don't have a big budget. Can you still help?"
-      )
-    ).toBeVisible()
+    expect(screen.getByText('faq.items.availability.question')).toBeVisible()
+    expect(screen.getByText('faq.items.rate.question')).toBeVisible()
+    expect(screen.getByText('faq.items.technology.question')).toBeVisible()
+    expect(screen.getByText('faq.items.remote.question')).toBeVisible()
+    expect(screen.getByText('faq.items.advice.question')).toBeVisible()
+    expect(screen.getByText('faq.items.startup.question')).toBeVisible()
   })
 
   it('initially shows no expanded FAQ answers', () => {
@@ -30,135 +20,115 @@ describe('FaqList', () => {
 
     // None of the answers should be visible initially
     expect(
-      screen.queryByText(/Yes, I am currently open to new opportunities/)
+      screen.queryByText('faq.items.availability.answer')
+    ).not.toBeInTheDocument()
+    expect(screen.queryByText('faq.items.rate.answer')).not.toBeInTheDocument()
+    expect(
+      screen.queryByText('faq.items.technology.answer')
     ).not.toBeInTheDocument()
     expect(
-      screen.queryByText(/My hourly rate is €95,00 per hour/)
+      screen.queryByText('faq.items.remote.answer')
     ).not.toBeInTheDocument()
     expect(
-      screen.queryByText(/quickly mastering new technologies/)
+      screen.queryByText('faq.items.advice.answer')
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByText('faq.items.startup.answer')
     ).not.toBeInTheDocument()
   })
 
   it('expands FAQ item when clicked', () => {
     render(<FaqList />)
 
-    const firstFaq = screen.getByRole('button', {
-      name: /Are you available for new projects?/,
-    })
+    const firstFaq = screen.getByLabelText(
+      'FAQ: faq.items.availability.question'
+    )
     fireEvent.click(firstFaq)
 
     // Answer should now be visible
-    expect(
-      screen.getByText(
-        /Yes, I am currently open to new opportunities and projects/
-      )
-    ).toBeVisible()
+    expect(screen.getByText('faq.items.availability.answer')).toBeVisible()
   })
 
   it('collapses FAQ item when clicked again', () => {
     render(<FaqList />)
 
-    const firstFaq = screen.getByRole('button', {
-      name: /Are you available for new projects?/,
-    })
+    const firstFaq = screen.getByLabelText(
+      'FAQ: faq.items.availability.question'
+    )
 
     // Expand
     fireEvent.click(firstFaq)
-    expect(
-      screen.getByText(
-        /Yes, I am currently open to new opportunities and projects/
-      )
-    ).toBeVisible()
+    expect(screen.getByText('faq.items.availability.answer')).toBeVisible()
 
     // Collapse
     fireEvent.click(firstFaq)
     expect(
-      screen.queryByText(
-        /Yes, I am currently open to new opportunities and projects/
-      )
+      screen.queryByText('faq.items.availability.answer')
     ).not.toBeInTheDocument()
   })
 
   it('only allows one FAQ to be open at a time', () => {
     render(<FaqList />)
 
-    const firstFaq = screen.getByRole('button', {
-      name: /Are you available for new projects?/,
-    })
-    const secondFaq = screen.getByRole('button', {
-      name: /What is your hourly rate?/,
-    })
+    const firstFaq = screen.getByLabelText(
+      'FAQ: faq.items.availability.question'
+    )
+    const secondFaq = screen.getByLabelText('FAQ: faq.items.rate.question')
 
     // Open first FAQ
     fireEvent.click(firstFaq)
-    expect(
-      screen.getByText(
-        /Yes, I am currently open to new opportunities and projects/
-      )
-    ).toBeVisible()
+    expect(screen.getByText('faq.items.availability.answer')).toBeVisible()
 
     // Open second FAQ - first should close
     fireEvent.click(secondFaq)
     expect(
-      screen.queryByText(
-        /Yes, I am currently open to new opportunities and projects/
-      )
+      screen.queryByText('faq.items.availability.answer')
     ).not.toBeInTheDocument()
-    expect(screen.getByText(/My hourly rate is €95,00 per hour/)).toBeVisible()
+    expect(screen.getByText('faq.items.rate.answer')).toBeVisible()
   })
 
   it('handles keyboard interaction', () => {
     render(<FaqList />)
 
-    const firstFaq = screen.getByRole('button', {
-      name: /Are you available for new projects?/,
-    })
+    const firstFaq = screen.getByLabelText(
+      'FAQ: faq.items.availability.question'
+    )
 
     // Press Enter
     fireEvent.keyDown(firstFaq, { key: 'Enter' })
 
-    expect(
-      screen.getByText(
-        /Yes, I am currently open to new opportunities and projects/
-      )
-    ).toBeVisible()
+    expect(screen.getByText('faq.items.availability.answer')).toBeVisible()
   })
 
   it('handles Space key interaction', () => {
     render(<FaqList />)
 
-    const firstFaq = screen.getByRole('button', {
-      name: /Are you available for new projects?/,
-    })
+    const firstFaq = screen.getByLabelText(
+      'FAQ: faq.items.availability.question'
+    )
 
     // Press Space
     fireEvent.keyDown(firstFaq, { key: ' ' })
 
-    expect(
-      screen.getByText(
-        /Yes, I am currently open to new opportunities and projects/
-      )
-    ).toBeVisible()
+    expect(screen.getByText('faq.items.availability.answer')).toBeVisible()
   })
 
   it('maintains proper ARIA expanded state', () => {
     render(<FaqList />)
 
-    const firstFaq = screen.getByRole('button', {
-      name: /Are you available for new projects?/,
-    })
+    // Find the button element that has aria-expanded attribute
+    const firstFaqButton = screen.getAllByRole('button')[0]!
 
     // Initially collapsed
-    expect(firstFaq).toHaveAttribute('aria-expanded', 'false')
+    expect(firstFaqButton).toHaveAttribute('aria-expanded', 'false')
 
     // Expand
-    fireEvent.click(firstFaq)
-    expect(firstFaq).toHaveAttribute('aria-expanded', 'true')
+    fireEvent.click(firstFaqButton)
+    expect(firstFaqButton).toHaveAttribute('aria-expanded', 'true')
 
     // Collapse
-    fireEvent.click(firstFaq)
-    expect(firstFaq).toHaveAttribute('aria-expanded', 'false')
+    fireEvent.click(firstFaqButton)
+    expect(firstFaqButton).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('renders correct number of FAQ items', () => {

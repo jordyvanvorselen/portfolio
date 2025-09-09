@@ -22,7 +22,7 @@ export class FaqSection extends BaseSection {
     .filter({ hasText: 'What is your hourly rate?' })
   readonly technologyFaq: Locator = this.section
     .getByRole('button')
-    .filter({ hasText: 'Are you experienced with <Some Other Technology>?' })
+    .filter({ hasText: 'Are you experienced with [Some Other Technology]?' })
   readonly remoteFaq: Locator = this.section
     .getByRole('button')
     .filter({ hasText: 'Do you work remotely?' })

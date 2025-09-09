@@ -6,7 +6,7 @@ describe('FaqSection', () => {
   it('renders the FAQ section with correct id and aria-label', () => {
     render(<FaqSection />)
 
-    const section = screen.getByLabelText('FAQ')
+    const section = screen.getByLabelText('faq.section.ariaLabel')
     expect(section).toBeVisible()
     expect(section).toHaveAttribute('id', 'faq-section')
   })
@@ -16,26 +16,26 @@ describe('FaqSection', () => {
 
     // FaqHeader renders the main title
     expect(
-      screen.getByRole('heading', { name: 'Frequently Asked Questions' })
+      screen.getByRole('heading', { name: 'faq.section.title' })
     ).toBeVisible()
-    expect(screen.getByText(/Find answers to common questions/)).toBeVisible()
+    expect(screen.getByText('faq.section.description')).toBeVisible()
   })
 
   it('renders FaqList component with FAQ items', () => {
     render(<FaqSection />)
 
     // FaqList should render multiple FAQ items - check for a few key questions
-    expect(
-      screen.getByText('Are you available for new projects?')
-    ).toBeVisible()
-    expect(screen.getByText('What is your hourly rate?')).toBeVisible()
-    expect(screen.getByText('Do you work remotely?')).toBeVisible()
+    expect(screen.getByText('faq.items.availability.question')).toBeVisible()
+    expect(screen.getByText('faq.items.rate.question')).toBeVisible()
+    expect(screen.getByText('faq.items.remote.question')).toBeVisible()
   })
 
   it('has proper semantic structure', () => {
     render(<FaqSection />)
 
-    const section = screen.getByRole('region', { name: 'FAQ' })
+    const section = screen.getByRole('region', {
+      name: 'faq.section.ariaLabel',
+    })
     expect(section).toBeVisible()
 
     // Should contain a heading
