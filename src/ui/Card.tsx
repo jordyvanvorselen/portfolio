@@ -4,12 +4,14 @@ interface CardProps {
   children: ReactNode
   'aria-label'?: string
   className?: string
+  hoverZoom?: boolean
 }
 
 export const Card = ({
   children,
   'aria-label': ariaLabel,
   className = '',
+  hoverZoom = true,
 }: CardProps) => {
   const combinedClasses = [
     'rounded-xl',
@@ -25,8 +27,7 @@ export const Card = ({
     'overflow-hidden',
     'transition-all',
     'duration-500',
-    'hover:transform',
-    'hover:scale-[1.02]',
+    ...(hoverZoom ? ['hover:transform', 'hover:scale-[1.02]'] : []),
     className,
   ]
     .filter(Boolean)

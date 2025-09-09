@@ -4,6 +4,7 @@ import { BasePage } from '@/integration-tests/page-objects/base.page'
 import { Hero } from '@/integration-tests/page-objects/sections/hero.section'
 import { ExpertiseSection } from '@/integration-tests/page-objects/sections/expertise-section.section'
 import { SkillsSection } from '@/integration-tests/page-objects/sections/skills-section.section'
+import { FaqSection } from '@/integration-tests/page-objects/sections/faq-section'
 import { TddCard } from '@/integration-tests/page-objects/sections/tdd-card.section'
 import { SoftwareArchitectureCard } from '@/integration-tests/page-objects/sections/software-architecture-card.section'
 import { ContinuousDeliveryCard } from '@/integration-tests/page-objects/sections/continuous-delivery-card.section'
@@ -12,6 +13,7 @@ export class HomePage extends BasePage {
   readonly hero: Hero = new Hero(this.page)
   readonly expertiseSection: ExpertiseSection = new ExpertiseSection(this.page)
   readonly skillsSection: SkillsSection = new SkillsSection(this.page)
+  readonly faqSection: FaqSection = new FaqSection(this.page)
   readonly tddCard: TddCard = new TddCard(this.page)
   readonly softwareArchitectureCard: SoftwareArchitectureCard =
     new SoftwareArchitectureCard(this.page)
