@@ -10,7 +10,7 @@ export const FaqList = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <div className="max-w-3xl mx-auto mt-20">
+    <div className="max-w-3xl mx-auto mt-24 md:mt-28">
       <Accordion
         openIndex={openIndex}
         onOpenChange={setOpenIndex}

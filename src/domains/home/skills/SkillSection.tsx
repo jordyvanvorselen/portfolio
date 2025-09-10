@@ -14,7 +14,7 @@ export const SkillSection = () => {
   return (
     <section
       id="skills-section"
-      className="content-section-min relative overflow-hidden py-4 md:py-6 lg:py-8 border-t border-gray-900 flex flex-col"
+      className="content-section-min relative overflow-hidden py-16 md:py-24 lg:py-28 border-t border-gray-900 flex flex-col"
     >
       <div className="absolute inset-0 bg-gradient-to-bl from-gray-900 via-gray-950 to-black" />
 
@@ -49,8 +49,8 @@ export const SkillSection = () => {
           />
         </div>
 
-        <div className="flex flex-col flex-1 justify-evenly mt-12 xl:mt-0">
-          <div>
+        <div className="flex flex-col flex-1 justify-evenly mt-12 md:mt-16 lg:mt-20 xl:mt-24 space-y-8 md:space-y-12 lg:space-y-16">
+          <div className="space-y-6 md:space-y-8">
             <Title
               size="3xl"
               weight="bold"
@@ -61,24 +61,18 @@ export const SkillSection = () => {
               {t('skills.title')}
             </Title>
 
-            <Title
-              size="lg"
-              weight="normal"
-              color="secondary"
-              align="center"
-              className="mt-6"
-            >
+            <Title size="lg" weight="normal" color="secondary" align="center">
               {t('skills.subtitle')}
             </Title>
           </div>
 
-          <div className="flex flex-col items-center gap-8 mt-8 xl:mt-0">
+          <div className="flex flex-col items-center">
             <TechnologyGrid />
           </div>
 
           <Link
             href="/experience"
-            className="group flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 mt-6"
+            className="group flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 xl:pt-12"
           >
             <Title
               size="md"
