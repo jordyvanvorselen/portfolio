@@ -23,63 +23,69 @@ export const HeroSection = () => {
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
-      <div className="relative z-10 min-h-full xl:h-full flex flex-col xl:flex-row">
-        {/* Left side - all content */}
-        <div className="flex-1 xl:w-5/7 flex flex-col 2xl:mt-24 xl:mt-12">
-          <div className="flex-1 flex flex-col xl:justify-center items-center px-4 md:px-8 lg:px-12 py-8 xl:py-0">
-            <div className="w-full max-w-4xl">
-              {/* Mobile circular image - only visible on mobile */}
-              <div className="flex justify-center mb-8 xl:hidden">
-                <div className="relative">
-                  <div className="absolute inset-0 rounded-full bg-gray-900"></div>
-                  <Image
-                    height={128}
-                    width={128}
-                    src={jordy.src}
-                    alt="Photo of Jordy"
-                    className="w-32 h-32 rounded-full object-cover object-top relative z-10"
-                  />
+      <div className="relative z-10 min-h-full xl:h-full flex flex-col">
+        <div className="flex-1 flex flex-col xl:flex-row">
+          {/* Left side - all content */}
+          <div className="flex-1 xl:w-5/7 flex flex-col">
+            <div className="flex-1 flex flex-col justify-center items-center px-4 md:px-8 lg:px-12 py-16 md:py-20 lg:py-24 xl:py-0">
+              <div className="w-full max-w-4xl space-y-8 md:space-y-10 lg:space-y-12">
+                {/* Mobile circular image - only visible on mobile */}
+                <div className="flex justify-center xl:hidden">
+                  <div className="relative">
+                    <div className="absolute inset-0 rounded-full bg-gray-900"></div>
+                    <Image
+                      height={128}
+                      width={128}
+                      src={jordy.src}
+                      alt="Photo of Jordy"
+                      className="w-32 h-32 rounded-full object-cover object-top relative z-10"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex justify-center">
+                  <HeroName />
+                </div>
+
+                <div className="flex justify-center">
+                  <HeroTitle />
+                </div>
+
+                <div className="flex justify-center">
+                  <HeroDescription />
+                </div>
+
+                <div className="flex justify-center">
+                  <HeroActions />
+                </div>
+
+                <div className="flex justify-center">
+                  <SocialLinks />
                 </div>
               </div>
-              <div className="flex justify-center mb-4 md:mb-3 lg:mb-4">
-                <HeroName />
-              </div>
-              <div className="flex justify-center mb-6 md:mb-4 lg:mb-6">
-                <HeroTitle />
-              </div>
-              <div className="flex justify-center mb-8 md:mb-6 lg:mb-8">
-                <HeroDescription />
-              </div>
-              <div className="flex justify-center mb-8 md:mb-6 lg:mb-8">
-                <HeroActions />
-              </div>
+            </div>
 
-              <div className="flex justify-center mb-8">
-                <SocialLinks />
-              </div>
-
-              {/* Mobile scroll indicator - in content flow */}
-              <div className="flex justify-center mt-16 xl:hidden">
-                <ScrollIndicator />
-              </div>
+            {/* Desktop scroll indicator - pushed to bottom with margin-top auto */}
+            <div className="hidden xl:flex justify-center pb-4 lg:pb-8 mt-auto">
+              <ScrollIndicator />
             </div>
           </div>
 
-          {/* Desktop scroll indicator - pushed to bottom with margin-top auto */}
-          <div className="hidden xl:flex justify-center pb-4 lg:pb-8 mt-auto">
-            <ScrollIndicator />
+          {/* Right side - image (25% width on desktop) - hidden on mobile */}
+          <div className="hidden xl:flex xl:w-2/7 xl:h-full xl:items-end mr-12">
+            <Image
+              height={800}
+              width={400}
+              src={jordy.src}
+              alt="Photo of Jordy"
+              className="w-full h-full object-contain object-bottom"
+            />
           </div>
         </div>
 
-        {/* Right side - image (25% width on desktop) - hidden on mobile */}
-        <div className="hidden xl:flex xl:w-2/7 xl:h-full xl:items-end mr-12">
-          <Image
-            height={800}
-            width={400}
-            src={jordy.src}
-            alt="Photo of Jordy"
-            className="w-full h-full object-contain object-bottom"
-          />
+        {/* Mobile scroll indicator - at the very bottom of section */}
+        <div className="flex justify-center pb-4 lg:pb-8 xl:hidden">
+          <ScrollIndicator />
         </div>
       </div>
 

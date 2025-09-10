@@ -1,32 +1,39 @@
 import { renderHook, act } from '@testing-library/react'
 import { useLanguageSwitch } from '@/hooks/useLanguageSwitch'
 
-// Mock next-intl locally for this test file
+// Mock next-intl
 const mockUseLocale = jest.fn()
 jest.mock('next-intl', () => ({
   useLocale: () => mockUseLocale(),
 }))
 
-// Mock cookies-next/client - the global mock should work but we'll reference it
-import { setCookie } from 'cookies-next/client'
-const mockSetCookie = setCookie as jest.MockedFunction<typeof setCookie>
-
-// Mock next/navigation with a stable refresh function
-const mockRefresh = jest.fn()
+// Mock next/navigation for useParams
+const mockUseParams = jest.fn()
 jest.mock('next/navigation', () => ({
+  ...jest.requireActual('next/navigation'),
+  useParams: () => mockUseParams(),
+}))
+
+// Create mocks for specific functions we want to spy on
+const mockReplace = jest.fn()
+const mockRefresh = jest.fn()
+
+// Override the global mocks for this specific test
+jest.mock('@/i18n/navigation', () => ({
+  usePathname: () => '/current-path',
   useRouter: () => ({
+    replace: mockReplace,
     refresh: mockRefresh,
-    push: jest.fn(),
-    replace: jest.fn(),
-    prefetch: jest.fn(),
-    back: jest.fn(),
-    forward: jest.fn(),
   }),
+  Link: ({ children }: { children: React.ReactNode }) => children,
+  getPathname: jest.fn(),
+  redirect: jest.fn(),
 }))
 
 describe('useLanguageSwitch', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+    mockUseParams.mockReturnValue({})
   })
 
   it('returns current locale and target locale for English', () => {
@@ -58,12 +65,10 @@ describe('useLanguageSwitch', () => {
       result.current.switchLanguage()
     })
 
-    expect(mockSetCookie).toHaveBeenCalledWith('locale', 'nl', {
-      maxAge: 60 * 60 * 24 * 365,
-      path: '/',
-      secure: false, // NODE_ENV is test, not production
-      sameSite: 'lax',
-    })
+    expect(mockReplace).toHaveBeenCalledWith(
+      { pathname: '/current-path', params: {} },
+      { locale: 'nl' }
+    )
     expect(mockRefresh).toHaveBeenCalledTimes(1)
   })
 
@@ -76,22 +81,16 @@ describe('useLanguageSwitch', () => {
       result.current.switchLanguage()
     })
 
-    expect(mockSetCookie).toHaveBeenCalledWith('locale', 'en', {
-      maxAge: 60 * 60 * 24 * 365,
-      path: '/',
-      secure: false, // NODE_ENV is test, not production
-      sameSite: 'lax',
-    })
+    expect(mockReplace).toHaveBeenCalledWith(
+      { pathname: '/current-path', params: {} },
+      { locale: 'en' }
+    )
     expect(mockRefresh).toHaveBeenCalledTimes(1)
   })
 
-  it('sets secure cookie in production environment', () => {
-    const originalNodeEnv = process.env.NODE_ENV
-    Object.defineProperty(process.env, 'NODE_ENV', {
-      value: 'production',
-      configurable: true,
-    })
+  it('switches language with params', () => {
     mockUseLocale.mockReturnValue('en')
+    mockUseParams.mockReturnValue({ slug: 'test-post' })
 
     const { result } = renderHook(() => useLanguageSwitch())
 
@@ -99,17 +98,10 @@ describe('useLanguageSwitch', () => {
       result.current.switchLanguage()
     })
 
-    expect(mockSetCookie).toHaveBeenCalledWith('locale', 'nl', {
-      maxAge: 60 * 60 * 24 * 365,
-      path: '/',
-      secure: true, // Should be true in production
-      sameSite: 'lax',
-    })
-
-    // Restore original NODE_ENV
-    Object.defineProperty(process.env, 'NODE_ENV', {
-      value: originalNodeEnv,
-      configurable: true,
-    })
+    expect(mockReplace).toHaveBeenCalledWith(
+      { pathname: '/current-path', params: { slug: 'test-post' } },
+      { locale: 'nl' }
+    )
+    expect(mockRefresh).toHaveBeenCalledTimes(1)
   })
 })

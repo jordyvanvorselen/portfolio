@@ -78,6 +78,9 @@ jest.mock('next/navigation', () => ({
     back: jest.fn(),
     forward: jest.fn(),
   }),
+  useParams: () => ({}),
+  usePathname: () => '/',
+  useSearchParams: () => new URLSearchParams(),
 }))
 
 // Mock cookies-next/client globally since useLanguageSwitch depends on it
@@ -94,4 +97,20 @@ jest.mock('@/i18n/routing', () => ({
     locales: ['en', 'nl'],
     defaultLocale: 'en',
   },
+}))
+
+// Mock @/i18n/navigation globally to avoid Jest ESM issues
+jest.mock('@/i18n/navigation', () => ({
+  usePathname: () => '/current-path',
+  useRouter: () => ({
+    replace: jest.fn(),
+    refresh: jest.fn(),
+    push: jest.fn(),
+    prefetch: jest.fn(),
+    back: jest.fn(),
+    forward: jest.fn(),
+  }),
+  Link: ({ children }: { children: React.ReactNode }) => children,
+  getPathname: jest.fn(),
+  redirect: jest.fn(),
 }))

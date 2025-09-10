@@ -16,7 +16,7 @@ export const FaqItem = ({ index, faq }: FaqItemProps) => {
     <Title
       size="md"
       weight="semibold"
-      color="accent"
+      color="secondary"
       align="left"
       as="h3"
       className="leading-relaxed"
