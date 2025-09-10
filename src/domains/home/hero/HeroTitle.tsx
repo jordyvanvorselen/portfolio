@@ -6,7 +6,14 @@ export const HeroTitle = () => {
   const t = useTranslations()
 
   return (
-    <Title size="xl" weight="normal" color="secondary" align="center" as="p">
+    <Title
+      size="xl"
+      weight="normal"
+      color="secondary"
+      align="center"
+      as="p"
+      className="mt-4"
+    >
       {t('hero.title')}
     </Title>
   )

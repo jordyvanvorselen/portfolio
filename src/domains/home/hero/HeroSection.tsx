@@ -28,7 +28,7 @@ export const HeroSection = () => {
           {/* Left side - all content */}
           <div className="flex-1 xl:w-5/7 flex flex-col">
             <div className="flex-1 flex flex-col justify-center items-center px-4 md:px-8 lg:px-12 py-16 md:py-20 lg:py-24 xl:py-0">
-              <div className="w-full max-w-4xl space-y-8 md:space-y-10 lg:space-y-12">
+              <div className="w-full max-w-4xl space-y-8 md:space-y-10 lg:space-y-6 lg:mt-10">
                 {/* Mobile circular image - only visible on mobile */}
                 <div className="flex justify-center xl:hidden">
                   <div className="relative">
@@ -43,25 +43,14 @@ export const HeroSection = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-center">
+                <div>
                   <HeroName />
-                </div>
-
-                <div className="flex justify-center">
                   <HeroTitle />
                 </div>
 
-                <div className="flex justify-center">
-                  <HeroDescription />
-                </div>
-
-                <div className="flex justify-center">
-                  <HeroActions />
-                </div>
-
-                <div className="flex justify-center">
-                  <SocialLinks />
-                </div>
+                <HeroDescription />
+                <HeroActions />
+                <SocialLinks />
               </div>
             </div>
 
