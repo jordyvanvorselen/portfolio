@@ -17,15 +17,21 @@ describe('Text', () => {
   })
 
   describe('Design Token Props', () => {
-    describe.each(['xs', 'sm', 'base', 'lg', 'xl', '2xl'] as const)(
-      'size prop: %s',
-      size => {
-        it(`renders with ${size} size`, () => {
-          render(<Text size={size}>Test text</Text>)
-          expect(screen.getByText('Test text')).toBeVisible()
-        })
-      }
-    )
+    describe.each([
+      'xs',
+      'sm',
+      'base',
+      'lg',
+      'xl',
+      '2xl',
+      '3xl',
+      '4xl',
+    ] as const)('size prop: %s', size => {
+      it(`renders with ${size} size`, () => {
+        render(<Text size={size}>Test text</Text>)
+        expect(screen.getByText('Test text')).toBeVisible()
+      })
+    })
 
     describe.each(['normal', 'medium', 'semibold', 'bold'] as const)(
       'weight prop: %s',

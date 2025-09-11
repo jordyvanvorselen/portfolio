@@ -1,7 +1,15 @@
 import { ReactNode, CSSProperties } from 'react'
 
 // Design token types
-export type TextSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl'
+export type TextSize =
+  | 'xs'
+  | 'sm'
+  | 'base'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | '4xl'
 export type TextWeight = 'normal' | 'medium' | 'semibold' | 'bold'
 export type TextColor = 'primary' | 'secondary' | 'muted' | 'accent' | 'success'
 export type TextLineHeight = 'tight' | 'normal' | 'relaxed' | 'loose'
@@ -39,6 +47,8 @@ export const Text = ({
     lg: 'text-lg',
     xl: 'text-xl',
     '2xl': 'text-xl lg:text-2xl',
+    '3xl': 'text-2xl lg:text-3xl',
+    '4xl': 'text-3xl lg:text-4xl',
   }
 
   // Weight styles

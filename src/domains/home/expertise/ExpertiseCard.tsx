@@ -91,11 +91,10 @@ export const ExpertiseCard = ({
           <div className="flex items-center justify-between w-full px-4">
             <div className="flex items-center gap-3">
               <Text
-                size="2xl"
+                size="4xl"
                 weight="bold"
                 color="primary"
                 style={{ color: iconColor }}
-                className="text-4xl"
               >
                 {publicationCount}
               </Text>
