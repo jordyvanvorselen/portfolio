@@ -5,6 +5,8 @@ import { BlogSearchFilters } from '@/domains/blog/BlogSearchFilters'
 import { BlogCard } from '@/domains/blog/BlogCard'
 import { FeaturedBlogCard } from '@/domains/blog/FeaturedBlogCard'
 import { BlogSectionTitle } from '@/domains/blog/BlogSectionTitle'
+import { getAllPosts } from '@/lib/api'
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Blog - Jordy van Vorselen',
@@ -12,22 +14,14 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-const blogPostsKeys = [
-  'advancedTypeScript',
-  'cleanArchitecture',
-  'databaseOptimization',
-  'testingStrategies',
-  'graphqlVsRest',
-  'scalableNodejs',
-] as const
+export default async function BlogPage() {
+  let blogPosts: any[] = []
 
-export default function BlogPage() {
-  const blogPosts = blogPostsKeys.map(key => ({
-    translationKey: key,
-    // Use a placeholder image for now, the actual image will be loaded client-side
-    image:
-      'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400&fit=crop',
-  }))
+  try {
+    blogPosts = await getAllPosts(process.env['VERCEL_ENV'] !== 'production')
+  } catch (error) {
+    console.error('Failed to fetch blog posts from Contentful:', error)
+  }
 
   const [featuredPost, ...regularPosts] = blogPosts
 
@@ -46,24 +40,45 @@ export default function BlogPage() {
           >
             <BlogSectionTitle translationKey="blog.sections.featuredArticle" />
             <FeaturedBlogCard
-              translationKey={featuredPost.translationKey}
+              slug={featuredPost.slug}
+              title={featuredPost.title}
+              description={featuredPost.description}
+              date={featuredPost.date}
+              readTime={featuredPost.readTime}
               image={featuredPost.image}
+              tags={featuredPost.tags}
             />
           </div>
         )}
 
-        <div data-testid="blog-grid">
-          <BlogSectionTitle translationKey="blog.sections.latestArticles" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {regularPosts.map(post => (
-              <BlogCard
-                key={post.translationKey}
-                translationKey={post.translationKey}
-                image={post.image}
-              />
-            ))}
+        {blogPosts.length === 0 && (
+          <div className="mt-12 text-center text-gray-400">
+            <p className="text-lg">No blog posts available at the moment.</p>
+            <p className="text-sm mt-2">
+              Please check back later for new content.
+            </p>
           </div>
-        </div>
+        )}
+
+        {regularPosts.length > 0 && (
+          <div data-testid="blog-grid">
+            <BlogSectionTitle translationKey="blog.sections.latestArticles" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {regularPosts.map(post => (
+                <BlogCard
+                  key={post.slug}
+                  slug={post.slug}
+                  title={post.title}
+                  description={post.description}
+                  date={post.date}
+                  readTime={post.readTime}
+                  image={post.image}
+                  tags={post.tags}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </main>
   )

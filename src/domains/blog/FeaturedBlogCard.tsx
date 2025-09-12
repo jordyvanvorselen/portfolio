@@ -1,40 +1,38 @@
 import { Calendar, Clock, Star } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 import { Badge } from '@/ui/Badge'
-import { useTranslations, useMessages } from 'next-intl'
+import { useTranslations } from 'next-intl'
 
 export interface FeaturedBlogCardProps {
-  translationKey: string
+  slug: string
+  title: string
+  description: string
+  date: string
+  readTime: string
   image: string
+  tags: string[]
 }
 
 export const FeaturedBlogCard = ({
-  translationKey,
+  slug,
+  title,
+  description,
+  date,
+  readTime,
   image,
+  tags,
 }: FeaturedBlogCardProps) => {
   const t = useTranslations()
-  const messages = useMessages() as Record<string, unknown> // We need raw access for arrays
-
-  const title = t(`blog.posts.${translationKey}.title`)
-  const description = t(`blog.posts.${translationKey}.description`)
-  const date = t(`blog.posts.${translationKey}.date`)
-  const readTime = t(`blog.posts.${translationKey}.readTime`)
-  const blogMessages = messages['blog'] as Record<string, unknown> | undefined
-  const postsMessages = blogMessages?.['posts'] as
-    | Record<string, unknown>
-    | undefined
-  const postMessages = postsMessages?.[translationKey] as
-    | Record<string, unknown>
-    | undefined
-  const tags = (postMessages?.['tags'] as string[]) || []
   return (
-    <article
-      data-featured="true"
-      className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/90 via-gray-800/70 to-gray-900/90 border border-teal-500/30 hover:border-teal-400/50 transition-all duration-500 hover:shadow-2xl hover:shadow-teal-500/10 backdrop-blur-sm cursor-pointer"
-    >
+    <Link href={`/blog/${slug}`}>
+      <article
+        data-featured="true"
+        className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/90 via-gray-800/70 to-gray-900/90 border border-teal-500/30 hover:border-teal-400/50 transition-all duration-500 hover:shadow-2xl hover:shadow-teal-500/10 backdrop-blur-sm cursor-pointer"
+      >
       {/* Featured badge */}
       <div className="absolute top-4 left-4 z-20">
         <div className="flex items-center gap-2 bg-teal-500/20 border border-teal-400/40 text-teal-400 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm">
@@ -115,5 +113,6 @@ export const FeaturedBlogCard = ({
         </div>
       </div>
     </article>
+    </Link>
   )
 }
