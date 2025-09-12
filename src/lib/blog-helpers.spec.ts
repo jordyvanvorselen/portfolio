@@ -5,6 +5,7 @@ import {
   calculateReadTime,
   extractTextFromRichText,
   truncateDescription,
+  ensureAbsoluteUrl,
 } from '@/lib/blog-helpers'
 
 describe('blog-helpers', () => {
@@ -276,6 +277,42 @@ describe('blog-helpers', () => {
       const textWithSpaces = 'This is text with trailing spaces     '
       const result = truncateDescription(textWithSpaces, 20)
       expect(result).toBe('This is text with tr...')
+    })
+  })
+
+  describe('ensureAbsoluteUrl', () => {
+    it('converts protocol-relative URLs to HTTPS', () => {
+      const protocolRelativeUrl = '//images.ctfassets.net/space/image.jpg'
+      const result = ensureAbsoluteUrl(protocolRelativeUrl)
+      expect(result).toBe('https://images.ctfassets.net/space/image.jpg')
+    })
+
+    it('converts HTTP URLs to HTTPS', () => {
+      const httpUrl = 'http://images.ctfassets.net/space/image.jpg'
+      const result = ensureAbsoluteUrl(httpUrl)
+      expect(result).toBe('https://images.ctfassets.net/space/image.jpg')
+    })
+
+    it('leaves HTTPS URLs unchanged', () => {
+      const httpsUrl = 'https://images.ctfassets.net/space/image.jpg'
+      const result = ensureAbsoluteUrl(httpsUrl)
+      expect(result).toBe('https://images.ctfassets.net/space/image.jpg')
+    })
+
+    it('leaves relative URLs unchanged', () => {
+      const relativeUrl = '/local/image.jpg'
+      const result = ensureAbsoluteUrl(relativeUrl)
+      expect(result).toBe('/local/image.jpg')
+    })
+
+    it('returns empty string for undefined input', () => {
+      const result = ensureAbsoluteUrl(undefined)
+      expect(result).toBe('')
+    })
+
+    it('returns empty string for empty string input', () => {
+      const result = ensureAbsoluteUrl('')
+      expect(result).toBe('')
     })
   })
 })

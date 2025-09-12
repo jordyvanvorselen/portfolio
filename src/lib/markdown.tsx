@@ -7,6 +7,8 @@ import {
   type Inline,
 } from '@contentful/rich-text-types'
 
+import { ensureAbsoluteUrl } from '@/lib/blog-helpers'
+
 interface Asset {
   sys: {
     id: string
@@ -50,7 +52,13 @@ function RichTextAsset({
   const asset = assets?.find(asset => asset.sys.id === id)
 
   if (asset?.url) {
-    return <Image src={asset.url} layout="fill" alt={asset.description} />
+    return (
+      <Image
+        src={ensureAbsoluteUrl(asset.url)}
+        layout="fill"
+        alt={asset.description}
+      />
+    )
   }
 
   return null

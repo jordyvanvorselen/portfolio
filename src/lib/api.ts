@@ -1,5 +1,9 @@
 import { createClient, type Entry } from 'contentful'
-import { formatDate, calculateReadTime } from '@/lib/blog-helpers'
+import {
+  formatDate,
+  calculateReadTime,
+  ensureAbsoluteUrl,
+} from '@/lib/blog-helpers'
 import type { TypeBlogPostSkeleton } from '@/lib/contentful-types'
 
 export interface BlogPost {
@@ -30,7 +34,9 @@ function transformEntry(entry: Entry<TypeBlogPostSkeleton>): BlogPost {
     description: entry.fields.description as string,
     date: formatDate(entry.fields.publicationDate as string),
     readTime: calculateReadTime(entry.fields.content as any), // eslint-disable-line @typescript-eslint/no-explicit-any
-    image: (entry.fields.featuredImage as any)?.fields?.file?.url || '', // eslint-disable-line @typescript-eslint/no-explicit-any
+    image: ensureAbsoluteUrl(
+      (entry.fields.featuredImage as any)?.fields?.file?.url // eslint-disable-line @typescript-eslint/no-explicit-any
+    ),
     tags: (entry.fields.tags as string[]) || [],
   }
 

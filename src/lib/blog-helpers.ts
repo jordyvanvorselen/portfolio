@@ -44,3 +44,21 @@ export const truncateDescription = (
   if (text.length <= maxLength) return text
   return text.substring(0, maxLength).trim() + '...'
 }
+
+// Utility function to ensure Contentful asset URLs are absolute HTTPS URLs
+export const ensureAbsoluteUrl = (url: string | undefined): string => {
+  if (!url) return ''
+
+  // If URL starts with //, prepend https:
+  if (url.startsWith('//')) {
+    return `https:${url}`
+  }
+
+  // If URL starts with http://, convert to https://
+  if (url.startsWith('http://')) {
+    return url.replace('http://', 'https://')
+  }
+
+  // Return as-is if already absolute HTTPS or relative
+  return url
+}

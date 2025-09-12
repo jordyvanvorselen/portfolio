@@ -292,7 +292,6 @@ describe('Contentful API', () => {
         readTime: '1 min read',
         image: 'https://images.ctfassets.net/space/preview.jpg',
         tags: ['preview', 'draft'],
-        canonicalUrl: null,
       })
 
       expect(createClient).toHaveBeenCalledWith({
