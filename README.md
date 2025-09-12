@@ -32,7 +32,7 @@ The project demonstrates expertise in modern frontend development, featuring a c
 | **Component Library**     | ![Radix UI](https://img.shields.io/badge/Radix%20UI-Accessible-000000?logo=radixui)                                                                                               |
 | **Internationalization**  | ![next-intl](https://img.shields.io/badge/next--intl-4.3-009639?logo=i18next)                                                                                                     |
 | **Icons**                 | ![Lucide React](https://img.shields.io/badge/Lucide%20React-0.542-F56565?logo=lucide) ![DevIcon](https://img.shields.io/badge/DevIcon-Tech%20Icons-FF6B35)                        |
-| **Testing (Unit)**        | ![Vitest](https://img.shields.io/badge/Vitest-2.1%20+%20React%20Testing%20Library-729B1B?logo=vitest)                                                                             |
+| **Testing (Unit)**        | ![Vitest](https://img.shields.io/badge/Vitest-2.1-729B1B?logo=vitest) ![React Testing Library](https://img.shields.io/badge/React%20Testing%20Library-E33332?logo=testinglibrary) |
 | **Testing (Integration)** | ![Playwright](https://img.shields.io/badge/Playwright-1.54%20E2E%20Testing-45ba4b?logo=playwright)                                                                                |
 | **API Mocking**           | ![MSW](https://img.shields.io/badge/MSW-Mock%20Service%20Worker-FF6A33?logo=mockserviceworker)                                                                                    |
 | **Code Quality**          | ![ESLint](https://img.shields.io/badge/ESLint-9.0%20TypeScript-4B32C3?logo=eslint) ![Prettier](https://img.shields.io/badge/Prettier-3.6%20Code%20Formatter-F7B93E?logo=prettier) |
