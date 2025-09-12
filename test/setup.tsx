@@ -1,44 +1,49 @@
-import '@testing-library/jest-dom'
+import "@testing-library/jest-dom/vitest"
+import { cleanup } from "@testing-library/react"
 import React from 'react'
 
-import { server } from './test/msw/register.server'
-import { assertableTranslationKeys } from './src/test/utils/translations'
+import { afterAll, afterEach, beforeAll, vitest } from "vitest"
+
+import { server } from "./msw/register.server"
+import { assertableTranslationKeys } from "../src/test/utils/translations"
 
 // Setup MSW server
 beforeAll(() => {
-  server.listen({ onUnhandledRequest: 'error' })
+  server.listen({ onUnhandledRequest: "error" })
+  // Set timezone to UTC for consistent test results across environments
+  process.env.TZ = "UTC"
 })
 
-afterAll(() => {
-  server.close()
-})
+afterAll(() => server.close())
 
 afterEach(() => {
+  vitest.resetAllMocks()
   server.resetHandlers()
+  cleanup()
 })
 
 // Mock window.matchMedia (used by useMediaQuery hook)
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
+  value: vitest.fn().mockImplementation(query => ({
     matches: false,
     media: query,
     onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
+    addListener: vitest.fn(), // deprecated
+    removeListener: vitest.fn(), // deprecated
+    addEventListener: vitest.fn(),
+    removeEventListener: vitest.fn(),
+    dispatchEvent: vitest.fn(),
   })),
 })
 
 // Mock next-intl for client-side components
-jest.mock('next-intl', () => {
+vitest.mock('next-intl', () => {
   const createMockTranslations = (namespace?: string) => {
     const baseFunction: any = assertableTranslationKeys(namespace ?? '')
 
     // Add the rich method to the translation function
-    baseFunction.rich = jest.fn(
+    baseFunction.rich = vitest.fn(
       (key: string, components?: Record<string, React.ComponentType<any>>) => {
         // For rich text, return the key with basic JSX handling
         if (components?.['b']) {
@@ -72,25 +77,25 @@ jest.mock('next-intl', () => {
 })
 
 // Mock next-intl server utilities
-jest.mock('next-intl/server', () => ({
-  getTranslations: jest.fn((namespace?: string) => {
+vitest.mock('next-intl/server', () => ({
+  getTranslations: vitest.fn((namespace?: string) => {
     return Promise.resolve(assertableTranslationKeys(namespace ?? ''))
   }),
-  getLocale: jest.fn(() => Promise.resolve('en')),
-  getMessages: jest.fn(() => Promise.resolve({})),
-  getNow: jest.fn(() => Promise.resolve(new Date())),
-  getTimeZone: jest.fn(() => Promise.resolve('UTC')),
+  getLocale: vitest.fn(() => Promise.resolve('en')),
+  getMessages: vitest.fn(() => Promise.resolve({})),
+  getNow: vitest.fn(() => Promise.resolve(new Date())),
+  getTimeZone: vitest.fn(() => Promise.resolve('UTC')),
 }))
 
 // Mock next/navigation globally since useLanguageSwitch depends on it
-jest.mock('next/navigation', () => ({
+vitest.mock('next/navigation', () => ({
   useRouter: () => ({
-    refresh: jest.fn(),
-    push: jest.fn(),
-    replace: jest.fn(),
-    prefetch: jest.fn(),
-    back: jest.fn(),
-    forward: jest.fn(),
+    refresh: vitest.fn(),
+    push: vitest.fn(),
+    replace: vitest.fn(),
+    prefetch: vitest.fn(),
+    back: vitest.fn(),
+    forward: vitest.fn(),
   }),
   useParams: () => ({}),
   usePathname: () => '/',
@@ -98,33 +103,35 @@ jest.mock('next/navigation', () => ({
 }))
 
 // Mock cookies-next/client globally since useLanguageSwitch depends on it
-jest.mock('cookies-next/client', () => ({
-  setCookie: jest.fn(),
-  getCookie: jest.fn(),
-  deleteCookie: jest.fn(),
-  hasCookie: jest.fn(),
+vitest.mock('cookies-next/client', () => ({
+  setCookie: vitest.fn(),
+  getCookie: vitest.fn(),
+  deleteCookie: vitest.fn(),
+  hasCookie: vitest.fn(),
 }))
 
-// Mock i18n routing globally to avoid Jest ESM issues
-jest.mock('@/i18n/routing', () => ({
+// Mock i18n routing globally to avoid Vitest ESM issues
+vitest.mock('@/i18n/routing', () => ({
   routing: {
     locales: ['en', 'nl'],
     defaultLocale: 'en',
   },
 }))
 
-// Mock @/i18n/navigation globally to avoid Jest ESM issues
-jest.mock('@/i18n/navigation', () => ({
+// Mock @/i18n/navigation globally to avoid Vitest ESM issues
+vitest.mock('@/i18n/navigation', () => ({
   usePathname: () => '/current-path',
   useRouter: () => ({
-    replace: jest.fn(),
-    refresh: jest.fn(),
-    push: jest.fn(),
-    prefetch: jest.fn(),
-    back: jest.fn(),
-    forward: jest.fn(),
+    replace: vitest.fn(),
+    refresh: vitest.fn(),
+    push: vitest.fn(),
+    prefetch: vitest.fn(),
+    back: vitest.fn(),
+    forward: vitest.fn(),
   }),
   Link: ({ children }: { children: React.ReactNode }) => children,
-  getPathname: jest.fn(),
-  redirect: jest.fn(),
+  getPathname: vitest.fn(),
+  redirect: vitest.fn(),
 }))
+
+vitest.mock("server-only", () => ({}))
