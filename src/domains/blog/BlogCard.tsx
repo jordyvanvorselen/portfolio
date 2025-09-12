@@ -44,7 +44,7 @@ export const BlogCard = ({
             <div className="absolute inset-0 bg-gradient-to-t from-gray-800/60 via-transparent to-transparent" />
           </div>
 
-          <div className="p-6">
+          <div className="p-6 min-h-[17.5rem] flex flex-col">
             <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
               <div className="flex items-center gap-1">
                 <Calendar className="w-3 h-3" aria-hidden="true" />
@@ -76,12 +76,12 @@ export const BlogCard = ({
               alignment="left"
               lineHeight="relaxed"
               lineClamp={3}
-              className="mb-4"
+              className="mb-4 flex-grow"
             >
               {description}
             </Text>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mt-auto">
               {tags.slice(0, 3).map(tag => (
                 <Badge key={tag} variant="soft" color="default" size="sm">
                   {tag}
