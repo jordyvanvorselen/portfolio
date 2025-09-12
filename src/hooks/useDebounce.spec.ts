@@ -1,13 +1,14 @@
 import { renderHook, act } from '@testing-library/react'
+import { vi } from 'vitest'
 import { useDebounce } from './useDebounce'
 
 describe('useDebounce', () => {
   beforeEach(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
 
   afterEach(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   it('returns initial value immediately', () => {
@@ -31,7 +32,7 @@ describe('useDebounce', () => {
 
     // After the delay, should have the new value
     act(() => {
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
     })
 
     expect(result.current).toBe('updated')
@@ -48,7 +49,7 @@ describe('useDebounce', () => {
     
     // Advance time partially
     act(() => {
-      jest.advanceTimersByTime(250)
+      vi.advanceTimersByTime(250)
     })
 
     // Second update before first timeout completes
@@ -59,7 +60,7 @@ describe('useDebounce', () => {
 
     // Complete the second timeout
     act(() => {
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
     })
 
     // Should have the second value, not the first
@@ -76,7 +77,7 @@ describe('useDebounce', () => {
 
     // With delay 0, should update immediately on next tick
     act(() => {
-      jest.advanceTimersByTime(0)
+      vi.advanceTimersByTime(0)
     })
 
     expect(result.current).toBe('immediate')
@@ -93,7 +94,7 @@ describe('useDebounce', () => {
     rerender({ value: 456, delay: 300 })
 
     act(() => {
-      jest.advanceTimersByTime(300)
+      vi.advanceTimersByTime(300)
     })
 
     expect(result.current).toBe(456)
@@ -112,7 +113,7 @@ describe('useDebounce', () => {
 
     // Advance time - this should not cause any issues
     act(() => {
-      jest.advanceTimersByTime(500)
+      vi.advanceTimersByTime(500)
     })
 
     // No expectation here, just ensuring no errors occur
@@ -135,7 +136,7 @@ describe('useDebounce', () => {
 
     // After delay, should have the final value
     act(() => {
-      jest.advanceTimersByTime(300)
+      vi.advanceTimersByTime(300)
     })
 
     expect(result.current).toBe('final')

@@ -1,9 +1,10 @@
 import { render, screen } from '@testing-library/react'
+import { vi } from 'vitest'
 
 // Only mock the server-side next-intl functions that can't run in Jest
-jest.mock('next-intl/server', () => ({
-  getTranslations: jest.fn(namespace => {
-    const mockT = jest.fn(key => {
+vi.mock('next-intl/server', () => ({
+  getTranslations: vi.fn(namespace => {
+    const mockT = vi.fn(key => {
       // Mock specific translation keys used in the component
       if (key === 'pages.experience.title') return 'Experience'
       if (key === 'pages.experience.description')
@@ -17,7 +18,7 @@ jest.mock('next-intl/server', () => ({
     })
     return Promise.resolve(mockT)
   }),
-  getMessages: jest.fn(() =>
+  getMessages: vi.fn(() =>
     Promise.resolve({
       experience: {
         positions: {
@@ -38,12 +39,12 @@ jest.mock('next-intl/server', () => ({
 }))
 
 // Mock image imports (unavoidable in Jest)
-jest.mock('@/assets/images/asml.png', () => ({ src: '/mock-asml.png' }))
-jest.mock('@/assets/images/kabisa.png', () => ({ src: '/mock-kabisa.png' }))
-jest.mock('@/assets/images/scorito.png', () => ({ src: '/mock-scorito.png' }))
-jest.mock('@/assets/images/signify.webp', () => ({ src: '/mock-signify.webp' }))
-jest.mock('@/assets/images/syntouch.svg', () => ({ src: '/mock-syntouch.svg' }))
-jest.mock('@/assets/images/hertek.png', () => ({ src: '/mock-hertek.png' }))
+vi.mock('@/assets/images/asml.png', () => ({ src: '/mock-asml.png' }))
+vi.mock('@/assets/images/kabisa.png', () => ({ src: '/mock-kabisa.png' }))
+vi.mock('@/assets/images/scorito.png', () => ({ src: '/mock-scorito.png' }))
+vi.mock('@/assets/images/signify.webp', () => ({ src: '/mock-signify.webp' }))
+vi.mock('@/assets/images/syntouch.svg', () => ({ src: '/mock-syntouch.svg' }))
+vi.mock('@/assets/images/hertek.png', () => ({ src: '/mock-hertek.png' }))
 
 import ExperiencePage, { generateMetadata } from '@/app/experience/page'
 

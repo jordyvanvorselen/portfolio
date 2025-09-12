@@ -1,18 +1,19 @@
 import { render, screen } from '@testing-library/react'
+import { vi } from 'vitest'
 import React from 'react'
 
 // Only mock the server-side next-intl functions that can't run in Jest
-jest.mock('next-intl/server', () => ({
-  getLocale: jest.fn(() => Promise.resolve('en')),
-  getMessages: jest.fn(() => Promise.resolve({ test: 'message' })),
-  getTranslations: jest.fn(namespace => {
-    const mockT = jest.fn(key => `${namespace ? `${namespace}.` : ''}${key}`)
+vi.mock('next-intl/server', () => ({
+  getLocale: vi.fn(() => Promise.resolve('en')),
+  getMessages: vi.fn(() => Promise.resolve({ test: 'message' })),
+  getTranslations: vi.fn(namespace => {
+    const mockT = vi.fn(key => `${namespace ? `${namespace}.` : ''}${key}`)
     return Promise.resolve(mockT)
   }),
 }))
 
 // Mock CSS import (unavoidable in Jest)
-jest.mock('./globals.css', () => ({}))
+vi.mock('./globals.css', () => ({}))
 
 import RootLayout, { generateMetadata } from '@/app/layout'
 

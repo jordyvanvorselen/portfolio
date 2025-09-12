@@ -3,11 +3,12 @@ import {
   getPostAndMorePosts,
   getPreviewPostBySlug,
 } from '@/lib/api'
+import { vi } from 'vitest'
 
 // Mock contentful SDK
-jest.mock('contentful', () => ({
-  createClient: jest.fn(() => ({
-    getEntries: jest.fn(),
+vi.mock('contentful', () => ({
+  createClient: vi.fn(() => ({
+    getEntries: vi.fn(),
   })),
 }))
 
@@ -29,14 +30,14 @@ afterAll(() => {
 })
 
 describe('Contentful API', () => {
-  let mockClient: { getEntries: jest.Mock }
+  let mockClient: { getEntries: ReturnType<typeof vi.fn> }
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     mockClient = {
-      getEntries: jest.fn(),
+      getEntries: vi.fn(),
     }
-    ;(createClient as jest.Mock).mockReturnValue(mockClient)
+    ;(createClient as ReturnType<typeof vi.fn>).mockReturnValue(mockClient)
   })
 
   describe('getAllPosts', () => {

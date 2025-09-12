@@ -1,15 +1,16 @@
 import { render, screen } from '@testing-library/react'
+import { vi } from 'vitest'
 
 import BlogPage, { generateMetadata } from '@/app/blog/page'
 import * as api from '@/lib/api'
 
-jest.mock('@/lib/api', () => ({
-  getAllPosts: jest.fn(),
+vi.mock('@/lib/api', () => ({
+  getAllPosts: vi.fn(),
 }))
 
 describe('BlogPage', () => {
   beforeEach(() => {
-    jest.mocked(api.getAllPosts).mockResolvedValue([
+    vi.mocked(api.getAllPosts).mockResolvedValue([
       {
         slug: 'advanced-typescript',
         title: 'blog.posts.advancedTypeScript.title',
@@ -119,8 +120,8 @@ describe('BlogPage', () => {
   })
 
   it('handles API errors gracefully', async () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation()
-    jest.mocked(api.getAllPosts).mockRejectedValueOnce(new Error('API Error'))
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation()
+    vi.mocked(api.getAllPosts).mockRejectedValueOnce(new Error('API Error'))
 
     render(await BlogPage({ searchParams: Promise.resolve({}) }))
 
@@ -136,7 +137,7 @@ describe('BlogPage', () => {
   })
 
   it('shows empty state when no posts are available', async () => {
-    jest.mocked(api.getAllPosts).mockResolvedValueOnce([])
+    vi.mocked(api.getAllPosts).mockResolvedValueOnce([])
 
     render(await BlogPage({ searchParams: Promise.resolve({}) }))
 

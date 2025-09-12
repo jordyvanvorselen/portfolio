@@ -1,10 +1,11 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { vi } from 'vitest'
 
 import { AccordionItem } from '@/ui/AccordionItem'
 import { AccordionContext } from '@/ui/Accordion'
 
 describe('AccordionItem', () => {
-  const mockSetOpenIndex = jest.fn()
+  const mockSetOpenIndex = vi.fn()
 
   beforeEach(() => {
     mockSetOpenIndex.mockClear()
@@ -97,7 +98,7 @@ describe('AccordionItem', () => {
   })
 
   it('prevents default behavior on Enter key', () => {
-    const preventDefaultSpy = jest.fn()
+    const preventDefaultSpy = vi.fn()
 
     renderAccordionItem(0, null)
     const button = screen.getByRole('button')
@@ -111,7 +112,7 @@ describe('AccordionItem', () => {
   })
 
   it('prevents default behavior on Space key', () => {
-    const preventDefaultSpy = jest.fn()
+    const preventDefaultSpy = vi.fn()
 
     renderAccordionItem(0, null)
     const button = screen.getByRole('button')

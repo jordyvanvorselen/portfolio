@@ -1,20 +1,21 @@
 import { render } from '@testing-library/react'
+import { vi } from 'vitest'
 import { TimelineItem } from '@/ui/TimelineItem'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 // Mock the TimelineDot component
-jest.mock('@/ui/TimelineDot', () => ({
+vi.mock('@/ui/TimelineDot', () => ({
   TimelineDot: ({ color }: { color: string }) => (
     <div data-testid="timeline-dot" data-color={color} />
   ),
 }))
 
 // Mock the useMediaQuery hook
-jest.mock('@/hooks/useMediaQuery', () => ({
-  useMediaQuery: jest.fn(),
+vi.mock('@/hooks/useMediaQuery', () => ({
+  useMediaQuery: vi.fn(),
 }))
 
-const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+const mockUseMediaQuery = useMediaQuery as ReturnType<typeof vi.fn><
   typeof useMediaQuery
 >
 
@@ -25,7 +26,7 @@ describe('TimelineItem', () => {
   }
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   describe('Desktop layout (min-width: 768px)', () => {

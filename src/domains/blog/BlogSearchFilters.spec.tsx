@@ -1,12 +1,13 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { vi } from 'vitest'
 import { act } from '@testing-library/react'
 
 // Import both components for testing
 import { BlogSearchFiltersClient, BlogSearchFilters } from '@/domains/blog/BlogSearchFilters'
 
 // Mock Next.js router hooks
-const mockPush = jest.fn()
-jest.mock('next/navigation', () => ({
+const mockPush = vi.fn()
+vi.mock('next/navigation', () => ({
   useRouter: () => ({
     push: mockPush,
   }),
@@ -91,7 +92,7 @@ describe('BlogSearchFilters', () => {
 
   it('navigates with debounced search after typing', async () => {
     // Mock timers to control debouncing
-    jest.useFakeTimers()
+    vi.useFakeTimers()
     
     render(<BlogSearchFiltersClient {...defaultProps} />)
 
@@ -102,16 +103,16 @@ describe('BlogSearchFilters', () => {
 
     // Fast-forward time to trigger debounced search
     act(() => {
-      jest.advanceTimersByTime(300)
+      vi.advanceTimersByTime(300)
     })
 
     expect(mockPush).toHaveBeenCalledWith('/blog?search=typescript', { scroll: false })
     
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   it('clears search parameter when input is empty', async () => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
     
     render(<BlogSearchFiltersClient {...defaultProps} searchQuery="existing" />)
 
@@ -121,12 +122,12 @@ describe('BlogSearchFilters', () => {
     fireEvent.change(searchInput, { target: { value: '' } })
 
     act(() => {
-      jest.advanceTimersByTime(300)
+      vi.advanceTimersByTime(300)
     })
 
     expect(mockPush).toHaveBeenCalledWith('/blog', { scroll: false })
     
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   it('renders server component with translations', () => {

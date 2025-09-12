@@ -1,27 +1,28 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { vi } from 'vitest'
 import { LanguageSwitcher } from '@/ui/LanguageSwitcher'
 
-const mockUseTranslations = jest.fn(() => jest.fn((key: string) => key))
-const mockSwitchLanguage = jest.fn()
-const mockUseLanguageSwitch = jest.fn(() => ({
+const mockUseTranslations = vi.fn(() => vi.fn((key: string) => key))
+const mockSwitchLanguage = vi.fn()
+const mockUseLanguageSwitch = vi.fn(() => ({
   currentLocale: 'en',
   targetLocale: 'nl',
   switchLanguage: mockSwitchLanguage,
   availableLocales: ['en', 'nl'],
 }))
 
-jest.mock('next-intl', () => ({
+vi.mock('next-intl', () => ({
   useTranslations: () => mockUseTranslations(),
 }))
 
 // Override the global mock to use our local controllable mock
-jest.mock('@/hooks/useLanguageSwitch', () => ({
+vi.mock('@/hooks/useLanguageSwitch', () => ({
   useLanguageSwitch: () => mockUseLanguageSwitch(),
 }))
 
 describe('LanguageSwitcher', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   describe('English locale (en)', () => {
@@ -202,7 +203,7 @@ describe('LanguageSwitcher', () => {
     })
 
     it('calls onClick callback when provided', () => {
-      const mockOnClick = jest.fn()
+      const mockOnClick = vi.fn()
       render(<LanguageSwitcher onClick={mockOnClick} />)
 
       const button = screen.getByRole('button')
