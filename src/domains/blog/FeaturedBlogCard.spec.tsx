@@ -6,11 +6,13 @@ describe('FeaturedBlogCard', () => {
   const mockBlogPost = {
     slug: 'advanced-typescript-patterns',
     title: 'Advanced TypeScript Patterns for Enterprise Applications',
-    description: 'Explore advanced TypeScript patterns and techniques that will help you build more maintainable and type-safe enterprise applications.',
+    description:
+      'Explore advanced TypeScript patterns and techniques that will help you build more maintainable and type-safe enterprise applications.',
     date: 'January 8, 2024',
     readTime: '8 min read',
-    image: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400&fit=crop',
-    tags: ['TypeScript', 'JavaScript', 'Enterprise', 'React']
+    image:
+      'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400&fit=crop',
+    tags: ['TypeScript', 'JavaScript', 'Enterprise', 'React'],
   }
 
   it('renders featured blog card with provided content', () => {
@@ -48,7 +50,7 @@ describe('FeaturedBlogCard', () => {
   it('shows more count when there are more than 4 tags', () => {
     const postWithManyTags = {
       ...mockBlogPost,
-      tags: ['TypeScript', 'JavaScript', 'Enterprise', 'React', 'Node.js']
+      tags: ['TypeScript', 'JavaScript', 'Enterprise', 'React', 'Node.js'],
     }
     render(<FeaturedBlogCard {...postWithManyTags} />)
 
@@ -63,7 +65,7 @@ describe('FeaturedBlogCard', () => {
   it('handles empty tags array gracefully', () => {
     const postWithoutTags = {
       ...mockBlogPost,
-      tags: []
+      tags: [],
     }
     render(<FeaturedBlogCard {...postWithoutTags} />)
 

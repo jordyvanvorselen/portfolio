@@ -1,10 +1,10 @@
-import type { Document } from '@contentful/rich-text-types'
+import { BLOCKS, type Document } from '@contentful/rich-text-types'
 
-import { 
-  formatDate, 
-  calculateReadTime, 
-  extractTextFromRichText, 
-  truncateDescription 
+import {
+  formatDate,
+  calculateReadTime,
+  extractTextFromRichText,
+  truncateDescription,
 } from '@/lib/blog-helpers'
 
 describe('blog-helpers', () => {
@@ -33,22 +33,22 @@ describe('blog-helpers', () => {
   describe('extractTextFromRichText', () => {
     it('extracts text from simple rich text document', () => {
       const document: Document = {
-        nodeType: 'document',
+        nodeType: BLOCKS.DOCUMENT,
         data: {},
         content: [
           {
-            nodeType: 'paragraph',
+            nodeType: BLOCKS.PARAGRAPH,
             data: {},
             content: [
               {
                 nodeType: 'text',
                 value: 'Hello world',
                 marks: [],
-                data: {}
-              }
-            ]
-          }
-        ]
+                data: {},
+              },
+            ],
+          },
+        ],
       }
 
       const result = extractTextFromRichText(document)
@@ -57,34 +57,34 @@ describe('blog-helpers', () => {
 
     it('extracts text from nested rich text document', () => {
       const document: Document = {
-        nodeType: 'document',
+        nodeType: BLOCKS.DOCUMENT,
         data: {},
         content: [
           {
-            nodeType: 'paragraph',
+            nodeType: BLOCKS.PARAGRAPH,
             data: {},
             content: [
               {
                 nodeType: 'text',
                 value: 'First paragraph',
                 marks: [],
-                data: {}
-              }
-            ]
+                data: {},
+              },
+            ],
           },
           {
-            nodeType: 'paragraph',
+            nodeType: BLOCKS.PARAGRAPH,
             data: {},
             content: [
               {
                 nodeType: 'text',
                 value: 'Second paragraph',
                 marks: [],
-                data: {}
-              }
-            ]
-          }
-        ]
+                data: {},
+              },
+            ],
+          },
+        ],
       }
 
       const result = extractTextFromRichText(document)
@@ -93,9 +93,9 @@ describe('blog-helpers', () => {
 
     it('handles empty document', () => {
       const document: Document = {
-        nodeType: 'document',
+        nodeType: BLOCKS.DOCUMENT,
         data: {},
-        content: []
+        content: [],
       }
 
       const result = extractTextFromRichText(document)
@@ -104,46 +104,46 @@ describe('blog-helpers', () => {
 
     it('extracts text from complex nested structure', () => {
       const document: Document = {
-        nodeType: 'document',
+        nodeType: BLOCKS.DOCUMENT,
         data: {},
         content: [
           {
-            nodeType: 'heading-1',
+            nodeType: BLOCKS.HEADING_1,
             data: {},
             content: [
               {
                 nodeType: 'text',
                 value: 'Title',
                 marks: [],
-                data: {}
-              }
-            ]
+                data: {},
+              },
+            ],
           },
           {
-            nodeType: 'paragraph',
+            nodeType: BLOCKS.PARAGRAPH,
             data: {},
             content: [
               {
                 nodeType: 'text',
                 value: 'This is ',
                 marks: [],
-                data: {}
+                data: {},
               },
               {
                 nodeType: 'text',
                 value: 'bold text',
                 marks: [{ type: 'bold' }],
-                data: {}
+                data: {},
               },
               {
                 nodeType: 'text',
                 value: ' in a paragraph.',
                 marks: [],
-                data: {}
-              }
-            ]
-          }
-        ]
+                data: {},
+              },
+            ],
+          },
+        ],
       }
 
       const result = extractTextFromRichText(document)
@@ -154,22 +154,22 @@ describe('blog-helpers', () => {
   describe('calculateReadTime', () => {
     it('calculates read time for short content', () => {
       const document: Document = {
-        nodeType: 'document',
+        nodeType: BLOCKS.DOCUMENT,
         data: {},
         content: [
           {
-            nodeType: 'paragraph',
+            nodeType: BLOCKS.PARAGRAPH,
             data: {},
             content: [
               {
                 nodeType: 'text',
                 value: 'Short text',
                 marks: [],
-                data: {}
-              }
-            ]
-          }
-        ]
+                data: {},
+              },
+            ],
+          },
+        ],
       }
 
       const result = calculateReadTime(document)
@@ -180,22 +180,22 @@ describe('blog-helpers', () => {
       // Create content with approximately 400 words (should be 2 min read)
       const longText = 'word '.repeat(400).trim()
       const document: Document = {
-        nodeType: 'document',
+        nodeType: BLOCKS.DOCUMENT,
         data: {},
         content: [
           {
-            nodeType: 'paragraph',
+            nodeType: BLOCKS.PARAGRAPH,
             data: {},
             content: [
               {
                 nodeType: 'text',
                 value: longText,
                 marks: [],
-                data: {}
-              }
-            ]
-          }
-        ]
+                data: {},
+              },
+            ],
+          },
+        ],
       }
 
       const result = calculateReadTime(document)
@@ -204,9 +204,9 @@ describe('blog-helpers', () => {
 
     it('calculates read time for empty content', () => {
       const document: Document = {
-        nodeType: 'document',
+        nodeType: BLOCKS.DOCUMENT,
         data: {},
-        content: []
+        content: [],
       }
 
       const result = calculateReadTime(document)
@@ -216,22 +216,22 @@ describe('blog-helpers', () => {
     it('calculates read time for content with exactly 200 words', () => {
       const exactText = 'word '.repeat(200).trim()
       const document: Document = {
-        nodeType: 'document',
+        nodeType: BLOCKS.DOCUMENT,
         data: {},
         content: [
           {
-            nodeType: 'paragraph',
+            nodeType: BLOCKS.PARAGRAPH,
             data: {},
             content: [
               {
                 nodeType: 'text',
                 value: exactText,
                 marks: [],
-                data: {}
-              }
-            ]
-          }
-        ]
+                data: {},
+              },
+            ],
+          },
+        ],
       }
 
       const result = calculateReadTime(document)
@@ -247,9 +247,12 @@ describe('blog-helpers', () => {
     })
 
     it('truncates text when longer than max length', () => {
-      const longText = 'This is a very long description that exceeds the maximum length and should be truncated with ellipsis at the end'
+      const longText =
+        'This is a very long description that exceeds the maximum length and should be truncated with ellipsis at the end'
       const result = truncateDescription(longText, 50)
-      expect(result).toBe('This is a very long description that exceeds the m...')
+      expect(result).toBe(
+        'This is a very long description that exceeds the m...'
+      )
     })
 
     it('uses default max length of 150', () => {

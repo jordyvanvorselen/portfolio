@@ -1,11 +1,17 @@
-import { 
-  getAllPosts, 
-  getPostAndMorePosts, 
-  getPreviewPostBySlug 
+import {
+  getAllPosts,
+  getPostAndMorePosts,
+  getPreviewPostBySlug,
 } from '@/lib/api'
 
-// Mock fetch globally
-global.fetch = jest.fn()
+// Mock contentful SDK
+jest.mock('contentful', () => ({
+  createClient: jest.fn(() => ({
+    getEntries: jest.fn(),
+  })),
+}))
+
+import { createClient } from 'contentful'
 
 // Mock environment variables
 const originalEnv = process.env
@@ -22,462 +28,417 @@ afterAll(() => {
   process.env = originalEnv
 })
 
-// Mock console.log to avoid noise in tests
-const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
+describe('Contentful API', () => {
+  let mockClient: { getEntries: jest.Mock }
 
-describe('api', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-  })
-
-  afterAll(() => {
-    consoleSpy.mockRestore()
-  })
-
-  describe('fetchGraphQL default parameter', () => {
-    it('tests function declaration branch coverage', async () => {
-      // This test specifically targets the function declaration branch
-      // The branch coverage issue is likely due to the default parameter
-      const mockResponse = {
-        data: {
-          blogPostCollection: {
-            items: []
-          }
-        }
-      }
-
-      ;(fetch as jest.Mock).mockResolvedValueOnce({
-        json: jest.fn().mockResolvedValueOnce(mockResponse),
-      })
-
-      // Call a function that uses fetchGraphQL to ensure the function is executed
-      const result = await getAllPosts(false)
-      
-      // Verify the function executed successfully 
-      expect(result).toEqual([])
-      expect(fetch).toHaveBeenCalled()
-    })
+    mockClient = {
+      getEntries: jest.fn(),
+    }
+    ;(createClient as jest.Mock).mockReturnValue(mockClient)
   })
 
   describe('getAllPosts', () => {
-    it('fetches and transforms all published posts', async () => {
-      const mockResponse = {
-        data: {
-          blogPostCollection: {
-            items: [
-              {
-                slug: 'test-post-1',
-                title: 'Test Post 1',
-                description: 'First test post',
-                tags: ['test', 'blog'],
-                publicationDate: '2024-01-15',
-                featuredImage: {
-                  url: 'https://example.com/image1.jpg',
-                  description: 'Test image'
+    it('returns transformed blog posts from published content', async () => {
+      const mockEntries = {
+        items: [
+          {
+            fields: {
+              slug: 'my-first-post',
+              title: 'My First Post',
+              description: 'An introduction to my blog',
+              tags: ['introduction', 'blog'],
+              publicationDate: '2024-01-15T10:00:00.000Z',
+              featuredImage: {
+                fields: {
+                  file: {
+                    url: 'https://images.ctfassets.net/space/image1.jpg',
+                  },
                 },
-                canonicalUrl: null,
-                draft: false,
-                content: {
-                  json: {
-                    nodeType: 'document',
+              },
+              canonicalUrl: 'https://example.com/original-post',
+              content: {
+                nodeType: 'document',
+                content: [
+                  {
+                    nodeType: 'paragraph',
                     content: [
                       {
-                        nodeType: 'paragraph',
-                        content: [
-                          {
-                            nodeType: 'text',
-                            value: 'Test content with multiple words here',
-                            marks: []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                }
+                        nodeType: 'text',
+                        value:
+                          'This is my first blog post with some content to read.',
+                        marks: [],
+                      },
+                    ],
+                  },
+                ],
               },
-              {
-                slug: 'test-post-2',
-                title: 'Test Post 2',
-                description: 'Second test post',
-                tags: ['test'],
-                publicationDate: '2024-01-10',
-                featuredImage: {
-                  url: 'https://example.com/image2.jpg',
-                  description: 'Test image 2'
-                },
-                canonicalUrl: 'https://example.com/canonical',
-                draft: false,
-                content: {
-                  json: {
-                    nodeType: 'document',
-                    content: []
-                  }
-                }
-              }
-            ]
-          }
-        }
+            },
+          },
+        ],
       }
 
-      ;(fetch as jest.Mock).mockResolvedValueOnce({
-        json: jest.fn().mockResolvedValueOnce(mockResponse),
-      })
+      mockClient.getEntries.mockResolvedValueOnce(mockEntries)
 
-      const result = await getAllPosts(false)
+      const posts = await getAllPosts(false)
 
-      expect(result).toHaveLength(2)
-      expect(result[0]).toEqual({
-        slug: 'test-post-1',
-        title: 'Test Post 1',
-        description: 'First test post',
+      expect(posts).toHaveLength(1)
+      expect(posts[0]).toEqual({
+        slug: 'my-first-post',
+        title: 'My First Post',
+        description: 'An introduction to my blog',
         date: 'January 15, 2024',
         readTime: '1 min read',
-        image: 'https://example.com/image1.jpg',
-        tags: ['test', 'blog'],
-        canonicalUrl: null,
+        image: 'https://images.ctfassets.net/space/image1.jpg',
+        tags: ['introduction', 'blog'],
+        canonicalUrl: 'https://example.com/original-post',
       })
-      expect(result[1]).toEqual({
-        slug: 'test-post-2',
-        title: 'Test Post 2',
-        description: 'Second test post',
-        date: 'January 10, 2024',
-        readTime: '1 min read',
-        image: 'https://example.com/image2.jpg',
-        tags: ['test'],
-        canonicalUrl: 'https://example.com/canonical',
-      })
+    })
 
-      // Verify the GraphQL query was called correctly
-      expect(fetch).toHaveBeenCalledWith(
-        'https://graphql.contentful.com/content/v1/spaces/test-space-id',
-        expect.objectContaining({
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer test-access-token',
+    it('uses production content delivery API for published posts', async () => {
+      mockClient.getEntries.mockResolvedValueOnce({ items: [] })
+
+      await getAllPosts(false)
+
+      expect(createClient).toHaveBeenCalledWith({
+        space: 'test-space-id',
+        accessToken: 'test-access-token',
+        host: 'cdn.contentful.com',
+      })
+      expect(mockClient.getEntries).toHaveBeenCalledWith({
+        content_type: 'blogPost',
+        order: ['-fields.publicationDate'],
+      })
+    })
+
+    it('uses preview API for draft mode', async () => {
+      mockClient.getEntries.mockResolvedValueOnce({ items: [] })
+
+      await getAllPosts(true)
+
+      expect(createClient).toHaveBeenCalledWith({
+        space: 'test-space-id',
+        accessToken: 'test-preview-token',
+        host: 'preview.contentful.com',
+      })
+    })
+
+    it('handles posts without featured images gracefully', async () => {
+      const mockEntries = {
+        items: [
+          {
+            fields: {
+              slug: 'no-image-post',
+              title: 'Post Without Image',
+              description: 'A post without an image',
+              tags: ['text-only'],
+              publicationDate: '2024-01-10T09:00:00.000Z',
+              featuredImage: null,
+              canonicalUrl: undefined,
+              content: {
+                nodeType: 'document',
+                content: [],
+              },
+            },
           },
-        })
-      )
-    })
-
-    it('includes draft posts when isDraftMode is true', async () => {
-      const mockResponse = {
-        data: {
-          blogPostCollection: {
-            items: [
-              {
-                slug: 'draft-post',
-                title: 'Draft Post',
-                description: 'Draft description',
-                tags: [],
-                publicationDate: '2024-01-01',
-                featuredImage: null,
-                canonicalUrl: null,
-                draft: true,
-                content: {
-                  json: {
-                    nodeType: 'document',
-                    content: []
-                  }
-                }
-              }
-            ]
-          }
-        }
+        ],
       }
 
-      ;(fetch as jest.Mock).mockResolvedValueOnce({
-        json: jest.fn().mockResolvedValueOnce(mockResponse),
-      })
+      mockClient.getEntries.mockResolvedValueOnce(mockEntries)
 
-      const result = await getAllPosts(true)
+      const posts = await getAllPosts(false)
 
-      expect(result).toHaveLength(1)
-      expect(result[0].image).toBe('') // Should handle null featuredImage
-      expect(result[0].tags).toEqual([]) // Should handle empty tags
+      expect(posts[0]?.image).toBe('')
+      expect(posts[0]?.canonicalUrl).toBeUndefined()
+    })
 
-      // Verify preview token is used
-      expect(fetch).toHaveBeenCalledWith(
-        'https://graphql.contentful.com/content/v1/spaces/test-space-id',
-        expect.objectContaining({
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer test-preview-token',
+    it('handles posts with undefined tags and featured images', async () => {
+      const mockEntries = {
+        items: [
+          {
+            fields: {
+              slug: 'minimal-post',
+              title: 'Minimal Post',
+              description: 'A minimal post',
+              tags: undefined,
+              publicationDate: '2024-01-01T00:00:00.000Z',
+              featuredImage: undefined,
+              canonicalUrl: null,
+              content: {
+                nodeType: 'document',
+                content: [],
+              },
+            },
           },
-        })
-      )
-    })
-
-    it('returns empty array when no posts found', async () => {
-      const mockResponse = {
-        data: {
-          blogPostCollection: {
-            items: []
-          }
-        }
+        ],
       }
 
-      ;(fetch as jest.Mock).mockResolvedValueOnce({
-        json: jest.fn().mockResolvedValueOnce(mockResponse),
-      })
+      mockClient.getEntries.mockResolvedValueOnce(mockEntries)
 
-      const result = await getAllPosts(false)
+      const posts = await getAllPosts(false)
 
-      expect(result).toEqual([])
+      expect(posts[0]?.tags).toEqual([])
+      expect(posts[0]?.image).toBe('')
     })
 
-    it('returns empty array when response is malformed', async () => {
-      const mockResponse = {
-        data: {
-          blogPostCollection: null
-        }
-      }
+    it('returns empty array when no posts are found', async () => {
+      mockClient.getEntries.mockResolvedValueOnce({ items: [] })
 
-      ;(fetch as jest.Mock).mockResolvedValueOnce({
-        json: jest.fn().mockResolvedValueOnce(mockResponse),
-      })
+      const posts = await getAllPosts(false)
 
-      const result = await getAllPosts(false)
-
-      expect(result).toEqual([])
+      expect(posts).toEqual([])
     })
 
-    it('handles posts with undefined tags and featuredImage', async () => {
-      const mockResponse = {
-        data: {
-          blogPostCollection: {
-            items: [
-              {
-                slug: 'no-optional-fields',
-                title: 'Post Without Optional Fields',
-                description: 'Description',
-                tags: undefined,
-                publicationDate: '2024-01-01',
-                featuredImage: undefined,
-                canonicalUrl: null,
-                draft: false,
-                content: {
-                  json: {
-                    nodeType: 'document',
-                    content: []
-                  }
-                }
-              }
-            ]
-          }
-        }
+    it('orders posts by publication date descending', async () => {
+      const mockEntries = {
+        items: [
+          {
+            fields: {
+              slug: 'newer-post',
+              title: 'Newer Post',
+              description: 'More recent post',
+              tags: [],
+              publicationDate: '2024-02-01T00:00:00.000Z',
+              content: { nodeType: 'document', content: [] },
+            },
+          },
+          {
+            fields: {
+              slug: 'older-post',
+              title: 'Older Post',
+              description: 'Earlier post',
+              tags: [],
+              publicationDate: '2024-01-01T00:00:00.000Z',
+              content: { nodeType: 'document', content: [] },
+            },
+          },
+        ],
       }
 
-      ;(fetch as jest.Mock).mockResolvedValueOnce({
-        json: jest.fn().mockResolvedValueOnce(mockResponse),
-      })
+      mockClient.getEntries.mockResolvedValueOnce(mockEntries)
 
-      const result = await getAllPosts(false)
+      const posts = await getAllPosts(false)
 
-      expect(result).toHaveLength(1)
-      expect(result[0].image).toBe('') // Should handle undefined featuredImage
-      expect(result[0].tags).toEqual([]) // Should handle undefined tags
+      expect(posts[0]?.slug).toBe('newer-post')
+      expect(posts[1]?.slug).toBe('older-post')
+      expect(posts[0]?.date).toBe('February 1, 2024')
+      expect(posts[1]?.date).toBe('January 1, 2024')
     })
   })
 
   describe('getPreviewPostBySlug', () => {
-    it('fetches and transforms a single post by slug', async () => {
-      const mockResponse = {
-        data: {
-          blogPostCollection: {
-            items: [
-              {
-                slug: 'preview-post',
-                title: 'Preview Post',
-                description: 'Preview description',
-                tags: ['preview'],
-                publicationDate: '2024-01-20',
-                featuredImage: {
-                  url: 'https://example.com/preview.jpg',
-                  description: 'Preview image'
+    it('returns null when slug is null', async () => {
+      const post = await getPreviewPostBySlug(null)
+
+      expect(post).toBeNull()
+      expect(mockClient.getEntries).not.toHaveBeenCalled()
+    })
+
+    it('returns null when slug is empty string', async () => {
+      const post = await getPreviewPostBySlug('')
+
+      expect(post).toBeNull()
+    })
+
+    it('fetches a specific post by slug using preview API', async () => {
+      const mockEntries = {
+        items: [
+          {
+            fields: {
+              slug: 'preview-post',
+              title: 'Preview Post',
+              description: 'A post in preview mode',
+              tags: ['preview', 'draft'],
+              publicationDate: '2024-01-20T14:30:00.000Z',
+              featuredImage: {
+                fields: {
+                  file: {
+                    url: 'https://images.ctfassets.net/space/preview.jpg',
+                  },
                 },
-                canonicalUrl: null,
-                draft: true,
-                content: {
-                  json: {
-                    nodeType: 'document',
+              },
+              canonicalUrl: null,
+              content: {
+                nodeType: 'document',
+                content: [
+                  {
+                    nodeType: 'paragraph',
                     content: [
                       {
-                        nodeType: 'paragraph',
-                        content: [
-                          {
-                            nodeType: 'text',
-                            value: 'Preview content',
-                            marks: []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              }
-            ]
-          }
-        }
+                        nodeType: 'text',
+                        value:
+                          'This is preview content that might not be published yet.',
+                        marks: [],
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          },
+        ],
       }
 
-      ;(fetch as jest.Mock).mockResolvedValueOnce({
-        json: jest.fn().mockResolvedValueOnce(mockResponse),
-      })
+      mockClient.getEntries.mockResolvedValueOnce(mockEntries)
 
-      const result = await getPreviewPostBySlug('preview-post')
+      const post = await getPreviewPostBySlug('preview-post')
 
-      expect(result).toEqual({
+      expect(post).toEqual({
         slug: 'preview-post',
         title: 'Preview Post',
-        description: 'Preview description',
+        description: 'A post in preview mode',
         date: 'January 20, 2024',
         readTime: '1 min read',
-        image: 'https://example.com/preview.jpg',
-        tags: ['preview'],
+        image: 'https://images.ctfassets.net/space/preview.jpg',
+        tags: ['preview', 'draft'],
         canonicalUrl: null,
       })
 
-      // Verify preview mode is used
-      expect(fetch).toHaveBeenCalledWith(
-        'https://graphql.contentful.com/content/v1/spaces/test-space-id',
-        expect.objectContaining({
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer test-preview-token',
-          },
-        })
-      )
-    })
-
-    it('returns null when post not found', async () => {
-      const mockResponse = {
-        data: {
-          blogPostCollection: {
-            items: []
-          }
-        }
-      }
-
-      ;(fetch as jest.Mock).mockResolvedValueOnce({
-        json: jest.fn().mockResolvedValueOnce(mockResponse),
+      expect(createClient).toHaveBeenCalledWith({
+        space: 'test-space-id',
+        accessToken: 'test-preview-token',
+        host: 'preview.contentful.com',
       })
-
-      const result = await getPreviewPostBySlug('non-existent')
-
-      expect(result).toBeNull()
+      expect(mockClient.getEntries).toHaveBeenCalledWith({
+        content_type: 'blogPost',
+        'fields.slug': 'preview-post',
+        limit: 1,
+      })
     })
 
+    it('returns null when post with slug is not found', async () => {
+      mockClient.getEntries.mockResolvedValueOnce({ items: [] })
+
+      const post = await getPreviewPostBySlug('non-existent-slug')
+
+      expect(post).toBeNull()
+    })
   })
 
   describe('getPostAndMorePosts', () => {
-    it('fetches post and related posts', async () => {
-      const postResponse = {
-        data: {
-          blogPostCollection: {
-            items: [
-              {
-                slug: 'main-post',
-                title: 'Main Post',
-                description: 'Main description',
-                tags: ['main'],
-                publicationDate: '2024-01-15',
-                featuredImage: null,
-                canonicalUrl: null,
-                draft: false,
-                content: {
-                  json: {
-                    nodeType: 'document',
-                    content: []
+    it('fetches main post and related posts simultaneously', async () => {
+      const mainPostResponse = {
+        items: [
+          {
+            fields: {
+              slug: 'main-article',
+              title: 'Main Article',
+              description: 'The primary article content',
+              tags: ['featured'],
+              publicationDate: '2024-01-15T12:00:00.000Z',
+              content: {
+                nodeType: 'document',
+                content: [
+                  {
+                    nodeType: 'paragraph',
+                    content: [
+                      {
+                        nodeType: 'text',
+                        value:
+                          'This is the main article with substantial content for reading.',
+                        marks: [],
+                      },
+                    ],
                   },
-                  links: {
-                    assets: { block: [] },
-                    entries: { block: [] }
-                  }
-                }
-              }
-            ]
-          }
-        }
+                ],
+              },
+            },
+          },
+        ],
       }
 
       const morePostsResponse = {
-        data: {
-          blogPostCollection: {
-            items: [
-              {
-                slug: 'related-post-1',
-                title: 'Related Post 1',
-                description: 'Related description 1',
-                tags: ['related'],
-                publicationDate: '2024-01-10',
-                featuredImage: null,
-                canonicalUrl: null,
-                draft: false,
-                content: {
-                  json: {
-                    nodeType: 'document',
-                    content: []
-                  }
-                }
-              },
-              {
-                slug: 'related-post-2',
-                title: 'Related Post 2',
-                description: 'Related description 2',
-                tags: ['related'],
-                publicationDate: '2024-01-05',
-                featuredImage: null,
-                canonicalUrl: null,
-                draft: false,
-                content: {
-                  json: {
-                    nodeType: 'document',
-                    content: []
-                  }
-                }
-              }
-            ]
-          }
-        }
+        items: [
+          {
+            fields: {
+              slug: 'related-article-1',
+              title: 'Related Article 1',
+              description: 'First related article',
+              tags: ['related'],
+              publicationDate: '2024-01-10T10:00:00.000Z',
+              content: { nodeType: 'document', content: [] },
+            },
+          },
+          {
+            fields: {
+              slug: 'related-article-2',
+              title: 'Related Article 2',
+              description: 'Second related article',
+              tags: ['related'],
+              publicationDate: '2024-01-05T08:00:00.000Z',
+              content: { nodeType: 'document', content: [] },
+            },
+          },
+        ],
       }
 
-      ;(fetch as jest.Mock)
-        .mockResolvedValueOnce({
-          json: jest.fn().mockResolvedValueOnce(postResponse),
-        })
-        .mockResolvedValueOnce({
-          json: jest.fn().mockResolvedValueOnce(morePostsResponse),
-        })
+      mockClient.getEntries
+        .mockResolvedValueOnce(mainPostResponse)
+        .mockResolvedValueOnce(morePostsResponse)
 
-      const result = await getPostAndMorePosts('main-post', false)
+      const result = await getPostAndMorePosts('main-article', false)
 
-      expect(result.post).toBeDefined()
-      expect(result.post.slug).toBe('main-post')
+      expect(result.post).toEqual({
+        slug: 'main-article',
+        title: 'Main Article',
+        description: 'The primary article content',
+        date: 'January 15, 2024',
+        readTime: '1 min read',
+        image: '',
+        tags: ['featured'],
+        canonicalUrl: undefined,
+      })
+
       expect(result.morePosts).toHaveLength(2)
-      expect(result.morePosts[0].slug).toBe('related-post-1')
-      expect(result.morePosts[1].slug).toBe('related-post-2')
+      expect(result.morePosts[0]?.slug).toBe('related-article-1')
+      expect(result.morePosts[1]?.slug).toBe('related-article-2')
 
-      // Verify two fetch calls were made
-      expect(fetch).toHaveBeenCalledTimes(2)
+      expect(mockClient.getEntries).toHaveBeenNthCalledWith(1, {
+        content_type: 'blogPost',
+        'fields.slug': 'main-article',
+        limit: 1,
+      })
+      expect(mockClient.getEntries).toHaveBeenNthCalledWith(2, {
+        content_type: 'blogPost',
+        'fields.slug[ne]': 'main-article',
+        order: ['-fields.publicationDate'],
+        limit: 2,
+      })
     })
 
-    it('handles missing main post', async () => {
-      const emptyResponse = {
-        data: {
-          blogPostCollection: {
-            items: []
-          }
-        }
-      }
+    it('uses preview API when preview mode is enabled', async () => {
+      mockClient.getEntries
+        .mockResolvedValueOnce({ items: [] })
+        .mockResolvedValueOnce({ items: [] })
 
-      ;(fetch as jest.Mock)
-        .mockResolvedValueOnce({
-          json: jest.fn().mockResolvedValueOnce(emptyResponse),
-        })
-        .mockResolvedValueOnce({
-          json: jest.fn().mockResolvedValueOnce(emptyResponse),
-        })
+      await getPostAndMorePosts('any-slug', true)
+
+      expect(createClient).toHaveBeenCalledWith({
+        space: 'test-space-id',
+        accessToken: 'test-preview-token',
+        host: 'preview.contentful.com',
+      })
+    })
+
+    it('uses production API when preview mode is disabled', async () => {
+      mockClient.getEntries
+        .mockResolvedValueOnce({ items: [] })
+        .mockResolvedValueOnce({ items: [] })
+
+      await getPostAndMorePosts('any-slug', false)
+
+      expect(createClient).toHaveBeenCalledWith({
+        space: 'test-space-id',
+        accessToken: 'test-access-token',
+        host: 'cdn.contentful.com',
+      })
+    })
+
+    it('returns null post when main post is not found', async () => {
+      mockClient.getEntries
+        .mockResolvedValueOnce({ items: [] })
+        .mockResolvedValueOnce({ items: [] })
 
       const result = await getPostAndMorePosts('non-existent', false)
 
@@ -485,80 +446,51 @@ describe('api', () => {
       expect(result.morePosts).toEqual([])
     })
 
-    it('handles preview mode correctly', async () => {
-      const postResponse = {
-        data: {
-          blogPostCollection: {
-            items: [
-              {
-                slug: 'preview-post',
-                title: 'Preview Post',
-                description: 'Preview description',
-                tags: ['preview'],
-                publicationDate: '2024-01-15',
-                featuredImage: null,
-                canonicalUrl: null,
-                draft: true,
-                content: {
-                  json: {
-                    nodeType: 'document',
-                    content: []
-                  }
-                }
-              }
-            ]
-          }
-        }
+    it('excludes the main post from more posts results', async () => {
+      const mainPostResponse = {
+        items: [
+          {
+            fields: {
+              slug: 'exclude-me',
+              title: 'Main Post',
+              description: 'Main post description',
+              tags: [],
+              publicationDate: '2024-01-15T12:00:00.000Z',
+              content: { nodeType: 'document', content: [] },
+            },
+          },
+        ],
       }
 
       const morePostsResponse = {
-        data: {
-          blogPostCollection: {
-            items: [
-              {
-                slug: 'draft-related',
-                title: 'Draft Related',
-                description: 'Draft related description',
-                tags: ['draft'],
-                publicationDate: '2024-01-10',
-                featuredImage: null,
-                canonicalUrl: null,
-                draft: true,
-                content: {
-                  json: {
-                    nodeType: 'document',
-                    content: []
-                  }
-                }
-              }
-            ]
-          }
-        }
+        items: [
+          {
+            fields: {
+              slug: 'other-post',
+              title: 'Other Post',
+              description: 'Different post',
+              tags: [],
+              publicationDate: '2024-01-10T12:00:00.000Z',
+              content: { nodeType: 'document', content: [] },
+            },
+          },
+        ],
       }
 
-      ;(fetch as jest.Mock)
-        .mockResolvedValueOnce({
-          json: jest.fn().mockResolvedValueOnce(postResponse),
-        })
-        .mockResolvedValueOnce({
-          json: jest.fn().mockResolvedValueOnce(morePostsResponse),
-        })
+      mockClient.getEntries
+        .mockResolvedValueOnce(mainPostResponse)
+        .mockResolvedValueOnce(morePostsResponse)
 
-      const result = await getPostAndMorePosts('preview-post', true)
+      const result = await getPostAndMorePosts('exclude-me', false)
 
-      expect(result.post).toBeDefined()
-      expect(result.post.slug).toBe('preview-post')
+      expect(result.post?.slug).toBe('exclude-me')
       expect(result.morePosts).toHaveLength(1)
-      expect(result.morePosts[0].slug).toBe('draft-related')
+      expect(result.morePosts[0]?.slug).toBe('other-post')
 
-      // Verify preview token is used
-      expect(fetch).toHaveBeenCalledWith(
-        'https://graphql.contentful.com/content/v1/spaces/test-space-id',
+      // Verify the exclusion filter was applied
+      expect(mockClient.getEntries).toHaveBeenCalledWith(
         expect.objectContaining({
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer test-preview-token',
-          },
+          'fields.slug[ne]': 'exclude-me',
         })
       )
     })

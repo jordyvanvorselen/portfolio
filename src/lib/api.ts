@@ -1,133 +1,98 @@
+import { createClient, type Entry } from 'contentful'
 import { formatDate, calculateReadTime } from '@/lib/blog-helpers'
+import type { TypeBlogPostSkeleton } from '@/lib/contentful-types'
 
-const POST_GRAPHQL_FIELDS = `
-  slug
-  title
-  description
-  tags
-  publicationDate
-  featuredImage {
-    url
-    description
+export interface BlogPost {
+  slug: string
+  title: string
+  description: string
+  date: string
+  readTime: string
+  image: string
+  tags: string[]
+  canonicalUrl?: string
+}
+
+function getClient(preview: boolean) {
+  return createClient({
+    space: process.env['CONTENTFUL_SPACE_ID']!,
+    accessToken: preview
+      ? process.env['CONTENTFUL_PREVIEW_ACCESS_TOKEN']!
+      : process.env['CONTENTFUL_ACCESS_TOKEN']!,
+    host: preview ? 'preview.contentful.com' : 'cdn.contentful.com',
+  })
+}
+
+function transformEntry(entry: Entry<TypeBlogPostSkeleton>): BlogPost {
+  const result: BlogPost = {
+    slug: entry.fields.slug as string,
+    title: entry.fields.title as string,
+    description: entry.fields.description as string,
+    date: formatDate(entry.fields.publicationDate as string),
+    readTime: calculateReadTime(entry.fields.content as any), // eslint-disable-line @typescript-eslint/no-explicit-any
+    image: (entry.fields.featuredImage as any)?.fields?.file?.url || '', // eslint-disable-line @typescript-eslint/no-explicit-any
+    tags: (entry.fields.tags as string[]) || [],
   }
-  canonicalUrl
-  content {
-    json
+
+  if (entry.fields.canonicalUrl) {
+    result.canonicalUrl = entry.fields.canonicalUrl as string
   }
-`
 
-async function fetchGraphQL(query: string, preview: boolean): Promise<any> {
-  return fetch(
-    `https://graphql.contentful.com/content/v1/spaces/${process.env['CONTENTFUL_SPACE_ID']}`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${
-          preview
-            ? process.env['CONTENTFUL_PREVIEW_ACCESS_TOKEN']
-            : process.env['CONTENTFUL_ACCESS_TOKEN']
-        }`,
-      },
-      body: JSON.stringify({ query }),
-      next: { tags: ['posts'] },
-    }
-  ).then(response => response.json())
+  return result
 }
 
-function transformPost(post: any): any {
-  return {
-    slug: post.slug,
-    title: post.title,
-    description: post.description,
-    date: formatDate(post.publicationDate),
-    readTime: calculateReadTime(post.content.json),
-    image: post.featuredImage?.url || '',
-    tags: post.tags || [],
-    canonicalUrl: post.canonicalUrl,
-  }
+export async function getPreviewPostBySlug(
+  slug: string | null
+): Promise<BlogPost | null> {
+  if (!slug) return null
+
+  const client = getClient(true)
+
+  const entries = await client.getEntries<TypeBlogPostSkeleton>({
+    content_type: 'blogPost',
+    'fields.slug': slug,
+    limit: 1,
+  })
+
+  if (!entries.items[0]) return null
+
+  const entry = entries.items[0]
+  return transformEntry(entry)
 }
 
-function extractPost(fetchResponse: any): any {
-  const post = fetchResponse?.data?.blogPostCollection?.items?.[0]
-  return post ? transformPost(post) : null
-}
+export async function getAllPosts(isDraftMode: boolean): Promise<BlogPost[]> {
+  const client = getClient(isDraftMode)
 
-function extractPostEntries(fetchResponse: any): any[] {
-  const posts = fetchResponse?.data?.blogPostCollection?.items
-  return posts && posts.length > 0 ? posts.map(transformPost) : []
-}
+  const entries = await client.getEntries<TypeBlogPostSkeleton>({
+    content_type: 'blogPost',
+    order: ['-fields.publicationDate'],
+  })
 
-export async function getPreviewPostBySlug(slug: string | null): Promise<any> {
-  const entry = await fetchGraphQL(
-    `query {
-      blogPostCollection(where: { slug: "${slug}" }, preview: true, limit: 1) {
-        items {
-          ${POST_GRAPHQL_FIELDS}
-        }
-      }
-    }`,
-    true
-  )
-  return extractPost(entry)
-}
-
-export async function getAllPosts(isDraftMode: boolean): Promise<any[]> {
-  const entries = await fetchGraphQL(
-    `query {
-      blogPostCollection(
-        where: {
-          slug_exists: true
-        }
-        order: publicationDate_DESC
-        preview: ${isDraftMode ? 'true' : 'false'}
-      ) {
-        items {
-          ${POST_GRAPHQL_FIELDS}
-        }
-      }
-    }`,
-    isDraftMode
-  )
-
-  return extractPostEntries(entries)
+  return entries.items.map(transformEntry)
 }
 
 export async function getPostAndMorePosts(
   slug: string,
   preview: boolean
-): Promise<any> {
-  const entry = await fetchGraphQL(
-    `query {
-      blogPostCollection(where: { slug: "${slug}" }, preview: ${
-        preview ? 'true' : 'false'
-      }, limit: 1) {
-        items {
-          ${POST_GRAPHQL_FIELDS}
-        }
-      }
-    }`,
-    preview
-  )
-  const entries = await fetchGraphQL(
-    `query {
-      blogPostCollection(
-        where: {
-          slug_not_in: ["${slug}"]
-        }
-        order: publicationDate_DESC
-        preview: ${preview ? 'true' : 'false'}
-        limit: 2
-      ) {
-        items {
-          ${POST_GRAPHQL_FIELDS}
-        }
-      }
-    }`,
-    preview
-  )
+): Promise<{ post: BlogPost | null; morePosts: BlogPost[] }> {
+  const client = getClient(preview)
+
+  const [postEntries, morePostEntries] = await Promise.all([
+    client.getEntries<TypeBlogPostSkeleton>({
+      content_type: 'blogPost',
+      'fields.slug': slug,
+      limit: 1,
+    }),
+    client.getEntries<TypeBlogPostSkeleton>({
+      content_type: 'blogPost',
+      'fields.slug[ne]': slug,
+      order: ['-fields.publicationDate'],
+      limit: 2,
+    }),
+  ])
+
   return {
-    post: extractPost(entry),
-    morePosts: extractPostEntries(entries),
+    post: postEntries.items[0] ? transformEntry(postEntries.items[0]) : null,
+    morePosts: morePostEntries.items.map(transformEntry),
   }
 }

@@ -5,7 +5,7 @@ import { BlogSearchFilters } from '@/domains/blog/BlogSearchFilters'
 import { BlogCard } from '@/domains/blog/BlogCard'
 import { FeaturedBlogCard } from '@/domains/blog/FeaturedBlogCard'
 import { BlogSectionTitle } from '@/domains/blog/BlogSectionTitle'
-import { getAllPosts } from '@/lib/api'
+import { getAllPosts, type BlogPost } from '@/lib/api'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BlogPage() {
-  let blogPosts: any[] = []
+  let blogPosts: BlogPost[] = []
 
   try {
     blogPosts = await getAllPosts(process.env['VERCEL_ENV'] !== 'production')

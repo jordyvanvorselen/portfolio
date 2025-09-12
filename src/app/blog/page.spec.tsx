@@ -18,7 +18,6 @@ describe('BlogPage', () => {
         readTime: '5 min read',
         image: '/test-image.jpg',
         tags: ['TypeScript', 'Development'],
-        canonicalUrl: null,
       },
       {
         slug: 'clean-architecture',
@@ -28,7 +27,6 @@ describe('BlogPage', () => {
         readTime: '8 min read',
         image: '/test-image2.jpg',
         tags: ['Architecture', 'Design'],
-        canonicalUrl: null,
       },
       {
         slug: 'test-post-1',
@@ -38,7 +36,6 @@ describe('BlogPage', () => {
         readTime: '3 min read',
         image: '/test1.jpg',
         tags: ['Test'],
-        canonicalUrl: null,
       },
       {
         slug: 'test-post-2',
@@ -48,7 +45,6 @@ describe('BlogPage', () => {
         readTime: '4 min read',
         image: '/test2.jpg',
         tags: ['Test'],
-        canonicalUrl: null,
       },
       {
         slug: 'test-post-3',
@@ -58,7 +54,6 @@ describe('BlogPage', () => {
         readTime: '6 min read',
         image: '/test3.jpg',
         tags: ['Test'],
-        canonicalUrl: null,
       },
       {
         slug: 'test-post-4',
@@ -68,7 +63,6 @@ describe('BlogPage', () => {
         readTime: '7 min read',
         image: '/test4.jpg',
         tags: ['Test'],
-        canonicalUrl: null,
       },
     ])
   })
@@ -126,26 +120,36 @@ describe('BlogPage', () => {
   it('handles API errors gracefully', async () => {
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation()
     jest.mocked(api.getAllPosts).mockRejectedValueOnce(new Error('API Error'))
-    
+
     render(await BlogPage())
-    
+
     expect(consoleSpy).toHaveBeenCalledWith(
-      'Failed to fetch blog posts from Contentful:', 
+      'Failed to fetch blog posts from Contentful:',
       expect.any(Error)
     )
-    expect(screen.getByText('No blog posts available at the moment.')).toBeVisible()
-    
+    expect(
+      screen.getByText('No blog posts available at the moment.')
+    ).toBeVisible()
+
     consoleSpy.mockRestore()
   })
 
   it('shows empty state when no posts are available', async () => {
     jest.mocked(api.getAllPosts).mockResolvedValueOnce([])
-    
+
     render(await BlogPage())
-    
-    expect(screen.getByText('No blog posts available at the moment.')).toBeVisible()
-    expect(screen.getByText('Please check back later for new content.')).toBeVisible()
-    expect(screen.queryByRole('heading', { name: 'blog.sections.featuredArticle' })).not.toBeInTheDocument()
-    expect(screen.queryByRole('heading', { name: 'blog.sections.latestArticles' })).not.toBeInTheDocument()
+
+    expect(
+      screen.getByText('No blog posts available at the moment.')
+    ).toBeVisible()
+    expect(
+      screen.getByText('Please check back later for new content.')
+    ).toBeVisible()
+    expect(
+      screen.queryByRole('heading', { name: 'blog.sections.featuredArticle' })
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByRole('heading', { name: 'blog.sections.latestArticles' })
+    ).not.toBeInTheDocument()
   })
 })

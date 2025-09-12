@@ -6,6 +6,7 @@ interface ContentfulImageProps {
   src: string
   width?: number
   quality?: number
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any // For other props that might be passed
 }
 

@@ -17,7 +17,15 @@ export interface BlogCardProps {
   tags: string[]
 }
 
-export const BlogCard = ({ slug, title, description, date, readTime, image, tags }: BlogCardProps) => {
+export const BlogCard = ({
+  slug,
+  title,
+  description,
+  date,
+  readTime,
+  image,
+  tags,
+}: BlogCardProps) => {
   const t = useTranslations()
   return (
     <Link href={`/blog/${slug}`}>

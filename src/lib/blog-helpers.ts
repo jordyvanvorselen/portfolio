@@ -1,6 +1,9 @@
-import type { Document } from '@contentful/rich-text-types'
+import type { Document, Node, Text } from '@contentful/rich-text-types'
 
-export const formatDate = (dateString: string, locale: string = 'en-US'): string => {
+export const formatDate = (
+  dateString: string,
+  locale: string = 'en-US'
+): string => {
   const date = new Date(dateString)
   return new Intl.DateTimeFormat(locale, {
     year: 'numeric',
@@ -20,12 +23,12 @@ export const calculateReadTime = (content: Document): string => {
 export const extractTextFromRichText = (document: Document): string => {
   let text = ''
 
-  const traverse = (node: any) => {
+  const traverse = (node: Node) => {
     if (node.nodeType === 'text') {
-      text += node.value + ' '
+      text += (node as Text).value + ' '
     }
-    
-    if (node.content) {
+
+    if ('content' in node && Array.isArray(node.content)) {
       node.content.forEach(traverse)
     }
   }
@@ -34,7 +37,10 @@ export const extractTextFromRichText = (document: Document): string => {
   return text.trim()
 }
 
-export const truncateDescription = (text: string, maxLength: number = 150): string => {
+export const truncateDescription = (
+  text: string,
+  maxLength: number = 150
+): string => {
   if (text.length <= maxLength) return text
   return text.substring(0, maxLength).trim() + '...'
 }
