@@ -1,11 +1,14 @@
+import { type NetworkFixture, createNetworkFixture } from '@msw/playwright'
 import { test as base } from '@playwright/test'
 
 import { HomePage } from '@/integration-tests/page-objects/pages/home.page'
 import { BlogPage } from '@/integration-tests/page-objects/pages/blog.page'
 import { ProjectsPage } from '@/integration-tests/page-objects/pages/projects.page'
 import { ExperiencePage } from '@/integration-tests/page-objects/pages/experience.page'
+import { defaultHandlers } from '../../test/msw/defaultHandlers'
 
 type Fixture = {
+  msw: NetworkFixture
   homePage: HomePage
   blogPage: BlogPage
   projectsPage: ProjectsPage
@@ -13,6 +16,8 @@ type Fixture = {
 }
 
 export const test = base.extend<Fixture>({
+  msw: createNetworkFixture({ initialHandlers: defaultHandlers }),
+
   page: async ({ page }, pwUse) => {
     await page.addInitScript(() => (window.isUnderTest = true))
 

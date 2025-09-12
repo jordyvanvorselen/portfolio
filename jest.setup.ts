@@ -1,7 +1,21 @@
 import '@testing-library/jest-dom'
 import React from 'react'
 
+import { server } from './test/msw/register.server'
 import { assertableTranslationKeys } from './src/test/utils/translations'
+
+// Setup MSW server
+beforeAll(() => {
+  server.listen({ onUnhandledRequest: 'error' })
+})
+
+afterAll(() => {
+  server.close()
+})
+
+afterEach(() => {
+  server.resetHandlers()
+})
 
 // Mock window.matchMedia (used by useMediaQuery hook)
 Object.defineProperty(window, 'matchMedia', {

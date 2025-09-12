@@ -4,6 +4,19 @@ import { getLocale, getMessages, getTranslations } from 'next-intl/server'
 import './globals.css'
 import { Header } from '@/domains/common/Header'
 import { Footer } from '@/domains/common/Footer'
+import { MockServiceWorkerWrapper } from '../../test/msw/MockServiceWorkerWrapper.component'
+import { isExcluded } from '../../test/msw/exclude'
+
+// Setup MSW server in development/test when mocking is enabled
+if (process.env["NEXT_PUBLIC_MOCK_BACKEND"] === "true") {
+	const { server } = await import("../../test/msw/register.server")
+	server.listen({
+		onUnhandledRequest(request, print) {
+			if (isExcluded(request)) return
+			print.warning()
+		},
+	})
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('layout')
@@ -26,9 +39,11 @@ export default async function RootLayout({
     <html lang={locale} className="bg-gray-900">
       <body className="antialiased min-h-full flex flex-col bg-gray-900">
         <NextIntlClientProvider messages={messages}>
-          <Header />
-          {children}
-          <Footer />
+          <MockServiceWorkerWrapper>
+            <Header />
+            {children}
+            <Footer />
+          </MockServiceWorkerWrapper>
         </NextIntlClientProvider>
       </body>
     </html>
