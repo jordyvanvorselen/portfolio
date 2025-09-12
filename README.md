@@ -198,10 +198,10 @@ graph TD
     E --> H[🔄 Reproducible Scenarios]
 
     style A fill:#ff6a33,stroke:#ffffff,color:#ffffff
-    style E fill:#e8f5e8,stroke:#4caf50
-    style F fill:#e3f2fd,stroke:#2196f3
-    style G fill:#fff3e0,stroke:#ff9800
-    style H fill:#f3e5f5,stroke:#9c27b0
+    style E fill:#e8f5e8,stroke:#4caf50,color:#000000
+    style F fill:#e3f2fd,stroke:#2196f3,color:#000000
+    style G fill:#fff3e0,stroke:#ff9800,color:#000000
+    style H fill:#f3e5f5,stroke:#9c27b0,color:#000000
 ```
 
 **MSW Integration Features:**
@@ -327,9 +327,9 @@ graph LR
 
     H --> I[🚀 Vercel Deployment]
 
-    style A fill:#e3f2fd,stroke:#2196f3
-    style H fill:#fff3e0,stroke:#ff9800
-    style I fill:#e8f5e8,stroke:#4caf50
+    style A fill:#e3f2fd,stroke:#2196f3,color:#000000
+    style H fill:#fff3e0,stroke:#ff9800,color:#000000
+    style I fill:#e8f5e8,stroke:#4caf50,color:#000000
 ```
 
 ### ⚡ Pipeline Stages
