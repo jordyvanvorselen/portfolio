@@ -1,2 +1,4 @@
-// MSW default handlers - empty for now, will be populated as needed
-export const defaultHandlers: [] = []
+import { contentfulHandlers } from '@/test/msw/handlers/contentful.handler'
+
+// MSW default handlers
+export const defaultHandlers = [...contentfulHandlers]

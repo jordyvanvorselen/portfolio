@@ -5,7 +5,7 @@ test.describe('Header Component', () => {
   test('displays header with branding', async ({ homePage }) => {
     await expect(homePage.header.section).toBeVisible()
     await expect(homePage.header.brandingLink).toBeVisible()
-    await expect(homePage.header.brandingLink).toHaveText('More Than Bits')
+    await expect(homePage.header.brandingLink).toHaveText('Jordy van Vorselen')
   })
 
   test('displays navigation menu', async ({ homePage }) => {
@@ -40,6 +40,7 @@ test.describe('Header Component', () => {
     await expect(homePage.page).toHaveURL('/')
 
     await homePage.header.blogLink.click()
+    homePage.page.waitForURL('/blog')
     await expect(homePage.page).toHaveURL('/blog')
 
     await homePage.page.goBack()
