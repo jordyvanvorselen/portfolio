@@ -316,30 +316,32 @@ graph LR
     A --> D[Type Checking]
     A --> E[Unit Tests]
     A --> F[Integration Tests]
+    A --> G[Visual Regression Tests]
 
-    B --> G[Deploy Gate]
-    C --> G
-    D --> G
-    E --> G
-    F --> G
+    B --> H[Deploy Gate]
+    C --> H
+    D --> H
+    E --> H
+    F --> H
+    G --> H
 
-    G --> H[🚀 Vercel Deployment]
+    H --> I[🚀 Vercel Deployment]
 
     style A fill:#e3f2fd,stroke:#2196f3
-    style G fill:#fff3e0,stroke:#ff9800
-    style H fill:#e8f5e8,stroke:#4caf50
+    style H fill:#fff3e0,stroke:#ff9800
+    style I fill:#e8f5e8,stroke:#4caf50
 ```
 
 ### ⚡ Pipeline Stages
 
-| Stage                | Purpose                          | Tools             | Status                                                                |
-| -------------------- | -------------------------------- | ----------------- | --------------------------------------------------------------------- |
-| **🔍 Lint & Format** | Code style & quality enforcement | ESLint + Prettier | ![Badge](https://img.shields.io/badge/ESLint-Passing-brightgreen)     |
-| **🏗️ Build**         | Application build verification   | Next.js           | ![Badge](https://img.shields.io/badge/Build-Passing-brightgreen)      |
-| **📋 Typecheck**     | Static type analysis             | TypeScript        | ![Badge](https://img.shields.io/badge/TypeScript-Strict-blue)         |
-| **🧪 Unit Tests**    | Component & logic testing        | Vitest + RTL      | ![Badge](https://img.shields.io/badge/Coverage-100%25-brightgreen)    |
-| **🌐 Integration**   | E2E testing workflows            | Playwright        | ![Badge](https://img.shields.io/badge/Tests-88%20passing-brightgreen) |
-| **🖼️ Visual**        | Visual regression testing        | Playwright        | ![Badge](https://img.shields.io/badge/Tests-20%20passing-brightgreen) |
+| Stage                    | Purpose                          | Tools             | Status                                                                |
+| ------------------------ | -------------------------------- | ----------------- | --------------------------------------------------------------------- |
+| **🔍 Lint & Format**     | Code style & quality enforcement | ESLint + Prettier | ![Badge](https://img.shields.io/badge/ESLint-Passing-brightgreen)     |
+| **🏗️ Build**             | Application build verification   | Next.js           | ![Badge](https://img.shields.io/badge/Build-Passing-brightgreen)      |
+| **📋 Typecheck**         | Static type analysis             | TypeScript        | ![Badge](https://img.shields.io/badge/TypeScript-Strict-blue)         |
+| **🧪 Unit Tests**        | Component & logic testing        | Vitest + RTL      | ![Badge](https://img.shields.io/badge/Coverage-100%25-brightgreen)    |
+| **🌐 Integration Tests** | E2E testing workflows            | Playwright        | ![Badge](https://img.shields.io/badge/Tests-88%20passing-brightgreen) |
+| **🖼️ Visual Regression** | Visual regression testing        | Playwright        | ![Badge](https://img.shields.io/badge/Tests-20%20passing-brightgreen) |
 
 ### 🎯 Key Features
 
