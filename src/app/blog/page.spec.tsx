@@ -120,7 +120,7 @@ describe('BlogPage', () => {
   })
 
   it('handles API errors gracefully', async () => {
-    const consoleSpy = vi.spyOn(console, 'error').mockImplementation()
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
     vi.mocked(api.getAllPosts).mockRejectedValueOnce(new Error('API Error'))
 
     render(await BlogPage({ searchParams: Promise.resolve({}) }))
@@ -156,20 +156,31 @@ describe('BlogPage', () => {
   })
 
   it('handles array values in searchParams correctly', async () => {
-    render(await BlogPage({ searchParams: Promise.resolve({ tag: ['React', 'JavaScript'], search: ['hooks', 'tutorial'] }) }))
+    render(
+      await BlogPage({
+        searchParams: Promise.resolve({
+          tag: ['React', 'JavaScript'],
+          search: ['hooks', 'tutorial'],
+        }),
+      })
+    )
 
     // Should ignore array values and treat as undefined
-    expect(screen.getByRole('button', { name: 'blog.search.filters.all' })).toHaveAttribute('aria-pressed', 'true')
+    expect(
+      screen.getByRole('button', { name: 'blog.search.filters.all' })
+    ).toHaveAttribute('aria-pressed', 'true')
   })
 
   it('hides featured article when filters are active', async () => {
-    render(await BlogPage({ searchParams: Promise.resolve({ tag: 'TypeScript' }) }))
+    render(
+      await BlogPage({ searchParams: Promise.resolve({ tag: 'TypeScript' }) })
+    )
 
     // Featured section should not be shown when filters are active
     expect(
       screen.queryByRole('heading', { name: 'blog.sections.featuredArticle' })
     ).not.toBeInTheDocument()
-    
+
     // Should show regular posts section
     expect(
       screen.getByRole('heading', { name: 'blog.sections.latestArticles' })
@@ -177,7 +188,11 @@ describe('BlogPage', () => {
   })
 
   it('shows no results state when filters match no posts', async () => {
-    render(await BlogPage({ searchParams: Promise.resolve({ tag: 'NonExistentTag' }) }))
+    render(
+      await BlogPage({
+        searchParams: Promise.resolve({ tag: 'NonExistentTag' }),
+      })
+    )
 
     expect(
       screen.getByText('blog.search.emptyState.noResultsTitle')
@@ -188,13 +203,17 @@ describe('BlogPage', () => {
   })
 
   it('filters posts by search query', async () => {
-    render(await BlogPage({ searchParams: Promise.resolve({ search: 'typescript' }) }))
+    render(
+      await BlogPage({
+        searchParams: Promise.resolve({ search: 'typescript' }),
+      })
+    )
 
     // Should not show featured article when search is active
     expect(
       screen.queryByRole('heading', { name: 'blog.sections.featuredArticle' })
     ).not.toBeInTheDocument()
-    
+
     // Should show filtered results
     expect(
       screen.getByRole('heading', { name: 'blog.sections.latestArticles' })

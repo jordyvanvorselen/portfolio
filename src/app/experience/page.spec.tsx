@@ -1,7 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
 
-// Only mock the server-side next-intl functions that can't run in Jest
+// Mock useMediaQuery hook to avoid window.matchMedia issues
+vi.mock('@/hooks/useMediaQuery', () => ({
+  useMediaQuery: vi.fn(() => false),
+}))
+
+// Only mock the server-side next-intl functions that can't run in Vitest
 vi.mock('next-intl/server', () => ({
   getTranslations: vi.fn(namespace => {
     const mockT = vi.fn(key => {
@@ -37,14 +42,6 @@ vi.mock('next-intl/server', () => ({
     })
   ),
 }))
-
-// Mock image imports (unavoidable in Jest)
-vi.mock('@/assets/images/asml.png', () => ({ src: '/mock-asml.png' }))
-vi.mock('@/assets/images/kabisa.png', () => ({ src: '/mock-kabisa.png' }))
-vi.mock('@/assets/images/scorito.png', () => ({ src: '/mock-scorito.png' }))
-vi.mock('@/assets/images/signify.webp', () => ({ src: '/mock-signify.webp' }))
-vi.mock('@/assets/images/syntouch.svg', () => ({ src: '/mock-syntouch.svg' }))
-vi.mock('@/assets/images/hertek.png', () => ({ src: '/mock-hertek.png' }))
 
 import ExperiencePage, { generateMetadata } from '@/app/experience/page'
 

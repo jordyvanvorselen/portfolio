@@ -32,7 +32,9 @@ describe('ScrollIndicator', () => {
 
   it('scrolls to expertise section when clicked', () => {
     const mockElement = { offsetTop: 1000 }
-    ;(global.document.getElementById as ReturnType<typeof vi.fn>).mockReturnValue(mockElement)
+    ;(
+      global.document.getElementById as ReturnType<typeof vi.fn>
+    ).mockReturnValue(mockElement)
 
     render(<ScrollIndicator />)
 
@@ -49,7 +51,9 @@ describe('ScrollIndicator', () => {
   })
 
   it('does nothing when expertise section is not found', () => {
-    ;(global.document.getElementById as ReturnType<typeof vi.fn>).mockReturnValue(null)
+    ;(
+      global.document.getElementById as ReturnType<typeof vi.fn>
+    ).mockReturnValue(null)
 
     render(<ScrollIndicator />)
 

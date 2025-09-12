@@ -4,7 +4,7 @@
 - **Framework**: Next.js (App Router)
 - **Styling**: Tailwind CSS
 - **Component Library**: Radix UI
-- **Unit / Component Testing**: Jest + React Testing Library
+- **Unit / Component Testing**: Vitest + React Testing Library
 - **Integration Testing**: Playwright
 - **Linting**: ESLint with `@typescript-eslint`
 - **Formatting**: Prettier
@@ -68,11 +68,12 @@
 ## 🧪 Testing Practices
 
 - **Testing Library**: `@testing-library/react`
-- **Mocking**: prefer using `msw`, use `vi.mock()` only if really necessary
+- **Test Environment**: `happy-dom` (replaced jsdom)
+- **Mocking**: MSW (Mock Service Worker) for API mocking in dev server, unit tests, and integration tests - use `vitest.mock()` only if really necessary
 - **Test all command**: `pnpm test`
 - **Test unit command**: `pnpm test:unit`
 - **Test integration command**: `pnpm test:integration` (excludes visual regression tests)
-- **Test single integration file**: `pnpm test:integration -- <filename>.spec.ts` (e.g., `pnpm test:integration -- experience.spec.ts`)
+- **Test single integration file**: `pnpm test:integration <filename>.spec.ts` (e.g., `pnpm test:integration experience.spec.ts`)
 - **Test visual regression command**: `pnpm test:visual-regression`
 - **Coverage requirement**: Unit tests MUST achieve 100% code coverage
 - Organize unit / component tests co-located with components
@@ -627,37 +628,47 @@ The project uses i18next for internationalization with support for English (en) 
 
 **DO NOT use any I18nTestWrapper or similar test wrappers!**
 
-The i18n testing is handled by Jest mocks in `jest.setup.js`:
+The i18n testing is handled by Vitest mocks in `test/setup.tsx`:
 
 ```javascript
-jest.mock('react-i18next', () => {
+// Mock next-intl for client-side components
+vitest.mock('next-intl', () => {
+  const createMockTranslations = (namespace?: string) => {
+    const baseFunction: any = assertableTranslationKeys(namespace ?? '')
+
+    // Add the rich method to the translation function
+    baseFunction.rich = vitest.fn(
+      (key: string, components?: Record<string, (chunks: React.ReactNode) => React.ReactNode>) => {
+        // For rich text, return the key with basic JSX handling
+        if (components?.['b']) {
+          const boldCallback = components['b']
+          return boldCallback(baseFunction(key))
+        }
+        return baseFunction(key)
+      }
+    )
+
+    return baseFunction
+  }
+
   return {
-    ...jest.requireActual('react-i18next'),
-    Trans: jest.fn(({ i18nKey, components }) => {
-      return (
-        <>
-          {i18nKey}
-          {Object.values(components || {})}
-        </>
-      )
-    }),
-    useTranslation: (_, { keyPrefix } = {}) => ({
-      t: assertableTranslationKeys(keyPrefix ?? ''),
-      i18n: {
-        language: 'en',
-        changeLanguage: jest.fn(),
-      },
-    }),
+    useTranslations: createMockTranslations,
+    useLocale: () => 'en',
+    useMessages: () => ({}),
+    useNow: () => new Date(),
+    useTimeZone: () => 'UTC',
+    NextIntlClientProvider: ({ children }: { children: React.ReactNode }) => children,
   }
 })
 ```
 
 This setup:
 
-- **Mocks useTranslation hook** to return translation keys directly (e.g., 'hero.title')
-- **Mocks Trans component** to render i18nKey and components
+- **Mocks useTranslations hook** to return translation keys directly (e.g., 'hero.title')
+- **Supports rich text translations** with component handling
 - **Enables direct testing** of translation key usage without providers
 - **Uses assertableTranslationKeys** from `src/test/utils/translations.ts`
+- **Includes MSW setup** for API mocking with `beforeAll`, `afterAll`, and `afterEach` hooks
 
 ### Testing Pattern
 
@@ -678,7 +689,7 @@ render(
 )
 ```
 
-The Jest mock handles everything - no additional setup needed in tests!
+The Vitest mock handles everything - no additional setup needed in tests!
 
 # MISC
 

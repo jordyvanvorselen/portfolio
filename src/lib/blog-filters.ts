@@ -1,8 +1,8 @@
-import type { BlogPost } from './api'
+import type { BlogPost } from '@/lib/api'
 
 export interface FilterOptions {
-  tag?: string
-  search?: string
+  tag?: string | undefined
+  search?: string | undefined
 }
 
 export const normalizeSearchTerm = (term: string | undefined): string => {
@@ -10,24 +10,29 @@ export const normalizeSearchTerm = (term: string | undefined): string => {
   return term.trim().toLowerCase()
 }
 
-export const filterPosts = (posts: BlogPost[], options: FilterOptions): BlogPost[] => {
+export const filterPosts = (
+  posts: BlogPost[],
+  options: FilterOptions
+): BlogPost[] => {
   const { tag, search } = options
-  
+
   let filteredPosts = posts
 
   // Filter by tag
   if (tag && tag.trim()) {
-    filteredPosts = filteredPosts.filter(post => 
-      post.tags.includes(tag)
-    )
+    filteredPosts = filteredPosts.filter(post => post.tags.includes(tag))
   }
 
   // Filter by search term
   if (search && search.trim()) {
     const normalizedSearch = normalizeSearchTerm(search)
     filteredPosts = filteredPosts.filter(post => {
-      const titleMatch = normalizeSearchTerm(post.title).includes(normalizedSearch)
-      const descriptionMatch = normalizeSearchTerm(post.description).includes(normalizedSearch)
+      const titleMatch = normalizeSearchTerm(post.title).includes(
+        normalizedSearch
+      )
+      const descriptionMatch = normalizeSearchTerm(post.description).includes(
+        normalizedSearch
+      )
       return titleMatch || descriptionMatch
     })
   }

@@ -55,8 +55,10 @@ function RichTextAsset({
     return (
       <Image
         src={ensureAbsoluteUrl(asset.url)}
-        layout="fill"
         alt={asset.description}
+        width={800}
+        height={400}
+        className="w-full h-auto rounded-lg"
       />
     )
   }

@@ -10,8 +10,8 @@ interface BlogSearchFiltersProps {
   searchPlaceholder: string
   allFilterLabel: string
   tags: string[]
-  selectedTag?: string
-  searchQuery?: string
+  selectedTag?: string | undefined
+  searchQuery?: string | undefined
 }
 
 export const BlogSearchFiltersClient = ({
@@ -23,38 +23,38 @@ export const BlogSearchFiltersClient = ({
 }: BlogSearchFiltersProps) => {
   const router = useRouter()
   const searchParams = useSearchParams()
-  
+
   const [searchInput, setSearchInput] = useState(searchQuery || '')
   const debouncedSearch = useDebounce(searchInput, 300)
 
   // Update URL when search changes (debounced)
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString())
-    
+
     if (debouncedSearch && debouncedSearch.trim()) {
       params.set('search', debouncedSearch.trim())
     } else {
       params.delete('search')
     }
-    
+
     const queryString = params.toString()
     const newUrl = queryString ? `/blog?${queryString}` : '/blog'
-    
+
     router.push(newUrl, { scroll: false })
   }, [debouncedSearch, searchParams, router])
 
   const handleFilterClick = (tag: string) => {
     const params = new URLSearchParams(searchParams.toString())
-    
+
     if (tag === 'All') {
       params.delete('tag')
     } else {
       params.set('tag', tag)
     }
-    
+
     const queryString = params.toString()
     const newUrl = queryString ? `/blog?${queryString}` : '/blog'
-    
+
     router.push(newUrl, { scroll: false })
   }
 
@@ -71,7 +71,7 @@ export const BlogSearchFiltersClient = ({
           <input
             type="text"
             value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={e => setSearchInput(e.target.value)}
             placeholder={searchPlaceholder}
             className="w-full pl-12 pr-6 py-4 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-lg"
           />
@@ -108,11 +108,15 @@ import { useTranslations } from 'next-intl'
 
 interface BlogSearchFiltersServerProps {
   tags: string[]
-  selectedTag?: string
-  searchQuery?: string
+  selectedTag?: string | undefined
+  searchQuery?: string | undefined
 }
 
-export const BlogSearchFilters = ({ tags, selectedTag, searchQuery }: BlogSearchFiltersServerProps) => {
+export const BlogSearchFilters = ({
+  tags,
+  selectedTag,
+  searchQuery,
+}: BlogSearchFiltersServerProps) => {
   const t = useTranslations()
 
   return (

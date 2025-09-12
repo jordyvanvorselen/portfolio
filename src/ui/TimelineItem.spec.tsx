@@ -15,9 +15,7 @@ vi.mock('@/hooks/useMediaQuery', () => ({
   useMediaQuery: vi.fn(),
 }))
 
-const mockUseMediaQuery = useMediaQuery as ReturnType<typeof vi.fn><
-  typeof useMediaQuery
->
+const mockUseMediaQuery = useMediaQuery as ReturnType<typeof vi.fn>
 
 describe('TimelineItem', () => {
   const defaultProps = {

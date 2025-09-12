@@ -8,14 +8,14 @@ import { MockServiceWorkerWrapper } from '@/test/msw/MockServiceWorkerWrapper.co
 import { isExcluded } from '@/test/msw/exclude'
 
 // Setup MSW server in development/test when mocking is enabled
-if (process.env["NEXT_PUBLIC_MOCK_BACKEND"] === "true") {
-	const { server } = await import("@/test/msw/register.server")
-	server.listen({
-		onUnhandledRequest(request, print) {
-			if (isExcluded(request)) return
-			print.warning()
-		},
-	})
+if (process.env['NEXT_PUBLIC_MOCK_BACKEND'] === 'true') {
+  const { server } = await import('@/test/msw/register.server')
+  server.listen({
+    onUnhandledRequest(request, print) {
+      if (isExcluded(request)) return
+      print.warning()
+    },
+  })
 }
 
 export async function generateMetadata(): Promise<Metadata> {

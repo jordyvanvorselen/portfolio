@@ -19,5 +19,6 @@ export class BlogGrid extends BaseSection {
   readonly blogCardDescription: Locator = this.firstBlogCard.locator('p').last()
   readonly blogCardTags: Locator = this.firstBlogCard
     .locator('span')
-    .filter({ hasText: /\w+/ }).first() // Match any word-containing span (should be tags)
+    .filter({ hasText: /\w+/ })
+    .first() // Match any word-containing span (should be tags)
 }

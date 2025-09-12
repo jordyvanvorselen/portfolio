@@ -3,7 +3,10 @@ import { vi } from 'vitest'
 import { act } from '@testing-library/react'
 
 // Import both components for testing
-import { BlogSearchFiltersClient, BlogSearchFilters } from '@/domains/blog/BlogSearchFilters'
+import {
+  BlogSearchFiltersClient,
+  BlogSearchFilters,
+} from '@/domains/blog/BlogSearchFilters'
 
 // Mock Next.js router hooks
 const mockPush = vi.fn()
@@ -72,7 +75,7 @@ describe('BlogSearchFilters', () => {
 
     const allFilter = screen.getByText('blog.search.filters.all')
 
-    // Click All filter 
+    // Click All filter
     fireEvent.click(allFilter)
 
     // Should navigate to base blog URL
@@ -83,7 +86,7 @@ describe('BlogSearchFilters', () => {
     render(<BlogSearchFiltersClient {...defaultProps} />)
 
     const searchInput = screen.getByPlaceholderText('blog.search.placeholder')
-    
+
     // Type in search input
     fireEvent.change(searchInput, { target: { value: 'typescript' } })
 
@@ -93,11 +96,11 @@ describe('BlogSearchFilters', () => {
   it('navigates with debounced search after typing', async () => {
     // Mock timers to control debouncing
     vi.useFakeTimers()
-    
+
     render(<BlogSearchFiltersClient {...defaultProps} />)
 
     const searchInput = screen.getByPlaceholderText('blog.search.placeholder')
-    
+
     // Type in search input
     fireEvent.change(searchInput, { target: { value: 'typescript' } })
 
@@ -106,18 +109,20 @@ describe('BlogSearchFilters', () => {
       vi.advanceTimersByTime(300)
     })
 
-    expect(mockPush).toHaveBeenCalledWith('/blog?search=typescript', { scroll: false })
-    
+    expect(mockPush).toHaveBeenCalledWith('/blog?search=typescript', {
+      scroll: false,
+    })
+
     vi.useRealTimers()
   })
 
   it('clears search parameter when input is empty', async () => {
     vi.useFakeTimers()
-    
+
     render(<BlogSearchFiltersClient {...defaultProps} searchQuery="existing" />)
 
     const searchInput = screen.getByPlaceholderText('blog.search.placeholder')
-    
+
     // Clear search input
     fireEvent.change(searchInput, { target: { value: '' } })
 
@@ -126,7 +131,7 @@ describe('BlogSearchFilters', () => {
     })
 
     expect(mockPush).toHaveBeenCalledWith('/blog', { scroll: false })
-    
+
     vi.useRealTimers()
   })
 
@@ -134,9 +139,9 @@ describe('BlogSearchFilters', () => {
     const props = {
       tags: ['API', 'Architecture'],
       selectedTag: 'API',
-      searchQuery: 'test'
+      searchQuery: 'test',
     }
-    
+
     render(<BlogSearchFilters {...props} />)
 
     expect(screen.getByPlaceholderText('blog.search.placeholder')).toBeVisible()

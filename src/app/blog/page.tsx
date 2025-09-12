@@ -36,9 +36,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const uniqueTags = getUniqueTagsFromPosts(allBlogPosts)
 
   // Extract filter parameters from URL
-  const selectedTag = typeof params.tag === 'string' ? params.tag : undefined
+  const selectedTag =
+    typeof params['tag'] === 'string' ? params['tag'] : undefined
   const searchQuery =
-    typeof params.search === 'string' ? params.search : undefined
+    typeof params['search'] === 'string' ? params['search'] : undefined
 
   // Filter posts based on URL parameters
   const filteredPosts = filterPosts(allBlogPosts, {
@@ -50,9 +51,8 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const hasActiveFilters = Boolean(selectedTag || searchQuery)
 
   // If filters are active, don't show featured post - show all filtered posts as regular posts
-  const [featuredPost, ...regularPosts] = hasActiveFilters
-    ? [null, ...filteredPosts]
-    : filteredPosts
+  const featuredPost = hasActiveFilters ? null : filteredPosts[0] || null
+  const regularPosts = hasActiveFilters ? filteredPosts : filteredPosts.slice(1)
 
   return (
     <main className="flex-1 flex flex-col bg-gray-950">

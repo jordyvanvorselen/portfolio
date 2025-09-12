@@ -1,5 +1,5 @@
-import { filterPosts, normalizeSearchTerm } from './blog-filters'
-import type { BlogPost } from './api'
+import { filterPosts, normalizeSearchTerm } from '@/lib/blog-filters'
+import type { BlogPost } from '@/lib/api'
 
 const mockPosts: BlogPost[] = [
   {
@@ -59,31 +59,34 @@ describe('blog-filters', () => {
     it('filters posts by tag', () => {
       const result = filterPosts(mockPosts, { tag: 'Python' })
       expect(result).toHaveLength(1)
-      expect(result[0].title).toBe('Python Tips and Tricks')
+      expect(result[0]!.title).toBe('Python Tips and Tricks')
     })
 
     it('filters posts by search term in title', () => {
       const result = filterPosts(mockPosts, { search: 'hooks' })
       expect(result).toHaveLength(1)
-      expect(result[0].title).toBe('React Hooks Guide')
+      expect(result[0]!.title).toBe('React Hooks Guide')
     })
 
     it('filters posts by search term in description', () => {
       const result = filterPosts(mockPosts, { search: 'advanced' })
       expect(result).toHaveLength(1)
-      expect(result[0].title).toBe('Advanced TypeScript')
+      expect(result[0]!.title).toBe('Advanced TypeScript')
     })
 
     it('performs case-insensitive search', () => {
       const result = filterPosts(mockPosts, { search: 'REACT' })
       expect(result).toHaveLength(1)
-      expect(result[0].title).toBe('React Hooks Guide')
+      expect(result[0]!.title).toBe('React Hooks Guide')
     })
 
     it('combines tag and search filters', () => {
-      const result = filterPosts(mockPosts, { tag: 'JavaScript', search: 'hooks' })
+      const result = filterPosts(mockPosts, {
+        tag: 'JavaScript',
+        search: 'hooks',
+      })
       expect(result).toHaveLength(1)
-      expect(result[0].title).toBe('React Hooks Guide')
+      expect(result[0]!.title).toBe('React Hooks Guide')
     })
 
     it('returns empty array when no posts match combined filters', () => {
@@ -114,7 +117,7 @@ describe('blog-filters', () => {
     it('searches across multiple words', () => {
       const result = filterPosts(mockPosts, { search: 'python tips' })
       expect(result).toHaveLength(1)
-      expect(result[0].title).toBe('Python Tips and Tricks')
+      expect(result[0]!.title).toBe('Python Tips and Tricks')
     })
   })
 })

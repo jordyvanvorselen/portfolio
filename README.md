@@ -7,7 +7,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-15.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.0-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
-[![Jest](https://img.shields.io/badge/Jest-Testing-C21325?style=for-the-badge&logo=jest)](https://jestjs.io/)
+[![Vitest](https://img.shields.io/badge/Vitest-Testing-729B1B?style=for-the-badge&logo=vitest)](https://vitest.dev/)
 [![Playwright](https://img.shields.io/badge/Playwright-Integration-45ba4b?style=for-the-badge&logo=playwright)](https://playwright.dev/)
 
 _Showcasing professional expertise through exceptional user experience and bulletproof code quality_
@@ -32,8 +32,9 @@ The project demonstrates expertise in modern frontend development, featuring a c
 | **Component Library**     | ![Radix UI](https://img.shields.io/badge/Radix%20UI-Accessible-000000?logo=radixui)                                                                                               |
 | **Internationalization**  | ![next-intl](https://img.shields.io/badge/next--intl-4.3-009639?logo=i18next)                                                                                                     |
 | **Icons**                 | ![Lucide React](https://img.shields.io/badge/Lucide%20React-0.542-F56565?logo=lucide) ![DevIcon](https://img.shields.io/badge/DevIcon-Tech%20Icons-FF6B35)                        |
-| **Testing (Unit)**        | ![Jest](https://img.shields.io/badge/Jest-30.0%20+%20React%20Testing%20Library-C21325?logo=jest)                                                                                  |
+| **Testing (Unit)**        | ![Vitest](https://img.shields.io/badge/Vitest-2.1%20+%20React%20Testing%20Library-729B1B?logo=vitest)                                                                             |
 | **Testing (Integration)** | ![Playwright](https://img.shields.io/badge/Playwright-1.54%20E2E%20Testing-45ba4b?logo=playwright)                                                                                |
+| **API Mocking**           | ![MSW](https://img.shields.io/badge/MSW-Mock%20Service%20Worker-FF6A33?logo=mockserviceworker)                                                                                    |
 | **Code Quality**          | ![ESLint](https://img.shields.io/badge/ESLint-9.0%20TypeScript-4B32C3?logo=eslint) ![Prettier](https://img.shields.io/badge/Prettier-3.6%20Code%20Formatter-F7B93E?logo=prettier) |
 | **Package Manager**       | ![pnpm](https://img.shields.io/badge/pnpm-Fast%20&%20Efficient-F69220?logo=pnpm)                                                                                                  |
 
@@ -117,11 +118,12 @@ This project follows a **domain-driven architecture** with clear separation of c
 
 This project maintains **100% code coverage** through a comprehensive three-tier testing strategy:
 
-### 🔴 Unit Testing (Jest + React Testing Library)
+### 🔴 Unit Testing (Vitest + React Testing Library + MSW)
 
 - **Coverage**: 100% code coverage mandatory
 - **Focus**: Component behavior and business logic
 - **Location**: Co-located with components (`*.spec.tsx`)
+- **API Mocking**: MSW (Mock Service Worker) for realistic API interactions
 - **Run**: `pnpm test:unit`
 
 ```bash
@@ -129,11 +131,12 @@ This project maintains **100% code coverage** through a comprehensive three-tier
 ✅ 100% code coverage maintained
 ```
 
-### 🟡 Integration Testing (Playwright)
+### 🟡 Integration Testing (Playwright + MSW)
 
 - **Architecture**: Section-based Page Object Model (POM) with `BasePage`/`BaseSection` pattern
 - **Focus**: User workflows and component interactions with proper element scoping
 - **Location**: `integration-tests/page-objects/` directory with organized structure
+- **API Mocking**: MSW (Mock Service Worker) for consistent test data
 - **Browsers**: Chrome & Firefox (WebKit excluded due to MSW compatibility)
 - **Run**: `pnpm test:integration`
 
@@ -175,6 +178,62 @@ This project maintains **100% code coverage** through a comprehensive three-tier
 - **Browser Coverage**: Platform-specific baselines for Chrome and Firefox
 - **CI Integration**: Automatic snapshot validation in GitHub Actions
 - **Failure Artifacts**: Test results uploaded as CI artifacts for debugging
+
+### 🌐 API Mocking with Mock Service Worker (MSW)
+
+**Professional-Grade API Mocking**: This project leverages **Mock Service Worker (MSW)** for seamless API mocking across all environments, ensuring consistent and reliable data handling throughout the development lifecycle.
+
+```mermaid
+graph TD
+    A[🌐 MSW Service Worker] --> B[🔧 Development Server]
+    A --> C[🧪 Unit Tests]
+    A --> D[🎭 Integration Tests]
+
+    B --> E[📊 Realistic API Responses]
+    C --> E
+    D --> E
+
+    E --> F[✅ Consistent Test Data]
+    E --> G[🚀 Offline Development]
+    E --> H[🔄 Reproducible Scenarios]
+
+    style A fill:#ff6a33,stroke:#ffffff,color:#ffffff
+    style E fill:#e8f5e8,stroke:#4caf50
+    style F fill:#e3f2fd,stroke:#2196f3
+    style G fill:#fff3e0,stroke:#ff9800
+    style H fill:#f3e5f5,stroke:#9c27b0
+```
+
+**MSW Integration Features:**
+
+- **🔄 Universal Coverage**: Single mock definitions shared across dev server, unit tests, and integration tests
+- **🎯 Request Interception**: Browser-level network interception for authentic API simulation
+- **📊 Dynamic Responses**: Configurable mock data generation with realistic scenarios
+- **🛠️ Development Server**: Offline development with complete API simulation
+- **🧪 Test Consistency**: Identical mock responses across all test environments
+- **🚀 Hot Reloading**: Instant mock updates during development
+- **📁 Organized Structure**: Centralized mock definitions in `test/msw/` directory
+
+**Mock Architecture:**
+
+```typescript
+// test/msw/defaultHandlers.ts - Centralized API mocks
+export const defaultHandlers = [
+  rest.get('/api/blog/posts', (req, res, ctx) => {
+    return res(ctx.json(mockBlogPosts))
+  }),
+  rest.get('/api/projects', (req, res, ctx) => {
+    return res(ctx.json(mockProjects))
+  }),
+]
+
+// Shared across environments:
+// - Development server (browser)
+// - Unit tests (happy-dom)
+// - Integration tests (Playwright)
+```
+
+This approach eliminates the need for actual backend services during development and testing, enabling faster iteration cycles and more reliable test outcomes.
 
 ## 🔄 Test-Driven Development Workflow
 
@@ -278,7 +337,7 @@ graph LR
 | **🔍 Lint & Format** | Code style & quality enforcement | ESLint + Prettier | ![Badge](https://img.shields.io/badge/ESLint-Passing-brightgreen)     |
 | **🏗️ Build**         | Application build verification   | Next.js           | ![Badge](https://img.shields.io/badge/Build-Passing-brightgreen)      |
 | **📋 Typecheck**     | Static type analysis             | TypeScript        | ![Badge](https://img.shields.io/badge/TypeScript-Strict-blue)         |
-| **🧪 Unit Tests**    | Component & logic testing        | Jest + RTL        | ![Badge](https://img.shields.io/badge/Coverage-100%25-brightgreen)    |
+| **🧪 Unit Tests**    | Component & logic testing        | Vitest + RTL      | ![Badge](https://img.shields.io/badge/Coverage-100%25-brightgreen)    |
 | **🌐 Integration**   | E2E testing workflows            | Playwright        | ![Badge](https://img.shields.io/badge/Tests-88%20passing-brightgreen) |
 | **🖼️ Visual**        | Visual regression testing        | Playwright        | ![Badge](https://img.shields.io/badge/Tests-20%20passing-brightgreen) |
 

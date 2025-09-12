@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react'
 import { vi } from 'vitest'
-import { useDebounce } from './useDebounce'
+import { useDebounce } from '@/hooks/useDebounce'
 
 describe('useDebounce', () => {
   beforeEach(() => {
@@ -46,7 +46,7 @@ describe('useDebounce', () => {
 
     // First update
     rerender({ value: 'first', delay: 500 })
-    
+
     // Advance time partially
     act(() => {
       vi.advanceTimersByTime(250)
@@ -101,7 +101,7 @@ describe('useDebounce', () => {
   })
 
   it('cleans up timeout on unmount', () => {
-    const { result, rerender, unmount } = renderHook(
+    const { rerender, unmount } = renderHook(
       ({ value, delay }) => useDebounce(value, delay),
       { initialProps: { value: 'initial', delay: 500 } }
     )

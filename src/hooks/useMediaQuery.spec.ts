@@ -57,7 +57,7 @@ describe('useMediaQuery', () => {
     expect(result.current).toBe(false)
 
     // Simulate media query change
-    const changeHandler = mockMediaQueryList.addEventListener.mock.calls[0][1]
+    const changeHandler = mockMediaQueryList.addEventListener.mock.calls[0]?.[1]
 
     act(() => {
       changeHandler({ matches: true })
@@ -71,7 +71,7 @@ describe('useMediaQuery', () => {
 
     const { unmount } = renderHook(() => useMediaQuery('(min-width: 768px)'))
 
-    const changeHandler = mockMediaQueryList.addEventListener.mock.calls[0][1]
+    const changeHandler = mockMediaQueryList.addEventListener.mock.calls[0]?.[1]
 
     unmount()
 

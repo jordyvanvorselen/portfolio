@@ -7,7 +7,7 @@ test.describe('Blog Filters', () => {
     page.on('request', request => {
       console.log('Request:', request.url())
     })
-    
+
     // Mock all Contentful API endpoints with debug logging
     await page.route(/.*contentful\.com.*/, route => {
       console.log('Mocking Contentful API request:', route.request().url())
@@ -19,37 +19,61 @@ test.describe('Blog Filters', () => {
           total: 2,
           items: [
             {
-              sys: { 
+              sys: {
                 id: '1',
-                contentType: { sys: { id: 'blogPost' } }
+                contentType: { sys: { id: 'blogPost' } },
               },
               fields: {
                 slug: 'react-hooks',
                 title: 'React Hooks Guide',
                 description: 'Learn about React hooks',
                 publicationDate: '2024-01-01',
-                content: { nodeType: 'document', content: [{ nodeType: 'paragraph', content: [{ nodeType: 'text', value: 'Learn about React hooks' }] }] },
-                featuredImage: { fields: { file: { url: '//test-image.jpg' } } },
+                content: {
+                  nodeType: 'document',
+                  content: [
+                    {
+                      nodeType: 'paragraph',
+                      content: [
+                        { nodeType: 'text', value: 'Learn about React hooks' },
+                      ],
+                    },
+                  ],
+                },
+                featuredImage: {
+                  fields: { file: { url: '//test-image.jpg' } },
+                },
                 tags: ['React', 'JavaScript'],
-              }
+              },
             },
             {
-              sys: { 
+              sys: {
                 id: '2',
-                contentType: { sys: { id: 'blogPost' } }
+                contentType: { sys: { id: 'blogPost' } },
               },
               fields: {
                 slug: 'python-tips',
                 title: 'Python Tips',
                 description: 'Useful Python tips',
                 publicationDate: '2024-01-02',
-                content: { nodeType: 'document', content: [{ nodeType: 'paragraph', content: [{ nodeType: 'text', value: 'Useful Python tips' }] }] },
-                featuredImage: { fields: { file: { url: '//test-image.jpg' } } },
+                content: {
+                  nodeType: 'document',
+                  content: [
+                    {
+                      nodeType: 'paragraph',
+                      content: [
+                        { nodeType: 'text', value: 'Useful Python tips' },
+                      ],
+                    },
+                  ],
+                },
+                featuredImage: {
+                  fields: { file: { url: '//test-image.jpg' } },
+                },
                 tags: ['Python'],
-              }
-            }
-          ]
-        })
+              },
+            },
+          ],
+        }),
       })
     })
 
@@ -61,10 +85,14 @@ test.describe('Blog Filters', () => {
     await expect(page.getByText('Python Tips')).not.toBeVisible()
 
     // React tag filter should be active (check for bg-teal-500 instead of 'active' class)
-    await expect(page.getByRole('button', { name: 'React' })).toHaveClass(/bg-teal-500/)
+    await expect(page.getByRole('button', { name: 'React' })).toHaveClass(
+      /bg-teal-500/
+    )
   })
 
-  test('filters blog posts by search query using URL parameters', async ({ page }) => {
+  test('filters blog posts by search query using URL parameters', async ({
+    page,
+  }) => {
     await page.route(/.*contentful\.com.*/, route => {
       route.fulfill({
         status: 200,
@@ -74,37 +102,61 @@ test.describe('Blog Filters', () => {
           total: 2,
           items: [
             {
-              sys: { 
+              sys: {
                 id: '1',
-                contentType: { sys: { id: 'blogPost' } }
+                contentType: { sys: { id: 'blogPost' } },
               },
               fields: {
                 slug: 'react-hooks',
                 title: 'React Hooks Guide',
                 description: 'Learn about React hooks',
                 publicationDate: '2024-01-01',
-                content: { nodeType: 'document', content: [{ nodeType: 'paragraph', content: [{ nodeType: 'text', value: 'Learn about React hooks' }] }] },
-                featuredImage: { fields: { file: { url: '//test-image.jpg' } } },
+                content: {
+                  nodeType: 'document',
+                  content: [
+                    {
+                      nodeType: 'paragraph',
+                      content: [
+                        { nodeType: 'text', value: 'Learn about React hooks' },
+                      ],
+                    },
+                  ],
+                },
+                featuredImage: {
+                  fields: { file: { url: '//test-image.jpg' } },
+                },
                 tags: ['React'],
-              }
+              },
             },
             {
-              sys: { 
+              sys: {
                 id: '2',
-                contentType: { sys: { id: 'blogPost' } }
+                contentType: { sys: { id: 'blogPost' } },
               },
               fields: {
                 slug: 'python-tips',
                 title: 'Python Tips',
                 description: 'Useful Python tips',
                 publicationDate: '2024-01-02',
-                content: { nodeType: 'document', content: [{ nodeType: 'paragraph', content: [{ nodeType: 'text', value: 'Useful Python tips' }] }] },
-                featuredImage: { fields: { file: { url: '//test-image.jpg' } } },
+                content: {
+                  nodeType: 'document',
+                  content: [
+                    {
+                      nodeType: 'paragraph',
+                      content: [
+                        { nodeType: 'text', value: 'Useful Python tips' },
+                      ],
+                    },
+                  ],
+                },
+                featuredImage: {
+                  fields: { file: { url: '//test-image.jpg' } },
+                },
                 tags: ['Python'],
-              }
-            }
-          ]
-        })
+              },
+            },
+          ],
+        }),
       })
     })
 
@@ -129,52 +181,91 @@ test.describe('Blog Filters', () => {
           total: 3,
           items: [
             {
-              sys: { 
+              sys: {
                 id: '1',
-                contentType: { sys: { id: 'blogPost' } }
+                contentType: { sys: { id: 'blogPost' } },
               },
               fields: {
                 slug: 'react-hooks',
                 title: 'React Hooks Guide',
                 description: 'Learn about React hooks',
                 publicationDate: '2024-01-01',
-                content: { nodeType: 'document', content: [{ nodeType: 'paragraph', content: [{ nodeType: 'text', value: 'Learn about React hooks' }] }] },
-                featuredImage: { fields: { file: { url: '//test-image.jpg' } } },
+                content: {
+                  nodeType: 'document',
+                  content: [
+                    {
+                      nodeType: 'paragraph',
+                      content: [
+                        { nodeType: 'text', value: 'Learn about React hooks' },
+                      ],
+                    },
+                  ],
+                },
+                featuredImage: {
+                  fields: { file: { url: '//test-image.jpg' } },
+                },
                 tags: ['React', 'JavaScript'],
-              }
+              },
             },
             {
-              sys: { 
+              sys: {
                 id: '2',
-                contentType: { sys: { id: 'blogPost' } }
+                contentType: { sys: { id: 'blogPost' } },
               },
               fields: {
                 slug: 'react-components',
                 title: 'React Components',
                 description: 'Building React components',
                 publicationDate: '2024-01-02',
-                content: { nodeType: 'document', content: [{ nodeType: 'paragraph', content: [{ nodeType: 'text', value: 'Building React components' }] }] },
-                featuredImage: { fields: { file: { url: '//test-image.jpg' } } },
+                content: {
+                  nodeType: 'document',
+                  content: [
+                    {
+                      nodeType: 'paragraph',
+                      content: [
+                        {
+                          nodeType: 'text',
+                          value: 'Building React components',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                featuredImage: {
+                  fields: { file: { url: '//test-image.jpg' } },
+                },
                 tags: ['React'],
-              }
+              },
             },
             {
-              sys: { 
+              sys: {
                 id: '3',
-                contentType: { sys: { id: 'blogPost' } }
+                contentType: { sys: { id: 'blogPost' } },
               },
               fields: {
                 slug: 'python-tips',
                 title: 'Python Tips',
                 description: 'Useful Python tips',
                 publicationDate: '2024-01-03',
-                content: { nodeType: 'document', content: [{ nodeType: 'paragraph', content: [{ nodeType: 'text', value: 'Useful Python tips' }] }] },
-                featuredImage: { fields: { file: { url: '//test-image.jpg' } } },
+                content: {
+                  nodeType: 'document',
+                  content: [
+                    {
+                      nodeType: 'paragraph',
+                      content: [
+                        { nodeType: 'text', value: 'Useful Python tips' },
+                      ],
+                    },
+                  ],
+                },
+                featuredImage: {
+                  fields: { file: { url: '//test-image.jpg' } },
+                },
                 tags: ['Python'],
-              }
-            }
-          ]
-        })
+              },
+            },
+          ],
+        }),
       })
     })
 
@@ -187,7 +278,7 @@ test.describe('Blog Filters', () => {
     await expect(page.getByText('Python Tips')).not.toBeVisible()
   })
 
-  test('updates URL when using search input', async ({ page, homePage }) => {
+  test('updates URL when using search input', async ({ page }) => {
     await page.goto('/blog')
 
     // Type in search input
@@ -205,7 +296,7 @@ test.describe('Blog Filters', () => {
     // Wait for page to load and find the first available tag button (not "All")
     const tagButtons = page.getByRole('button').filter({ hasNotText: /^All$/i })
     const firstTag = tagButtons.first()
-    
+
     // Click on first available tag filter
     await firstTag.click()
 
@@ -219,12 +310,12 @@ test.describe('Blog Filters', () => {
   test('shows all posts when "All" filter is selected', async ({ page }) => {
     // Start with a filter applied - use first available tag
     await page.goto('/blog')
-    
+
     // Wait for page to load and get the first tag
     const tagButtons = page.getByRole('button').filter({ hasNotText: /^All$/i })
     const firstTag = tagButtons.first()
     await firstTag.click()
-    
+
     // Now click "All" filter
     await page.getByRole('button', { name: /all/i }).click()
 
@@ -232,6 +323,8 @@ test.describe('Blog Filters', () => {
     await expect(page).toHaveURL('/blog')
 
     // All filter should be active (check for bg-teal-500 instead of 'active')
-    await expect(page.getByRole('button', { name: /all/i })).toHaveClass(/bg-teal-500/)
+    await expect(page.getByRole('button', { name: /all/i })).toHaveClass(
+      /bg-teal-500/
+    )
   })
 })
