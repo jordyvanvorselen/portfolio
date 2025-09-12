@@ -7,8 +7,8 @@ test.describe('Blog Cards', () => {
   test('displays blog cards with all required elements', async ({ page }) => {
     const blogPage = await BlogPage.goto(page)
 
-    // Verify blog cards are displayed
-    await expect(blogPage.blogGrid.blogCards).toHaveCount(6)
+    // Verify blog cards are displayed (should be 9 total: 1 featured + 8 regular cards)
+    await expect(blogPage.blogGrid.blogCards).toHaveCount(8) // Regular cards only (excluding featured)
 
     // Verify first blog card has all required elements
     await expect(blogPage.blogGrid.firstBlogCard).toBeVisible()

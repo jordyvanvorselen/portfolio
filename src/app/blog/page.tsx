@@ -6,6 +6,9 @@ import { BlogCard } from '@/domains/blog/BlogCard'
 import { FeaturedBlogCard } from '@/domains/blog/FeaturedBlogCard'
 import { BlogSectionTitle } from '@/domains/blog/BlogSectionTitle'
 import { getAllPosts, type BlogPost } from '@/lib/api'
+import { getUniqueTagsFromPosts } from '@/lib/blog-helpers'
+import { filterPosts } from '@/lib/blog-filters'
+import { getTranslations } from 'next-intl/server'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -14,29 +17,59 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function BlogPage() {
-  let blogPosts: BlogPost[] = []
+interface BlogPageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+  const t = await getTranslations('blog.search.emptyState')
+  const params = await searchParams
+
+  let allBlogPosts: BlogPost[] = []
 
   try {
-    blogPosts = await getAllPosts(process.env['VERCEL_ENV'] !== 'production')
+    allBlogPosts = await getAllPosts(process.env['VERCEL_ENV'] !== 'production')
   } catch (error) {
     console.error('Failed to fetch blog posts from Contentful:', error)
   }
 
-  const [featuredPost, ...regularPosts] = blogPosts
+  const uniqueTags = getUniqueTagsFromPosts(allBlogPosts)
+
+  // Extract filter parameters from URL
+  const selectedTag = typeof params.tag === 'string' ? params.tag : undefined
+  const searchQuery =
+    typeof params.search === 'string' ? params.search : undefined
+
+  // Filter posts based on URL parameters
+  const filteredPosts = filterPosts(allBlogPosts, {
+    tag: selectedTag,
+    search: searchQuery,
+  })
+
+  // Check if any filters are active
+  const hasActiveFilters = Boolean(selectedTag || searchQuery)
+
+  // If filters are active, don't show featured post - show all filtered posts as regular posts
+  const [featuredPost, ...regularPosts] = hasActiveFilters
+    ? [null, ...filteredPosts]
+    : filteredPosts
 
   return (
     <main className="flex-1 flex flex-col bg-gray-950">
-      <BlogHeroSection />
-      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <BlogHeroSection articleCount={allBlogPosts.length} />
+      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div data-testid="blog-search-filters">
-          <BlogSearchFilters />
+          <BlogSearchFilters
+            tags={uniqueTags}
+            selectedTag={selectedTag}
+            searchQuery={searchQuery}
+          />
         </div>
 
         {featuredPost && (
           <div
             data-testid="featured-blog-section"
-            className="mt-12 mb-16 min-h-[400px] md:min-h-[450px] lg:min-h-[500px]"
+            className="mt-12 min-h-[400px] md:min-h-[450px] lg:min-h-[500px]"
           >
             <BlogSectionTitle translationKey="blog.sections.featuredArticle" />
             <FeaturedBlogCard
@@ -51,12 +84,17 @@ export default async function BlogPage() {
           </div>
         )}
 
-        {blogPosts.length === 0 && (
+        {allBlogPosts.length === 0 && (
           <div className="mt-12 text-center text-gray-400">
-            <p className="text-lg">No blog posts available at the moment.</p>
-            <p className="text-sm mt-2">
-              Please check back later for new content.
-            </p>
+            <p className="text-lg">{t('noPostsTitle')}</p>
+            <p className="text-sm mt-2">{t('noPostsSubtitle')}</p>
+          </div>
+        )}
+
+        {allBlogPosts.length > 0 && filteredPosts.length === 0 && (
+          <div className="mt-12 text-center text-gray-400">
+            <p className="text-lg">{t('noResultsTitle')}</p>
+            <p className="text-sm mt-2">{t('noResultsSubtitle')}</p>
           </div>
         )}
 

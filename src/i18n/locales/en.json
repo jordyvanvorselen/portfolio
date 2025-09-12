@@ -308,6 +308,12 @@
       "placeholder": "Search articles...",
       "filters": {
         "all": "All"
+      },
+      "emptyState": {
+        "noPostsTitle": "No blog posts available at the moment.",
+        "noPostsSubtitle": "Please check back later for new content.",
+        "noResultsTitle": "No blog posts match your current filters.",
+        "noResultsSubtitle": "Try adjusting your search or selecting a different tag."
       }
     },
     "card": {
@@ -315,8 +321,8 @@
       "moreCount": "+{count} more"
     },
     "sections": {
-      "featuredArticle": "Featured article",
-      "latestArticles": "Latest articles"
+      "featuredArticle": "Latest article",
+      "latestArticles": "Articles"
     }
   },
   "pages": {
@@ -342,7 +348,7 @@
   "layout": {
     "title": "Jordy van Vorselen - Portfolio",
     "description": "Full-stack developer and software engineer portfolio",
-    "brandName": "More Than Bits"
+    "brandName": "Jordy van Vorselen"
   },
   "skills": {
     "title": "Trusted By The Best",

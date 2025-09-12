@@ -44,7 +44,7 @@ export const BlogCard = ({
             <div className="absolute inset-0 bg-gradient-to-t from-gray-800/60 via-transparent to-transparent" />
           </div>
 
-          <div className="p-6 min-h-[17.5rem] flex flex-col">
+          <div className="p-6 min-h-[18.5rem] flex flex-col">
             <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
               <div className="flex items-center gap-1">
                 <Calendar className="w-3 h-3" aria-hidden="true" />
@@ -57,14 +57,14 @@ export const BlogCard = ({
             </div>
 
             <Title
-              size="sm"
+              size="md"
               weight="bold"
               color="primary"
               align="left"
               as="h3"
               hoverColor="teal"
               lineClamp={2}
-              className="text-xl mb-3 transition-colors duration-300"
+              className="mb-3 transition-colors duration-300"
             >
               {title}
             </Title>

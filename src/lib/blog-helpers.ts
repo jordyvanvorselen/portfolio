@@ -62,3 +62,10 @@ export const ensureAbsoluteUrl = (url: string | undefined): string => {
   // Return as-is if already absolute HTTPS or relative
   return url
 }
+
+// Utility function to extract unique tags from blog posts
+export const getUniqueTagsFromPosts = (posts: { tags: string[] }[]): string[] => {
+  const allTags = posts.flatMap(post => post.tags)
+  const uniqueTags = Array.from(new Set(allTags))
+  return uniqueTags.sort()
+}

@@ -68,7 +68,7 @@ describe('BlogPage', () => {
   })
 
   it('renders the blog hero section', async () => {
-    render(await BlogPage())
+    render(await BlogPage({ searchParams: Promise.resolve({}) }))
 
     expect(
       screen.getByRole('heading', { name: 'blog.hero.title' })
@@ -77,17 +77,18 @@ describe('BlogPage', () => {
   })
 
   it('renders the search filters section', async () => {
-    render(await BlogPage())
+    render(await BlogPage({ searchParams: Promise.resolve({}) }))
 
     expect(screen.getByPlaceholderText('blog.search.placeholder')).toBeVisible()
     expect(
       screen.getByRole('button', { name: 'blog.search.filters.all' })
     ).toBeVisible()
-    expect(screen.getByRole('button', { name: 'API' })).toBeVisible()
+    expect(screen.getByRole('button', { name: 'TypeScript' })).toBeVisible()
+    expect(screen.getByRole('button', { name: 'Architecture' })).toBeVisible()
   })
 
   it('renders blog cards with translated content', async () => {
-    render(await BlogPage())
+    render(await BlogPage({ searchParams: Promise.resolve({}) }))
 
     const blogCards = screen.getAllByRole('article')
     expect(blogCards).toHaveLength(6)
@@ -98,7 +99,7 @@ describe('BlogPage', () => {
   })
 
   it('renders section headings with translated text', async () => {
-    render(await BlogPage())
+    render(await BlogPage({ searchParams: Promise.resolve({}) }))
 
     expect(
       screen.getByRole('heading', { name: 'blog.sections.featuredArticle' })
@@ -121,14 +122,14 @@ describe('BlogPage', () => {
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation()
     jest.mocked(api.getAllPosts).mockRejectedValueOnce(new Error('API Error'))
 
-    render(await BlogPage())
+    render(await BlogPage({ searchParams: Promise.resolve({}) }))
 
     expect(consoleSpy).toHaveBeenCalledWith(
       'Failed to fetch blog posts from Contentful:',
       expect.any(Error)
     )
     expect(
-      screen.getByText('No blog posts available at the moment.')
+      screen.getByText('blog.search.emptyState.noPostsTitle')
     ).toBeVisible()
 
     consoleSpy.mockRestore()
@@ -137,13 +138,13 @@ describe('BlogPage', () => {
   it('shows empty state when no posts are available', async () => {
     jest.mocked(api.getAllPosts).mockResolvedValueOnce([])
 
-    render(await BlogPage())
+    render(await BlogPage({ searchParams: Promise.resolve({}) }))
 
     expect(
-      screen.getByText('No blog posts available at the moment.')
+      screen.getByText('blog.search.emptyState.noPostsTitle')
     ).toBeVisible()
     expect(
-      screen.getByText('Please check back later for new content.')
+      screen.getByText('blog.search.emptyState.noPostsSubtitle')
     ).toBeVisible()
     expect(
       screen.queryByRole('heading', { name: 'blog.sections.featuredArticle' })
@@ -151,5 +152,51 @@ describe('BlogPage', () => {
     expect(
       screen.queryByRole('heading', { name: 'blog.sections.latestArticles' })
     ).not.toBeInTheDocument()
+  })
+
+  it('handles array values in searchParams correctly', async () => {
+    render(await BlogPage({ searchParams: Promise.resolve({ tag: ['React', 'JavaScript'], search: ['hooks', 'tutorial'] }) }))
+
+    // Should ignore array values and treat as undefined
+    expect(screen.getByRole('button', { name: 'blog.search.filters.all' })).toHaveAttribute('aria-pressed', 'true')
+  })
+
+  it('hides featured article when filters are active', async () => {
+    render(await BlogPage({ searchParams: Promise.resolve({ tag: 'TypeScript' }) }))
+
+    // Featured section should not be shown when filters are active
+    expect(
+      screen.queryByRole('heading', { name: 'blog.sections.featuredArticle' })
+    ).not.toBeInTheDocument()
+    
+    // Should show regular posts section
+    expect(
+      screen.getByRole('heading', { name: 'blog.sections.latestArticles' })
+    ).toBeVisible()
+  })
+
+  it('shows no results state when filters match no posts', async () => {
+    render(await BlogPage({ searchParams: Promise.resolve({ tag: 'NonExistentTag' }) }))
+
+    expect(
+      screen.getByText('blog.search.emptyState.noResultsTitle')
+    ).toBeVisible()
+    expect(
+      screen.getByText('blog.search.emptyState.noResultsSubtitle')
+    ).toBeVisible()
+  })
+
+  it('filters posts by search query', async () => {
+    render(await BlogPage({ searchParams: Promise.resolve({ search: 'typescript' }) }))
+
+    // Should not show featured article when search is active
+    expect(
+      screen.queryByRole('heading', { name: 'blog.sections.featuredArticle' })
+    ).not.toBeInTheDocument()
+    
+    // Should show filtered results
+    expect(
+      screen.getByRole('heading', { name: 'blog.sections.latestArticles' })
+    ).toBeVisible()
   })
 })

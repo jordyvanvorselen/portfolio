@@ -11,7 +11,7 @@ test('displays blog hero section content', async ({ blogPage }) => {
   await expect(blogPage.hero.title).toHaveText('More Than Bits')
   await expect(blogPage.hero.subtitle).toBeVisible()
   await expect(blogPage.hero.articleCount).toBeVisible()
-  await expect(blogPage.hero.articleCount).toHaveText('6 Articles')
+  await expect(blogPage.hero.articleCount).toHaveText('9 Articles')
   await expect(blogPage.hero.updateStatus).toBeVisible()
   await expect(blogPage.hero.updateStatus).toHaveText('Regularly Updated')
 })
@@ -37,7 +37,7 @@ test('displays featured article section', async ({ blogPage }) => {
 
 test('displays latest articles section', async ({ blogPage }) => {
   await expect(blogPage.blogGrid.title).toBeVisible()
-  await expect(blogPage.blogGrid.blogCards).toHaveCount(6) // 1 featured + 5 latest = 6 total articles
+  await expect(blogPage.blogGrid.blogCards).toHaveCount(8) // 1 featured + 8 latest = 9 total articles
 })
 
 test('blog hero section visual regression', async ({ blogPage }) => {
@@ -47,11 +47,6 @@ test('blog hero section visual regression', async ({ blogPage }) => {
 
 test('blog search filters visual regression', async ({ blogPage }) => {
   await blogPage.hideHeader()
-
-  // Wait for all filter buttons to be rendered and stable (23 categories + "All" button = 24 total)
-  await expect(blogPage.searchFilters.section.getByRole('button')).toHaveCount(
-    24
-  )
 
   // Wait for search input to be ready
   await expect(blogPage.searchFilters.searchBar).toBeVisible()

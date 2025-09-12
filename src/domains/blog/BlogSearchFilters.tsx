@@ -1,49 +1,64 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Search } from 'lucide-react'
 import { Filter } from '@/ui/Filter'
-
-const technicalCategories = [
-  'API',
-  'Architecture',
-  'Backend',
-  'Clean Code',
-  'Cypress',
-  'Database',
-  'Docker',
-  'Enterprise',
-  'Frontend',
-  'GraphQL',
-  'JavaScript',
-  'Jest',
-  'Microservices',
-  'Node.js',
-  'Optimization',
-  'Patterns',
-  'Performance',
-  'Quality Assurance',
-  'REST',
-  'React',
-  'SQL',
-  'Testing',
-  'TypeScript',
-]
+import { useDebounce } from '@/hooks/useDebounce'
 
 interface BlogSearchFiltersProps {
   searchPlaceholder: string
   allFilterLabel: string
+  tags: string[]
+  selectedTag?: string
+  searchQuery?: string
 }
 
 export const BlogSearchFiltersClient = ({
   searchPlaceholder,
   allFilterLabel,
+  tags,
+  selectedTag,
+  searchQuery,
 }: BlogSearchFiltersProps) => {
-  const [activeFilter, setActiveFilter] = useState('All')
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  
+  const [searchInput, setSearchInput] = useState(searchQuery || '')
+  const debouncedSearch = useDebounce(searchInput, 300)
 
-  const handleFilterClick = (category: string) => {
-    setActiveFilter(category)
+  // Update URL when search changes (debounced)
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString())
+    
+    if (debouncedSearch && debouncedSearch.trim()) {
+      params.set('search', debouncedSearch.trim())
+    } else {
+      params.delete('search')
+    }
+    
+    const queryString = params.toString()
+    const newUrl = queryString ? `/blog?${queryString}` : '/blog'
+    
+    router.push(newUrl, { scroll: false })
+  }, [debouncedSearch, searchParams, router])
+
+  const handleFilterClick = (tag: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    
+    if (tag === 'All') {
+      params.delete('tag')
+    } else {
+      params.set('tag', tag)
+    }
+    
+    const queryString = params.toString()
+    const newUrl = queryString ? `/blog?${queryString}` : '/blog'
+    
+    router.push(newUrl, { scroll: false })
   }
+
+  const activeFilter = selectedTag || 'All'
 
   return (
     <div className="space-y-8 mb-12">
@@ -55,6 +70,8 @@ export const BlogSearchFiltersClient = ({
           />
           <input
             type="text"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             placeholder={searchPlaceholder}
             className="w-full pl-12 pr-6 py-4 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-lg"
           />
@@ -71,14 +88,14 @@ export const BlogSearchFiltersClient = ({
           >
             {allFilterLabel}
           </Filter>
-          {technicalCategories.map(category => (
+          {tags.map(tag => (
             <Filter
-              key={category}
-              variant={activeFilter === category ? 'active' : 'default'}
+              key={tag}
+              variant={activeFilter === tag ? 'active' : 'default'}
               color="default"
-              onClick={() => handleFilterClick(category)}
+              onClick={() => handleFilterClick(tag)}
             >
-              {category}
+              {tag}
             </Filter>
           ))}
         </div>
@@ -89,13 +106,22 @@ export const BlogSearchFiltersClient = ({
 
 import { useTranslations } from 'next-intl'
 
-export const BlogSearchFilters = () => {
+interface BlogSearchFiltersServerProps {
+  tags: string[]
+  selectedTag?: string
+  searchQuery?: string
+}
+
+export const BlogSearchFilters = ({ tags, selectedTag, searchQuery }: BlogSearchFiltersServerProps) => {
   const t = useTranslations()
 
   return (
     <BlogSearchFiltersClient
       searchPlaceholder={t('blog.search.placeholder')}
       allFilterLabel={t('blog.search.filters.all')}
+      tags={tags}
+      selectedTag={selectedTag}
+      searchQuery={searchQuery}
     />
   )
 }
