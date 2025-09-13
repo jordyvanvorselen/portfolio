@@ -70,6 +70,7 @@ const defaultBlogPostsResponse: ContentfulBlogPostsResponse = {
           },
         },
         tags: ['React', 'JavaScript', 'Frontend'],
+        canonicalUrl: 'https://example.com/react-hooks-guide',
       },
     },
     {

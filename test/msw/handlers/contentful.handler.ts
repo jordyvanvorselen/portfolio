@@ -22,6 +22,13 @@ export const contentfulHandlers = [
     let mockResponse: ContentfulBlogPostsResponse =
       createMockBlogPostsResponse()
 
+    // Handle include parameter (for detailed content fetching)
+    const include = url.searchParams.get('include')
+    if (include) {
+      // Include parameter is handled automatically by our mock data structure
+      // In a real Contentful API, this would include linked assets/entries
+    }
+
     // Handle filtering by slug (for individual post requests)
     const slugFilter = url.searchParams.get('fields.slug')
     if (slugFilter) {

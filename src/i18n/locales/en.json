@@ -323,6 +323,15 @@
     "sections": {
       "featuredArticle": "Latest article",
       "latestArticles": "Articles"
+    },
+    "post": {
+      "backToBlog": "← Back to Blog",
+      "relatedPosts": "Related Posts",
+      "publishedOn": "Published on",
+      "readTime": "{readTime}",
+      "tags": "Tags",
+      "author": "Written by",
+      "authorName": "Jordy van Vorselen"
     }
   },
   "pages": {

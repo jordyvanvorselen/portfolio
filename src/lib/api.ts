@@ -17,6 +17,16 @@ export interface BlogPost {
   canonicalUrl?: string
 }
 
+export interface DetailedBlogPost extends BlogPost {
+  content: {
+    json: any // eslint-disable-line @typescript-eslint/no-explicit-any
+    links: {
+      assets: { block: any[] } // eslint-disable-line @typescript-eslint/no-explicit-any
+      entries: { block: any[] } // eslint-disable-line @typescript-eslint/no-explicit-any
+    }
+  }
+}
+
 function getClient(preview: boolean) {
   return createClient({
     space: process.env['CONTENTFUL_SPACE_ID']!,
@@ -37,7 +47,7 @@ function transformEntry(entry: Entry<TypeBlogPostSkeleton>): BlogPost {
     image: ensureAbsoluteUrl(
       (entry.fields.featuredImage as any)?.fields?.file?.url // eslint-disable-line @typescript-eslint/no-explicit-any
     ),
-    tags: (entry.fields.tags as string[]) || [],
+    tags: entry.fields.tags as string[],
   }
 
   if (entry.fields.canonicalUrl) {
@@ -45,6 +55,22 @@ function transformEntry(entry: Entry<TypeBlogPostSkeleton>): BlogPost {
   }
 
   return result
+}
+
+function transformDetailedEntry(
+  entry: Entry<TypeBlogPostSkeleton>
+): DetailedBlogPost {
+  const basicPost = transformEntry(entry)
+  return {
+    ...basicPost,
+    content: {
+      json: entry.fields.content as any, // eslint-disable-line @typescript-eslint/no-explicit-any
+      links: {
+        assets: { block: [] },
+        entries: { block: [] },
+      },
+    },
+  }
 }
 
 export async function getPreviewPostBySlug(
@@ -101,4 +127,22 @@ export async function getPostAndMorePosts(
     post: postEntries.items[0] ? transformEntry(postEntries.items[0]) : null,
     morePosts: morePostEntries.items.map(transformEntry),
   }
+}
+
+export async function getDetailedPostBySlug(
+  slug: string,
+  preview: boolean
+): Promise<DetailedBlogPost | null> {
+  const client = getClient(preview)
+
+  const entries = await client.getEntries<TypeBlogPostSkeleton>({
+    content_type: 'blogPost',
+    'fields.slug': slug,
+    limit: 1,
+    include: 10,
+  })
+
+  if (!entries.items[0]) return null
+
+  return transformDetailedEntry(entries.items[0])
 }
