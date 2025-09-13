@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext", "ES6"],
+    "types": ["vitest/globals"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -21,7 +22,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/integration-tests/*": ["./integration-tests/*"]
+      "@/integration-tests/*": ["./integration-tests/*"],
+      "@/test/*": ["./test/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,

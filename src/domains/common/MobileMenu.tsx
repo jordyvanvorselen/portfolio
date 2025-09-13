@@ -29,12 +29,11 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
     }
   }, [isOpen])
 
-  const handleItemClick = (itemId: string, callback?: () => void) => {
+  const handleItemClick = (itemId: string) => {
     setClickingItem(itemId)
 
     // Add slight delay to show animation
     setTimeout(() => {
-      callback?.()
       onClose()
       setClickingItem(null)
     }, 150)

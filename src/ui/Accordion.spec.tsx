@@ -1,9 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { vi } from 'vitest'
 
 import { Accordion, useAccordion } from '@/ui/Accordion'
 
 describe('Accordion', () => {
-  const mockOnOpenChange = jest.fn()
+  const mockOnOpenChange = vi.fn()
 
   it('renders children inside the accordion container', () => {
     render(
@@ -143,7 +144,7 @@ describe('useAccordion hook', () => {
     }
 
     // Suppress console.error for this test
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
     expect(() => render(<TestComponent />)).toThrow(
       'useAccordion must be used within an Accordion'
@@ -161,7 +162,7 @@ describe('useAccordion hook', () => {
     }
 
     render(
-      <Accordion openIndex={0} onOpenChange={jest.fn()}>
+      <Accordion openIndex={0} onOpenChange={vi.fn()}>
         <TestComponent />
       </Accordion>
     )

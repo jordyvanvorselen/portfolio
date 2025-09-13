@@ -11,6 +11,6 @@ export class BlogHero extends BaseSection {
   readonly subtitle: Locator = this.section.getByText(
     /thoughts, tutorials, and deep dives/i
   )
-  readonly articleCount: Locator = this.section.getByText('6 Articles')
+  readonly articleCount: Locator = this.section.getByText('4 Articles')
   readonly updateStatus: Locator = this.section.getByText('Regularly Updated')
 }

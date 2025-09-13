@@ -46,7 +46,7 @@ describe('FlagIcon', () => {
     const { container } = render(<FlagIcon country="de" style={customStyle} />)
     const flagElement = container.firstChild as HTMLElement
 
-    expect(flagElement).toHaveStyle('background-color: rgb(255, 0, 0)')
+    expect(flagElement).toHaveStyle('background-color: red')
     expect(flagElement).toHaveStyle('margin: 10px')
   })
 

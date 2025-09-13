@@ -1,17 +1,18 @@
 import { renderHook, act } from '@testing-library/react'
+import { vi } from 'vitest'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 // Mock matchMedia
 const mockMatchMedia = (matches: boolean) => {
   const mockMediaQueryList = {
     matches,
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
   }
 
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
-    value: jest.fn(() => mockMediaQueryList),
+    value: vi.fn(() => mockMediaQueryList),
   })
 
   return mockMediaQueryList
@@ -19,7 +20,7 @@ const mockMatchMedia = (matches: boolean) => {
 
 describe('useMediaQuery', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('returns initial matches value when media query matches', () => {
@@ -56,7 +57,7 @@ describe('useMediaQuery', () => {
     expect(result.current).toBe(false)
 
     // Simulate media query change
-    const changeHandler = mockMediaQueryList.addEventListener.mock.calls[0][1]
+    const changeHandler = mockMediaQueryList.addEventListener.mock.calls[0]?.[1]
 
     act(() => {
       changeHandler({ matches: true })
@@ -70,7 +71,7 @@ describe('useMediaQuery', () => {
 
     const { unmount } = renderHook(() => useMediaQuery('(min-width: 768px)'))
 
-    const changeHandler = mockMediaQueryList.addEventListener.mock.calls[0][1]
+    const changeHandler = mockMediaQueryList.addEventListener.mock.calls[0]?.[1]
 
     unmount()
 

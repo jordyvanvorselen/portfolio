@@ -1,13 +1,14 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { vi } from 'vitest'
 
 import { ScrollIndicator } from '@/domains/home/hero/ScrollIndicator'
 
 describe('ScrollIndicator', () => {
   beforeEach(() => {
     // Mock window.scrollTo
-    global.window.scrollTo = jest.fn()
+    global.window.scrollTo = vi.fn()
     // Mock getElementById
-    global.document.getElementById = jest.fn()
+    global.document.getElementById = vi.fn()
   })
 
   it('renders title using translation key', () => {
@@ -31,7 +32,9 @@ describe('ScrollIndicator', () => {
 
   it('scrolls to expertise section when clicked', () => {
     const mockElement = { offsetTop: 1000 }
-    ;(global.document.getElementById as jest.Mock).mockReturnValue(mockElement)
+    ;(
+      global.document.getElementById as ReturnType<typeof vi.fn>
+    ).mockReturnValue(mockElement)
 
     render(<ScrollIndicator />)
 
@@ -48,7 +51,9 @@ describe('ScrollIndicator', () => {
   })
 
   it('does nothing when expertise section is not found', () => {
-    ;(global.document.getElementById as jest.Mock).mockReturnValue(null)
+    ;(
+      global.document.getElementById as ReturnType<typeof vi.fn>
+    ).mockReturnValue(null)
 
     render(<ScrollIndicator />)
 

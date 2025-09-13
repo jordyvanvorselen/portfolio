@@ -1,7 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { vi } from 'vitest'
 import { MobileMenuButton } from '@/ui/MobileMenuButton'
 
-const mockOnClick = jest.fn()
+const mockOnClick = vi.fn()
 
 describe('MobileMenuButton', () => {
   beforeEach(() => {

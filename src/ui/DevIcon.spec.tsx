@@ -62,7 +62,7 @@ describe('DevIcon', () => {
     const { container } = render(<DevIcon name="css3" style={customStyle} />)
 
     const icon = container.querySelector('i[aria-hidden="true"]')!
-    expect(icon).toHaveStyle({ fontSize: '24px', color: 'rgb(255, 0, 0)' })
+    expect(icon).toHaveStyle({ fontSize: '24px', color: 'red' })
   })
 
   it('renders with all props combined', () => {

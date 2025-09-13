@@ -4,14 +4,14 @@ import { BlogHeroSection } from '@/domains/blog/BlogHeroSection'
 
 describe('BlogHeroSection', () => {
   it('displays the hero section with translated content', () => {
-    render(<BlogHeroSection />)
+    render(<BlogHeroSection articleCount={6} />)
 
     expect(screen.getByText('blog.hero.title')).toBeVisible()
     expect(screen.getByText('blog.hero.description')).toBeVisible()
   })
 
   it('displays blog stats with translated labels', () => {
-    render(<BlogHeroSection />)
+    render(<BlogHeroSection articleCount={6} />)
 
     expect(
       screen.getByText('blog.hero.stats.articlesCount count=6')

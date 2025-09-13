@@ -1,19 +1,20 @@
 import { render, screen, fireEvent, act } from '@testing-library/react'
+import { vi } from 'vitest'
 import { MobileMenu } from '@/domains/common/MobileMenu'
 
-const mockOnClose = jest.fn()
+const mockOnClose = vi.fn()
 
 describe(MobileMenu, () => {
   beforeEach(() => {
     mockOnClose.mockClear()
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
 
   afterEach(() => {
     act(() => {
-      jest.runOnlyPendingTimers()
+      vi.runOnlyPendingTimers()
     })
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   it('renders mobile menu with correct test id', () => {
@@ -145,7 +146,7 @@ describe(MobileMenu, () => {
     expect(mockOnClose).not.toHaveBeenCalled()
 
     act(() => {
-      jest.advanceTimersByTime(150)
+      vi.advanceTimersByTime(150)
     })
     expect(mockOnClose).toHaveBeenCalledTimes(1)
   })
@@ -157,7 +158,7 @@ describe(MobileMenu, () => {
     expect(mockOnClose).not.toHaveBeenCalled()
 
     act(() => {
-      jest.advanceTimersByTime(150)
+      vi.advanceTimersByTime(150)
     })
     expect(mockOnClose).toHaveBeenCalledTimes(1)
   })
@@ -169,7 +170,7 @@ describe(MobileMenu, () => {
     expect(mockOnClose).not.toHaveBeenCalled()
 
     act(() => {
-      jest.advanceTimersByTime(150)
+      vi.advanceTimersByTime(150)
     })
     expect(mockOnClose).toHaveBeenCalledTimes(1)
 
@@ -183,7 +184,7 @@ describe(MobileMenu, () => {
     expect(mockOnClose).not.toHaveBeenCalled()
 
     act(() => {
-      jest.advanceTimersByTime(150)
+      vi.advanceTimersByTime(150)
     })
     expect(mockOnClose).toHaveBeenCalledTimes(1)
   })
@@ -195,7 +196,7 @@ describe(MobileMenu, () => {
     expect(mockOnClose).not.toHaveBeenCalled()
 
     act(() => {
-      jest.advanceTimersByTime(150)
+      vi.advanceTimersByTime(150)
     })
     expect(mockOnClose).toHaveBeenCalledTimes(1)
   })
@@ -207,7 +208,7 @@ describe(MobileMenu, () => {
     expect(mockOnClose).not.toHaveBeenCalled()
 
     act(() => {
-      jest.advanceTimersByTime(150)
+      vi.advanceTimersByTime(150)
     })
     expect(mockOnClose).toHaveBeenCalledTimes(1)
   })
@@ -219,7 +220,7 @@ describe(MobileMenu, () => {
     expect(mockOnClose).not.toHaveBeenCalled()
 
     act(() => {
-      jest.advanceTimersByTime(150)
+      vi.advanceTimersByTime(150)
     })
     expect(mockOnClose).toHaveBeenCalledTimes(1)
   })
@@ -231,7 +232,7 @@ describe(MobileMenu, () => {
     expect(mockOnClose).not.toHaveBeenCalled()
 
     act(() => {
-      jest.advanceTimersByTime(150)
+      vi.advanceTimersByTime(150)
     })
     expect(mockOnClose).toHaveBeenCalledTimes(1)
   })

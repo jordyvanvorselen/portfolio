@@ -46,6 +46,9 @@ test.describe('Footer', () => {
     homePage,
     page,
   }) => {
+    // Wait a moment for smooth scrolling to complete
+    await page.waitForTimeout(1000)
+
     // First, scroll down to make the footer visible and scroll position meaningful
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
 

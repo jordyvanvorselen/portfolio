@@ -7,7 +7,7 @@ export class FeaturedBlogSection extends BaseSection {
     'featured-blog-section'
   )
   readonly title: Locator = this.section.getByRole('heading', {
-    name: 'Featured article',
+    name: 'Latest article',
   })
   readonly featuredCard: Locator = this.section.locator(
     '[data-featured="true"]'

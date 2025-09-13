@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { vi } from 'vitest'
 
 import { Filter } from '@/ui/Filter'
 
@@ -53,7 +54,7 @@ describe('Filter', () => {
 
   describe('disabled variant behavior', () => {
     it('disables interaction when variant is disabled', () => {
-      const handleClick = jest.fn()
+      const handleClick = vi.fn()
       render(
         <Filter variant="disabled" onClick={handleClick}>
           Disabled Filter
@@ -70,7 +71,7 @@ describe('Filter', () => {
 
   describe('event handling', () => {
     it('calls onClick when clicked', () => {
-      const handleClick = jest.fn()
+      const handleClick = vi.fn()
       render(<Filter onClick={handleClick}>Clickable</Filter>)
 
       fireEvent.click(screen.getByText('Clickable'))
@@ -78,7 +79,7 @@ describe('Filter', () => {
     })
 
     it('prevents click events on disabled filters', () => {
-      const handleClick = jest.fn()
+      const handleClick = vi.fn()
       render(
         <Filter variant="disabled" onClick={handleClick}>
           Disabled Filter

@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { vi } from 'vitest'
 
 import { NavigationLink } from '@/ui/NavigationLink'
 
@@ -121,7 +122,7 @@ describe('NavigationLink', () => {
   })
 
   it('calls onClick handler when provided', () => {
-    const mockOnClick = jest.fn()
+    const mockOnClick = vi.fn()
     render(
       <NavigationLink href="/test" onClick={mockOnClick}>
         Test

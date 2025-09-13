@@ -1,38 +1,39 @@
 import { renderHook, act } from '@testing-library/react'
+import { vi } from 'vitest'
 import { useLanguageSwitch } from '@/hooks/useLanguageSwitch'
 
 // Mock next-intl
-const mockUseLocale = jest.fn()
-jest.mock('next-intl', () => ({
+const mockUseLocale = vi.fn()
+vi.mock('next-intl', () => ({
   useLocale: () => mockUseLocale(),
 }))
 
 // Mock next/navigation for useParams
-const mockUseParams = jest.fn()
-jest.mock('next/navigation', () => ({
-  ...jest.requireActual('next/navigation'),
+const mockUseParams = vi.fn()
+vi.mock('next/navigation', () => ({
+  ...vi.importActual('next/navigation'),
   useParams: () => mockUseParams(),
 }))
 
 // Create mocks for specific functions we want to spy on
-const mockReplace = jest.fn()
-const mockRefresh = jest.fn()
+const mockReplace = vi.fn()
+const mockRefresh = vi.fn()
 
 // Override the global mocks for this specific test
-jest.mock('@/i18n/navigation', () => ({
+vi.mock('@/i18n/navigation', () => ({
   usePathname: () => '/current-path',
   useRouter: () => ({
     replace: mockReplace,
     refresh: mockRefresh,
   }),
   Link: ({ children }: { children: React.ReactNode }) => children,
-  getPathname: jest.fn(),
-  redirect: jest.fn(),
+  getPathname: vi.fn(),
+  redirect: vi.fn(),
 }))
 
 describe('useLanguageSwitch', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     mockUseParams.mockReturnValue({})
   })
 
