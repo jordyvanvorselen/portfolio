@@ -1,10 +1,9 @@
-import react from '@vitejs/plugin-react'
-
 import path from 'node:path'
 import { defineConfig as defineViteConfig } from 'vitest/config'
 import svgr from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig, mergeConfig } from 'vitest/config'
+import reactSwc from '@vitejs/plugin-react-swc'
 
 function stubNextAssetImport() {
   return {
@@ -23,7 +22,7 @@ function stubNextAssetImport() {
 
 // Create a base Vite config with plugins
 const viteConfig = defineViteConfig({
-  plugins: [react(), svgr(), tsconfigPaths(), stubNextAssetImport()],
+  plugins: [reactSwc(), svgr(), tsconfigPaths(), stubNextAssetImport()],
 })
 
 // Merge with Vitest config
@@ -40,6 +39,9 @@ export default mergeConfig(
       environment: 'happy-dom',
       globals: true,
       setupFiles: ['./test/setup.tsx'],
+      reporters: process.env['GITHUB_ACTIONS']
+        ? ['dot', 'github-actions']
+        : ['dot'],
 
       include: [
         './src/**/*.spec.tsx',
