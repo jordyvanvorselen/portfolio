@@ -9,6 +9,10 @@ runs:
       with:
         version: 10
 
+    - name: Setup env vars
+      run: cp .env.ci .env
+      shell: bash
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
