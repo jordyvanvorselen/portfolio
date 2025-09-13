@@ -1,18 +1,25 @@
+import { type NetworkFixture, createNetworkFixture } from '@msw/playwright'
 import { test as base } from '@playwright/test'
 
 import { HomePage } from '@/integration-tests/page-objects/pages/home.page'
 import { BlogPage } from '@/integration-tests/page-objects/pages/blog.page'
+import { BlogPostPage } from '@/integration-tests/page-objects/pages/blog-post.page'
 import { ProjectsPage } from '@/integration-tests/page-objects/pages/projects.page'
 import { ExperiencePage } from '@/integration-tests/page-objects/pages/experience.page'
+import { defaultHandlers } from '@/test/msw/defaultHandlers'
 
 type Fixture = {
+  msw: NetworkFixture
   homePage: HomePage
   blogPage: BlogPage
+  blogPostPage: BlogPostPage
   projectsPage: ProjectsPage
   experiencePage: ExperiencePage
 }
 
 export const test = base.extend<Fixture>({
+  msw: createNetworkFixture({ initialHandlers: defaultHandlers }),
+
   page: async ({ page }, pwUse) => {
     await page.addInitScript(() => (window.isUnderTest = true))
 
@@ -25,6 +32,10 @@ export const test = base.extend<Fixture>({
 
   blogPage: async ({ page }, pwUse) => {
     await pwUse(await BlogPage.goto(page))
+  },
+
+  blogPostPage: async ({ page }, pwUse) => {
+    await pwUse(await BlogPostPage.goto(page, 'react-hooks-guide'))
   },
 
   projectsPage: async ({ page }, pwUse) => {

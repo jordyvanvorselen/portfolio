@@ -1,20 +1,21 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { vi } from 'vitest'
 
 import { BackToTopButton } from '@/ui/BackToTopButton'
 
 describe('BackToTopButton', () => {
   beforeEach(() => {
     // Mock window.scrollTo
-    global.window.scrollTo = jest.fn()
+    global.window.scrollTo = vi.fn()
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   describe.each([
     { scenario: 'default behavior', onClick: undefined },
-    { scenario: 'custom onClick', onClick: jest.fn() },
+    { scenario: 'custom onClick', onClick: vi.fn() },
   ])('onClick prop: $scenario', ({ onClick }) => {
     it('renders back to top button', () => {
       render(<BackToTopButton {...(onClick ? { onClick } : {})} />)
@@ -32,7 +33,7 @@ describe('BackToTopButton', () => {
     },
     {
       scenario: 'custom onClick',
-      onClick: jest.fn(),
+      onClick: vi.fn(),
       expectedScrollToCalls: 0,
       expectedCustomCalls: 1,
     },

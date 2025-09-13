@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { vi } from 'vitest'
 
 import { Button } from '@/ui/Button'
 
@@ -78,7 +79,7 @@ describe('Button', () => {
       })
 
       it('does not trigger click handlers when disabled', () => {
-        const handleClick = jest.fn()
+        const handleClick = vi.fn()
 
         render(
           <Button disabled onClick={handleClick}>
@@ -244,7 +245,7 @@ describe('Button', () => {
 
   describe('Event Handling', () => {
     it('handles click events', () => {
-      const handleClick = jest.fn()
+      const handleClick = vi.fn()
 
       render(<Button onClick={handleClick}>Clickable Button</Button>)
 
@@ -255,7 +256,7 @@ describe('Button', () => {
     })
 
     it('handles keyboard events', () => {
-      const handleKeyDown = jest.fn()
+      const handleKeyDown = vi.fn()
 
       render(<Button onKeyDown={handleKeyDown}>Button</Button>)
 

@@ -3,7 +3,11 @@ import { useTranslations } from 'next-intl'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 
-export const BlogHeroSection = () => {
+interface BlogHeroSectionProps {
+  articleCount: number
+}
+
+export const BlogHeroSection = ({ articleCount }: BlogHeroSectionProps) => {
   const t = useTranslations()
   return (
     <section
@@ -45,7 +49,7 @@ export const BlogHeroSection = () => {
             <div className="flex items-center gap-2">
               <BookOpen className="w-5 h-5" />
               <span className="text-lg">
-                {t('blog.hero.stats.articlesCount', { count: 6 })}
+                {t('blog.hero.stats.articlesCount', { count: articleCount })}
               </span>
             </div>
             <div className="w-px h-6 bg-gray-600"></div>

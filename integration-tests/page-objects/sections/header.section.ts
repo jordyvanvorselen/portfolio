@@ -7,7 +7,7 @@ export class Header extends BaseSection {
   override readonly section: Locator = this.page.getByRole('banner')
 
   readonly brandingLink: Locator = this.section.getByRole('link', {
-    name: 'More Than Bits',
+    name: 'Jordy van Vorselen',
   })
   readonly homeLink: Locator = this.section
     .getByRole('link', {

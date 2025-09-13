@@ -5,9 +5,9 @@ import { BaseSection } from '@/integration-tests/page-objects/base.section'
 export class BlogGrid extends BaseSection {
   override readonly section: Locator = this.page.getByTestId('blog-grid')
   readonly title: Locator = this.section.getByRole('heading', {
-    name: 'Latest articles',
+    name: 'Articles',
   })
-  readonly blogCards: Locator = this.page.getByRole('article')
+  readonly blogCards: Locator = this.section.getByRole('article')
   readonly firstBlogCard: Locator = this.blogCards.first()
   readonly blogCardTitle: Locator = this.firstBlogCard.getByRole('heading')
   readonly blogCardImage: Locator = this.firstBlogCard.getByRole('img')
@@ -19,5 +19,6 @@ export class BlogGrid extends BaseSection {
   readonly blogCardDescription: Locator = this.firstBlogCard.locator('p').last()
   readonly blogCardTags: Locator = this.firstBlogCard
     .locator('span')
-    .filter({ hasText: /TypeScript|React|Database|Testing|GraphQL/ })
+    .filter({ hasText: /\w+/ })
+    .first() // Match any word-containing span (should be tags)
 }

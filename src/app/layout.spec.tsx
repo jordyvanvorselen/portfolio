@@ -1,18 +1,51 @@
 import { render, screen } from '@testing-library/react'
+import { vi } from 'vitest'
 import React from 'react'
 
+// Mock NextIntlClientProvider and useTranslations
+vi.mock('next-intl', () => ({
+  NextIntlClientProvider: ({ children }: { children: React.ReactNode }) => (
+    <>{children}</>
+  ),
+  useTranslations: vi.fn(() => (key: string) => key),
+  useLocale: vi.fn(() => 'en'),
+}))
+
+// Mock MSW wrapper component
+vi.mock('@/test/msw/MockServiceWorkerWrapper.component', () => ({
+  MockServiceWorkerWrapper: ({ children }: { children: React.ReactNode }) => (
+    <>{children}</>
+  ),
+}))
+
+// Mock MSW exclude
+vi.mock('@/test/msw/exclude', () => ({
+  isExcluded: vi.fn(() => false),
+}))
+
 // Only mock the server-side next-intl functions that can't run in Jest
-jest.mock('next-intl/server', () => ({
-  getLocale: jest.fn(() => Promise.resolve('en')),
-  getMessages: jest.fn(() => Promise.resolve({ test: 'message' })),
-  getTranslations: jest.fn(namespace => {
-    const mockT = jest.fn(key => `${namespace ? `${namespace}.` : ''}${key}`)
+vi.mock('next-intl/server', () => ({
+  getLocale: vi.fn(() => Promise.resolve('en')),
+  getMessages: vi.fn(() => Promise.resolve({ test: 'message' })),
+  getTranslations: vi.fn(namespace => {
+    const mockT = vi.fn(key => `${namespace ? `${namespace}.` : ''}${key}`)
     return Promise.resolve(mockT)
   }),
 }))
 
+// Mock Next.js navigation
+vi.mock('next/navigation', () => ({
+  useParams: vi.fn(() => ({})),
+  usePathname: vi.fn(() => '/'),
+}))
+
+// Mock useMediaQuery hook
+vi.mock('@/hooks/useMediaQuery', () => ({
+  useMediaQuery: vi.fn(() => false),
+}))
+
 // Mock CSS import (unavoidable in Jest)
-jest.mock('./globals.css', () => ({}))
+vi.mock('./globals.css', () => ({}))
 
 import RootLayout, { generateMetadata } from '@/app/layout'
 

@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { vi } from 'vitest'
 
 import { FaqItem } from '@/domains/home/faq/FaqItem'
 import { AccordionContext } from '@/ui/Accordion'
@@ -9,7 +10,7 @@ describe('FaqItem', () => {
     answerKey: 'faq.items.test.answer',
   }
 
-  const mockSetOpenIndex = jest.fn()
+  const mockSetOpenIndex = vi.fn()
 
   const renderFaqItem = (
     index = 0,

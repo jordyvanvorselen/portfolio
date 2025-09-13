@@ -11,4 +11,16 @@ export class BlogSearchFilters extends BaseSection {
   readonly allFilter: Locator = this.section.getByRole('button', {
     name: 'All',
   })
+  readonly reactFilter: Locator = this.section.getByRole('button', {
+    name: 'React',
+  })
+  readonly pythonFilter: Locator = this.section.getByRole('button', {
+    name: 'Python',
+  })
+  readonly javascriptFilter: Locator = this.section.getByRole('button', {
+    name: 'JavaScript',
+  })
+  readonly typescriptFilter: Locator = this.section.getByRole('button', {
+    name: 'TypeScript',
+  })
 }
