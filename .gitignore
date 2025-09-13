@@ -31,8 +31,8 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
-!.env.ci
+.env
+.env*.local
 
 # claude local settings
 .claude/settings.local.json
