@@ -137,14 +137,44 @@ describe('Contentful API', () => {
         content: {
           json: {
             nodeType: 'document',
+            data: {},
             content: [
               {
                 nodeType: 'paragraph',
+                data: {},
                 content: [
                   {
                     nodeType: 'text',
                     value:
-                      'Learn about React hooks and how to use them effectively',
+                      'Learn about React hooks and how to use them effectively in your applications.',
+                    marks: [],
+                    data: {},
+                  },
+                ],
+              },
+              {
+                nodeType: 'embedded-entry-block',
+                data: {
+                  target: {
+                    sys: {
+                      id: 'codeblock-1',
+                      type: 'Link',
+                      linkType: 'Entry',
+                    },
+                  },
+                },
+                content: [],
+              },
+              {
+                nodeType: 'paragraph',
+                data: {},
+                content: [
+                  {
+                    nodeType: 'text',
+                    value:
+                      'This code example shows how to use the useState hook.',
+                    marks: [],
+                    data: {},
                   },
                 ],
               },
@@ -155,7 +185,7 @@ describe('Contentful API', () => {
               block: [
                 {
                   sys: { id: 'asset-1' },
-                  url: '//example.com/image1.jpg',
+                  url: '//images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop',
                   description: 'Sample asset 1',
                 },
               ],

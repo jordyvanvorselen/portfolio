@@ -93,9 +93,9 @@ function transformDetailedEntry(
 ): DetailedBlogPost {
   const basicPost = transformEntry(entry)
 
-  // Extract linked assets and entries from includes
-  const assets = includes?.Asset || []
-  const entries = includes?.Entry || []
+  // Extract linked assets and entries from includes, with robust defaults
+  const assets = Array.isArray(includes?.Asset) ? includes.Asset : []
+  const entries = Array.isArray(includes?.Entry) ? includes.Entry : []
 
   return {
     ...basicPost,

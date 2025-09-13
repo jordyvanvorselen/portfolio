@@ -145,96 +145,102 @@ function RichTextCodeBlock({
 }
 
 export function Markdown({ content }: { content: Content | EnhancedContent }) {
-  return documentToReactComponents(content.json, {
-    renderNode: {
-      [BLOCKS.EMBEDDED_ASSET]: (node: Block | Inline) => (
-        <RichTextAsset
-          id={node.data['target'].sys.id}
-          assets={content.links.assets.block}
-        />
-      ),
-      [BLOCKS.EMBEDDED_ENTRY]: (node: Block | Inline) => (
-        <RichTextCodeBlock
-          id={node.data['target'].sys.id}
-          entries={content.links.entries?.block}
-        />
-      ),
-      [BLOCKS.PARAGRAPH]: (_node: Block | Inline, children) => (
-        <p className="mb-6 text-gray-300 leading-relaxed text-lg">{children}</p>
-      ),
-      [BLOCKS.HEADING_1]: (_node: Block | Inline, children) => (
-        <h1 className="text-4xl font-bold text-white mb-8 mt-12 first:mt-0">
-          {children}
-        </h1>
-      ),
-      [BLOCKS.HEADING_2]: (_node: Block | Inline, children) => (
-        <h2 className="text-3xl font-semibold text-white mb-6 mt-10">
-          {children}
-        </h2>
-      ),
-      [BLOCKS.HEADING_3]: (_node: Block | Inline, children) => (
-        <h3 className="text-2xl font-semibold text-white mb-5 mt-8">
-          {children}
-        </h3>
-      ),
-      [BLOCKS.HEADING_4]: (_node: Block | Inline, children) => (
-        <h4 className="text-xl font-semibold text-white mb-4 mt-6">
-          {children}
-        </h4>
-      ),
-      [BLOCKS.HEADING_5]: (_node: Block | Inline, children) => (
-        <h5 className="text-lg font-semibold text-white mb-4 mt-6">
-          {children}
-        </h5>
-      ),
-      [BLOCKS.HEADING_6]: (_node: Block | Inline, children) => (
-        <h6 className="text-base font-semibold text-white mb-3 mt-5">
-          {children}
-        </h6>
-      ),
-      [BLOCKS.UL_LIST]: (_node: Block | Inline, children) => (
-        <ul className="mb-6 pl-6 space-y-2 text-gray-300">{children}</ul>
-      ),
-      [BLOCKS.OL_LIST]: (_node: Block | Inline, children) => (
-        <ol className="mb-6 pl-6 space-y-2 text-gray-300 list-decimal">
-          {children}
-        </ol>
-      ),
-      [BLOCKS.LIST_ITEM]: (_node: Block | Inline, children) => (
-        <li className="leading-relaxed">{children}</li>
-      ),
-      [BLOCKS.QUOTE]: (_node: Block | Inline, children) => (
-        <blockquote className="border-l-4 border-teal-500 pl-6 py-2 mb-6 text-gray-300 italic bg-gray-800/30 rounded-r">
-          {children}
-        </blockquote>
-      ),
-      [BLOCKS.HR]: () => <hr className="border-gray-600 my-8" />,
-      [INLINES.HYPERLINK]: (node: Block | Inline, children) => (
-        <a
-          href={node.data['uri']}
-          className="text-teal-400 hover:text-teal-300 underline decoration-1 underline-offset-2 transition-colors duration-200"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {children}
-        </a>
-      ),
-    },
-    renderMark: {
-      [MARKS.BOLD]: (text: React.ReactNode) => (
-        <strong className="font-semibold text-white">{text}</strong>
-      ),
-      [MARKS.ITALIC]: (text: React.ReactNode) => (
-        <em className="italic text-gray-200">{text}</em>
-      ),
-      [MARKS.UNDERLINE]: (text: React.ReactNode) => (
-        <u className="underline decoration-1 underline-offset-2">{text}</u>
-      ),
-      [MARKS.CODE]: (text: React.ReactNode) => (
-        <code className="bg-gray-800 text-teal-300 px-1.5 py-0.5 rounded text-sm font-mono">
-          {text}
-        </code>
-      ),
-    },
-  })
+  return (
+    <div data-testid="markdown-content">
+      {documentToReactComponents(content.json, {
+        renderNode: {
+          [BLOCKS.EMBEDDED_ASSET]: (node: Block | Inline) => (
+            <RichTextAsset
+              id={node.data['target'].sys.id}
+              assets={content.links.assets.block}
+            />
+          ),
+          [BLOCKS.EMBEDDED_ENTRY]: (node: Block | Inline) => (
+            <RichTextCodeBlock
+              id={node.data['target'].sys.id}
+              entries={content.links.entries?.block}
+            />
+          ),
+          [BLOCKS.PARAGRAPH]: (_node: Block | Inline, children) => (
+            <p className="mb-6 text-gray-300 leading-relaxed text-lg">
+              {children}
+            </p>
+          ),
+          [BLOCKS.HEADING_1]: (_node: Block | Inline, children) => (
+            <h1 className="text-4xl font-bold text-white mb-8 mt-12 first:mt-0">
+              {children}
+            </h1>
+          ),
+          [BLOCKS.HEADING_2]: (_node: Block | Inline, children) => (
+            <h2 className="text-3xl font-semibold text-white mb-6 mt-10">
+              {children}
+            </h2>
+          ),
+          [BLOCKS.HEADING_3]: (_node: Block | Inline, children) => (
+            <h3 className="text-2xl font-semibold text-white mb-5 mt-8">
+              {children}
+            </h3>
+          ),
+          [BLOCKS.HEADING_4]: (_node: Block | Inline, children) => (
+            <h4 className="text-xl font-semibold text-white mb-4 mt-6">
+              {children}
+            </h4>
+          ),
+          [BLOCKS.HEADING_5]: (_node: Block | Inline, children) => (
+            <h5 className="text-lg font-semibold text-white mb-4 mt-6">
+              {children}
+            </h5>
+          ),
+          [BLOCKS.HEADING_6]: (_node: Block | Inline, children) => (
+            <h6 className="text-base font-semibold text-white mb-3 mt-5">
+              {children}
+            </h6>
+          ),
+          [BLOCKS.UL_LIST]: (_node: Block | Inline, children) => (
+            <ul className="mb-6 pl-6 space-y-2 text-gray-300">{children}</ul>
+          ),
+          [BLOCKS.OL_LIST]: (_node: Block | Inline, children) => (
+            <ol className="mb-6 pl-6 space-y-2 text-gray-300 list-decimal">
+              {children}
+            </ol>
+          ),
+          [BLOCKS.LIST_ITEM]: (_node: Block | Inline, children) => (
+            <li className="leading-relaxed">{children}</li>
+          ),
+          [BLOCKS.QUOTE]: (_node: Block | Inline, children) => (
+            <blockquote className="border-l-4 border-teal-500 pl-6 py-2 mb-6 text-gray-300 italic bg-gray-800/30 rounded-r">
+              {children}
+            </blockquote>
+          ),
+          [BLOCKS.HR]: () => <hr className="border-gray-600 my-8" />,
+          [INLINES.HYPERLINK]: (node: Block | Inline, children) => (
+            <a
+              href={node.data['uri']}
+              className="text-teal-400 hover:text-teal-300 underline decoration-1 underline-offset-2 transition-colors duration-200"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {children}
+            </a>
+          ),
+        },
+        renderMark: {
+          [MARKS.BOLD]: (text: React.ReactNode) => (
+            <strong className="font-semibold text-white">{text}</strong>
+          ),
+          [MARKS.ITALIC]: (text: React.ReactNode) => (
+            <em className="italic text-gray-200">{text}</em>
+          ),
+          [MARKS.UNDERLINE]: (text: React.ReactNode) => (
+            <u className="underline decoration-1 underline-offset-2">{text}</u>
+          ),
+          [MARKS.CODE]: (text: React.ReactNode) => (
+            <code className="bg-gray-800 text-teal-300 px-1.5 py-0.5 rounded text-sm font-mono">
+              {text}
+            </code>
+          ),
+        },
+      })}
+    </div>
+  )
 }

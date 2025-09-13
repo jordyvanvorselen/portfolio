@@ -28,6 +28,39 @@ export const contentfulHandlers = [
       // Remove includes if not requested
       const { includes, ...responseWithoutIncludes } = mockResponse
       mockResponse = responseWithoutIncludes as ContentfulBlogPostsResponse
+    } else {
+      // For detailed requests with includes, ensure we ALWAYS have complete includes data
+      mockResponse.includes = {
+        Asset: [
+          {
+            sys: { id: 'asset-1' },
+            fields: {
+              file: {
+                url: '//images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop',
+              },
+              description: 'Sample asset 1',
+            },
+          },
+        ],
+        Entry: [
+          {
+            sys: { id: 'codeblock-1' },
+            fields: {
+              title: 'JavaScript Example',
+              programmingLanguage: 'JavaScript',
+              code: 'console.log("Hello, World!");',
+            },
+          },
+          {
+            sys: { id: 'codeblock-2' },
+            fields: {
+              title: 'TypeScript Interface',
+              programmingLanguage: 'TypeScript',
+              code: 'interface User {\n  name: string;\n  id: number;\n}',
+            },
+          },
+        ],
+      }
     }
 
     // Handle filtering by slug (for individual post requests)
@@ -94,6 +127,47 @@ export const contentfulHandlers = [
     // In a real scenario, this might include draft posts
     let mockResponse: ContentfulBlogPostsResponse =
       createMockBlogPostsResponse()
+
+    // Handle include parameter (for detailed content fetching)
+    const include = url.searchParams.get('include')
+    if (!include) {
+      // Remove includes if not requested
+      const { includes, ...responseWithoutIncludes } = mockResponse
+      mockResponse = responseWithoutIncludes as ContentfulBlogPostsResponse
+    } else {
+      // For detailed requests with includes, ensure we ALWAYS have complete includes data
+      mockResponse.includes = {
+        Asset: [
+          {
+            sys: { id: 'asset-1' },
+            fields: {
+              file: {
+                url: '//images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop',
+              },
+              description: 'Sample asset 1',
+            },
+          },
+        ],
+        Entry: [
+          {
+            sys: { id: 'codeblock-1' },
+            fields: {
+              title: 'JavaScript Example',
+              programmingLanguage: 'JavaScript',
+              code: 'console.log("Hello, World!");',
+            },
+          },
+          {
+            sys: { id: 'codeblock-2' },
+            fields: {
+              title: 'TypeScript Interface',
+              programmingLanguage: 'TypeScript',
+              code: 'interface User {\n  name: string;\n  id: number;\n}',
+            },
+          },
+        ],
+      }
+    }
 
     // Handle filtering by slug (for preview posts)
     const slugFilter = url.searchParams.get('fields.slug')

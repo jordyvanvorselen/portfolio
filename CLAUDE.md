@@ -695,3 +695,4 @@ The Vitest mock handles everything - no additional setup needed in tests!
 
 - The owner of the portfolio is "Jordy van Vorselen", use this name everywhere instead of "Alex Johnson"
 - Write ONE small test at a time. Run it. Make it pass with the simplest code possible. Then write the next test.
+- **Image URLs**: Always use Unsplash images in mock data and test fixtures. Never use `example.com` or other domains that aren't configured in `next.config.js`

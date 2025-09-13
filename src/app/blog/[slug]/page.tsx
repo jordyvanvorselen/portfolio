@@ -70,7 +70,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <main className="flex-1 bg-gray-950">
       {/* Hero Section with same background as BlogHeroSection */}
-      <section className="header-offset relative pt-16 pb-20 overflow-hidden">
+      <section
+        data-testid="blog-post-hero-section"
+        className="header-offset relative pt-16 pb-20 overflow-hidden"
+      >
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-950 to-black"></div>
 
         <div className="absolute inset-0 overflow-hidden">
@@ -114,17 +117,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Meta Information */}
             <div className="flex items-center justify-center gap-6 text-gray-400 mb-6">
-              <div className="flex items-center gap-2">
+              <div
+                className="flex items-center gap-2"
+                data-testid="publish-date"
+              >
                 <Calendar className="w-4 h-4" />
                 <span>{post.date}</span>
               </div>
               <div className="w-px h-4 bg-gray-600"></div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2" data-testid="read-time">
                 <Clock className="w-4 h-4" />
                 <span>{t('readTime', { readTime: post.readTime })}</span>
               </div>
               <div className="w-px h-4 bg-gray-600"></div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2" data-testid="author">
                 <User className="w-4 h-4" />
                 <span>{t('authorName')}</span>
               </div>
@@ -132,7 +138,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Tags */}
             {post.tags.length > 0 && (
-              <div className="flex flex-wrap justify-center gap-2">
+              <div
+                className="flex flex-wrap justify-center gap-2"
+                data-testid="tags-container"
+              >
                 {post.tags.map(tag => (
                   <Badge key={tag} variant="soft" color="default" size="sm">
                     {tag}
@@ -147,13 +156,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </section>
 
       {/* Article Content */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <section
+        data-testid="blog-post-content-section"
+        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16"
+      >
         <Markdown content={enhancedContent} />
       </section>
 
       {/* Related Posts */}
       {morePosts.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section
+          data-testid="related-posts-section"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
+        >
           <Title
             size="2xl"
             weight="bold"

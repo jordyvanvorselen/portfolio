@@ -13,9 +13,16 @@ export interface ContentfulBlogPostEntry {
     publicationDate: string
     content: {
       nodeType: string
+      data?: any
       content: Array<{
         nodeType: string
-        content: Array<{ nodeType: string; value: string }>
+        data?: any
+        content?: Array<{
+          nodeType: string
+          value?: string
+          marks?: any[]
+          data?: any
+        }>
       }>
     }
     featuredImage: {
@@ -63,14 +70,44 @@ const defaultBlogPostsResponse: ContentfulBlogPostsResponse = {
         publicationDate: '2024-01-01',
         content: {
           nodeType: 'document',
+          data: {},
           content: [
             {
               nodeType: 'paragraph',
+              data: {},
               content: [
                 {
                   nodeType: 'text',
                   value:
-                    'Learn about React hooks and how to use them effectively',
+                    'Learn about React hooks and how to use them effectively in your applications.',
+                  marks: [],
+                  data: {},
+                },
+              ],
+            },
+            {
+              nodeType: 'embedded-entry-block',
+              data: {
+                target: {
+                  sys: {
+                    id: 'codeblock-1',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
+                },
+              },
+              content: [],
+            },
+            {
+              nodeType: 'paragraph',
+              data: {},
+              content: [
+                {
+                  nodeType: 'text',
+                  value:
+                    'This code example shows how to use the useState hook.',
+                  marks: [],
+                  data: {},
                 },
               ],
             },
@@ -99,13 +136,44 @@ const defaultBlogPostsResponse: ContentfulBlogPostsResponse = {
         publicationDate: '2024-01-02',
         content: {
           nodeType: 'document',
+          data: {},
           content: [
             {
               nodeType: 'paragraph',
+              data: {},
               content: [
                 {
                   nodeType: 'text',
-                  value: 'Building React components with best practices',
+                  value:
+                    'Building React components with best practices and modern patterns.',
+                  marks: [],
+                  data: {},
+                },
+              ],
+            },
+            {
+              nodeType: 'embedded-entry-block',
+              data: {
+                target: {
+                  sys: {
+                    id: 'codeblock-2',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
+                },
+              },
+              content: [],
+            },
+            {
+              nodeType: 'paragraph',
+              data: {},
+              content: [
+                {
+                  nodeType: 'text',
+                  value:
+                    'This TypeScript interface defines a clean component API.',
+                  marks: [],
+                  data: {},
                 },
               ],
             },
@@ -133,13 +201,44 @@ const defaultBlogPostsResponse: ContentfulBlogPostsResponse = {
         publicationDate: '2024-01-03',
         content: {
           nodeType: 'document',
+          data: {},
           content: [
             {
               nodeType: 'paragraph',
+              data: {},
               content: [
                 {
                   nodeType: 'text',
-                  value: 'Useful Python tips for better development',
+                  value:
+                    'Useful Python tips for better development and performance optimization.',
+                  marks: [],
+                  data: {},
+                },
+              ],
+            },
+            {
+              nodeType: 'embedded-asset-block',
+              data: {
+                target: {
+                  sys: {
+                    id: 'asset-1',
+                    type: 'Link',
+                    linkType: 'Asset',
+                  },
+                },
+              },
+              content: [],
+            },
+            {
+              nodeType: 'paragraph',
+              data: {},
+              content: [
+                {
+                  nodeType: 'text',
+                  value:
+                    'Here are some advanced Python techniques to improve your code.',
+                  marks: [],
+                  data: {},
                 },
               ],
             },
@@ -167,13 +266,44 @@ const defaultBlogPostsResponse: ContentfulBlogPostsResponse = {
         publicationDate: '2024-01-04',
         content: {
           nodeType: 'document',
+          data: {},
           content: [
             {
               nodeType: 'paragraph',
+              data: {},
               content: [
                 {
                   nodeType: 'text',
-                  value: 'Advanced TypeScript techniques and patterns',
+                  value:
+                    'Advanced TypeScript techniques and patterns for modern web development.',
+                  marks: [],
+                  data: {},
+                },
+              ],
+            },
+            {
+              nodeType: 'embedded-entry-block',
+              data: {
+                target: {
+                  sys: {
+                    id: 'codeblock-2',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
+                },
+              },
+              content: [],
+            },
+            {
+              nodeType: 'paragraph',
+              data: {},
+              content: [
+                {
+                  nodeType: 'text',
+                  value:
+                    'This interface demonstrates advanced TypeScript concepts.',
+                  marks: [],
+                  data: {},
                 },
               ],
             },
@@ -195,7 +325,9 @@ const defaultBlogPostsResponse: ContentfulBlogPostsResponse = {
       {
         sys: { id: 'asset-1' },
         fields: {
-          file: { url: '//example.com/image1.jpg' },
+          file: {
+            url: '//images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop',
+          },
           description: 'Sample asset 1',
         },
       },
