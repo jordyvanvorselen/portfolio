@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 
 import { getDetailedPostBySlug, getPostAndMorePosts } from '@/lib/api'
-import { Markdown, enhanceContentWithSyntaxHighlighting } from '@/lib/markdown'
+import { Markdown, enhanceContentWithSyntaxHighlighting } from '@/ui/Markdown'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 import { Badge } from '@/ui/Badge'

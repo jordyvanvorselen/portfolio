@@ -2,7 +2,16 @@ import { render, screen } from '@testing-library/react'
 import { BLOCKS } from '@contentful/rich-text-types'
 import { vi } from 'vitest'
 
-import { Markdown, enhanceContentWithSyntaxHighlighting } from '@/lib/markdown'
+import { Markdown, enhanceContentWithSyntaxHighlighting } from '@/ui/Markdown'
+
+// Mock MermaidDiagram component to avoid client-side rendering in tests
+vi.mock('@/ui/MermaidDiagram', () => ({
+  MermaidDiagram: ({ code, id }: { code: string; id?: string }) => (
+    <div data-testid="mermaid-diagram" data-code={code} data-id={id}>
+      Mermaid Diagram: {code}
+    </div>
+  ),
+}))
 
 // Mock the shiki module
 vi.mock('@/lib/shiki', () => ({
@@ -525,6 +534,208 @@ describe('Markdown', () => {
       // Should use fallback with CSS class
       const codeElement = screen.getByText('console.log("Hello, World!")')
       expect(codeElement).toHaveClass('language-javascript')
+    })
+  })
+
+  describe('Mermaid diagram rendering', () => {
+    it('renders Mermaid diagrams when programmingLanguage is mermaid', () => {
+      const content = {
+        json: {
+          nodeType: BLOCKS.DOCUMENT,
+          data: {},
+          content: [
+            {
+              nodeType: BLOCKS.EMBEDDED_ENTRY,
+              data: {
+                target: {
+                  sys: {
+                    id: 'mermaid-diagram-id',
+                  },
+                },
+              },
+              content: [],
+            },
+          ],
+        },
+        links: {
+          assets: { block: [] },
+          entries: {
+            block: [
+              {
+                sys: { id: 'mermaid-diagram-id' },
+                title: 'Flowchart Example',
+                programmingLanguage: 'mermaid',
+                code: 'graph TD\nA[Start] --> B{Decision}\nB --> C[End]',
+              },
+            ],
+          },
+        },
+      }
+
+      render(<Markdown content={createMockContent(content)} />)
+
+      // Should render MermaidDiagram component instead of regular code block
+      const mermaidDiagram = screen.getByTestId('mermaid-diagram')
+      expect(mermaidDiagram).toBeVisible()
+      expect(mermaidDiagram).toHaveAttribute(
+        'data-code',
+        'graph TD\nA[Start] --> B{Decision}\nB --> C[End]'
+      )
+      expect(mermaidDiagram).toHaveAttribute(
+        'data-id',
+        'mermaid-mermaid-diagram-id'
+      )
+
+      // Should not render regular code block elements
+      expect(screen.queryByText('language-mermaid')).not.toBeInTheDocument()
+    })
+
+    it('handles case-insensitive mermaid language detection', () => {
+      const content = {
+        json: {
+          nodeType: BLOCKS.DOCUMENT,
+          data: {},
+          content: [
+            {
+              nodeType: BLOCKS.EMBEDDED_ENTRY,
+              data: {
+                target: {
+                  sys: {
+                    id: 'mermaid-uppercase-id',
+                  },
+                },
+              },
+              content: [],
+            },
+          ],
+        },
+        links: {
+          assets: { block: [] },
+          entries: {
+            block: [
+              {
+                sys: { id: 'mermaid-uppercase-id' },
+                title: 'Sequence Diagram',
+                programmingLanguage: 'MERMAID',
+                code: 'sequenceDiagram\nAlice->>Bob: Hello Bob',
+              },
+            ],
+          },
+        },
+      }
+
+      render(<Markdown content={createMockContent(content)} />)
+
+      const mermaidDiagram = screen.getByTestId('mermaid-diagram')
+      expect(mermaidDiagram).toBeVisible()
+      expect(mermaidDiagram).toHaveAttribute(
+        'data-code',
+        'sequenceDiagram\nAlice->>Bob: Hello Bob'
+      )
+    })
+
+    it('renders non-mermaid code blocks normally', () => {
+      const content = {
+        json: {
+          nodeType: BLOCKS.DOCUMENT,
+          data: {},
+          content: [
+            {
+              nodeType: BLOCKS.EMBEDDED_ENTRY,
+              data: {
+                target: {
+                  sys: {
+                    id: 'javascript-code-id',
+                  },
+                },
+              },
+              content: [],
+            },
+          ],
+        },
+        links: {
+          assets: { block: [] },
+          entries: {
+            block: [
+              {
+                sys: { id: 'javascript-code-id' },
+                title: 'JavaScript Example',
+                programmingLanguage: 'JavaScript',
+                code: 'console.log("Hello, World!");',
+              },
+            ],
+          },
+        },
+      }
+
+      render(<Markdown content={createMockContent(content)} />)
+
+      // Should render regular code block, not Mermaid diagram
+      expect(screen.queryByTestId('mermaid-diagram')).not.toBeInTheDocument()
+      expect(screen.getByText('console.log("Hello, World!");')).toBeVisible()
+
+      const codeElement = screen.getByText('console.log("Hello, World!");')
+      expect(codeElement).toHaveClass('language-javascript')
+    })
+
+    it('handles mixed content with both mermaid and regular code blocks', () => {
+      const content = {
+        json: {
+          nodeType: BLOCKS.DOCUMENT,
+          data: {},
+          content: [
+            {
+              nodeType: BLOCKS.EMBEDDED_ENTRY,
+              data: {
+                target: {
+                  sys: {
+                    id: 'mermaid-block',
+                  },
+                },
+              },
+              content: [],
+            },
+            {
+              nodeType: BLOCKS.EMBEDDED_ENTRY,
+              data: {
+                target: {
+                  sys: {
+                    id: 'js-block',
+                  },
+                },
+              },
+              content: [],
+            },
+          ],
+        },
+        links: {
+          assets: { block: [] },
+          entries: {
+            block: [
+              {
+                sys: { id: 'mermaid-block' },
+                title: 'Mermaid Chart',
+                programmingLanguage: 'mermaid',
+                code: 'pie title Pets\n"Dogs" : 40\n"Cats" : 60',
+              },
+              {
+                sys: { id: 'js-block' },
+                title: 'JavaScript Code',
+                programmingLanguage: 'JavaScript',
+                code: 'function greet() { return "Hello"; }',
+              },
+            ],
+          },
+        },
+      }
+
+      render(<Markdown content={createMockContent(content)} />)
+
+      // Should render both Mermaid diagram and regular code block
+      expect(screen.getByTestId('mermaid-diagram')).toBeVisible()
+      expect(
+        screen.getByText('function greet() { return "Hello"; }')
+      ).toBeVisible()
     })
   })
 })

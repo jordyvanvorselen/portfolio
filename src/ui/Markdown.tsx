@@ -11,6 +11,7 @@ import {
 
 import { ensureAbsoluteUrl } from '@/lib/blog-helpers'
 import { highlightCode } from '@/lib/shiki'
+import { MermaidDiagram } from '@/ui/MermaidDiagram'
 import type { ContentfulAsset, ContentfulCodeBlock } from '@/lib/api'
 
 interface HighlightedCodeBlockEntry extends ContentfulCodeBlock {
@@ -107,6 +108,11 @@ function RichTextCodeBlock({
 
   if (!entry) {
     return null
+  }
+
+  // Check if this is a Mermaid diagram
+  if (entry.programmingLanguage.toLowerCase() === 'mermaid') {
+    return <MermaidDiagram code={entry.code} id={`mermaid-${id}`} />
   }
 
   return (
