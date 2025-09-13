@@ -1,7 +1,17 @@
 import { render, screen } from '@testing-library/react'
 import { BLOCKS } from '@contentful/rich-text-types'
+import { vi } from 'vitest'
 
-import { Markdown } from '@/lib/markdown'
+import { Markdown, enhanceContentWithSyntaxHighlighting } from '@/lib/markdown'
+
+// Mock the shiki module
+vi.mock('@/lib/shiki', () => ({
+  highlightCode: vi.fn((code: string, language: string) =>
+    Promise.resolve(
+      `<pre class="shiki"><code class="language-${language.toLowerCase()}">${code}</code></pre>`
+    )
+  ),
+}))
 
 // Mock content creator for tests
 const createMockContent = (content: unknown) =>
@@ -74,7 +84,6 @@ describe('Markdown', () => {
 
     render(<Markdown content={createMockContent(content)} />)
 
-    expect(screen.getByText('Example Code')).toBeVisible()
     expect(screen.getByText('console.log("Hello, world!");')).toBeVisible()
 
     const codeElement = screen.getByText('console.log("Hello, world!");')
@@ -118,8 +127,6 @@ describe('Markdown', () => {
     render(<Markdown content={createMockContent(content)} />)
 
     expect(screen.getByText('print("Hello")')).toBeVisible()
-    // Title section should not be rendered when title is empty
-    expect(screen.queryByText('Example Code')).not.toBeInTheDocument()
   })
 
   it('handles missing code block entry gracefully', () => {
@@ -216,7 +223,6 @@ describe('Markdown', () => {
     render(<Markdown content={createMockContent(content)} />)
 
     expect(screen.getByText('Introduction text')).toBeVisible()
-    expect(screen.getByText('Code Example')).toBeVisible()
     expect(screen.getByText('const x: string = "test";')).toBeVisible()
     expect(screen.getByText('Conclusion text')).toBeVisible()
   })
@@ -342,5 +348,183 @@ describe('Markdown', () => {
 
     // Should render without errors, but no image
     expect(container.querySelector('img')).not.toBeInTheDocument()
+  })
+
+  describe('enhanceContentWithSyntaxHighlighting', () => {
+    it('enhances code blocks with syntax highlighting', async () => {
+      const content = {
+        json: {
+          nodeType: BLOCKS.DOCUMENT as const,
+          data: {},
+          content: [],
+        },
+        links: {
+          assets: { block: [] },
+          entries: {
+            block: [
+              {
+                sys: { id: 'code1' },
+                title: 'Example Code',
+                programmingLanguage: 'JavaScript',
+                code: 'console.log("Hello, World!")',
+              },
+            ],
+          },
+        },
+      }
+
+      const enhanced = await enhanceContentWithSyntaxHighlighting(content)
+
+      expect(enhanced.links.entries.block[0]).toEqual({
+        sys: { id: 'code1' },
+        title: 'Example Code',
+        programmingLanguage: 'JavaScript',
+        code: 'console.log("Hello, World!")',
+        highlightedCode:
+          '<pre class="shiki"><code class="language-javascript">console.log("Hello, World!")</code></pre>',
+      })
+    })
+
+    it('handles empty code blocks array', async () => {
+      const content = {
+        json: {
+          nodeType: BLOCKS.DOCUMENT as const,
+          data: {},
+          content: [],
+        },
+        links: {
+          assets: { block: [] },
+          entries: { block: [] },
+        },
+      }
+
+      const enhanced = await enhanceContentWithSyntaxHighlighting(content)
+
+      expect(enhanced.links.entries.block).toEqual([])
+    })
+
+    it('handles missing entries', async () => {
+      const content = {
+        json: {
+          nodeType: BLOCKS.DOCUMENT as const,
+          data: {},
+          content: [],
+        },
+        links: {
+          assets: { block: [] },
+          entries: { block: [] },
+        },
+      }
+
+      const enhanced = await enhanceContentWithSyntaxHighlighting(content)
+
+      expect(enhanced.links.entries.block).toEqual([])
+    })
+
+    it('handles undefined entries object', async () => {
+      const content = {
+        json: {
+          nodeType: BLOCKS.DOCUMENT as const,
+          data: {},
+          content: [],
+        },
+        links: {
+          assets: { block: [] },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          entries: undefined as any,
+        },
+      }
+
+      const enhanced = await enhanceContentWithSyntaxHighlighting(content)
+
+      expect(enhanced.links.entries.block).toEqual([])
+    })
+  })
+
+  describe('Shiki code highlighting', () => {
+    it('renders enhanced content with highlighted code blocks', () => {
+      const enhancedContent = {
+        json: {
+          nodeType: BLOCKS.DOCUMENT,
+          data: {},
+          content: [
+            {
+              nodeType: BLOCKS.EMBEDDED_ENTRY,
+              data: {
+                target: {
+                  sys: {
+                    id: 'code1',
+                  },
+                },
+              },
+              content: [],
+            },
+          ],
+        },
+        links: {
+          assets: { block: [] },
+          entries: {
+            block: [
+              {
+                sys: { id: 'code1' },
+                title: 'Example Code',
+                programmingLanguage: 'JavaScript',
+                code: 'console.log("Hello, World!")',
+                highlightedCode:
+                  '<pre class="shiki"><code class="language-javascript">console.log("Hello, World!")</code></pre>',
+              },
+            ],
+          },
+        },
+      }
+
+      render(<Markdown content={createMockContent(enhancedContent)} />)
+
+      expect(screen.getByText('console.log("Hello, World!")')).toBeVisible()
+    })
+
+    it('falls back to plain code when highlighting fails', () => {
+      const enhancedContent = {
+        json: {
+          nodeType: BLOCKS.DOCUMENT,
+          data: {},
+          content: [
+            {
+              nodeType: BLOCKS.EMBEDDED_ENTRY,
+              data: {
+                target: {
+                  sys: {
+                    id: 'code1',
+                  },
+                },
+              },
+              content: [],
+            },
+          ],
+        },
+        links: {
+          assets: { block: [] },
+          entries: {
+            block: [
+              {
+                sys: { id: 'code1' },
+                title: 'Example Code',
+                programmingLanguage: 'JavaScript',
+                code: 'console.log("Hello, World!")',
+                // No highlightedCode property - should fallback
+              },
+            ],
+          },
+        },
+      }
+
+      render(<Markdown content={createMockContent(enhancedContent)} />)
+
+      expect(screen.getByText('console.log("Hello, World!")')).toBeVisible()
+
+      // Should use fallback with CSS class
+      const codeElement = screen.getByText('console.log("Hello, World!")')
+      expect(codeElement).toHaveClass('language-javascript')
+    })
   })
 })

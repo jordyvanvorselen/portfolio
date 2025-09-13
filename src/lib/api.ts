@@ -1,10 +1,11 @@
-import { createClient, type Entry } from 'contentful'
+import { createClient, type Entry, type Asset } from 'contentful'
 import {
   formatDate,
   calculateReadTime,
   ensureAbsoluteUrl,
 } from '@/lib/blog-helpers'
 import type { TypeBlogPostSkeleton } from '@/lib/contentful-types'
+import type { Document } from '@contentful/rich-text-types'
 
 export interface BlogPost {
   slug: string
@@ -17,12 +18,25 @@ export interface BlogPost {
   canonicalUrl?: string
 }
 
+export interface ContentfulAsset {
+  sys: { id: string }
+  url: string
+  description: string
+}
+
+export interface ContentfulCodeBlock {
+  sys: { id: string }
+  title: string
+  programmingLanguage: string
+  code: string
+}
+
 export interface DetailedBlogPost extends BlogPost {
   content: {
-    json: any // eslint-disable-line @typescript-eslint/no-explicit-any
+    json: Document
     links: {
-      assets: { block: any[] } // eslint-disable-line @typescript-eslint/no-explicit-any
-      entries: { block: any[] } // eslint-disable-line @typescript-eslint/no-explicit-any
+      assets: { block: ContentfulAsset[] }
+      entries: { block: ContentfulCodeBlock[] }
     }
   }
 }
@@ -43,9 +57,9 @@ function transformEntry(entry: Entry<TypeBlogPostSkeleton>): BlogPost {
     title: entry.fields.title as string,
     description: entry.fields.description as string,
     date: formatDate(entry.fields.publicationDate as string),
-    readTime: calculateReadTime(entry.fields.content as any), // eslint-disable-line @typescript-eslint/no-explicit-any
+    readTime: calculateReadTime(entry.fields.content as Document),
     image: ensureAbsoluteUrl(
-      (entry.fields.featuredImage as any)?.fields?.file?.url // eslint-disable-line @typescript-eslint/no-explicit-any
+      (entry.fields.featuredImage as Asset)?.fields?.file?.url as string
     ),
     tags: entry.fields.tags as string[],
   }
@@ -58,16 +72,55 @@ function transformEntry(entry: Entry<TypeBlogPostSkeleton>): BlogPost {
 }
 
 function transformDetailedEntry(
-  entry: Entry<TypeBlogPostSkeleton>
+  entry: Entry<TypeBlogPostSkeleton>,
+  includes?: {
+    Asset?: Array<{
+      sys: { id: string }
+      fields?: {
+        file?: { url?: string }
+        description?: string
+      }
+    }>
+    Entry?: Array<{
+      sys: { id: string }
+      fields?: {
+        title?: string
+        programmingLanguage?: string
+        code?: string
+      }
+    }>
+  }
 ): DetailedBlogPost {
   const basicPost = transformEntry(entry)
+
+  // Extract linked assets and entries from includes
+  const assets = includes?.Asset || []
+  const entries = includes?.Entry || []
+
   return {
     ...basicPost,
     content: {
-      json: entry.fields.content as any, // eslint-disable-line @typescript-eslint/no-explicit-any
+      json: entry.fields.content as Document,
       links: {
-        assets: { block: [] },
-        entries: { block: [] },
+        assets: {
+          block: assets.map(
+            (asset): ContentfulAsset => ({
+              sys: { id: asset.sys.id },
+              url: asset.fields?.file?.url || '',
+              description: asset.fields?.description || '',
+            })
+          ),
+        },
+        entries: {
+          block: entries.map(
+            (entry): ContentfulCodeBlock => ({
+              sys: { id: entry.sys.id },
+              title: entry.fields?.title || '',
+              programmingLanguage: entry.fields?.programmingLanguage || '',
+              code: entry.fields?.code || '',
+            })
+          ),
+        },
       },
     },
   }
@@ -144,5 +197,5 @@ export async function getDetailedPostBySlug(
 
   if (!entries.items[0]) return null
 
-  return transformDetailedEntry(entries.items[0])
+  return transformDetailedEntry(entries.items[0], entries.includes)
 }

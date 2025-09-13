@@ -325,7 +325,7 @@
       "latestArticles": "Articles"
     },
     "post": {
-      "backToBlog": "← Back to Blog",
+      "backToBlog": "Back to Blog",
       "relatedPosts": "Related Posts",
       "publishedOn": "Published on",
       "readTime": "{readTime}",

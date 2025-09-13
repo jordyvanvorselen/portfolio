@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 
 import { getDetailedPostBySlug, getPostAndMorePosts } from '@/lib/api'
-import { Markdown } from '@/lib/markdown'
+import { Markdown, enhanceContentWithSyntaxHighlighting } from '@/lib/markdown'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 import { Badge } from '@/ui/Badge'
@@ -62,6 +62,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     process.env['VERCEL_ENV'] !== 'production'
   )
 
+  // Enhance content with syntax highlighting
+  const enhancedContent = await enhanceContentWithSyntaxHighlighting(
+    post.content
+  )
+
   return (
     <main className="flex-1 bg-gray-950">
       {/* Hero Section with same background as BlogHeroSection */}
@@ -73,7 +78,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back to Blog Link */}
           <Link
             href="/blog"
@@ -84,7 +89,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </Link>
 
           {/* Article Header */}
-          <div className="text-center mb-12">
+          <div className="text-center">
             <Title
               size="4xl"
               weight="bold"
@@ -142,10 +147,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </section>
 
       {/* Article Content */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="prose prose-invert prose-teal max-w-none">
-          <Markdown content={post.content} />
-        </div>
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <Markdown content={enhancedContent} />
       </section>
 
       {/* Related Posts */}

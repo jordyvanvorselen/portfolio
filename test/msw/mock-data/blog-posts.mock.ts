@@ -30,6 +30,20 @@ export interface ContentfulBlogPostsResponse {
   sys: { type: string }
   total: number
   items: ContentfulBlogPostEntry[]
+  includes?: {
+    Asset?: Array<{
+      sys: { id: string }
+      fields: { file: { url: string }; description: string }
+    }>
+    Entry?: Array<{
+      sys: { id: string }
+      fields: {
+        title: string
+        programmingLanguage: string
+        code: string
+      }
+    }>
+  }
 }
 
 // Default mock blog posts data
@@ -176,6 +190,35 @@ const defaultBlogPostsResponse: ContentfulBlogPostsResponse = {
       },
     },
   ],
+  includes: {
+    Asset: [
+      {
+        sys: { id: 'asset-1' },
+        fields: {
+          file: { url: '//example.com/image1.jpg' },
+          description: 'Sample asset 1',
+        },
+      },
+    ],
+    Entry: [
+      {
+        sys: { id: 'codeblock-1' },
+        fields: {
+          title: 'JavaScript Example',
+          programmingLanguage: 'JavaScript',
+          code: 'console.log("Hello, World!");',
+        },
+      },
+      {
+        sys: { id: 'codeblock-2' },
+        fields: {
+          title: 'TypeScript Interface',
+          programmingLanguage: 'TypeScript',
+          code: 'interface User {\n  name: string;\n  id: number;\n}',
+        },
+      },
+    ],
+  },
 }
 
 // Create the mock data factory

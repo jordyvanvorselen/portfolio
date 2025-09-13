@@ -325,7 +325,7 @@
       "latestArticles": "Publicaties"
     },
     "post": {
-      "backToBlog": "← Terug naar Blog",
+      "backToBlog": "Terug naar Blog",
       "relatedPosts": "Gerelateerde Artikelen",
       "publishedOn": "Gepubliceerd op",
       "readTime": "{readTime}",

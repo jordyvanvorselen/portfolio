@@ -1,10 +1,13 @@
 import { describe, it, expect } from 'vitest'
+import { http, HttpResponse } from 'msw'
+import { server } from '@/test/msw/register.server'
 import {
   getAllPosts,
   getPostAndMorePosts,
   getPreviewPostBySlug,
   getDetailedPostBySlug,
 } from '@/lib/api'
+import { createMockBlogPostsResponse } from '@/test/msw/mock-data/blog-posts.mock'
 
 describe('Contentful API', () => {
   describe('getAllPosts', () => {
@@ -148,8 +151,31 @@ describe('Contentful API', () => {
             ],
           },
           links: {
-            assets: { block: [] },
-            entries: { block: [] },
+            assets: {
+              block: [
+                {
+                  sys: { id: 'asset-1' },
+                  url: '//example.com/image1.jpg',
+                  description: 'Sample asset 1',
+                },
+              ],
+            },
+            entries: {
+              block: [
+                {
+                  sys: { id: 'codeblock-1' },
+                  title: 'JavaScript Example',
+                  programmingLanguage: 'JavaScript',
+                  code: 'console.log("Hello, World!");',
+                },
+                {
+                  sys: { id: 'codeblock-2' },
+                  title: 'TypeScript Interface',
+                  programmingLanguage: 'TypeScript',
+                  code: 'interface User {\n  name: string;\n  id: number;\n}',
+                },
+              ],
+            },
           },
         },
       })
@@ -173,6 +199,64 @@ describe('Contentful API', () => {
 
       expect(result).toBeDefined()
       expect(result?.canonicalUrl).toBe('https://example.com/react-hooks-guide')
+    })
+
+    it('handles missing includes gracefully', async () => {
+      // Mock a response without includes
+      const originalResponse = createMockBlogPostsResponse()
+      const responseWithoutIncludes = {
+        ...originalResponse,
+        includes: undefined,
+      }
+
+      // Override the mock for this test
+      const mockHandler = http.get(
+        'https://cdn.contentful.com/spaces/*/entries',
+        () => HttpResponse.json(responseWithoutIncludes)
+      )
+
+      server.use(mockHandler)
+
+      const result = await getDetailedPostBySlug('react-hooks-guide', false)
+
+      expect(result).toBeDefined()
+      expect(result?.content.links.assets.block).toEqual([])
+      expect(result?.content.links.entries.block).toEqual([])
+    })
+
+    it('handles missing Asset and Entry fields in includes', async () => {
+      // Mock a response with partial includes
+      const originalResponse = createMockBlogPostsResponse()
+      const responseWithPartialIncludes = {
+        ...originalResponse,
+        includes: {
+          Asset: [{ sys: { id: 'asset-1' }, fields: {} }],
+          Entry: [{ sys: { id: 'entry-1' }, fields: {} }],
+        },
+      }
+
+      // Override the mock for this test
+      const mockHandler = http.get(
+        'https://cdn.contentful.com/spaces/*/entries',
+        () => HttpResponse.json(responseWithPartialIncludes)
+      )
+
+      server.use(mockHandler)
+
+      const result = await getDetailedPostBySlug('react-hooks-guide', false)
+
+      expect(result).toBeDefined()
+      expect(result?.content.links.assets.block[0]).toEqual({
+        sys: { id: 'asset-1' },
+        url: '',
+        description: '',
+      })
+      expect(result?.content.links.entries.block[0]).toEqual({
+        sys: { id: 'entry-1' },
+        title: '',
+        programmingLanguage: '',
+        code: '',
+      })
     })
   })
 })

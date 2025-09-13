@@ -24,9 +24,10 @@ export const contentfulHandlers = [
 
     // Handle include parameter (for detailed content fetching)
     const include = url.searchParams.get('include')
-    if (include) {
-      // Include parameter is handled automatically by our mock data structure
-      // In a real Contentful API, this would include linked assets/entries
+    if (!include) {
+      // Remove includes if not requested
+      const { includes, ...responseWithoutIncludes } = mockResponse
+      mockResponse = responseWithoutIncludes as ContentfulBlogPostsResponse
     }
 
     // Handle filtering by slug (for individual post requests)
