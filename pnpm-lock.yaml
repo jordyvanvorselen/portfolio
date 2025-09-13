@@ -101,6 +101,9 @@ importers:
       '@msw/playwright':
         specifier: ^0.4.2
         version: 0.4.2(msw@2.11.2(@types/node@20.19.9)(typescript@5.8.3))
+      '@next/env':
+        specifier: ^15.5.3
+        version: 15.5.3
       '@playwright/test':
         specifier: ^1.54.2
         version: 1.54.2
@@ -1194,6 +1197,12 @@ packages:
     resolution:
       {
         integrity: sha512-ruM+q2SCOVCepUiERoxOmZY9ZVoecR3gcXNwCYZRvQQWRjhOiPJGmQ2fAiLR6YKWXcSAh7G79KEFxN3rwhs4LQ==,
+      }
+
+  '@next/env@15.5.3':
+    resolution:
+      {
+        integrity: sha512-RSEDTRqyihYXygx/OJXwvVupfr9m04+0vH8vyy0HfZ7keRto6VX9BbEk0J2PUk0VGy6YhklJUSrgForov5F9pw==,
       }
 
   '@next/eslint-plugin-next@15.4.5':
@@ -7194,6 +7203,8 @@ snapshots:
     optional: true
 
   '@next/env@15.4.5': {}
+
+  '@next/env@15.5.3': {}
 
   '@next/eslint-plugin-next@15.4.5':
     dependencies:

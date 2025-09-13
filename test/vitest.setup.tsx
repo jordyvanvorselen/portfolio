@@ -7,6 +7,8 @@ import { afterAll, afterEach, beforeAll, vitest } from 'vitest'
 import { server } from './msw/register.server'
 import { assertableTranslationKeys } from '../src/test/utils/translations'
 
+import '@/test/env.setup'
+
 // Setup MSW server
 beforeAll(() => {
   server.listen({ onUnhandledRequest: 'error' })

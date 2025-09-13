@@ -38,7 +38,7 @@ export default mergeConfig(
     test: {
       environment: 'happy-dom',
       globals: true,
-      setupFiles: ['./test/setup.tsx'],
+      setupFiles: ['./test/vitest.setup.tsx'],
       reporters: process.env['GITHUB_ACTIONS']
         ? ['dot', 'github-actions']
         : ['dot'],

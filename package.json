@@ -13,10 +13,10 @@
     "test": "pnpm test:unit && pnpm test:integration && pnpm test:visual-regression",
     "test:unit": "vitest run --coverage",
     "test:unit:watch": "vitest --watch",
-    "test:integration": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:integration:ci -- \"$@\"' --",
-    "test:integration:ci": "playwright test --grep-invert 'visual regression'",
+    "test:integration": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:integration:ci \"$@\"' --",
+    "test:integration:ci": "NODE_ENV=test playwright test --grep-invert 'visual regression'",
     "test:visual-regression": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci'",
-    "test:visual-regression:ci": "playwright test --grep='visual regression'",
+    "test:visual-regression:ci": "NODE_ENV=test playwright test --grep='visual regression'",
     "test:visual-regression:fix": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci --update-snapshots'"
   },
   "dependencies": {
@@ -53,6 +53,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@msw/playwright": "^0.4.2",
+    "@next/env": "^15.5.3",
     "@playwright/test": "^1.54.2",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.6.4",

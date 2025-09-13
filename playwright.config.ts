@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
 
+import '@/test/env.setup'
+
 export default defineConfig({
   testDir: './integration-tests',
   fullyParallel: true,
