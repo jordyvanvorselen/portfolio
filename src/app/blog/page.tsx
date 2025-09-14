@@ -99,7 +99,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         )}
 
         {regularPosts.length > 0 && (
-          <div data-testid="blog-grid">
+          <div data-testid="blog-grid" className="mt-12 xl:mt-0">
             <BlogSectionTitle translationKey="blog.sections.latestArticles" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {regularPosts.map(post => (

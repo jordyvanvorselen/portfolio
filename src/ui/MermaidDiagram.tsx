@@ -63,6 +63,7 @@ const DiagramRenderer = ({
       className={`[&_svg]:w-full [&_svg]:h-auto [&_svg]:max-w-none [&_svg]:min-h-[300px] ${className}`}
       role="img"
       aria-label="Mermaid diagram"
+      data-testid="mermaid-diagram"
     />
   )
 }

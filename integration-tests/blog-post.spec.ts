@@ -44,7 +44,7 @@ test.describe('Blog Post Page', () => {
     await expect(blogPostPage.relatedPosts.section).toBeVisible()
     await expect(blogPostPage.relatedPosts.title).toBeVisible()
     await expect(blogPostPage.relatedPosts.title).toHaveText('Related Posts')
-    await expect(blogPostPage.relatedPosts.relatedPostCards).toHaveCount(2)
+    await expect(blogPostPage.relatedPosts.relatedPostCards).toHaveCount(3)
   })
 
   test('related posts have required elements', async ({ blogPostPage }) => {
@@ -147,32 +147,26 @@ test.describe('Blog Post Page - Multiple Posts', () => {
 
 test.describe('Blog Post Page - Content Features', () => {
   test('displays markdown content elements', async ({ blogPostPage }) => {
-    // Test that basic markdown content is rendered
     await expect(blogPostPage.content.markdownContent).toBeVisible()
     await expect(blogPostPage.content.paragraphs).toHaveCount(2)
   })
 
-  test('handles code blocks if present', async ({ blogPostPage }) => {
-    // This test will pass even if no code blocks are present
-    const codeBlockCount = await blogPostPage.content.codeBlocks.count()
-    if (codeBlockCount > 0) {
-      await expect(blogPostPage.content.codeBlocks.first()).toBeVisible()
-    }
+  test('handles code blocks', async ({ blogPostPage }) => {
+    await expect(blogPostPage.content.codeBlocks.first()).toBeVisible()
   })
 
-  test('handles images if present', async ({ blogPostPage }) => {
-    // This test will pass even if no images are present in content
-    const imageCount = await blogPostPage.content.images.count()
-    if (imageCount > 0) {
-      await expect(blogPostPage.content.images.first()).toBeVisible()
-    }
+  test('handles images', async ({ page }) => {
+    const blogPostPageWithImages = await BlogPostPage.goto(page, 'python-tips')
+    await expect(blogPostPageWithImages.content.images.first()).toBeVisible()
   })
 
-  test('handles mermaid diagrams if present', async ({ blogPostPage }) => {
-    // This test will pass even if no mermaid diagrams are present
-    const mermaidCount = await blogPostPage.content.mermaidDiagrams.count()
-    if (mermaidCount > 0) {
-      await expect(blogPostPage.content.mermaidDiagrams.first()).toBeVisible()
-    }
+  test('handles mermaid diagrams', async ({ page }) => {
+    const blogPostPageWithMermaid = await BlogPostPage.goto(
+      page,
+      'typescript-advanced'
+    )
+    await expect(
+      blogPostPageWithMermaid.content.mermaidDiagrams.first()
+    ).toBeVisible()
   })
 })

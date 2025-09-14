@@ -99,7 +99,7 @@ describe('Contentful API', () => {
         canonicalUrl: 'https://example.com/react-hooks-guide',
       })
 
-      expect(result.morePosts).toHaveLength(2)
+      expect(result.morePosts).toHaveLength(3)
       expect(result.morePosts).not.toContainEqual(
         expect.objectContaining({ slug: 'react-hooks-guide' })
       )
@@ -116,7 +116,7 @@ describe('Contentful API', () => {
       const result = await getPostAndMorePosts('non-existent', false)
 
       expect(result.post).toBeNull()
-      expect(result.morePosts).toHaveLength(2) // Still returns other posts
+      expect(result.morePosts).toHaveLength(3) // Still returns other posts
     })
   })
 
@@ -203,6 +203,12 @@ describe('Contentful API', () => {
                   title: 'TypeScript Interface',
                   programmingLanguage: 'TypeScript',
                   code: 'interface User {\n  name: string;\n  id: number;\n}',
+                },
+                {
+                  sys: { id: 'mermaid-1' },
+                  title: 'TypeScript Architecture Diagram',
+                  programmingLanguage: 'mermaid',
+                  code: 'graph TD\n    A[Component] --> B[Props]\n    A --> C[State]\n    B --> D[Render]\n    C --> D',
                 },
               ],
             },

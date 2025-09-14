@@ -10,7 +10,7 @@ export class RelatedPosts extends BaseSection {
     name: /related posts/i,
   })
   readonly postsGrid: Locator = this.section.locator(
-    'div[class*="grid"][class*="md:grid-cols-2"]'
+    'div[class*="grid"][class*="md:grid-cols-3"]'
   )
   readonly relatedPostCards: Locator = this.postsGrid.locator('article')
   readonly firstRelatedPost: Locator = this.relatedPostCards.first()
