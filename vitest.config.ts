@@ -80,6 +80,7 @@ export default mergeConfig(
           'src/test/**',
           'src/types/project.ts',
           'src/lib/contentful-types.ts',
+          'src/lib/constants.ts',
           'src/domains/home/skills/Technology.ts',
           'middleware.ts',
         ],
