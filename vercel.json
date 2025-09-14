@@ -1,4 +1,39 @@
 {
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://morethanbits.io/:path*",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "jordyvanvorselen.com"
+        }
+      ]
+    },
+    {
+      "source": "/:path*",
+      "destination": "https://morethanbits.io/:path*",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "jordyvanvorselen.nl"
+        }
+      ]
+    },
+    {
+      "source": "/:path*",
+      "destination": "https://morethanbits.io/:path*",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "morethanbits.nl"
+        }
+      ]
+    }
+  ],
   "git": {
     "deploymentEnabled": false
   }

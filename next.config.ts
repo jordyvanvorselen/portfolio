@@ -5,28 +5,6 @@ const withNextIntl = createNextIntlPlugin()
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ['localhost', '127.0.0.1'],
-  redirects: async () => {
-    return [
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'jordyvanvorselen.com' }],
-        destination: 'https://morethanbits.io/:path*',
-        permanent: true,
-      },
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'jordyvanvorselen.nl' }],
-        destination: 'https://morethanbits.io/:path*',
-        permanent: true,
-      },
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'morethanbits.nl' }],
-        destination: 'https://morethanbits.io/:path*',
-        permanent: true,
-      },
-    ]
-  },
   images: {
     remotePatterns: [
       {
