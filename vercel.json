@@ -2,34 +2,34 @@
   "redirects": [
     {
       "source": "/:path*",
-      "destination": "https://morethanbits.io/:path*",
+      "destination": "https://www.jordyvanvorselen.com/:path*",
       "permanent": true,
       "has": [
         {
           "type": "host",
-          "value": "jordyvanvorselen.com"
+          "value": "www.jordyvanvorselen.nl"
         }
       ]
     },
     {
       "source": "/:path*",
-      "destination": "https://morethanbits.io/:path*",
+      "destination": "https://www.jordyvanvorselen.com/:path*",
       "permanent": true,
       "has": [
         {
           "type": "host",
-          "value": "jordyvanvorselen.nl"
+          "value": "www.morethanbits.nl"
         }
       ]
     },
     {
       "source": "/:path*",
-      "destination": "https://morethanbits.io/:path*",
+      "destination": "https://www.jordyvanvorselen.com/:path*",
       "permanent": true,
       "has": [
         {
           "type": "host",
-          "value": "morethanbits.nl"
+          "value": "www.morethanbits.io"
         }
       ]
     }
