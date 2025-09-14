@@ -44,7 +44,7 @@ test.describe('Blog Post Page', () => {
     await expect(blogPostPage.relatedPosts.section).toBeVisible()
     await expect(blogPostPage.relatedPosts.title).toBeVisible()
     await expect(blogPostPage.relatedPosts.title).toHaveText('Related Posts')
-    await expect(blogPostPage.relatedPosts.relatedPostCards).toHaveCount(2)
+    await expect(blogPostPage.relatedPosts.relatedPostCards).toHaveCount(3)
   })
 
   test('related posts have required elements', async ({ blogPostPage }) => {
