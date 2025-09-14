@@ -118,7 +118,7 @@ function RichTextCodeBlock({
   return (
     <div className="my-8 rounded-2xl border-2 border-gray-700/50 shadow-2xl backdrop-blur-sm overflow-hidden group relative transition-all duration-500 hover:border-gray-600/70 hover:shadow-3xl">
       {/* Enhanced gradient background with more dramatic sweep */}
-      <div className="absolute inset-0 bg-gradient-to-bl from-gray-900 via-40% via-black via-80% to-black" />
+      <div className="absolute inset-0 bg-gradient-to-bl from-gray-900 via-black via-80% to-black" />
 
       {/* Subtle inner glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent" />
