@@ -59,6 +59,14 @@ export const contentfulHandlers = [
               code: 'interface User {\n  name: string;\n  id: number;\n}',
             },
           },
+          {
+            sys: { id: 'mermaid-1' },
+            fields: {
+              title: 'TypeScript Architecture Diagram',
+              programmingLanguage: 'mermaid',
+              code: 'graph TD\n    A[Component] --> B[Props]\n    A --> C[State]\n    B --> D[Render]\n    C --> D',
+            },
+          },
         ],
       }
     }
@@ -163,6 +171,14 @@ export const contentfulHandlers = [
               title: 'TypeScript Interface',
               programmingLanguage: 'TypeScript',
               code: 'interface User {\n  name: string;\n  id: number;\n}',
+            },
+          },
+          {
+            sys: { id: 'mermaid-1' },
+            fields: {
+              title: 'TypeScript Architecture Diagram',
+              programmingLanguage: 'mermaid',
+              code: 'graph TD\n    A[Component] --> B[Props]\n    A --> C[State]\n    B --> D[Render]\n    C --> D',
             },
           },
         ],

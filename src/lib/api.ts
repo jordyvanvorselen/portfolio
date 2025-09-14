@@ -172,7 +172,7 @@ export async function getPostAndMorePosts(
       content_type: 'blogPost',
       'fields.slug[ne]': slug,
       order: ['-fields.publicationDate'],
-      limit: 2,
+      limit: 3,
     }),
   ])
 

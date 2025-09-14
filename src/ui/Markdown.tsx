@@ -128,7 +128,7 @@ function RichTextCodeBlock({
 
       {'highlightedCode' in entry && entry.highlightedCode ? (
         <div
-          className="overflow-x-auto relative z-10 [&_.shiki]:!bg-transparent [&_.shiki]:m-0 [&_.shiki]:p-6 [&_.shiki]:text-sm [&_.shiki]:leading-relaxed [&_.shiki_pre]:!bg-transparent [&_.shiki_pre]:m-0 [&_.shiki_pre]:p-6 [&_.shiki_code]:font-mono"
+          className="overflow-x-auto relative z-10 [&_.shiki]:!bg-transparent [&_.shiki]:m-0 [&_.shiki]:p-6 [&_.shiki]:text-md [&_.shiki]:leading-relaxed [&_.shiki_pre]:!bg-transparent [&_.shiki_pre]:m-0 [&_.shiki_pre]:p-6 [&_.shiki_code]:font-mono"
           dangerouslySetInnerHTML={{ __html: entry.highlightedCode }}
         />
       ) : (
@@ -162,7 +162,7 @@ export function Markdown({ content }: { content: Content | EnhancedContent }) {
             />
           ),
           [BLOCKS.PARAGRAPH]: (_node: Block | Inline, children) => (
-            <p className="mb-6 text-gray-300 leading-relaxed text-lg">
+            <p className="mb-6 text-gray-300 leading-relaxed text-xl">
               {children}
             </p>
           ),
@@ -197,10 +197,12 @@ export function Markdown({ content }: { content: Content | EnhancedContent }) {
             </h6>
           ),
           [BLOCKS.UL_LIST]: (_node: Block | Inline, children) => (
-            <ul className="mb-6 pl-6 space-y-2 text-gray-300">{children}</ul>
+            <ul className="mb-6 pl-6 space-y-2 text-gray-300 text-xl">
+              {children}
+            </ul>
           ),
           [BLOCKS.OL_LIST]: (_node: Block | Inline, children) => (
-            <ol className="mb-6 pl-6 space-y-2 text-gray-300 list-decimal">
+            <ol className="mb-6 pl-6 space-y-2 text-gray-300 text-xl list-decimal">
               {children}
             </ol>
           ),
@@ -208,7 +210,7 @@ export function Markdown({ content }: { content: Content | EnhancedContent }) {
             <li className="leading-relaxed">{children}</li>
           ),
           [BLOCKS.QUOTE]: (_node: Block | Inline, children) => (
-            <blockquote className="border-l-4 border-teal-500 pl-6 py-2 mb-6 text-gray-300 italic bg-gray-800/30 rounded-r">
+            <blockquote className="border-l-4 border-teal-500 pl-6 pt-6 py-2 mb-6 text-gray-300 text-xl italic bg-gray-800/30 rounded-r">
               {children}
             </blockquote>
           ),

@@ -307,6 +307,32 @@ const defaultBlogPostsResponse: ContentfulBlogPostsResponse = {
                 },
               ],
             },
+            {
+              nodeType: 'embedded-entry-block',
+              data: {
+                target: {
+                  sys: {
+                    id: 'mermaid-1',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
+                },
+              },
+              content: [],
+            },
+            {
+              nodeType: 'paragraph',
+              data: {},
+              content: [
+                {
+                  nodeType: 'text',
+                  value:
+                    'The diagram above shows the relationship between these concepts.',
+                  marks: [],
+                  data: {},
+                },
+              ],
+            },
           ],
         },
         featuredImage: {
@@ -347,6 +373,14 @@ const defaultBlogPostsResponse: ContentfulBlogPostsResponse = {
           title: 'TypeScript Interface',
           programmingLanguage: 'TypeScript',
           code: 'interface User {\n  name: string;\n  id: number;\n}',
+        },
+      },
+      {
+        sys: { id: 'mermaid-1' },
+        fields: {
+          title: 'TypeScript Architecture Diagram',
+          programmingLanguage: 'mermaid',
+          code: 'graph TD\n    A[Component] --> B[Props]\n    A --> C[State]\n    B --> D[Render]\n    C --> D',
         },
       },
     ],
