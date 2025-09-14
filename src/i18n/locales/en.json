@@ -262,7 +262,7 @@
   "projects": {
     "hero": {
       "title": "Open Source Projects",
-      "description": "A collection of innovative software solutions born from curiosity, continuous learning, and the pure joy of building something meaningful. Each project represents a journey of discovery and fun in the world of code.",
+      "description": "A collection of my open-source software projects born from curiosity, continuous learning, and the joy of building something new.",
       "stats": {
         "projects": "Projects",
         "stars": "Stars",

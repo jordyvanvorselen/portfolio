@@ -7,126 +7,64 @@ import { Project } from '@/types/project'
 const mockProjects: Project[] = [
   {
     id: '1',
-    title: 'Microservice Orchestrator',
+    title: 'Go + Templ + HTMX @ Vercel',
     description:
-      'A powerful orchestration platform for managing complex microservice architectures with automated deployment, monitoring, and scaling capabilities.',
+      'A Vercel template for Go projects using Templ and HTMX, complete with GitHub Actions for CI/CD.',
     longDescription:
-      'Built with Node.js and Kubernetes, this platform provides a comprehensive solution for microservice management. Features include service discovery, load balancing, health monitoring, and automated rollback mechanisms. Used by teams to deploy and manage over 200+ microservices in production.',
+      'Want to host your Go + Templ + HTMX project on Vercel? It really is possible! This template has you covered with a ready-to-deploy setup, including GitHub Actions for seamless CI/CD - and fixed the nitty gritty details for you.',
     image:
       'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop&crop=entropy&auto=format',
-    technologies: [
-      'Node.js',
-      'Kubernetes',
-      'Docker',
-      'TypeScript',
-      'Redis',
-      'PostgreSQL',
-    ],
-    githubUrl: 'https://github.com/jordyvanvorselen/microservice-orchestrator',
-    liveUrl: 'https://orchestrator.demo.com',
-    stars: 2800,
-    forks: 312,
+    technologies: ['Go', 'HTMX', 'Templ', 'Vercel', 'GitHub Actions', 'CI/CD'],
+    githubUrl:
+      'https://github.com/jordyvanvorselen/go-templ-htmx-vercel-template',
+    liveUrl: 'https://go-templ-htmx-vercel-template.vercel.app/users',
+    stars: 61,
+    forks: 9,
   },
   {
     id: '2',
-    title: 'Real-time Analytics Engine',
-    description:
-      'High-performance analytics engine processing millions of events per second with sub-millisecond latency and real-time dashboard visualization.',
+    title: 'morethanbits.io',
+    description: 'My personal website built with Next.js — this website',
     longDescription:
-      'A distributed analytics platform built with Apache Kafka, ClickHouse, and React. Processes streaming data from multiple sources, performs complex aggregations, and provides real-time insights through interactive dashboards. Handles 10M+ events per second with 99.9% uptime.',
+      'This portfolio website represents the intersection of exceptional design, bulletproof engineering, and cutting-edge web technologies. Built with Test-Driven Development (TDD) principles, every component is thoroughly tested with 100% code coverage, ensuring reliability and maintainability. The project demonstrates expertise in modern frontend development, featuring a carefully crafted user experience that seamlessly adapts across all device sizes while maintaining pixel-perfect design fidelity.',
     image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&crop=entropy&auto=format',
+      'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop&crop=entropy&auto=format',
     technologies: [
-      'Apache Kafka',
-      'ClickHouse',
-      'React',
-      'Python',
-      'WebSocket',
-      'D3.js',
+      'Next.js',
+      'Vercel',
+      'TypeScript',
+      'Tailwind CSS',
+      'Test-Driven Development',
+      'Vitest',
+      'React Testing Library',
+      'Playwright',
+      'Mock Service Worker',
     ],
-    githubUrl: 'https://github.com/jordyvanvorselen/analytics-engine',
-    liveUrl: 'https://analytics.demo.com',
-    stars: 1900,
-    forks: 187,
+    githubUrl: 'https://github.com/jordyvanvorselen/portfolio',
+    stars: 1,
+    forks: 0,
   },
   {
     id: '3',
-    title: 'Distributed Cache System',
+    title: 'The Eat Guild',
     description:
-      'Enterprise-grade distributed caching solution with intelligent data partitioning, automatic failover, and multi-region replication.',
+      'Serverless Next.js backend, Flutter mobile app and BoltJS slackbot that allows users to rate their favourite restaurants.',
     longDescription:
-      'A Redis-compatible distributed cache system written in Go. Features consistent hashing, automatic sharding, cross-datacenter replication, and built-in monitoring. Designed for high availability and horizontal scaling with zero-downtime deployments.',
+      "Because we frequently visited grill restaurants with a group of colleagues to compare their spareribs, we started The Eat Guild. This app makes it possible for all members to review these restaurants. It also acts as a suggestion pipeline, so it's easier to track where we want to go next.",
     image:
-      'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=800&h=600&fit=crop&crop=entropy&auto=format',
-    technologies: ['Go', 'Redis', 'gRPC', 'Prometheus', 'Grafana', 'Docker'],
-    githubUrl: 'https://github.com/jordyvanvorselen/distributed-cache',
-    stars: 1500,
-    forks: 203,
-  },
-  {
-    id: '4',
-    title: 'AI Code Reviewer',
-    description:
-      'Intelligent code review assistant powered by machine learning that provides automated code quality analysis and improvement suggestions.',
-    longDescription:
-      'An AI-powered tool that analyzes code commits and pull requests to identify potential issues, security vulnerabilities, and performance optimizations. Integrates with GitHub, GitLab, and Bitbucket. Trained on millions of code reviews to provide human-like feedback.',
-    image:
-      'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=600&fit=crop&crop=entropy&auto=format',
+      'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop&crop=entropy&auto=format',
     technologies: [
-      'Python',
-      'TensorFlow',
-      'FastAPI',
-      'PostgreSQL',
-      'GitHub API',
-      'Docker',
+      'Next.js',
+      'Flutter',
+      'BoltJS',
+      'Slackbot',
+      'Serverless',
+      'Vercel',
     ],
-    githubUrl: 'https://github.com/jordyvanvorselen/ai-code-reviewer',
-    liveUrl: 'https://code-reviewer.demo.com',
-    stars: 3200,
-    forks: 428,
-  },
-  {
-    id: '5',
-    title: 'Blockchain Explorer',
-    description:
-      'Advanced blockchain explorer with transaction analysis, smart contract interaction, and comprehensive network statistics visualization.',
-    longDescription:
-      'A full-featured blockchain explorer supporting multiple networks including Ethereum, Bitcoin, and Polygon. Features include transaction tracing, smart contract verification, DeFi protocol analysis, and real-time network monitoring with beautiful data visualizations.',
-    image:
-      'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=600&fit=crop&crop=entropy&auto=format',
-    technologies: [
-      'React',
-      'Node.js',
-      'Web3.js',
-      'MongoDB',
-      'Chart.js',
-      'Tailwind CSS',
-    ],
-    githubUrl: 'https://github.com/jordyvanvorselen/blockchain-explorer',
-    liveUrl: 'https://explorer.demo.com',
-    stars: 892,
-    forks: 124,
-  },
-  {
-    id: '6',
-    title: 'DevOps Automation Suite',
-    description:
-      'Comprehensive DevOps toolkit for CI/CD pipeline automation, infrastructure provisioning, and deployment orchestration across cloud providers.',
-    longDescription:
-      'A complete DevOps automation platform that streamlines the entire software delivery lifecycle. Includes infrastructure as code templates, automated testing pipelines, security scanning, and multi-cloud deployment strategies. Reduces deployment time by 80% and improves reliability.',
-    image:
-      'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=600&fit=crop&crop=entropy&auto=format',
-    technologies: [
-      'Terraform',
-      'Ansible',
-      'Jenkins',
-      'AWS',
-      'Azure',
-      'Kubernetes',
-    ],
-    githubUrl: 'https://github.com/jordyvanvorselen/devops-suite',
-    stars: 1700,
-    forks: 289,
+    githubUrl: 'https://github.com/jordyvanvorselen/rib-reviews',
+    liveUrl: 'https://www.eatguild.nl/#/',
+    stars: 5,
+    forks: 0,
   },
 ]
 

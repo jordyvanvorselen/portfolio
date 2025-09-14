@@ -14,9 +14,9 @@ describe('ProjectsHero', () => {
   it('displays project statistics with translated labels', () => {
     render(<ProjectsHero />)
 
-    expect(screen.getByText('6')).toBeVisible()
-    expect(screen.getByText('12,037')).toBeVisible()
-    expect(screen.getByText('1,543')).toBeVisible()
+    expect(screen.getByText('3')).toBeVisible()
+    expect(screen.getByText('67')).toBeVisible()
+    expect(screen.getByText('9')).toBeVisible()
     expect(screen.getByText('projects.hero.stats.projects')).toBeVisible()
     expect(screen.getByText('projects.hero.stats.stars')).toBeVisible()
     expect(screen.getByText('projects.hero.stats.forks')).toBeVisible()

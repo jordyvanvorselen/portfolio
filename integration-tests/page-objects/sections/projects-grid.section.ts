@@ -11,11 +11,11 @@ export class ProjectsGrid extends BaseSection {
   readonly firstProjectTitle: Locator = this.firstProjectCard.getByRole(
     'heading',
     {
-      name: 'Microservice Orchestrator',
+      name: 'Go + Templ + HTMX @ Vercel',
     }
   )
   readonly firstProjectDescription: Locator = this.firstProjectCard.getByText(
-    /A powerful orchestration platform/
+    /A Vercel template for Go projects using Templ and HTMX/
   )
 
   constructor(page: Page) {

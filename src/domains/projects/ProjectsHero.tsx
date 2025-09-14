@@ -53,7 +53,7 @@ export const ProjectsHero = () => {
           {/* Stats */}
           <div className="flex items-center justify-center gap-8 text-gray-400">
             <StatItem
-              value={6}
+              value={3}
               label={t('projects.hero.stats.projects')}
               icon={<Code className="w-4 h-4" />}
               color="primary"
@@ -61,7 +61,7 @@ export const ProjectsHero = () => {
             />
             <div className="w-px h-6 bg-gray-600" />
             <StatItem
-              value={12037}
+              value={67}
               label={t('projects.hero.stats.stars')}
               icon={<Star className="w-4 h-4" />}
               color="accent"
@@ -69,7 +69,7 @@ export const ProjectsHero = () => {
             />
             <div className="w-px h-6 bg-gray-600" />
             <StatItem
-              value={1543}
+              value={9}
               label={t('projects.hero.stats.forks')}
               icon={<Github className="w-4 h-4" />}
               color="secondary"
