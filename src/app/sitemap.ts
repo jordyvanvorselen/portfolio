@@ -10,17 +10,17 @@ const staticPages = [
   },
   {
     url: '/experience',
-    priority: 0.8,
+    priority: 0.9,
     changeFrequency: 'monthly' as const,
   },
   {
     url: '/projects',
-    priority: 0.8,
+    priority: 0.9,
     changeFrequency: 'monthly' as const,
   },
   {
     url: '/blog',
-    priority: 0.9,
+    priority: 0.8,
     changeFrequency: 'weekly' as const,
   },
 ]
