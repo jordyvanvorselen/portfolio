@@ -15,16 +15,18 @@ describe('ProjectsGrid', () => {
     render(<ProjectsGrid />)
 
     // Check that we have multiple project cards
-    expect(screen.getAllByRole('article')).toHaveLength(6)
+    expect(screen.getAllByRole('article')).toHaveLength(3)
 
     // Check first project
     expect(
-      screen.getByRole('heading', { name: 'Microservice Orchestrator' })
+      screen.getByRole('heading', { name: 'Go + Templ + HTMX @ Vercel' })
     ).toBeVisible()
-    expect(screen.getByText(/A powerful orchestration platform/)).toBeVisible()
+    expect(
+      screen.getByText(/A Vercel template for Go projects using Templ and HTMX/)
+    ).toBeVisible()
 
     // Check technologies are displayed (using getAllByText since they appear multiple times)
-    expect(screen.getAllByText('Node.js').length).toBeGreaterThan(0)
-    expect(screen.getAllByText('Kubernetes').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Go').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('HTMX').length).toBeGreaterThan(0)
   })
 })
