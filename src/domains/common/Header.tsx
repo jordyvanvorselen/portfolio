@@ -45,6 +45,7 @@ export const Header = () => {
                 href="/"
                 variant="default"
                 size="md"
+                weight="medium"
                 color="primary"
               >
                 {t('navigation.home')}
@@ -53,6 +54,7 @@ export const Header = () => {
                 href="/blog"
                 variant="default"
                 size="md"
+                weight="medium"
                 color="primary"
               >
                 {t('navigation.blog')}
@@ -61,6 +63,7 @@ export const Header = () => {
                 href="/projects"
                 variant="default"
                 size="md"
+                weight="medium"
                 color="primary"
               >
                 {t('navigation.projects')}
@@ -69,6 +72,7 @@ export const Header = () => {
                 href="/experience"
                 variant="default"
                 size="md"
+                weight="medium"
                 color="primary"
               >
                 {t('navigation.experience')}
@@ -77,6 +81,7 @@ export const Header = () => {
                 href="/contact"
                 variant="default"
                 size="md"
+                weight="medium"
                 color="primary"
               >
                 {t('navigation.contact')}

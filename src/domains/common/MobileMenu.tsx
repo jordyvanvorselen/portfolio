@@ -54,9 +54,12 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
         </div>
 
         {/* Menu content */}
-        <div className="flex-1 flex flex-col justify-evenly px-6 py-4 min-h-0 max-h-full overflow-y-auto">
-          {/* Navigation Links */}
-          <nav aria-label="Main navigation" className="space-y-3">
+        <div className="flex-1 flex flex-col px-6 py-2 min-h-0 max-h-full overflow-y-auto">
+          {/* Navigation Links - 75% of available height */}
+          <nav
+            aria-label="Main navigation"
+            className="h-3/4 flex flex-col justify-center space-y-2"
+          >
             <MobileMenuButton
               onClick={() => handleItemClick('home')}
               isPressed={clickingItem === 'home'}
@@ -66,7 +69,7 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                 variant="ghost"
                 size="lg"
                 color="primary"
-                className="w-full justify-center py-2.5 text-lg sm:py-3 sm:text-xl"
+                className="w-full justify-center py-1.5 text-lg"
               >
                 {t('navigation.home')}
               </NavigationLink>
@@ -80,7 +83,7 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                 variant="ghost"
                 size="lg"
                 color="primary"
-                className="w-full justify-center py-2.5 text-lg sm:py-3 sm:text-xl"
+                className="w-full justify-center py-1.5 text-lg"
               >
                 {t('navigation.blog')}
               </NavigationLink>
@@ -94,7 +97,7 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                 variant="ghost"
                 size="lg"
                 color="primary"
-                className="w-full justify-center py-2.5 text-lg sm:py-3 sm:text-xl"
+                className="w-full justify-center py-1.5 text-lg"
               >
                 {t('navigation.projects')}
               </NavigationLink>
@@ -108,7 +111,7 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                 variant="ghost"
                 size="lg"
                 color="primary"
-                className="w-full justify-center py-2.5 text-lg sm:py-3 sm:text-xl"
+                className="w-full justify-center py-1.5 text-lg"
               >
                 {t('navigation.experience')}
               </NavigationLink>
@@ -122,15 +125,18 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                 variant="ghost"
                 size="lg"
                 color="primary"
-                className="w-full justify-center py-2.5 text-lg sm:py-3 sm:text-xl"
+                className="w-full justify-center py-1.5 text-lg"
               >
                 {t('navigation.contact')}
               </NavigationLink>
             </MobileMenuButton>
           </nav>
 
-          {/* Social Links */}
-          <section aria-labelledby="social-links-heading" className="space-y-3">
+          {/* Social Links - 30% of remaining height */}
+          <section
+            aria-labelledby="social-links-heading"
+            className="h-[30%] flex flex-col justify-center mt-6 space-y-2"
+          >
             <h2 id="social-links-heading" className="sr-only">
               Social Links
             </h2>
@@ -142,7 +148,7 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
               size="lg"
               color="secondary"
               interactive="hover"
-              className={`w-full justify-center py-4 text-xl transition-all duration-150 ${clickingItem === 'github' ? 'scale-95 opacity-75' : 'hover:scale-105'}`}
+              className={`w-full justify-center py-3 text-lg transition-all duration-150 ${clickingItem === 'github' ? 'scale-95 opacity-75' : 'hover:scale-105'}`}
               onClick={() => handleItemClick('github')}
             />
             <SocialIcon
@@ -153,13 +159,16 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
               size="lg"
               color="secondary"
               interactive="hover"
-              className={`w-full justify-center py-4 text-xl transition-all duration-150 ${clickingItem === 'linkedin' ? 'scale-95 opacity-75' : 'hover:scale-105'}`}
+              className={`w-full justify-center py-3 text-lg transition-all duration-150 ${clickingItem === 'linkedin' ? 'scale-95 opacity-75' : 'hover:scale-105'}`}
               onClick={() => handleItemClick('linkedin')}
             />
           </section>
 
-          {/* Language Switcher */}
-          <section aria-labelledby="language-heading">
+          {/* Language Switcher - 20% of remaining height */}
+          <section
+            aria-labelledby="language-heading"
+            className="h-[20%] flex flex-col justify-center"
+          >
             <h2 id="language-heading" className="sr-only">
               Language Settings
             </h2>
