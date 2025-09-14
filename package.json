@@ -12,7 +12,6 @@
     "format:fix": "prettier --write . --log-level warn",
     "test": "pnpm test:unit && pnpm test:integration && pnpm test:visual-regression",
     "test:unit": "vitest run --coverage",
-    "test:unit:watch": "vitest --watch",
     "test:integration": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:integration:ci \"$@\"' --",
     "test:integration:ci": "NODE_ENV=test playwright test --grep-invert 'visual regression'",
     "test:visual-regression": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci'",
