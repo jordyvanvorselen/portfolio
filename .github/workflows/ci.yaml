@@ -62,6 +62,11 @@ jobs:
 
   integration-test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        shardTotal: [10]
     container:
       image: mcr.microsoft.com/playwright:v1.54.0-noble
       options: --user 1001
@@ -71,14 +76,38 @@ jobs:
       - name: Setup Node.js and pnpm
         uses: ./.github/actions/setup-node-pnpm
       - name: Run integration tests
-        run: pnpm test:integration:ci
-      - name: Upload test results
+        run: pnpm test:integration:ci --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      - name: Upload blob report to GitHub Actions Artifacts
         uses: actions/upload-artifact@v4
-        if: always()
+        if: ${{ !cancelled() }}
         with:
-          name: test-results
-          path: test-results/
-          retention-days: 30
+          name: blob-report-${{ matrix.shardIndex }}
+          path: blob-report
+          retention-days: 1
+
+  merge-reports:
+    if: ${{ !cancelled() }}
+    needs: [integration-test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+      - name: Download blob reports from GitHub Actions Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-blob-reports
+          pattern: blob-report-*
+          merge-multiple: true
+      - name: Merge into HTML Report
+        run: npx playwright merge-reports --reporter html ./all-blob-reports
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-report--attempt-${{ github.run_attempt }}
+          path: playwright-report
+          retention-days: 14
 
   visual-regression-test:
     runs-on: ubuntu-latest
@@ -109,6 +138,7 @@ jobs:
         typecheck,
         unit-test,
         integration-test,
+        merge-reports,
         visual-regression-test,
       ]
     environment: ${{ (github.head_ref || github.ref_name) == 'main' && 'production' || 'preview' }}
