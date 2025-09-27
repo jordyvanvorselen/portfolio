@@ -104,7 +104,7 @@ jobs:
           pattern: blob-report-*
           merge-multiple: true
       - name: Merge into HTML Report
-        run: playwright merge-reports --reporter html ./all-blob-reports
+        run: npx playwright merge-reports --reporter html ./all-blob-reports
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
         with:
@@ -141,6 +141,7 @@ jobs:
         typecheck,
         unit-test,
         integration-test,
+        merge-reports,
         visual-regression-test,
       ]
     environment: ${{ (github.head_ref || github.ref_name) == 'main' && 'production' || 'preview' }}
