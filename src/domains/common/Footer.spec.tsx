@@ -18,6 +18,8 @@ describe('Footer', () => {
     expect(screen.getByText('footer.author.description')).toBeVisible()
     expect(screen.getByText('footer.author.location')).toBeVisible()
     expect(screen.getByText('footer.author.email')).toBeVisible()
+    expect(screen.getByText('footer.author.company')).toBeVisible()
+    expect(screen.getByText('footer.author.btwNumber')).toBeVisible()
   })
 
   it('displays quick links section', () => {
