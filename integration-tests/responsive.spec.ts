@@ -21,7 +21,6 @@ test.describe('Responsive Design', () => {
       await expect(homePage.header.blogLink).not.toBeVisible()
       await expect(homePage.header.projectsLink).not.toBeVisible()
       await expect(homePage.header.experienceLink).not.toBeVisible()
-      await expect(homePage.header.contactLink).not.toBeVisible()
 
       // Branding should still be visible
       await expect(homePage.header.brandingLink).toBeVisible()
@@ -83,7 +82,6 @@ test.describe('Responsive Design', () => {
       await expect(homePage.header.blogLink).toBeVisible()
       await expect(homePage.header.projectsLink).toBeVisible()
       await expect(homePage.header.experienceLink).toBeVisible()
-      await expect(homePage.header.contactLink).toBeVisible()
     })
 
     test('hero section should use full layout', async ({ homePage }) => {

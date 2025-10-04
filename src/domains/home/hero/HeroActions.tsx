@@ -8,11 +8,16 @@ export const HeroActions = () => {
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-      <Button variant="solid" color="primary" size="xl" href="/contact">
+      <Button
+        variant="solid"
+        color="primary"
+        size="xl"
+        href="mailto:jordy@morethanbits.io"
+      >
         <Mail className="w-6 h-6 mr-3" />
         {t('hero.actions.getInTouch')}
       </Button>
-      <Button variant="solid" color="secondary" size="xl">
+      <Button variant="solid" color="secondary" size="xl" href="/experience">
         <Download className="w-6 h-6 mr-3" />
         {t('hero.actions.downloadResume')}
       </Button>

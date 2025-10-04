@@ -42,9 +42,6 @@ describe(MobileMenu, () => {
     expect(
       screen.getByRole('link', { name: 'navigation.experience' })
     ).toBeVisible()
-    expect(
-      screen.getByRole('link', { name: 'navigation.contact' })
-    ).toBeVisible()
   })
 
   it('renders social links', () => {
@@ -86,9 +83,6 @@ describe(MobileMenu, () => {
     expect(
       screen.getByRole('link', { name: 'navigation.experience' })
     ).toHaveAttribute('href', '/experience')
-    expect(
-      screen.getByRole('link', { name: 'navigation.contact' })
-    ).toHaveAttribute('href', '/contact')
   })
 
   it('social links have correct href attributes', () => {
@@ -205,18 +199,6 @@ describe(MobileMenu, () => {
     render(<MobileMenu isOpen={true} onClose={mockOnClose} />)
 
     fireEvent.click(screen.getByRole('link', { name: 'navigation.experience' }))
-    expect(mockOnClose).not.toHaveBeenCalled()
-
-    act(() => {
-      vi.advanceTimersByTime(150)
-    })
-    expect(mockOnClose).toHaveBeenCalledTimes(1)
-  })
-
-  it('calls onClose when contact navigation link is clicked after delay', () => {
-    render(<MobileMenu isOpen={true} onClose={mockOnClose} />)
-
-    fireEvent.click(screen.getByRole('link', { name: 'navigation.contact' }))
     expect(mockOnClose).not.toHaveBeenCalled()
 
     act(() => {

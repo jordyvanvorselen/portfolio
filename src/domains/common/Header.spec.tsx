@@ -52,16 +52,6 @@ describe(Header, () => {
     expect(experienceLink).toBeVisible()
   })
 
-  it('renders contact navigation link', () => {
-    render(<Header />)
-
-    const header = screen.getByRole('banner')
-    const contactLink = within(header).getByRole('link', {
-      name: 'navigation.contact',
-    })
-    expect(contactLink).toBeVisible()
-  })
-
   it('renders availability status', () => {
     render(<Header />)
 
@@ -128,15 +118,10 @@ describe(Header, () => {
     const experienceLink = within(header).getByRole('link', {
       name: 'navigation.experience',
     })
-    const contactLink = within(header).getByRole('link', {
-      name: 'navigation.contact',
-    })
-
     expect(homeLink).toHaveAttribute('href', '/')
     expect(blogLink).toHaveAttribute('href', '/blog')
     expect(projectsLink).toHaveAttribute('href', '/projects')
     expect(experienceLink).toHaveAttribute('href', '/experience')
-    expect(contactLink).toHaveAttribute('href', '/contact')
   })
 
   it('social links have correct href attributes', () => {

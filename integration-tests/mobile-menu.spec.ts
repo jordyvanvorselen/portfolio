@@ -38,7 +38,6 @@ test.describe('Mobile Menu', () => {
     await expect(mobileMenu.blogLink).toBeVisible()
     await expect(mobileMenu.projectsLink).toBeVisible()
     await expect(mobileMenu.experienceLink).toBeVisible()
-    await expect(mobileMenu.contactLink).toBeVisible()
   })
 
   test('displays social links as full-width buttons in mobile menu', async ({

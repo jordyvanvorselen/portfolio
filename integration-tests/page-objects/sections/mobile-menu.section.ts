@@ -23,9 +23,6 @@ export class MobileMenu extends BaseSection {
   readonly experienceLink: Locator = this.section.getByRole('link', {
     name: 'Experience',
   })
-  readonly contactLink: Locator = this.section.getByRole('link', {
-    name: 'Contact',
-  })
 
   // Social links
   readonly githubLink: Locator = this.section.getByRole('link', {

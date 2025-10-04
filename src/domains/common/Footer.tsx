@@ -57,13 +57,13 @@ export const Footer = () => {
                 {t('footer.author.description')}
               </Text>
               <div className="flex items-center text-[#cbd5e1] mb-4">
-                <MapPin className="w-4 h-4 mr-2 text-red-500" />
+                <MapPin className="w-4 h-4 mr-2 text-gray-300" />
                 <Text size="sm" weight="normal" color="secondary">
                   {t('footer.author.location')}
                 </Text>
               </div>
               <div className="flex items-center text-[#cbd5e1] mb-4">
-                <Mail className="w-4 h-4 mr-2 text-white" />
+                <Mail className="w-4 h-4 mr-2 text-gray-300" />
                 <Text size="sm" weight="normal" color="secondary">
                   {t('footer.author.email')}
                 </Text>
@@ -141,18 +141,6 @@ export const Footer = () => {
                     className="block"
                   >
                     {t('navigation.experience')}
-                  </NavigationLink>
-                </li>
-                <li>
-                  <NavigationLink
-                    href="/contact"
-                    variant="default"
-                    size="md"
-                    color="primary"
-                    weight="normal"
-                    className="block"
-                  >
-                    {t('navigation.contact')}
                   </NavigationLink>
                 </li>
               </ul>

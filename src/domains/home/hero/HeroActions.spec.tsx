@@ -11,11 +11,11 @@ describe('HeroActions', () => {
     ).toBeVisible()
   })
 
-  it('renders Download Resume button', () => {
+  it('renders Download Resume link', () => {
     render(<HeroActions />)
 
     expect(
-      screen.getByRole('button', { name: 'hero.actions.downloadResume' })
+      screen.getByRole('link', { name: 'hero.actions.downloadResume' })
     ).toBeVisible()
   })
 })

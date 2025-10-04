@@ -36,9 +36,6 @@ describe('Footer', () => {
     expect(
       screen.getByRole('link', { name: 'navigation.experience' })
     ).toBeVisible()
-    expect(
-      screen.getByRole('link', { name: 'navigation.contact' })
-    ).toBeVisible()
   })
 
   it('displays connect section with social links', () => {

@@ -13,7 +13,6 @@ test.describe('Header Component', () => {
     await expect(homePage.header.blogLink).toBeVisible()
     await expect(homePage.header.projectsLink).toBeVisible()
     await expect(homePage.header.experienceLink).toBeVisible()
-    await expect(homePage.header.contactLink).toBeVisible()
   })
 
   test('displays availability status', async ({ homePage }) => {
@@ -50,10 +49,6 @@ test.describe('Header Component', () => {
     await homePage.page.goBack()
     await homePage.header.experienceLink.click()
     await expect(homePage.page).toHaveURL('/experience')
-
-    await homePage.page.goBack()
-    await homePage.header.contactLink.click()
-    await expect(homePage.page).toHaveURL('/contact')
   })
 
   test('external social links open in new tab', async ({
