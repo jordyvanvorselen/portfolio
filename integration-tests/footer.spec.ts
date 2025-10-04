@@ -9,6 +9,8 @@ test.describe('Footer', () => {
     await expect(homePage.footer.authorDescription).toBeVisible()
     await expect(homePage.footer.location).toBeVisible()
     await expect(homePage.footer.email).toBeVisible()
+    await expect(homePage.footer.company).toBeVisible()
+    await expect(homePage.footer.btwNumber).toBeVisible()
 
     // Quick Links section
     await expect(homePage.footer.quickLinksSection).toBeVisible()
