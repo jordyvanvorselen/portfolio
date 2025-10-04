@@ -77,15 +77,6 @@ export const Header = () => {
               >
                 {t('navigation.experience')}
               </NavigationLink>
-              <NavigationLink
-                href="/contact"
-                variant="default"
-                size="md"
-                weight="medium"
-                color="primary"
-              >
-                {t('navigation.contact')}
-              </NavigationLink>
             </nav>
 
             {/* Actions - Hidden on mobile */}

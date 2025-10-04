@@ -116,20 +116,6 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                 {t('navigation.experience')}
               </NavigationLink>
             </MobileMenuButton>
-            <MobileMenuButton
-              onClick={() => handleItemClick('contact')}
-              isPressed={clickingItem === 'contact'}
-            >
-              <NavigationLink
-                href="/contact"
-                variant="ghost"
-                size="lg"
-                color="primary"
-                className="w-full justify-center py-1.5 text-lg"
-              >
-                {t('navigation.contact')}
-              </NavigationLink>
-            </MobileMenuButton>
           </nav>
 
           {/* Social Links - 30% of remaining height */}

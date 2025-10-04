@@ -143,18 +143,6 @@ export const Footer = () => {
                     {t('navigation.experience')}
                   </NavigationLink>
                 </li>
-                <li>
-                  <NavigationLink
-                    href="/contact"
-                    variant="default"
-                    size="md"
-                    color="primary"
-                    weight="normal"
-                    className="block"
-                  >
-                    {t('navigation.contact')}
-                  </NavigationLink>
-                </li>
               </ul>
             </div>
 

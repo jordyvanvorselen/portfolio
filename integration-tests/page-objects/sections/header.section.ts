@@ -29,11 +29,6 @@ export class Header extends BaseSection {
       name: 'Experience',
     })
     .first()
-  readonly contactLink: Locator = this.section
-    .getByRole('link', {
-      name: 'Contact',
-    })
-    .first()
   readonly availabilityStatus: Locator = this.section.getByText('Available')
   readonly availabilityIcon: Locator = this.section
     .locator('address')

@@ -18,7 +18,6 @@ test.describe('Footer', () => {
     await expect(homePage.footer.blogLink).toBeVisible()
     await expect(homePage.footer.projectsLink).toBeVisible()
     await expect(homePage.footer.experienceLink).toBeVisible()
-    await expect(homePage.footer.contactLink).toBeVisible()
 
     // Connect section
     await expect(homePage.footer.connectSection).toBeVisible()

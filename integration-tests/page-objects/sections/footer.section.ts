@@ -35,9 +35,6 @@ export class Footer extends BaseSection {
   readonly experienceLink: Locator = this.section.getByRole('link', {
     name: 'Experience',
   })
-  readonly contactLink: Locator = this.section.getByRole('link', {
-    name: 'Contact',
-  })
   readonly connectSection: Locator = this.section.getByRole('heading', {
     name: "Let's Connect",
   })
