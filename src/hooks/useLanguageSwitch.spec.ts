@@ -8,33 +8,23 @@ vi.mock('next-intl', () => ({
   useLocale: () => mockUseLocale(),
 }))
 
-// Mock next/navigation for useParams
-const mockUseParams = vi.fn()
-vi.mock('next/navigation', () => ({
-  ...vi.importActual('next/navigation'),
-  useParams: () => mockUseParams(),
+// Mock cookies-next
+const mockSetCookie = vi.fn()
+vi.mock('cookies-next', () => ({
+  setCookie: (...args: unknown[]) => mockSetCookie(...args),
 }))
 
-// Create mocks for specific functions we want to spy on
-const mockReplace = vi.fn()
+// Mock next/navigation
 const mockRefresh = vi.fn()
-
-// Override the global mocks for this specific test
-vi.mock('@/i18n/navigation', () => ({
-  usePathname: () => '/current-path',
+vi.mock('next/navigation', () => ({
   useRouter: () => ({
-    replace: mockReplace,
     refresh: mockRefresh,
   }),
-  Link: ({ children }: { children: React.ReactNode }) => children,
-  getPathname: vi.fn(),
-  redirect: vi.fn(),
 }))
 
 describe('useLanguageSwitch', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    mockUseParams.mockReturnValue({})
   })
 
   it('returns current locale and target locale for English', () => {
@@ -66,10 +56,10 @@ describe('useLanguageSwitch', () => {
       result.current.switchLanguage()
     })
 
-    expect(mockReplace).toHaveBeenCalledWith(
-      { pathname: '/current-path', params: {} },
-      { locale: 'nl' }
-    )
+    expect(mockSetCookie).toHaveBeenCalledWith('NEXT_LOCALE', 'nl', {
+      maxAge: 31536000, // 1 year in seconds
+      path: '/',
+    })
     expect(mockRefresh).toHaveBeenCalledTimes(1)
   })
 
@@ -82,27 +72,10 @@ describe('useLanguageSwitch', () => {
       result.current.switchLanguage()
     })
 
-    expect(mockReplace).toHaveBeenCalledWith(
-      { pathname: '/current-path', params: {} },
-      { locale: 'en' }
-    )
-    expect(mockRefresh).toHaveBeenCalledTimes(1)
-  })
-
-  it('switches language with params', () => {
-    mockUseLocale.mockReturnValue('en')
-    mockUseParams.mockReturnValue({ slug: 'test-post' })
-
-    const { result } = renderHook(() => useLanguageSwitch())
-
-    act(() => {
-      result.current.switchLanguage()
+    expect(mockSetCookie).toHaveBeenCalledWith('NEXT_LOCALE', 'en', {
+      maxAge: 31536000, // 1 year in seconds
+      path: '/',
     })
-
-    expect(mockReplace).toHaveBeenCalledWith(
-      { pathname: '/current-path', params: { slug: 'test-post' } },
-      { locale: 'nl' }
-    )
     expect(mockRefresh).toHaveBeenCalledTimes(1)
   })
 })

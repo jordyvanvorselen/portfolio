@@ -116,3 +116,10 @@ vitest.mock('@/i18n/navigation', () => ({
 }))
 
 vitest.mock('server-only', () => ({}))
+
+// Mock cookies-next globally
+vitest.mock('cookies-next', () => ({
+  setCookie: vitest.fn(),
+  getCookie: vitest.fn(),
+  deleteCookie: vitest.fn(),
+}))
