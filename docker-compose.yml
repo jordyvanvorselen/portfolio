@@ -8,6 +8,7 @@ services:
     environment:
       - CONTAINER=true
       - NEXT_PUBLIC_E2E_TESTING=true
+      - NEXT_PUBLIC_MOCK_BACKEND=true
     network_mode: host
 
 volumes:

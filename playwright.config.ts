@@ -38,6 +38,7 @@ export default defineConfig({
     timeout: 120 * 1000,
     env: {
       NEXT_PUBLIC_E2E_TESTING: 'true',
+      NEXT_PUBLIC_MOCK_BACKEND: 'true',
     },
   },
 })
