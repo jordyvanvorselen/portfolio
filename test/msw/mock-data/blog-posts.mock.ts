@@ -13,15 +13,15 @@ export interface ContentfulBlogPostEntry {
     publicationDate: string
     content: {
       nodeType: string
-      data?: any
+      data?: Record<string, unknown>
       content: Array<{
         nodeType: string
-        data?: any
+        data?: Record<string, unknown>
         content?: Array<{
           nodeType: string
           value?: string
-          marks?: any[]
-          data?: any
+          marks?: Array<Record<string, unknown>>
+          data?: Record<string, unknown>
         }>
       }>
     }

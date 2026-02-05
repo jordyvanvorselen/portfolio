@@ -11,9 +11,6 @@ describe(MobileMenu, () => {
   })
 
   afterEach(() => {
-    act(() => {
-      vi.runOnlyPendingTimers()
-    })
     vi.useRealTimers()
   })
 
