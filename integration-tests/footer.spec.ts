@@ -60,12 +60,8 @@ test.describe('Footer', () => {
     // Click the back to top button
     await homePage.footer.backToTopButton.click()
 
-    // Wait a moment for smooth scrolling to complete
-    await page.waitForTimeout(1000)
-
-    // Verify we're back at the top
-    const finalScrollPosition = await page.evaluate(() => window.scrollY)
-    expect(finalScrollPosition).toBe(0)
+    // Wait for smooth scroll animation to complete
+    await page.waitForFunction(() => window.scrollY === 0)
   })
 
   test('footer visual regression', async ({ homePage }) => {
