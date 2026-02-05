@@ -4,8 +4,8 @@ import React from 'react'
 
 import { afterAll, afterEach, beforeAll, vitest } from 'vitest'
 
-import { server } from './msw/register.server'
-import { assertableTranslationKeys } from '../src/test/utils/translations'
+import { server } from '@/test/msw/register.server'
+import { assertableTranslationKeys } from '@/test/utils/translations'
 
 import '@/test/env.setup'
 
@@ -27,10 +27,13 @@ afterEach(() => {
 // Mock next-intl for client-side components
 vitest.mock('next-intl', () => {
   const createMockTranslations = (namespace?: string) => {
-    const baseFunction: any = assertableTranslationKeys(namespace ?? '')
+    const baseFunction = assertableTranslationKeys(namespace ?? '') as (
+      key: string
+    ) => string
 
     // Add the rich method to the translation function
-    baseFunction.rich = vitest.fn(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ;(baseFunction as any).rich = vitest.fn(
       (
         key: string,
         components?: Record<
@@ -113,3 +116,10 @@ vitest.mock('@/i18n/navigation', () => ({
 }))
 
 vitest.mock('server-only', () => ({}))
+
+// Mock cookies-next globally
+vitest.mock('cookies-next', () => ({
+  setCookie: vitest.fn(),
+  getCookie: vitest.fn(),
+  deleteCookie: vitest.fn(),
+}))

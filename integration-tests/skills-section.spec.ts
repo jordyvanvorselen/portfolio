@@ -8,17 +8,14 @@ test.describe('Skills Section', () => {
     await expect(homePage.skillsSection.section).toBeVisible()
 
     // Verify company logos are displayed with proper alt text
-    await expect(homePage.skillsSection.asmlLogo).toBeVisible()
     await expect(homePage.skillsSection.asmlLogo).toHaveAttribute(
       'alt',
       'ASML logo'
     )
-    await expect(homePage.skillsSection.signifyLogo).toBeVisible()
     await expect(homePage.skillsSection.signifyLogo).toHaveAttribute(
       'alt',
       'Signify logo'
     )
-    await expect(homePage.skillsSection.kabisaLogo).toBeVisible()
     await expect(homePage.skillsSection.kabisaLogo).toHaveAttribute(
       'alt',
       'Kabisa logo'

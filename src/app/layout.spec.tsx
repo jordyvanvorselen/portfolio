@@ -37,6 +37,14 @@ vi.mock('next-intl/server', () => ({
 vi.mock('next/navigation', () => ({
   useParams: vi.fn(() => ({})),
   usePathname: vi.fn(() => '/'),
+  useRouter: () => ({
+    refresh: vi.fn(),
+    push: vi.fn(),
+    replace: vi.fn(),
+    prefetch: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
+  }),
 }))
 
 // Mock useMediaQuery hook
