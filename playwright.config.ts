@@ -32,9 +32,10 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'pnpm dev -p 3001',
+    command: 'pnpm build && pnpm start -p 3001',
     url: 'http://127.0.0.1:3001',
-    reuseExistingServer: false,
+    reuseExistingServer: !process.env['CI'],
+    timeout: 120 * 1000,
     env: {
       NEXT_PUBLIC_E2E_TESTING: 'true',
     },
