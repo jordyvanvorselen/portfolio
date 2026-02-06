@@ -1,4 +1,9 @@
-import { BLOCKS, type Document } from '@contentful/rich-text-types'
+import type {
+  SerializedEditorState,
+  SerializedRootNode,
+  SerializedParagraphNode,
+  SerializedTextNode,
+} from '@/types/lexical'
 
 import {
   formatDate,
@@ -32,146 +37,172 @@ describe('blog-helpers', () => {
   })
 
   describe('extractTextFromRichText', () => {
-    it('extracts text from simple rich text document', () => {
-      const document: Document = {
-        nodeType: BLOCKS.DOCUMENT,
-        data: {},
-        content: [
-          {
-            nodeType: BLOCKS.PARAGRAPH,
-            data: {},
-            content: [
-              {
-                nodeType: 'text',
-                value: 'Hello world',
-                marks: [],
-                data: {},
-              },
-            ],
-          },
-        ],
-      }
+    it('extracts text from simple Lexical document', () => {
+      const document = {
+        root: {
+          type: 'root',
+          children: [
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'Hello world',
+                  format: 0,
+                  version: 1,
+                } as SerializedTextNode,
+              ],
+              version: 1,
+            } as SerializedParagraphNode,
+          ],
+          direction: null,
+          format: '',
+          indent: 0,
+          version: 1,
+        } as SerializedRootNode,
+      } as unknown as SerializedEditorState
 
       const result = extractTextFromRichText(document)
       expect(result).toBe('Hello world')
     })
 
-    it('extracts text from nested rich text document', () => {
-      const document: Document = {
-        nodeType: BLOCKS.DOCUMENT,
-        data: {},
-        content: [
-          {
-            nodeType: BLOCKS.PARAGRAPH,
-            data: {},
-            content: [
-              {
-                nodeType: 'text',
-                value: 'First paragraph',
-                marks: [],
-                data: {},
-              },
-            ],
-          },
-          {
-            nodeType: BLOCKS.PARAGRAPH,
-            data: {},
-            content: [
-              {
-                nodeType: 'text',
-                value: 'Second paragraph',
-                marks: [],
-                data: {},
-              },
-            ],
-          },
-        ],
-      }
+    it('extracts text from nested Lexical document', () => {
+      const document = {
+        root: {
+          type: 'root',
+          children: [
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'First paragraph',
+                  format: 0,
+                  version: 1,
+                },
+              ],
+              version: 1,
+            },
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'Second paragraph',
+                  format: 0,
+                  version: 1,
+                },
+              ],
+              version: 1,
+            },
+          ],
+          direction: null,
+          format: '',
+          indent: 0,
+          version: 1,
+        },
+      } as unknown as SerializedEditorState
 
       const result = extractTextFromRichText(document)
       expect(result).toBe('First paragraph Second paragraph')
     })
 
     it('handles empty document', () => {
-      const document: Document = {
-        nodeType: BLOCKS.DOCUMENT,
-        data: {},
-        content: [],
-      }
+      const document = {
+        root: {
+          type: 'root',
+          children: [],
+          direction: null,
+          format: '',
+          indent: 0,
+          version: 1,
+        },
+      } as unknown as SerializedEditorState
 
       const result = extractTextFromRichText(document)
       expect(result).toBe('')
     })
 
     it('extracts text from complex nested structure', () => {
-      const document: Document = {
-        nodeType: BLOCKS.DOCUMENT,
-        data: {},
-        content: [
-          {
-            nodeType: BLOCKS.HEADING_1,
-            data: {},
-            content: [
-              {
-                nodeType: 'text',
-                value: 'Title',
-                marks: [],
-                data: {},
-              },
-            ],
-          },
-          {
-            nodeType: BLOCKS.PARAGRAPH,
-            data: {},
-            content: [
-              {
-                nodeType: 'text',
-                value: 'This is ',
-                marks: [],
-                data: {},
-              },
-              {
-                nodeType: 'text',
-                value: 'bold text',
-                marks: [{ type: 'bold' }],
-                data: {},
-              },
-              {
-                nodeType: 'text',
-                value: ' in a paragraph.',
-                marks: [],
-                data: {},
-              },
-            ],
-          },
-        ],
-      }
+      const document = {
+        root: {
+          type: 'root',
+          children: [
+            {
+              type: 'heading',
+              tag: 'h1',
+              children: [
+                {
+                  type: 'text',
+                  text: 'Title',
+                  format: 0,
+                  version: 1,
+                },
+              ],
+              version: 1,
+            },
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'This is ',
+                  format: 0,
+                  version: 1,
+                },
+                {
+                  type: 'text',
+                  text: 'bold text',
+                  format: 1,
+                  version: 1,
+                },
+                {
+                  type: 'text',
+                  text: ' in a paragraph.',
+                  format: 0,
+                  version: 1,
+                },
+              ],
+              version: 1,
+            },
+          ],
+          direction: null,
+          format: '',
+          indent: 0,
+          version: 1,
+        },
+      } as unknown as SerializedEditorState
 
       const result = extractTextFromRichText(document)
-      expect(result).toBe('Title This is  bold text  in a paragraph.')
+      expect(result).toBe('Title This is bold text in a paragraph.')
     })
   })
 
   describe('calculateReadTime', () => {
     it('calculates read time for short content', () => {
-      const document: Document = {
-        nodeType: BLOCKS.DOCUMENT,
-        data: {},
-        content: [
-          {
-            nodeType: BLOCKS.PARAGRAPH,
-            data: {},
-            content: [
-              {
-                nodeType: 'text',
-                value: 'Short text',
-                marks: [],
-                data: {},
-              },
-            ],
-          },
-        ],
-      }
+      const document = {
+        root: {
+          type: 'root',
+          children: [
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'Short text',
+                  format: 0,
+                  version: 1,
+                },
+              ],
+              version: 1,
+            },
+          ],
+          direction: null,
+          format: '',
+          indent: 0,
+          version: 1,
+        },
+      } as unknown as SerializedEditorState
 
       const result = calculateReadTime(document)
       expect(result).toBe('1 min read')
@@ -180,35 +211,45 @@ describe('blog-helpers', () => {
     it('calculates read time for longer content', () => {
       // Create content with approximately 400 words (should be 2 min read)
       const longText = 'word '.repeat(400).trim()
-      const document: Document = {
-        nodeType: BLOCKS.DOCUMENT,
-        data: {},
-        content: [
-          {
-            nodeType: BLOCKS.PARAGRAPH,
-            data: {},
-            content: [
-              {
-                nodeType: 'text',
-                value: longText,
-                marks: [],
-                data: {},
-              },
-            ],
-          },
-        ],
-      }
+      const document = {
+        root: {
+          type: 'root',
+          children: [
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: longText,
+                  format: 0,
+                  version: 1,
+                },
+              ],
+              version: 1,
+            },
+          ],
+          direction: null,
+          format: '',
+          indent: 0,
+          version: 1,
+        },
+      } as unknown as SerializedEditorState
 
       const result = calculateReadTime(document)
       expect(result).toBe('2 min read')
     })
 
     it('calculates read time for empty content', () => {
-      const document: Document = {
-        nodeType: BLOCKS.DOCUMENT,
-        data: {},
-        content: [],
-      }
+      const document = {
+        root: {
+          type: 'root',
+          children: [],
+          direction: null,
+          format: '',
+          indent: 0,
+          version: 1,
+        },
+      } as unknown as SerializedEditorState
 
       const result = calculateReadTime(document)
       expect(result).toBe('1 min read') // Always at least 1 min due to Math.ceil
@@ -216,24 +257,29 @@ describe('blog-helpers', () => {
 
     it('calculates read time for content with exactly 200 words', () => {
       const exactText = 'word '.repeat(200).trim()
-      const document: Document = {
-        nodeType: BLOCKS.DOCUMENT,
-        data: {},
-        content: [
-          {
-            nodeType: BLOCKS.PARAGRAPH,
-            data: {},
-            content: [
-              {
-                nodeType: 'text',
-                value: exactText,
-                marks: [],
-                data: {},
-              },
-            ],
-          },
-        ],
-      }
+      const document = {
+        root: {
+          type: 'root',
+          children: [
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: exactText,
+                  format: 0,
+                  version: 1,
+                },
+              ],
+              version: 1,
+            },
+          ],
+          direction: null,
+          format: '',
+          indent: 0,
+          version: 1,
+        },
+      } as unknown as SerializedEditorState
 
       const result = calculateReadTime(document)
       expect(result).toBe('1 min read')

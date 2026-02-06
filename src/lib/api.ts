@@ -6,6 +6,7 @@ import {
 } from '@/lib/blog-helpers'
 import type { TypeBlogPostSkeleton } from '@/lib/contentful-types'
 import type { Document } from '@contentful/rich-text-types'
+import type { SerializedEditorState } from '@/types/lexical'
 
 export interface BlogPost {
   slug: string
@@ -57,7 +58,9 @@ function transformEntry(entry: Entry<TypeBlogPostSkeleton>): BlogPost {
     title: entry.fields.title as string,
     description: entry.fields.description as string,
     date: formatDate(entry.fields.publicationDate as string),
-    readTime: calculateReadTime(entry.fields.content as any), // TODO: Replace with Payload Lexical content
+    readTime: calculateReadTime(
+      entry.fields.content as unknown as SerializedEditorState
+    ), // TODO: Replace with Payload Lexical content
     image: ensureAbsoluteUrl(
       (entry.fields.featuredImage as Asset)?.fields?.file?.url as string
     ),

@@ -23,7 +23,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/integration-tests/*": ["./integration-tests/*"],
-      "@/test/*": ["./test/*"]
+      "@/test/*": ["./test/*"],
+      "@payload-config": ["./src/payload.config.ts"]
     },
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,

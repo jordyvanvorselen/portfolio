@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
+import { withPayload } from '@payloadcms/next/withPayload'
 import path from 'path'
 
 const withNextIntl = createNextIntlPlugin()
@@ -54,6 +55,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'images.ctfassets.net',
       },
+      {
+        protocol: 'https',
+        hostname: '*.public.blob.vercel-storage.com',
+      },
     ],
   },
   ...(process.env['NEXT_PUBLIC_E2E_TESTING'] === 'true'
@@ -61,4 +66,4 @@ const nextConfig: NextConfig = {
     : {}),
 }
 
-export default withNextIntl(nextConfig)
+export default withPayload(withNextIntl(nextConfig))
