@@ -429,4 +429,190 @@ describe('PayloadRichText', () => {
 
     expect(screen.getByText('Valid text')).toBeVisible()
   })
+
+  it('renders Mermaid diagrams from code blocks', () => {
+    const editorState: SerializedEditorState = {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'block',
+            fields: {
+              blockType: 'codeBlock',
+              language: 'mermaid',
+              code: 'graph TD\n  A-->B',
+            },
+            children: [],
+            version: 1,
+          },
+        ],
+        direction: null,
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    } as unknown as SerializedEditorState
+
+    render(<PayloadRichText data={editorState} />)
+
+    // MermaidDiagram component renders a div with data-testid
+    expect(screen.getByTestId('mermaid-diagram')).toBeVisible()
+  })
+
+  it('renders code blocks without highlighting', () => {
+    const editorState: SerializedEditorState = {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'block',
+            fields: {
+              blockType: 'codeBlock',
+              language: 'javascript',
+              code: 'console.log("hello")',
+            },
+            children: [],
+            version: 1,
+          },
+        ],
+        direction: null,
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    } as unknown as SerializedEditorState
+
+    render(<PayloadRichText data={editorState} />)
+
+    expect(screen.getByText('console.log("hello")')).toBeVisible()
+  })
+
+  it('renders code blocks with pre-highlighted Shiki HTML', () => {
+    const highlightedCodeBlocks = new Map([
+      ['block-1', '<pre class="shiki">Highlighted code</pre>'],
+    ])
+
+    const editorState: SerializedEditorState = {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'block',
+            id: 'block-1',
+            fields: {
+              blockType: 'codeBlock',
+              language: 'javascript',
+              code: 'console.log("hello")',
+            },
+            children: [],
+            version: 1,
+          },
+        ],
+        direction: null,
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    } as unknown as SerializedEditorState
+
+    render(
+      <PayloadRichText
+        data={editorState}
+        highlightedCodeBlocks={highlightedCodeBlocks}
+      />
+    )
+
+    expect(screen.getByText('Highlighted code')).toBeVisible()
+  })
+
+  it('renders code block with undefined language as plain code', () => {
+    const editorState: SerializedEditorState = {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'block',
+            fields: {
+              blockType: 'codeBlock',
+              language: undefined,
+              code: 'console.log("test")',
+            },
+            children: [],
+            version: 1,
+          },
+        ],
+        direction: null,
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    } as unknown as SerializedEditorState
+
+    render(<PayloadRichText data={editorState} />)
+
+    expect(screen.getByText('console.log("test")')).toBeVisible()
+  })
+
+  it('renders empty content when code block has no code', () => {
+    const editorState: SerializedEditorState = {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'block',
+            fields: {
+              blockType: 'codeBlock',
+              language: 'javascript',
+              code: undefined,
+            },
+            children: [],
+            version: 1,
+          },
+        ],
+        direction: null,
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    } as unknown as SerializedEditorState
+
+    render(<PayloadRichText data={editorState} />)
+
+    const richText = screen.getByTestId('payload-rich-text')
+    expect(richText).toBeVisible()
+    expect(richText).toHaveTextContent('')
+  })
+
+  it('renders unknown block types with default div wrapper', () => {
+    const editorState: SerializedEditorState = {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'block',
+            fields: {
+              blockType: 'customBlock',
+            },
+            children: [
+              {
+                type: 'text',
+                text: 'Custom block content',
+                format: 0,
+                version: 1,
+              },
+            ],
+            version: 1,
+          },
+        ],
+        direction: null,
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    } as unknown as SerializedEditorState
+
+    render(<PayloadRichText data={editorState} />)
+
+    expect(screen.getByText('Custom block content')).toBeVisible()
+  })
 })

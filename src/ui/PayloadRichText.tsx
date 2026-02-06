@@ -1,10 +1,21 @@
-import type { ReactNode } from 'react'
+import { Fragment, type ReactNode } from 'react'
 import type { SerializedEditorState } from '@/types/lexical'
 import type { SerializedElementNode, SerializedTextNode } from '@/types/lexical'
+import { MermaidDiagram } from '@/ui/MermaidDiagram'
 
 export interface PayloadRichTextProps {
   data: SerializedEditorState
   highlightedCodeBlocks?: Map<string, string>
+}
+
+interface BlockNode extends SerializedElementNode {
+  type: 'block'
+  id?: string
+  fields: {
+    blockType: string
+    language?: string
+    code?: string
+  }
 }
 
 // Type guards
@@ -29,7 +40,7 @@ const isElementNode = (node: unknown): node is SerializedElementNode => {
 }
 
 // Render a text node with formatting
-const renderTextNode = (node: SerializedTextNode): ReactNode => {
+const renderTextNode = (node: SerializedTextNode, index: number): ReactNode => {
   let text: ReactNode = node.text
 
   // Format bitmask: bold=1, italic=2, strikethrough=4, underline=8, code=16
@@ -51,16 +62,57 @@ const renderTextNode = (node: SerializedTextNode): ReactNode => {
     text = <u>{text}</u>
   }
 
-  return text
+  return <Fragment key={index}>{text}</Fragment>
 }
 
 // Render an element node
 const renderElementNode = (
   node: SerializedElementNode,
-  index: number
+  index: number,
+  highlightedCodeBlocks?: Map<string, string>
 ): ReactNode => {
+  // Handle block nodes first (they may not have renderable children)
+  if (node.type === 'block') {
+    const blockNode = node as BlockNode
+    if (blockNode.fields.blockType === 'codeBlock') {
+      const { language, code } = blockNode.fields
+
+      // Handle Mermaid diagrams
+      if (language?.toLowerCase() === 'mermaid' && code) {
+        return (
+          <MermaidDiagram
+            key={index}
+            code={code}
+            id={`mermaid-${blockNode.id || index}`}
+          />
+        )
+      }
+
+      // Check for pre-highlighted code
+      const blockId = blockNode.id
+      if (blockId && highlightedCodeBlocks?.has(blockId)) {
+        const highlightedHTML = highlightedCodeBlocks.get(blockId)!
+        return (
+          <div
+            key={index}
+            dangerouslySetInnerHTML={{ __html: highlightedHTML }}
+          />
+        )
+      }
+
+      // Fallback to plain code block
+      if (code) {
+        return (
+          <pre key={index}>
+            <code>{code}</code>
+          </pre>
+        )
+      }
+    }
+  }
+
   const children = node.children.map((child, childIndex) =>
-    renderNode(child, childIndex)
+    renderNode(child, childIndex, highlightedCodeBlocks)
   )
 
   switch (node.type) {
@@ -113,19 +165,26 @@ const renderElementNode = (
 }
 
 // Render any node
-const renderNode = (node: unknown, index: number): ReactNode => {
+const renderNode = (
+  node: unknown,
+  index: number,
+  highlightedCodeBlocks?: Map<string, string>
+): ReactNode => {
   if (isTextNode(node)) {
-    return renderTextNode(node)
+    return renderTextNode(node, index)
   }
 
   if (isElementNode(node)) {
-    return renderElementNode(node, index)
+    return renderElementNode(node, index, highlightedCodeBlocks)
   }
 
   return null
 }
 
-export const PayloadRichText = ({ data }: PayloadRichTextProps) => {
+export const PayloadRichText = ({
+  data,
+  highlightedCodeBlocks,
+}: PayloadRichTextProps) => {
   const renderContent = (editorState: SerializedEditorState) => {
     if (
       !editorState.root ||
@@ -136,7 +195,7 @@ export const PayloadRichText = ({ data }: PayloadRichTextProps) => {
     }
 
     return editorState.root.children.map((child, index) =>
-      renderNode(child, index)
+      renderNode(child, index, highlightedCodeBlocks)
     )
   }
 
