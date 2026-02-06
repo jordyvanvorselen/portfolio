@@ -52,6 +52,7 @@ export default mergeConfig(
       coverage: {
         enabled: true,
         provider: 'v8',
+        include: ['src/**/*.{ts,tsx}'],
         reporter: ['text', 'lcov'],
         thresholds: {
           statements: 100,
@@ -60,11 +61,6 @@ export default mergeConfig(
           lines: 100,
         },
         exclude: [
-          // Dot and config files
-          '.*',
-          '*.config.{ts,tsx,js,cjs,mjs}',
-          '*rc.{cjs,js,mjs,ts,tsx}',
-
           // TS definition
           '**/*.d.ts',
 
@@ -74,7 +70,6 @@ export default mergeConfig(
           'integration-tests/**',
 
           // Project specific
-          'public/**',
           'src/app/**',
           'src/i18n/**',
           'src/test/**',
@@ -82,7 +77,6 @@ export default mergeConfig(
           'src/lib/contentful-types.ts',
           'src/lib/constants.ts',
           'src/domains/home/skills/Technology.ts',
-          'middleware.ts',
         ],
       },
     },

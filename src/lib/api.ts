@@ -57,7 +57,7 @@ function transformEntry(entry: Entry<TypeBlogPostSkeleton>): BlogPost {
     title: entry.fields.title as string,
     description: entry.fields.description as string,
     date: formatDate(entry.fields.publicationDate as string),
-    readTime: calculateReadTime(entry.fields.content as Document),
+    readTime: calculateReadTime(entry.fields.content as any), // TODO: Replace with Payload Lexical content
     image: ensureAbsoluteUrl(
       (entry.fields.featuredImage as Asset)?.fields?.file?.url as string
     ),
