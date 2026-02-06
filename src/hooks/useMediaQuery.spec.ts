@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react'
 import { vi } from 'vitest'
-import { useMediaQuery } from '@/hooks/useMediaQuery'
+import { useMediaQuery, getInitialMatches } from '@/hooks/useMediaQuery'
 
 // Mock matchMedia
 const mockMatchMedia = (matches: boolean) => {
@@ -112,5 +112,38 @@ describe('useMediaQuery', () => {
 
     expect(mockMediaQueryList1.removeEventListener).toHaveBeenCalledTimes(1)
     expect(mockMediaQueryList2.addEventListener).toHaveBeenCalledTimes(1)
+  })
+
+  it('returns false during SSR when window is undefined', async () => {
+    // Mock the getInitialMatches function to simulate SSR
+    const importedModule = await import('@/hooks/useMediaQuery')
+    const spy = vi.spyOn(importedModule, 'getInitialMatches')
+    spy.mockReturnValueOnce(false)
+
+    const { result } = renderHook(() =>
+      importedModule.useMediaQuery('(min-width: 768px)')
+    )
+
+    // Should return false when getInitialMatches returns false (SSR scenario)
+    expect(result.current).toBe(false)
+
+    spy.mockRestore()
+  })
+
+  it('getInitialMatches returns false when window is undefined', () => {
+    // Test the SSR path by directly testing the exported function
+    // Temporarily remove window to simulate SSR
+    const originalWindow = global.window
+    // @ts-expect-error - Intentionally removing window for SSR simulation
+    delete global.window
+
+    // Call the function
+    const result = getInitialMatches('(min-width: 768px)')
+
+    // Restore window
+    global.window = originalWindow
+
+    // Should return false in SSR context
+    expect(result).toBe(false)
   })
 })

@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { vi } from 'vitest'
 import { MermaidDiagram } from '@/ui/MermaidDiagram'
+import mermaid from 'mermaid'
 
 // Only mock mermaid since it's a third-party library that manipulates DOM
 vi.mock('mermaid', () => ({
@@ -77,5 +78,63 @@ describe('MermaidDiagram', () => {
     await new Promise(resolve => setTimeout(resolve, 20))
 
     expect(screen.getByRole('img', { name: 'Mermaid diagram' })).toBeVisible()
+  })
+
+  it('handles unmount during setTimeout delay (line 44)', async () => {
+    // Use fake timers to control the setTimeout
+    vi.useFakeTimers()
+
+    const { unmount } = render(<MermaidDiagram code={mockCode} id={mockId} />)
+
+    // Unmount before the 10ms setTimeout completes
+    unmount()
+
+    // Advance timers to trigger the setTimeout callback
+    await vi.advanceTimersByTimeAsync(10)
+
+    // Restore real timers
+    vi.useRealTimers()
+
+    // No error should occur - the null check at line 44 prevents it
+  })
+
+  it('handles unmount after mermaid.render completes (line 49)', async () => {
+    // Create a deferred promise that we can control
+    let resolveMermaid: (value: {
+      svg: string
+      bindFunctions?: () => void
+      diagramType?: string
+    }) => void
+    const mermaidPromise = new Promise<{
+      svg: string
+      bindFunctions?: () => void
+      diagramType?: string
+    }>(resolve => {
+      resolveMermaid = resolve
+    })
+
+    // Mock mermaid.render to return our controlled promise
+    vi.mocked(mermaid.render).mockReturnValueOnce(
+      mermaidPromise as ReturnType<typeof mermaid.render>
+    )
+
+    const { unmount } = render(<MermaidDiagram code={mockCode} id={mockId} />)
+
+    // Wait for setTimeout to complete
+    await new Promise(resolve => setTimeout(resolve, 15))
+
+    // Unmount before resolving mermaid.render
+    unmount()
+
+    // Now resolve mermaid.render - this should trigger the line 49 null check
+    resolveMermaid!({
+      svg: '<svg>mocked svg</svg>',
+      bindFunctions: vi.fn(),
+    })
+
+    // Wait for promise resolution
+    await new Promise(resolve => setTimeout(resolve, 10))
+
+    // No error should occur - the null check at line 49 prevents it
   })
 })

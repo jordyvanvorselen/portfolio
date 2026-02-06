@@ -176,6 +176,94 @@ describe('blog-helpers', () => {
       const result = extractTextFromRichText(document)
       expect(result).toBe('Title This is bold text in a paragraph.')
     })
+
+    it('extracts text from quote nodes', () => {
+      const document = {
+        root: {
+          type: 'root',
+          children: [
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'Regular text',
+                  format: 0,
+                  version: 1,
+                },
+              ],
+              version: 1,
+            },
+            {
+              type: 'quote',
+              children: [
+                {
+                  type: 'text',
+                  text: 'This is a quote',
+                  format: 0,
+                  version: 1,
+                },
+              ],
+              version: 1,
+            },
+          ],
+          direction: null,
+          format: '',
+          indent: 0,
+          version: 1,
+        },
+      } as unknown as SerializedEditorState
+
+      const result = extractTextFromRichText(document)
+      expect(result).toBe('Regular text This is a quote')
+    })
+
+    it('handles non-block-level element nodes without adding space', () => {
+      const document = {
+        root: {
+          type: 'root',
+          children: [
+            {
+              type: 'list',
+              children: [
+                {
+                  type: 'listitem',
+                  children: [
+                    {
+                      type: 'text',
+                      text: 'Item 1',
+                      format: 0,
+                      version: 1,
+                    },
+                  ],
+                  version: 1,
+                },
+                {
+                  type: 'listitem',
+                  children: [
+                    {
+                      type: 'text',
+                      text: 'Item 2',
+                      format: 0,
+                      version: 1,
+                    },
+                  ],
+                  version: 1,
+                },
+              ],
+              version: 1,
+            },
+          ],
+          direction: null,
+          format: '',
+          indent: 0,
+          version: 1,
+        },
+      } as unknown as SerializedEditorState
+
+      const result = extractTextFromRichText(document)
+      expect(result).toBe('Item 1Item 2')
+    })
   })
 
   describe('calculateReadTime', () => {
