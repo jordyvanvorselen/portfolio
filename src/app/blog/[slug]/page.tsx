@@ -4,29 +4,13 @@ import { ArrowLeft, Calendar, Clock, User } from 'lucide-react'
 import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 
-import type { Document } from '@contentful/rich-text-types'
-
 import { getDetailedPostBySlug, getPostAndMorePosts } from '@/lib/api'
-import { Markdown, enhanceContentWithSyntaxHighlighting } from '@/ui/Markdown'
+import { extractAndHighlightCodeBlocks } from '@/lib/payload-richtext-helpers'
+import { PayloadRichText } from '@/ui/PayloadRichText'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 import { Badge } from '@/ui/Badge'
 import { BlogCard } from '@/domains/blog/BlogCard'
-
-// Temporary adapter until PayloadRichText is implemented (Task #6/#8)
-function createStubContent() {
-  return {
-    json: {
-      nodeType: 'document',
-      data: {},
-      content: [],
-    } as Document,
-    links: {
-      assets: { block: [] },
-      entries: { block: [] },
-    },
-  }
-}
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>
@@ -79,10 +63,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     process.env['VERCEL_ENV'] !== 'production'
   )
 
-  // Temporary: Use stub content until PayloadRichText is implemented (Task #6/#8)
-  // post.content is now SerializedEditorState, but Markdown expects Contentful format
-  const enhancedContent =
-    await enhanceContentWithSyntaxHighlighting(createStubContent())
+  // Pre-highlight code blocks for Shiki syntax highlighting
+  const highlightedCodeBlocks = await extractAndHighlightCodeBlocks(
+    post.content
+  )
 
   return (
     <main className="flex-1 bg-gray-950">
@@ -177,7 +161,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         data-testid="blog-post-content-section"
         className="max-w-4xl mx-auto px-6 sm:px-6 lg:px-8 pb-16"
       >
-        <Markdown content={enhancedContent} />
+        <PayloadRichText
+          data={post.content}
+          highlightedCodeBlocks={highlightedCodeBlocks}
+        />
       </section>
 
       {/* Related Posts */}
