@@ -69,14 +69,22 @@ export default mergeConfig(
           'test/**',
           'integration-tests/**',
 
+          // Payload CMS (declarative configs and auto-generated)
+          'src/payload.config.ts',
+          'src/payload-types.ts',
+          'src/collections/**',
+          'src/lib/payload/**',
+
           // Project specific
           'src/app/**',
           'src/i18n/**',
           'src/test/**',
           'src/types/project.ts',
+          'src/types/lexical.ts',
           'src/lib/contentful-types.ts',
           'src/lib/constants.ts',
           'src/domains/home/skills/Technology.ts',
+          'src/ui/Markdown.tsx', // Will be replaced by PayloadRichText.tsx
         ],
       },
     },
