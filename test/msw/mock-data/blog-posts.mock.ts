@@ -1,412 +1,132 @@
-import { createMockDataFactory } from '@/test/msw/mock-data/createMockDataFactory'
-
-// Contentful API response structure for blog posts
-export interface ContentfulBlogPostEntry {
-  sys: {
-    id: string
-    contentType: { sys: { id: string } }
-  }
-  fields: {
-    slug: string
-    title: string
-    description: string
-    publicationDate: string
-    content: {
-      nodeType: string
-      data?: Record<string, unknown>
-      content: Array<{
-        nodeType: string
-        data?: Record<string, unknown>
-        content?: Array<{
-          nodeType: string
-          value?: string
-          marks?: Array<Record<string, unknown>>
-          data?: Record<string, unknown>
-        }>
-      }>
-    }
-    featuredImage: {
-      fields: { file: { url: string } }
-    }
-    tags: string[]
-    canonicalUrl?: string
-  }
-}
-
-export interface ContentfulBlogPostsResponse {
-  sys: { type: string }
-  total: number
-  items: ContentfulBlogPostEntry[]
-  includes?: {
-    Asset?: Array<{
-      sys: { id: string }
-      fields: { file: { url: string }; description: string }
-    }>
-    Entry?: Array<{
-      sys: { id: string }
-      fields: {
-        title: string
-        programmingLanguage: string
-        code: string
-      }
-    }>
-  }
-}
-
-// Default mock blog posts data
-const defaultBlogPostsResponse: ContentfulBlogPostsResponse = {
-  sys: { type: 'Array' },
-  total: 4,
-  items: [
-    {
-      sys: {
-        id: '1',
-        contentType: { sys: { id: 'blogPost' } },
-      },
-      fields: {
-        slug: 'react-hooks-guide',
-        title: 'React Hooks Guide',
-        description: 'Learn about React hooks and how to use them effectively',
-        publicationDate: '2024-01-01',
-        content: {
-          nodeType: 'document',
-          data: {},
-          content: [
-            {
-              nodeType: 'paragraph',
-              data: {},
-              content: [
-                {
-                  nodeType: 'text',
-                  value:
-                    'Learn about React hooks and how to use them effectively in your applications.',
-                  marks: [],
-                  data: {},
-                },
-              ],
-            },
-            {
-              nodeType: 'embedded-entry-block',
-              data: {
-                target: {
-                  sys: {
-                    id: 'codeblock-1',
-                    type: 'Link',
-                    linkType: 'Entry',
-                  },
-                },
-              },
-              content: [],
-            },
-            {
-              nodeType: 'paragraph',
-              data: {},
-              content: [
-                {
-                  nodeType: 'text',
-                  value:
-                    'This code example shows how to use the useState hook.',
-                  marks: [],
-                  data: {},
-                },
-              ],
-            },
-          ],
-        },
-        featuredImage: {
-          fields: {
-            file: {
-              url: '//images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop',
-            },
-          },
-        },
-        tags: ['React', 'JavaScript', 'Frontend'],
-        canonicalUrl: 'https://example.com/react-hooks-guide',
-      },
-    },
-    {
-      sys: {
-        id: '2',
-        contentType: { sys: { id: 'blogPost' } },
-      },
-      fields: {
-        slug: 'react-components',
-        title: 'React Components',
-        description: 'Building React components with best practices',
-        publicationDate: '2024-01-02',
-        content: {
-          nodeType: 'document',
-          data: {},
-          content: [
-            {
-              nodeType: 'paragraph',
-              data: {},
-              content: [
-                {
-                  nodeType: 'text',
-                  value:
-                    'Building React components with best practices and modern patterns.',
-                  marks: [],
-                  data: {},
-                },
-              ],
-            },
-            {
-              nodeType: 'embedded-entry-block',
-              data: {
-                target: {
-                  sys: {
-                    id: 'codeblock-2',
-                    type: 'Link',
-                    linkType: 'Entry',
-                  },
-                },
-              },
-              content: [],
-            },
-            {
-              nodeType: 'paragraph',
-              data: {},
-              content: [
-                {
-                  nodeType: 'text',
-                  value:
-                    'This TypeScript interface defines a clean component API.',
-                  marks: [],
-                  data: {},
-                },
-              ],
-            },
-          ],
-        },
-        featuredImage: {
-          fields: {
-            file: {
-              url: '//images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop',
-            },
-          },
-        },
-        tags: ['React', 'Components'],
-      },
-    },
-    {
-      sys: {
-        id: '3',
-        contentType: { sys: { id: 'blogPost' } },
-      },
-      fields: {
-        slug: 'python-tips',
-        title: 'Python Tips',
-        description: 'Useful Python tips for better development',
-        publicationDate: '2024-01-03',
-        content: {
-          nodeType: 'document',
-          data: {},
-          content: [
-            {
-              nodeType: 'paragraph',
-              data: {},
-              content: [
-                {
-                  nodeType: 'text',
-                  value:
-                    'Useful Python tips for better development and performance optimization.',
-                  marks: [],
-                  data: {},
-                },
-              ],
-            },
-            {
-              nodeType: 'embedded-asset-block',
-              data: {
-                target: {
-                  sys: {
-                    id: 'asset-1',
-                    type: 'Link',
-                    linkType: 'Asset',
-                  },
-                },
-              },
-              content: [],
-            },
-            {
-              nodeType: 'paragraph',
-              data: {},
-              content: [
-                {
-                  nodeType: 'text',
-                  value:
-                    'Here are some advanced Python techniques to improve your code.',
-                  marks: [],
-                  data: {},
-                },
-              ],
-            },
-          ],
-        },
-        featuredImage: {
-          fields: {
-            file: {
-              url: '//images.unsplash.com/photo-1526379095098-d400fd0bf935?w=800&h=400&fit=crop',
-            },
-          },
-        },
-        tags: ['Python', 'Backend'],
-      },
-    },
-    {
-      sys: {
-        id: '4',
-        contentType: { sys: { id: 'blogPost' } },
-      },
-      fields: {
-        slug: 'typescript-advanced',
-        title: 'Advanced TypeScript',
-        description: 'Advanced TypeScript techniques and patterns',
-        publicationDate: '2024-01-04',
-        content: {
-          nodeType: 'document',
-          data: {},
-          content: [
-            {
-              nodeType: 'paragraph',
-              data: {},
-              content: [
-                {
-                  nodeType: 'text',
-                  value:
-                    'Advanced TypeScript techniques and patterns for modern web development.',
-                  marks: [],
-                  data: {},
-                },
-              ],
-            },
-            {
-              nodeType: 'embedded-entry-block',
-              data: {
-                target: {
-                  sys: {
-                    id: 'codeblock-2',
-                    type: 'Link',
-                    linkType: 'Entry',
-                  },
-                },
-              },
-              content: [],
-            },
-            {
-              nodeType: 'paragraph',
-              data: {},
-              content: [
-                {
-                  nodeType: 'text',
-                  value:
-                    'This interface demonstrates advanced TypeScript concepts.',
-                  marks: [],
-                  data: {},
-                },
-              ],
-            },
-            {
-              nodeType: 'embedded-entry-block',
-              data: {
-                target: {
-                  sys: {
-                    id: 'mermaid-1',
-                    type: 'Link',
-                    linkType: 'Entry',
-                  },
-                },
-              },
-              content: [],
-            },
-            {
-              nodeType: 'paragraph',
-              data: {},
-              content: [
-                {
-                  nodeType: 'text',
-                  value:
-                    'The diagram above shows the relationship between these concepts.',
-                  marks: [],
-                  data: {},
-                },
-              ],
-            },
-          ],
-        },
-        featuredImage: {
-          fields: {
-            file: {
-              url: '//images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop',
-            },
-          },
-        },
-        tags: ['TypeScript', 'JavaScript', 'Frontend'],
-      },
-    },
-  ],
-  includes: {
-    Asset: [
-      {
-        sys: { id: 'asset-1' },
-        fields: {
-          file: {
-            url: '//images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop',
-          },
-          description: 'Sample asset 1',
-        },
-      },
-    ],
-    Entry: [
-      {
-        sys: { id: 'codeblock-1' },
-        fields: {
-          title: 'JavaScript Example',
-          programmingLanguage: 'JavaScript',
-          code: 'console.log("Hello, World!");',
-        },
-      },
-      {
-        sys: { id: 'codeblock-2' },
-        fields: {
-          title: 'TypeScript Interface',
-          programmingLanguage: 'TypeScript',
-          code: 'interface User {\n  name: string;\n  id: number;\n}',
-        },
-      },
-      {
-        sys: { id: 'mermaid-1' },
-        fields: {
-          title: 'TypeScript Architecture Diagram',
-          programmingLanguage: 'mermaid',
-          code: 'graph TD\n    A[Component] --> B[Props]\n    A --> C[State]\n    B --> D[Render]\n    C --> D',
-        },
-      },
-    ],
-  },
-}
-
-// Create the mock data factory
-export const createMockBlogPostsResponse = createMockDataFactory(
-  defaultBlogPostsResponse
-)
-
-// Simple mock BlogPost array for new Payload API (temporary until full migration)
-// Simple mock BlogPost array for new Payload API
 import type { BlogPost } from '@/lib/api'
 import type { SerializedEditorState } from '@/types/lexical'
 
-const mockContent: SerializedEditorState = {
+// Mock Lexical content with various node types for comprehensive testing
+export const mockContent: SerializedEditorState = {
   root: {
     type: 'root',
     children: [
+      {
+        type: 'heading',
+        tag: 'h2',
+        children: [
+          {
+            type: 'text',
+            text: 'Introduction to React Hooks',
+            format: 0,
+            version: 1,
+          },
+        ],
+        version: 1,
+      },
       {
         type: 'paragraph',
         children: [
           {
             type: 'text',
-            text: 'Learn about React hooks and how to use them effectively in your applications.',
+            text: 'Learn about React hooks and how to use them ',
+            format: 0,
+            version: 1,
+          },
+          {
+            type: 'text',
+            text: 'effectively',
+            format: 1, // bold
+            version: 1,
+          },
+          {
+            type: 'text',
+            text: ' in your applications.',
+            format: 0,
+            version: 1,
+          },
+        ],
+        version: 1,
+      },
+      {
+        type: 'block',
+        id: 'code-block-1',
+        fields: {
+          blockType: 'codeBlock',
+          language: 'javascript',
+          code: 'const [count, setCount] = useState(0);',
+        },
+        children: [],
+        version: 1,
+      },
+      {
+        type: 'paragraph',
+        children: [
+          {
+            type: 'text',
+            text: 'The ',
+            format: 0,
+            version: 1,
+          },
+          {
+            type: 'text',
+            text: 'useState',
+            format: 16, // code
+            version: 1,
+          },
+          {
+            type: 'text',
+            text: ' hook allows you to add state to functional components.',
+            format: 0,
+            version: 1,
+          },
+        ],
+        version: 1,
+      },
+      {
+        type: 'list',
+        listType: 'bullet',
+        children: [
+          {
+            type: 'listitem',
+            children: [
+              {
+                type: 'text',
+                text: 'useState for state management',
+                format: 0,
+                version: 1,
+              },
+            ],
+            version: 1,
+          },
+          {
+            type: 'listitem',
+            children: [
+              {
+                type: 'text',
+                text: 'useEffect for side effects',
+                format: 0,
+                version: 1,
+              },
+            ],
+            version: 1,
+          },
+          {
+            type: 'listitem',
+            children: [
+              {
+                type: 'text',
+                text: 'useContext for context values',
+                format: 0,
+                version: 1,
+              },
+            ],
+            version: 1,
+          },
+        ],
+        version: 1,
+      },
+      {
+        type: 'quote',
+        children: [
+          {
+            type: 'text',
+            text: 'Hooks let you use state and other React features without writing a class.',
             format: 0,
             version: 1,
           },
@@ -421,6 +141,68 @@ const mockContent: SerializedEditorState = {
   },
 } as unknown as SerializedEditorState
 
+// Mock content with Mermaid diagram
+export const mockContentWithMermaid: SerializedEditorState = {
+  root: {
+    type: 'root',
+    children: [
+      {
+        type: 'heading',
+        tag: 'h2',
+        children: [
+          {
+            type: 'text',
+            text: 'Component Architecture',
+            format: 0,
+            version: 1,
+          },
+        ],
+        version: 1,
+      },
+      {
+        type: 'paragraph',
+        children: [
+          {
+            type: 'text',
+            text: 'Understanding the relationship between components, props, and state.',
+            format: 0,
+            version: 1,
+          },
+        ],
+        version: 1,
+      },
+      {
+        type: 'block',
+        id: 'mermaid-block-1',
+        fields: {
+          blockType: 'codeBlock',
+          language: 'mermaid',
+          code: 'graph TD\n    A[Component] --> B[Props]\n    A --> C[State]\n    B --> D[Render]\n    C --> D',
+        },
+        children: [],
+        version: 1,
+      },
+      {
+        type: 'paragraph',
+        children: [
+          {
+            type: 'text',
+            text: 'The diagram above illustrates the data flow in React components.',
+            format: 0,
+            version: 1,
+          },
+        ],
+        version: 1,
+      },
+    ],
+    direction: null,
+    format: '',
+    indent: 0,
+    version: 1,
+  },
+} as unknown as SerializedEditorState
+
+// Mock blog posts array for Payload API
 export const mockBlogPosts: BlogPost[] = [
   {
     slug: 'typescript-advanced',
@@ -464,6 +246,3 @@ export const mockBlogPosts: BlogPost[] = [
     canonicalUrl: 'https://example.com/react-hooks-guide',
   },
 ]
-
-// Export mock content separately for detailed posts
-export { mockContent }
