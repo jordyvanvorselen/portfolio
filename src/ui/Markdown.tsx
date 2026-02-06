@@ -12,7 +12,19 @@ import {
 import { ensureAbsoluteUrl } from '@/lib/blog-helpers'
 import { highlightCode } from '@/lib/shiki'
 import { MermaidDiagram } from '@/ui/MermaidDiagram'
-import type { ContentfulAsset, ContentfulCodeBlock } from '@/lib/api'
+
+// Contentful types (temporary, until migration to PayloadRichText)
+export interface ContentfulAsset {
+  sys: { id: string }
+  url: string
+  description: string
+}
+
+export interface ContentfulCodeBlock {
+  sys: { id: string }
+  programmingLanguage: string
+  code: string
+}
 
 interface HighlightedCodeBlockEntry extends ContentfulCodeBlock {
   highlightedCode?: string

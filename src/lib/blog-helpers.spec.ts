@@ -123,6 +123,20 @@ describe('blog-helpers', () => {
       expect(result).toBe('')
     })
 
+    it('handles document with non-element root', () => {
+      const document = {
+        root: {
+          type: 'text',
+          text: 'Invalid root',
+          format: 0,
+          version: 1,
+        },
+      } as unknown as SerializedEditorState
+
+      const result = extractTextFromRichText(document)
+      expect(result).toBe('')
+    })
+
     it('extracts text from complex nested structure', () => {
       const document = {
         root: {

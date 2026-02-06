@@ -391,3 +391,79 @@ const defaultBlogPostsResponse: ContentfulBlogPostsResponse = {
 export const createMockBlogPostsResponse = createMockDataFactory(
   defaultBlogPostsResponse
 )
+
+// Simple mock BlogPost array for new Payload API (temporary until full migration)
+// Simple mock BlogPost array for new Payload API
+import type { BlogPost } from '@/lib/api'
+import type { SerializedEditorState } from '@/types/lexical'
+
+const mockContent: SerializedEditorState = {
+  root: {
+    type: 'root',
+    children: [
+      {
+        type: 'paragraph',
+        children: [
+          {
+            type: 'text',
+            text: 'Learn about React hooks and how to use them effectively in your applications.',
+            format: 0,
+            version: 1,
+          },
+        ],
+        version: 1,
+      },
+    ],
+    direction: null,
+    format: '',
+    indent: 0,
+    version: 1,
+  },
+} as unknown as SerializedEditorState
+
+export const mockBlogPosts: BlogPost[] = [
+  {
+    slug: 'typescript-advanced',
+    title: 'Advanced TypeScript',
+    description: 'Advanced TypeScript techniques and patterns',
+    date: 'January 4, 2024',
+    readTime: '1 min read',
+    image:
+      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop',
+    tags: ['TypeScript', 'JavaScript', 'Frontend'],
+  },
+  {
+    slug: 'python-tips',
+    title: 'Python Tips',
+    description: 'Useful Python tips for better development',
+    date: 'January 3, 2024',
+    readTime: '1 min read',
+    image:
+      'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=800&h=400&fit=crop',
+    tags: ['Python', 'Backend'],
+  },
+  {
+    slug: 'react-performance',
+    title: 'React Performance',
+    description: 'Optimizing React applications for better performance',
+    date: 'January 2, 2024',
+    readTime: '1 min read',
+    image:
+      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop',
+    tags: ['React', 'Performance', 'Frontend'],
+  },
+  {
+    slug: 'react-hooks-guide',
+    title: 'React Hooks Guide',
+    description: 'Learn about React hooks and how to use them effectively',
+    date: 'January 1, 2024',
+    readTime: '1 min read',
+    image:
+      'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop',
+    tags: ['React', 'JavaScript', 'Frontend'],
+    canonicalUrl: 'https://example.com/react-hooks-guide',
+  },
+]
+
+// Export mock content separately for detailed posts
+export { mockContent }

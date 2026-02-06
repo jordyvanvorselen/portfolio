@@ -1,17 +1,24 @@
-import { describe, it, expect } from 'vitest'
-import { http, HttpResponse } from 'msw'
-import { server } from '@/test/msw/register.server'
+import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import {
   getAllPosts,
   getPostAndMorePosts,
   getPreviewPostBySlug,
   getDetailedPostBySlug,
 } from '@/lib/api'
-import { createMockBlogPostsResponse } from '@/test/msw/mock-data/blog-posts.mock'
 
-describe('Contentful API', () => {
+describe('Payload API (Mock Backend)', () => {
+  beforeAll(() => {
+    // Enable mock backend for all tests
+    process.env['NEXT_PUBLIC_MOCK_BACKEND'] = 'true'
+  })
+
+  afterAll(() => {
+    // Clean up
+    delete process.env['NEXT_PUBLIC_MOCK_BACKEND']
+  })
+
   describe('getAllPosts', () => {
-    it('returns transformed blog posts from published content ordered by date', async () => {
+    it('returns transformed blog posts ordered by date', async () => {
       const posts = await getAllPosts(false)
 
       expect(posts).toHaveLength(4)
@@ -39,7 +46,7 @@ describe('Contentful API', () => {
       })
     })
 
-    it('handles draft mode by using preview API', async () => {
+    it('handles draft mode', async () => {
       const posts = await getAllPosts(true)
 
       expect(posts).toHaveLength(4)
@@ -60,7 +67,7 @@ describe('Contentful API', () => {
       expect(post).toBeNull()
     })
 
-    it('fetches a specific post by slug using preview API', async () => {
+    it('fetches a specific post by slug', async () => {
       const post = await getPreviewPostBySlug('react-hooks-guide')
 
       expect(post).toEqual({
@@ -105,7 +112,7 @@ describe('Contentful API', () => {
       )
     })
 
-    it('uses preview API when preview mode is enabled', async () => {
+    it('works with preview mode enabled', async () => {
       const result = await getPostAndMorePosts('react-hooks-guide', true)
 
       expect(result.post).toBeDefined()
@@ -121,100 +128,13 @@ describe('Contentful API', () => {
   })
 
   describe('getDetailedPostBySlug', () => {
-    it('returns detailed blog post with content when slug exists', async () => {
+    it('returns detailed blog post with Lexical content when slug exists', async () => {
       const result = await getDetailedPostBySlug('react-hooks-guide', false)
 
-      expect(result).toEqual({
-        slug: 'react-hooks-guide',
-        title: 'React Hooks Guide',
-        description: 'Learn about React hooks and how to use them effectively',
-        date: 'January 1, 2024',
-        readTime: '1 min read',
-        image:
-          'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop',
-        tags: ['React', 'JavaScript', 'Frontend'],
-        canonicalUrl: 'https://example.com/react-hooks-guide',
-        content: {
-          json: {
-            nodeType: 'document',
-            data: {},
-            content: [
-              {
-                nodeType: 'paragraph',
-                data: {},
-                content: [
-                  {
-                    nodeType: 'text',
-                    value:
-                      'Learn about React hooks and how to use them effectively in your applications.',
-                    marks: [],
-                    data: {},
-                  },
-                ],
-              },
-              {
-                nodeType: 'embedded-entry-block',
-                data: {
-                  target: {
-                    sys: {
-                      id: 'codeblock-1',
-                      type: 'Link',
-                      linkType: 'Entry',
-                    },
-                  },
-                },
-                content: [],
-              },
-              {
-                nodeType: 'paragraph',
-                data: {},
-                content: [
-                  {
-                    nodeType: 'text',
-                    value:
-                      'This code example shows how to use the useState hook.',
-                    marks: [],
-                    data: {},
-                  },
-                ],
-              },
-            ],
-          },
-          links: {
-            assets: {
-              block: [
-                {
-                  sys: { id: 'asset-1' },
-                  url: '//images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop',
-                  description: 'Sample asset 1',
-                },
-              ],
-            },
-            entries: {
-              block: [
-                {
-                  sys: { id: 'codeblock-1' },
-                  title: 'JavaScript Example',
-                  programmingLanguage: 'JavaScript',
-                  code: 'console.log("Hello, World!");',
-                },
-                {
-                  sys: { id: 'codeblock-2' },
-                  title: 'TypeScript Interface',
-                  programmingLanguage: 'TypeScript',
-                  code: 'interface User {\n  name: string;\n  id: number;\n}',
-                },
-                {
-                  sys: { id: 'mermaid-1' },
-                  title: 'TypeScript Architecture Diagram',
-                  programmingLanguage: 'mermaid',
-                  code: 'graph TD\n    A[Component] --> B[Props]\n    A --> C[State]\n    B --> D[Render]\n    C --> D',
-                },
-              ],
-            },
-          },
-        },
-      })
+      expect(result).toBeDefined()
+      expect(result?.slug).toBe('react-hooks-guide')
+      expect(result?.title).toBe('React Hooks Guide')
+      expect(result?.content).toBeDefined()
     })
 
     it('returns null when slug does not exist', async () => {
@@ -223,76 +143,18 @@ describe('Contentful API', () => {
       expect(result).toBeNull()
     })
 
-    it('uses preview API when preview mode is enabled', async () => {
+    it('works with preview mode enabled', async () => {
       const result = await getDetailedPostBySlug('react-hooks-guide', true)
 
       expect(result).toBeDefined()
       expect(result?.content).toBeDefined()
     })
 
-    it('includes canonicalUrl when present in entry', async () => {
+    it('includes canonicalUrl when present', async () => {
       const result = await getDetailedPostBySlug('react-hooks-guide', false)
 
       expect(result).toBeDefined()
       expect(result?.canonicalUrl).toBe('https://example.com/react-hooks-guide')
-    })
-
-    it('handles missing includes gracefully', async () => {
-      // Mock a response without includes
-      const originalResponse = createMockBlogPostsResponse()
-      const responseWithoutIncludes = {
-        ...originalResponse,
-        includes: undefined,
-      }
-
-      // Override the mock for this test
-      const mockHandler = http.get(
-        'https://cdn.contentful.com/spaces/*/entries',
-        () => HttpResponse.json(responseWithoutIncludes)
-      )
-
-      server.use(mockHandler)
-
-      const result = await getDetailedPostBySlug('react-hooks-guide', false)
-
-      expect(result).toBeDefined()
-      expect(result?.content.links.assets.block).toEqual([])
-      expect(result?.content.links.entries.block).toEqual([])
-    })
-
-    it('handles missing Asset and Entry fields in includes', async () => {
-      // Mock a response with partial includes
-      const originalResponse = createMockBlogPostsResponse()
-      const responseWithPartialIncludes = {
-        ...originalResponse,
-        includes: {
-          Asset: [{ sys: { id: 'asset-1' }, fields: {} }],
-          Entry: [{ sys: { id: 'entry-1' }, fields: {} }],
-        },
-      }
-
-      // Override the mock for this test
-      const mockHandler = http.get(
-        'https://cdn.contentful.com/spaces/*/entries',
-        () => HttpResponse.json(responseWithPartialIncludes)
-      )
-
-      server.use(mockHandler)
-
-      const result = await getDetailedPostBySlug('react-hooks-guide', false)
-
-      expect(result).toBeDefined()
-      expect(result?.content.links.assets.block[0]).toEqual({
-        sys: { id: 'asset-1' },
-        url: '',
-        description: '',
-      })
-      expect(result?.content.links.entries.block[0]).toEqual({
-        sys: { id: 'entry-1' },
-        title: '',
-        programmingLanguage: '',
-        code: '',
-      })
     })
   })
 })

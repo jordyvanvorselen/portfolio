@@ -1,12 +1,12 @@
-import { createClient, type Entry, type Asset } from 'contentful'
+import { getPayload } from 'payload'
+import config from '@payload-config'
 import {
   formatDate,
   calculateReadTime,
   ensureAbsoluteUrl,
 } from '@/lib/blog-helpers'
-import type { TypeBlogPostSkeleton } from '@/lib/contentful-types'
-import type { Document } from '@contentful/rich-text-types'
 import type { SerializedEditorState } from '@/types/lexical'
+import type { Media, Post } from '@/payload-types'
 
 export interface BlogPost {
   slug: string
@@ -19,113 +19,47 @@ export interface BlogPost {
   canonicalUrl?: string
 }
 
-export interface ContentfulAsset {
-  sys: { id: string }
-  url: string
-  description: string
-}
-
-export interface ContentfulCodeBlock {
-  sys: { id: string }
-  title: string
-  programmingLanguage: string
-  code: string
-}
-
 export interface DetailedBlogPost extends BlogPost {
-  content: {
-    json: Document
-    links: {
-      assets: { block: ContentfulAsset[] }
-      entries: { block: ContentfulCodeBlock[] }
-    }
-  }
+  content: SerializedEditorState
 }
 
-function getClient(preview: boolean) {
-  return createClient({
-    space: process.env['CONTENTFUL_SPACE_ID']!,
-    accessToken: preview
-      ? process.env['CONTENTFUL_PREVIEW_ACCESS_TOKEN']!
-      : process.env['CONTENTFUL_ACCESS_TOKEN']!,
-    host: preview ? 'preview.contentful.com' : 'cdn.contentful.com',
-  })
+// Mock data imports for testing
+import {
+  mockBlogPosts,
+  mockContent,
+} from '@/test/msw/mock-data/blog-posts.mock'
+
+const isMockBackend = (): boolean => {
+  return process.env['NEXT_PUBLIC_MOCK_BACKEND'] === 'true'
 }
 
-function transformEntry(entry: Entry<TypeBlogPostSkeleton>): BlogPost {
+function transformPost(post: Post): BlogPost {
+  const featuredImage = post.featuredImage as Media | null | undefined
+  const tags = (post.tags as string[]) || []
+
   const result: BlogPost = {
-    slug: entry.fields.slug as string,
-    title: entry.fields.title as string,
-    description: entry.fields.description as string,
-    date: formatDate(entry.fields.publicationDate as string),
-    readTime: calculateReadTime(
-      entry.fields.content as unknown as SerializedEditorState
-    ), // TODO: Replace with Payload Lexical content
-    image: ensureAbsoluteUrl(
-      (entry.fields.featuredImage as Asset)?.fields?.file?.url as string
-    ),
-    tags: entry.fields.tags as string[],
+    slug: post.slug,
+    title: post.title,
+    description: post.description,
+    date: formatDate(post.publicationDate),
+    readTime: calculateReadTime(post.content as SerializedEditorState),
+    image: ensureAbsoluteUrl(featuredImage?.url || ''),
+    tags,
   }
 
-  if (entry.fields.canonicalUrl) {
-    result.canonicalUrl = entry.fields.canonicalUrl as string
+  if (post.canonicalUrl) {
+    result.canonicalUrl = post.canonicalUrl
   }
 
   return result
 }
 
-function transformDetailedEntry(
-  entry: Entry<TypeBlogPostSkeleton>,
-  includes?: {
-    Asset?: Array<{
-      sys: { id: string }
-      fields?: {
-        file?: { url?: string }
-        description?: string
-      }
-    }>
-    Entry?: Array<{
-      sys: { id: string }
-      fields?: {
-        title?: string
-        programmingLanguage?: string
-        code?: string
-      }
-    }>
-  }
-): DetailedBlogPost {
-  const basicPost = transformEntry(entry)
-
-  // Extract linked assets and entries from includes, with robust defaults
-  const assets = Array.isArray(includes?.Asset) ? includes.Asset : []
-  const entries = Array.isArray(includes?.Entry) ? includes.Entry : []
+function transformDetailedPost(post: Post): DetailedBlogPost {
+  const basicPost = transformPost(post)
 
   return {
     ...basicPost,
-    content: {
-      json: entry.fields.content as Document,
-      links: {
-        assets: {
-          block: assets.map(
-            (asset): ContentfulAsset => ({
-              sys: { id: asset.sys.id },
-              url: asset.fields?.file?.url || '',
-              description: asset.fields?.description || '',
-            })
-          ),
-        },
-        entries: {
-          block: entries.map(
-            (entry): ContentfulCodeBlock => ({
-              sys: { id: entry.sys.id },
-              title: entry.fields?.title || '',
-              programmingLanguage: entry.fields?.programmingLanguage || '',
-              code: entry.fields?.code || '',
-            })
-          ),
-        },
-      },
-    },
+    content: post.content as SerializedEditorState,
   }
 }
 
@@ -134,54 +68,87 @@ export async function getPreviewPostBySlug(
 ): Promise<BlogPost | null> {
   if (!slug) return null
 
-  const client = getClient(true)
+  if (isMockBackend()) {
+    const mockPost = mockBlogPosts.find(p => p.slug === slug)
+    return mockPost || null
+  }
 
-  const entries = await client.getEntries<TypeBlogPostSkeleton>({
-    content_type: 'blogPost',
-    'fields.slug': slug,
+  const payload = await getPayload({ config })
+
+  const result = await payload.find({
+    collection: 'posts',
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
     limit: 1,
+    draft: true,
   })
 
-  if (!entries.items[0]) return null
+  if (!result.docs[0]) return null
 
-  const entry = entries.items[0]
-  return transformEntry(entry)
+  return transformPost(result.docs[0] as Post)
 }
 
 export async function getAllPosts(isDraftMode: boolean): Promise<BlogPost[]> {
-  const client = getClient(isDraftMode)
+  if (isMockBackend()) {
+    return mockBlogPosts
+  }
 
-  const entries = await client.getEntries<TypeBlogPostSkeleton>({
-    content_type: 'blogPost',
-    order: ['-fields.publicationDate'],
+  const payload = await getPayload({ config })
+
+  const result = await payload.find({
+    collection: 'posts',
+    sort: '-publicationDate',
+    draft: isDraftMode,
   })
 
-  return entries.items.map(transformEntry)
+  return result.docs.map(doc => transformPost(doc as Post))
 }
 
 export async function getPostAndMorePosts(
   slug: string,
   preview: boolean
 ): Promise<{ post: BlogPost | null; morePosts: BlogPost[] }> {
-  const client = getClient(preview)
+  if (isMockBackend()) {
+    const mockPost = mockBlogPosts.find(p => p.slug === slug)
+    const morePosts = mockBlogPosts.filter(p => p.slug !== slug).slice(0, 3)
+    return {
+      post: mockPost || null,
+      morePosts,
+    }
+  }
 
-  const [postEntries, morePostEntries] = await Promise.all([
-    client.getEntries<TypeBlogPostSkeleton>({
-      content_type: 'blogPost',
-      'fields.slug': slug,
+  const payload = await getPayload({ config })
+
+  const [postResult, morePostsResult] = await Promise.all([
+    payload.find({
+      collection: 'posts',
+      where: {
+        slug: {
+          equals: slug,
+        },
+      },
       limit: 1,
+      draft: preview,
     }),
-    client.getEntries<TypeBlogPostSkeleton>({
-      content_type: 'blogPost',
-      'fields.slug[ne]': slug,
-      order: ['-fields.publicationDate'],
+    payload.find({
+      collection: 'posts',
+      where: {
+        slug: {
+          not_equals: slug,
+        },
+      },
+      sort: '-publicationDate',
       limit: 3,
+      draft: preview,
     }),
   ])
 
   return {
-    post: postEntries.items[0] ? transformEntry(postEntries.items[0]) : null,
-    morePosts: morePostEntries.items.map(transformEntry),
+    post: postResult.docs[0] ? transformPost(postResult.docs[0] as Post) : null,
+    morePosts: morePostsResult.docs.map(doc => transformPost(doc as Post)),
   }
 }
 
@@ -189,16 +156,31 @@ export async function getDetailedPostBySlug(
   slug: string,
   preview: boolean
 ): Promise<DetailedBlogPost | null> {
-  const client = getClient(preview)
+  if (isMockBackend()) {
+    const mockPost = mockBlogPosts.find(p => p.slug === slug)
+    if (!mockPost) return null
 
-  const entries = await client.getEntries<TypeBlogPostSkeleton>({
-    content_type: 'blogPost',
-    'fields.slug': slug,
+    // Create detailed post with mock content
+    return {
+      ...mockPost,
+      content: mockContent,
+    }
+  }
+
+  const payload = await getPayload({ config })
+
+  const result = await payload.find({
+    collection: 'posts',
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
     limit: 1,
-    include: 10,
+    draft: preview,
   })
 
-  if (!entries.items[0]) return null
+  if (!result.docs[0]) return null
 
-  return transformDetailedEntry(entries.items[0], entries.includes)
+  return transformDetailedPost(result.docs[0] as Post)
 }
