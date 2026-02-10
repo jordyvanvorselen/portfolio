@@ -4,11 +4,11 @@
 
 > **A modern, responsive portfolio website built with cutting-edge web technologies and test-driven development principles**
 
-[![Next.js](https://img.shields.io/badge/Next.js-15.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.0-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
-[![Vitest](https://img.shields.io/badge/Vitest-Testing-729B1B?style=for-the-badge&logo=vitest)](https://vitest.dev/)
-[![Playwright](https://img.shields.io/badge/Playwright-Integration-45ba4b?style=for-the-badge&logo=playwright)](https://playwright.dev/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.1-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.1-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
+[![Vitest](https://img.shields.io/badge/Vitest-4.0-729B1B?style=for-the-badge&logo=vitest)](https://vitest.dev/)
+[![Playwright](https://img.shields.io/badge/Playwright-1.58-45ba4b?style=for-the-badge&logo=playwright)](https://playwright.dev/)
 
 _Showcasing professional expertise through exceptional user experience and bulletproof code quality_
 
@@ -24,19 +24,21 @@ The project demonstrates expertise in modern frontend development, featuring a c
 
 <div align="center">
 
-| Category                  | Technologies                                                                                                                                                                      |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Frontend Framework**    | ![Next.js](https://img.shields.io/badge/Next.js-15.4%20App%20Router-000000?logo=next.js) ![React](https://img.shields.io/badge/React-19.1-61DAFB?logo=react)                      |
-| **Language**              | ![TypeScript](https://img.shields.io/badge/TypeScript-5.8%20Strict%20Mode-3178C6?logo=typescript)                                                                                 |
-| **Styling**               | ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.0%20Utility%20First-06B6D4?logo=tailwindcss)                                                                        |
-| **Component Library**     | ![Radix UI](https://img.shields.io/badge/Radix%20UI-Accessible-000000?logo=radixui)                                                                                               |
-| **Internationalization**  | ![next-intl](https://img.shields.io/badge/next--intl-4.3-009639?logo=i18next)                                                                                                     |
-| **Icons**                 | ![Lucide React](https://img.shields.io/badge/Lucide%20React-0.542-F56565?logo=lucide) ![DevIcon](https://img.shields.io/badge/DevIcon-Tech%20Icons-FF6B35)                        |
-| **Testing (Unit)**        | ![Vitest](https://img.shields.io/badge/Vitest-2.1-729B1B?logo=vitest) ![React Testing Library](https://img.shields.io/badge/React%20Testing%20Library-E33332?logo=testinglibrary) |
-| **Testing (Integration)** | ![Playwright](https://img.shields.io/badge/Playwright-1.54%20E2E%20Testing-45ba4b?logo=playwright)                                                                                |
-| **API Mocking**           | ![MSW](https://img.shields.io/badge/MSW-Mock%20Service%20Worker-FF6A33?logo=mockserviceworker)                                                                                    |
-| **Code Quality**          | ![ESLint](https://img.shields.io/badge/ESLint-9.0%20TypeScript-4B32C3?logo=eslint) ![Prettier](https://img.shields.io/badge/Prettier-3.6%20Code%20Formatter-F7B93E?logo=prettier) |
-| **Package Manager**       | ![pnpm](https://img.shields.io/badge/pnpm-Fast%20&%20Efficient-F69220?logo=pnpm)                                                                                                  |
+| Category                  | Technologies                                                                                                                                                                       |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Frontend Framework**    | ![Next.js](https://img.shields.io/badge/Next.js-16.1%20App%20Router-000000?logo=next.js) ![React](https://img.shields.io/badge/React-19.2-61DAFB?logo=react)                       |
+| **Language**              | ![TypeScript](https://img.shields.io/badge/TypeScript-5.9%20Strict%20Mode-3178C6?logo=typescript)                                                                                  |
+| **Styling**               | ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.1%20Utility%20First-06B6D4?logo=tailwindcss)                                                                         |
+| **Component Library**     | ![Radix UI](https://img.shields.io/badge/Radix%20UI-Accessible-000000?logo=radixui)                                                                                                |
+| **CMS**                   | ![Payload CMS](https://img.shields.io/badge/Payload%20CMS-3.75-000000?logo=payload)                                                                                                |
+| **Internationalization**  | ![next-intl](https://img.shields.io/badge/next--intl-4.8-009639?logo=i18next)                                                                                                      |
+| **Icons**                 | ![Lucide React](https://img.shields.io/badge/Lucide%20React-0.563-F56565?logo=lucide) ![DevIcon](https://img.shields.io/badge/DevIcon-Tech%20Icons-FF6B35)                         |
+| **Testing (Unit)**        | ![Vitest](https://img.shields.io/badge/Vitest-4.0-729B1B?logo=vitest) ![React Testing Library](https://img.shields.io/badge/React%20Testing%20Library-E33332?logo=testinglibrary)  |
+| **Testing (Integration)** | ![Playwright](https://img.shields.io/badge/Playwright-1.58%20E2E%20Testing-45ba4b?logo=playwright)                                                                                 |
+| **API Mocking**           | ![MSW](https://img.shields.io/badge/MSW-Mock%20Service%20Worker-FF6A33?logo=mockserviceworker)                                                                                     |
+| **Analytics**             | ![Vercel Analytics](https://img.shields.io/badge/Vercel%20Analytics-000000?logo=vercel)                                                                                            |
+| **Code Quality**          | ![ESLint](https://img.shields.io/badge/ESLint-9.39%20TypeScript-4B32C3?logo=eslint) ![Prettier](https://img.shields.io/badge/Prettier-3.8%20Code%20Formatter-F7B93E?logo=prettier) |
+| **Package Manager**       | ![pnpm](https://img.shields.io/badge/pnpm-Fast%20&%20Efficient-F69220?logo=pnpm)                                                                                                   |
 
 </div>
 
@@ -47,31 +49,49 @@ This project follows a **domain-driven architecture** with clear separation of c
 ```
 📦 Portfolio
 ├── 🚀 src/app/                  # Next.js App Router
-│   ├── layout.tsx               # Root layout & metadata
-│   ├── page.tsx                 # Home page
-│   ├── blog/                    # Blog pages
-│   ├── experience/              # Experience pages
-│   ├── projects/                # Projects pages
-│   └── globals.css              # Global styles & utility classes
+│   ├── (site)/                  # Public site route group
+│   │   ├── layout.tsx           # Site layout & metadata
+│   │   ├── page.tsx             # Home page
+│   │   ├── blog/                # Blog pages
+│   │   ├── experience/          # Experience pages
+│   │   ├── projects/            # Projects pages
+│   │   └── globals.css          # Global styles & utility classes
+│   └── (payload)/               # Payload CMS admin route group
+│       ├── admin/               # CMS admin panel
+│       └── api/                 # CMS API routes
 ├── 🎨 src/
-│   ├── ui/                      # 🧩 Generic UI Components (25+ components)
+│   ├── ui/                      # 🧩 Generic UI Components (28 components)
+│   │   ├── Accordion.tsx        # Expandable content sections
 │   │   ├── Badge.tsx            # Design system badges
-│   │   ├── Text.tsx             # Typography system
 │   │   ├── Button.tsx           # Interactive buttons
 │   │   ├── Card.tsx             # Content containers
-│   │   ├── SocialIcon.tsx       # Social media icons
-│   │   ├── NavigationLink.tsx   # Navigation links
+│   │   ├── DevIcon.tsx          # Technology/developer icons
+│   │   ├── Divider.tsx          # Visual separators
+│   │   ├── Filter.tsx           # Content filtering
+│   │   ├── FlagIcon.tsx         # Country flag icons
 │   │   ├── LanguageSwitcher.tsx # i18n language selection
-│   │   ├── MobileMenu*.tsx      # Mobile navigation components
-│   │   └── Timeline*.tsx        # Timeline components
+│   │   ├── Logo.tsx             # Branding logo
+│   │   ├── MermaidDiagram.tsx   # Mermaid chart rendering
+│   │   ├── NavigationLink.tsx   # Navigation links
+│   │   ├── PayloadRichText.tsx  # CMS rich text rendering
+│   │   ├── SectionBackground.tsx# Section background styling
+│   │   ├── SocialIcon.tsx       # Social media icons
+│   │   ├── Text.tsx             # Typography system
+│   │   ├── Title.tsx            # Heading system
+│   │   ├── Timeline*.tsx        # Timeline components
+│   │   └── ZoomControls.tsx     # Zoom pan pinch controls
 │   ├── domains/                 # 🏗️ Feature Domains
 │   │   ├── common/              # Shared components (Header, Footer, MobileMenu)
 │   │   ├── home/                # Home page features
 │   │   │   ├── hero/            # Landing introduction & social links
-│   │   │   └── expertise/       # Skills showcase & expertise cards
+│   │   │   ├── expertise/       # Skills showcase & expertise cards
+│   │   │   ├── skills/          # Technical skills display
+│   │   │   └── faq/             # Frequently asked questions
 │   │   ├── blog/                # Blog functionality & search
 │   │   ├── experience/          # Experience timeline & cards
 │   │   └── projects/            # Projects showcase & collaboration
+│   ├── collections/             # 📦 Payload CMS collections
+│   ├── lib/                     # 📚 Client helpers & API wrappers
 │   ├── i18n/                    # 🌐 Internationalization
 │   │   ├── config.ts            # i18n configuration
 │   │   ├── request.ts           # Server-side i18n utilities
@@ -79,7 +99,6 @@ This project follows a **domain-driven architecture** with clear separation of c
 │   ├── assets/images/           # 📸 Optimized images & logos
 │   ├── types/                   # 📝 TypeScript type definitions
 │   ├── hooks/                   # 🔧 Custom React hooks
-│   ├── test/utils/              # 🧪 Test utilities & helpers
 │   └── utils/                   # 📚 Utility functions
 ├── 🧪 integration-tests/        # E2E Testing Suite
 │   ├── page-objects/            # Page Object Model Architecture
@@ -88,7 +107,7 @@ This project follows a **domain-driven architecture** with clear separation of c
 │   │   ├── base.page.ts         # Abstract base class for pages
 │   │   └── base.section.ts      # Abstract base class for sections
 │   ├── fixtures/                # Test fixtures & dependency injection
-│   └── *.spec.ts-snapshots/    # Visual regression baselines
+│   └── __screenshots__/         # Visual regression baselines
 └── 🎯 public/                   # Static assets & favicons
 ```
 
@@ -114,6 +133,36 @@ This project follows a **domain-driven architecture** with clear separation of c
 - Optimized layouts for all device sizes
 - Progressive enhancement from mobile to desktop
 
+## 📝 Blog & Content Management
+
+![Payload CMS](https://img.shields.io/badge/Payload%20CMS-3.75-000000?style=flat-square&logo=payload) ![Neon](https://img.shields.io/badge/Neon-Serverless%20Postgres-00E5A0?style=flat-square&logo=neon) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=flat-square&logo=postgresql)
+
+The blog is powered by **Payload CMS** backed by **Neon** (serverless PostgreSQL), using the **Lexical** rich text editor for content authoring and **Vercel Blob** for media storage. Payload's Local API bypasses the HTTP layer entirely — data flows directly from the database through a transform/API layer into React components.
+
+**Blog Features:**
+
+- Search and tag-based filtering for discovering posts
+- Featured posts and estimated read time
+- Syntax highlighting with **Shiki** and **Mermaid** diagram support
+- Draft previews for unpublished content
+- Full i18n support (English & Dutch)
+
+**Preview Deploy Database Branching:**
+
+Each pull request gets its own isolated database, so preview deploys never touch production data:
+
+```mermaid
+graph LR
+    A[PR Opened] --> B[Neon branches production DB]
+    B --> C[Vercel deploys preview with branch DB]
+    C --> D[PR Merged]
+    D --> E[Neon branch cleaned up]
+
+    style A fill:#e3f2fd,stroke:#2196f3,color:#000000
+    style C fill:#e8f5e8,stroke:#4caf50,color:#000000
+    style E fill:#fff3e0,stroke:#ff9800,color:#000000
+```
+
 ## 🧪 Testing Strategy
 
 This project maintains **100% code coverage** through a comprehensive three-tier testing strategy:
@@ -127,7 +176,7 @@ This project maintains **100% code coverage** through a comprehensive three-tier
 - **Run**: `pnpm test:unit`
 
 ```bash
-✅ 591 unit tests passing
+✅ 808 unit tests passing
 ✅ 100% code coverage maintained
 ```
 
@@ -141,7 +190,7 @@ This project maintains **100% code coverage** through a comprehensive three-tier
 - **Run**: `pnpm test:integration`
 
 ```bash
-✅ 88 integration tests passing
+✅ 101 integration tests passing
 ✅ Chrome & Firefox coverage
 ✅ Section-based page object architecture
 ✅ Strict mode violation prevention
@@ -161,10 +210,10 @@ This project maintains **100% code coverage** through a comprehensive three-tier
 - **Method**: Automated screenshot comparisons with baseline images
 - **Coverage**: Header, Hero, Expertise, Blog sections with dedicated visual tests
 - **Browsers**: Chrome & Firefox with platform-specific baselines
-- **Storage**: Baselines in `integration-tests/*.spec.ts-snapshots/` directories
+- **Storage**: Baselines in `integration-tests/__screenshots__/` directory
 
 ```bash
-✅ 20 visual regression tests passing
+✅ 18 visual regression tests passing
 ✅ Visual regression tests for major UI sections
 ✅ Multi-browser screenshot validation (Chrome/Firefox)
 ✅ Automated baseline management with --update-snapshots
@@ -218,22 +267,16 @@ graph TD
 
 ```typescript
 // test/msw/defaultHandlers.ts - Centralized API mocks
-export const defaultHandlers = [
-  rest.get('/api/blog/posts', (req, res, ctx) => {
-    return res(ctx.json(mockBlogPosts))
-  }),
-  rest.get('/api/projects', (req, res, ctx) => {
-    return res(ctx.json(mockProjects))
-  }),
-]
+// Note: Payload Local API doesn't require HTTP mocking.
+// Mock data is returned directly from api.ts when NEXT_PUBLIC_MOCK_BACKEND='true'
+export const defaultHandlers: never[] = []
 
-// Shared across environments:
+// MSW is used for browser-level request interception in:
 // - Development server (browser)
-// - Unit tests (happy-dom)
-// - Integration tests (Playwright)
+// - Integration tests (Playwright via @msw/playwright)
 ```
 
-This approach eliminates the need for actual backend services during development and testing, enabling faster iteration cycles and more reliable test outcomes.
+The project uses **Payload CMS** with its Local API, which bypasses HTTP entirely for data access. Mock data is served through the application's own API layer (`NEXT_PUBLIC_MOCK_BACKEND='true'`), while MSW handles browser-level request interception for development and integration testing.
 
 ## 🔄 Test-Driven Development Workflow
 
@@ -334,14 +377,14 @@ graph LR
 
 ### ⚡ Pipeline Stages
 
-| Stage                    | Purpose                          | Tools             | Status                                                                |
-| ------------------------ | -------------------------------- | ----------------- | --------------------------------------------------------------------- |
-| **🔍 Lint & Format**     | Code style & quality enforcement | ESLint + Prettier | ![Badge](https://img.shields.io/badge/ESLint-Passing-brightgreen)     |
-| **🏗️ Build**             | Application build verification   | Next.js           | ![Badge](https://img.shields.io/badge/Build-Passing-brightgreen)      |
-| **📋 Typecheck**         | Static type analysis             | TypeScript        | ![Badge](https://img.shields.io/badge/TypeScript-Strict-blue)         |
-| **🧪 Unit Tests**        | Component & logic testing        | Vitest + RTL      | ![Badge](https://img.shields.io/badge/Coverage-100%25-brightgreen)    |
-| **🌐 Integration Tests** | E2E testing workflows            | Playwright        | ![Badge](https://img.shields.io/badge/Tests-88%20passing-brightgreen) |
-| **🖼️ Visual Regression** | Visual regression testing        | Playwright        | ![Badge](https://img.shields.io/badge/Tests-20%20passing-brightgreen) |
+| Stage                    | Purpose                          | Tools             | Status                                                                 |
+| ------------------------ | -------------------------------- | ----------------- | ---------------------------------------------------------------------- |
+| **🔍 Lint & Format**     | Code style & quality enforcement | ESLint + Prettier | ![Badge](https://img.shields.io/badge/ESLint-Passing-brightgreen)      |
+| **🏗️ Build**             | Application build verification   | Next.js           | ![Badge](https://img.shields.io/badge/Build-Passing-brightgreen)       |
+| **📋 Typecheck**         | Static type analysis             | TypeScript        | ![Badge](https://img.shields.io/badge/TypeScript-Strict-blue)          |
+| **🧪 Unit Tests**        | Component & logic testing        | Vitest + RTL      | ![Badge](https://img.shields.io/badge/Coverage-100%25-brightgreen)     |
+| **🌐 Integration Tests** | E2E testing workflows            | Playwright        | ![Badge](https://img.shields.io/badge/Tests-101%20passing-brightgreen) |
+| **🖼️ Visual Regression** | Visual regression testing        | Playwright        | ![Badge](https://img.shields.io/badge/Tests-18%20passing-brightgreen)  |
 
 ### 🎯 Key Features
 
