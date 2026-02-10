@@ -81,10 +81,8 @@ export default mergeConfig(
           'src/test/**',
           'src/types/project.ts',
           'src/types/lexical.ts',
-          'src/lib/contentful-types.ts',
           'src/lib/constants.ts',
           'src/domains/home/skills/Technology.ts',
-          'src/ui/Markdown.tsx', // Will be replaced by PayloadRichText.tsx
           'src/lib/api.ts', // Payload Local API paths will be tested with real DB
         ],
       },

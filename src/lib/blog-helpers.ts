@@ -86,7 +86,7 @@ export const truncateDescription = (
   return text.substring(0, maxLength).trim() + '...'
 }
 
-// Utility function to ensure Contentful asset URLs are absolute HTTPS URLs
+// Utility function to ensure asset URLs are absolute HTTPS URLs
 export const ensureAbsoluteUrl = (url: string | undefined): string => {
   if (!url) return ''
 

@@ -126,7 +126,7 @@ describe('BlogPage', () => {
     render(await BlogPage({ searchParams: Promise.resolve({}) }))
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      'Failed to fetch blog posts from Contentful:',
+      'Failed to fetch blog posts:',
       expect.any(Error)
     )
     expect(

@@ -37,7 +37,7 @@ test.describe('Blog Post Page', () => {
 
   test('displays blog post content', async ({ blogPostPage }) => {
     await expect(blogPostPage.content.section).toBeVisible()
-    await expect(blogPostPage.content.markdownContent).toBeVisible()
+    await expect(blogPostPage.content.richTextContent).toBeVisible()
   })
 
   test('displays related posts section', async ({ blogPostPage }) => {
@@ -147,7 +147,7 @@ test.describe('Blog Post Page - Multiple Posts', () => {
 
 test.describe('Blog Post Page - Content Features', () => {
   test('displays markdown content elements', async ({ blogPostPage }) => {
-    await expect(blogPostPage.content.markdownContent).toBeVisible()
+    await expect(blogPostPage.content.richTextContent).toBeVisible()
     await expect(blogPostPage.content.paragraphs).toHaveCount(2)
   })
 
