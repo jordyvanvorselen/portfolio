@@ -29,6 +29,13 @@ export const Posts: CollectionConfig = {
       admin: {
         description: 'URL-friendly identifier for the post',
       },
+      validate: (value: string | null | undefined) => {
+        const kebabCaseRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+        if (!value || !kebabCaseRegex.test(value)) {
+          return 'Slug must be kebab-case (e.g., my-blog-post)'
+        }
+        return true
+      },
     },
     {
       name: 'description',
@@ -57,9 +64,27 @@ export const Posts: CollectionConfig = {
     },
     {
       name: 'tags',
-      type: 'json',
+      type: 'select',
+      hasMany: true,
+      options: [
+        { label: 'React', value: 'React' },
+        { label: 'JavaScript', value: 'JavaScript' },
+        { label: 'TypeScript', value: 'TypeScript' },
+        { label: 'Frontend', value: 'Frontend' },
+        { label: 'Backend', value: 'Backend' },
+        { label: 'Python', value: 'Python' },
+        { label: 'DevOps', value: 'DevOps' },
+        { label: 'Testing', value: 'Testing' },
+        { label: 'Architecture', value: 'Architecture' },
+        { label: 'Performance', value: 'Performance' },
+        { label: 'TDD', value: 'TDD' },
+        { label: 'Next.js', value: 'Next.js' },
+        { label: 'Node.js', value: 'Node.js' },
+        { label: 'CSS', value: 'CSS' },
+        { label: 'Database', value: 'Database' },
+      ],
       admin: {
-        description: 'Array of tags/topics (stored as JSON array of strings)',
+        description: 'Tags/topics for the post',
       },
     },
     {
@@ -68,6 +93,15 @@ export const Posts: CollectionConfig = {
       admin: {
         description:
           'Optional canonical URL if this post was originally published elsewhere',
+      },
+      validate: (value: string | null | undefined) => {
+        if (!value) return true
+        const urlRegex =
+          /^(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?$/
+        if (!urlRegex.test(value)) {
+          return 'Must be a valid URL (http/https/ftp)'
+        }
+        return true
       },
     },
     {

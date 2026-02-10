@@ -25,7 +25,25 @@ export interface Post {
   description: string
   publicationDate: string
   featuredImage?: string | Media
-  tags?: unknown
+  tags?:
+    | (
+        | 'React'
+        | 'JavaScript'
+        | 'TypeScript'
+        | 'Frontend'
+        | 'Backend'
+        | 'Python'
+        | 'DevOps'
+        | 'Testing'
+        | 'Architecture'
+        | 'Performance'
+        | 'TDD'
+        | 'Next.js'
+        | 'Node.js'
+        | 'CSS'
+        | 'Database'
+      )[]
+    | null
   canonicalUrl?: string
   content: unknown
   updatedAt: string
