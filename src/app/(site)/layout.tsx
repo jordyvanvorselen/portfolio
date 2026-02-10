@@ -7,6 +7,7 @@ import { Footer } from '@/domains/common/Footer'
 import { MockServiceWorkerWrapper } from '@/test/msw/MockServiceWorkerWrapper.component'
 import { isExcluded } from '@/test/msw/exclude'
 
+import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
 // Setup MSW server in development/test when mocking is enabled
@@ -46,6 +47,7 @@ export default async function RootLayout({
             {children}
             <Footer />
             <SpeedInsights />
+            <Analytics />
           </MockServiceWorkerWrapper>
         </NextIntlClientProvider>
       </body>
