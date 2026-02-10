@@ -583,6 +583,75 @@ describe('PayloadRichText', () => {
     expect(richText).toHaveTextContent('')
   })
 
+  it('renders upload nodes as images', () => {
+    const editorState: SerializedEditorState = {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'upload',
+            fields: null,
+            value: {
+              url: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935',
+              alt: 'Python programming',
+              width: 800,
+              height: 400,
+            },
+            relationTo: 'media',
+            children: [],
+            version: 1,
+          },
+        ],
+        direction: null,
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    } as unknown as SerializedEditorState
+
+    render(<PayloadRichText data={editorState} />)
+
+    const image = screen.getByRole('img', { name: 'Python programming' })
+    expect(image).toBeVisible()
+    expect(image.getAttribute('src')).toContain(
+      'images.unsplash.com%2Fphoto-1526379095098-d400fd0bf935'
+    )
+    expect(image).toHaveAttribute('width', '800')
+    expect(image).toHaveAttribute('height', '400')
+  })
+
+  it('renders upload nodes with missing alt as empty string', () => {
+    const editorState: SerializedEditorState = {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'upload',
+            fields: null,
+            value: {
+              url: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935',
+            },
+            relationTo: 'media',
+            children: [],
+            version: 1,
+          },
+        ],
+        direction: null,
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    } as unknown as SerializedEditorState
+
+    render(<PayloadRichText data={editorState} />)
+
+    const image = screen.getByRole('presentation')
+    expect(image).toBeVisible()
+    expect(image).toHaveAttribute('alt', '')
+    expect(image).toHaveAttribute('width', '800')
+    expect(image).toHaveAttribute('height', '400')
+  })
+
   it('renders unknown block types with default div wrapper', () => {
     const editorState: SerializedEditorState = {
       root: {

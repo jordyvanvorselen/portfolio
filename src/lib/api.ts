@@ -27,6 +27,8 @@ export interface DetailedBlogPost extends BlogPost {
 import {
   mockBlogPosts,
   mockContent,
+  mockContentWithMermaid,
+  mockContentWithImages,
 } from '@/test/msw/mock-data/blog-posts.mock'
 
 const isMockBackend = (): boolean => {
@@ -160,10 +162,14 @@ export async function getDetailedPostBySlug(
     const mockPost = mockBlogPosts.find(p => p.slug === slug)
     if (!mockPost) return null
 
-    // Create detailed post with mock content
+    const mockContentMap: Record<string, SerializedEditorState> = {
+      'typescript-advanced': mockContentWithMermaid,
+      'python-tips': mockContentWithImages,
+    }
+
     return {
       ...mockPost,
-      content: mockContent,
+      content: mockContentMap[slug] ?? mockContent,
     }
   }
 

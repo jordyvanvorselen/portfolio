@@ -202,6 +202,57 @@ export const mockContentWithMermaid: SerializedEditorState = {
   },
 } as unknown as SerializedEditorState
 
+// Mock content with image upload node
+export const mockContentWithImages: SerializedEditorState = {
+  root: {
+    type: 'root',
+    children: [
+      {
+        type: 'heading',
+        tag: 'h2',
+        children: [
+          {
+            type: 'text',
+            text: 'Python Development Tips',
+            format: 0,
+            version: 1,
+          },
+        ],
+        version: 1,
+      },
+      {
+        type: 'upload',
+        fields: null,
+        value: {
+          url: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=800&h=400&fit=crop',
+          alt: 'Python programming',
+          width: 800,
+          height: 400,
+        },
+        relationTo: 'media',
+        children: [],
+        version: 1,
+      },
+      {
+        type: 'paragraph',
+        children: [
+          {
+            type: 'text',
+            text: 'Here are some useful Python tips for better development.',
+            format: 0,
+            version: 1,
+          },
+        ],
+        version: 1,
+      },
+    ],
+    direction: null,
+    format: '',
+    indent: 0,
+    version: 1,
+  },
+} as unknown as SerializedEditorState
+
 // Mock blog posts array for Payload API
 export const mockBlogPosts: BlogPost[] = [
   {

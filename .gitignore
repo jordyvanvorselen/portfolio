@@ -40,6 +40,9 @@ yarn-error.log*
 # payload auto-generated
 src/app/(payload)/admin/importMap.js
 
+# payload media uploads
+/media/
+
 # vercel
 .vercel
 
