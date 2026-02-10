@@ -1,44 +1,28 @@
-/**
- * Migration script: Contentful -> PayloadCMS
- *
- * Fetches all blog posts from Contentful, downloads/uploads images to Payload,
- * transforms Contentful Rich Text AST to Lexical AST (including CodeBlock resolution),
- * and imports posts into Payload.
- *
- * Idempotent: skips posts that already exist (matched by slug).
- *
- * NOTE: This standalone script may not work outside Next.js due to Payload's
- * dependency on @next/env. Prefer the admin migration page at /admin/migrate.
- *
- * Usage:
- *   DATABASE_URL="..." PAYLOAD_SECRET="..." \
- *   CONTENTFUL_SPACE_ID="..." CONTENTFUL_ACCESS_TOKEN="..." \
- *   npx ts-node scripts/migrate-contentful-to-payload.ts
- *
- * Environment variables:
- *   - DATABASE_URL: PostgreSQL connection string for Payload
- *   - PAYLOAD_SECRET: Payload secret key
- *   - CONTENTFUL_SPACE_ID: Contentful space ID
- *   - CONTENTFUL_ACCESS_TOKEN: Contentful Content Delivery API access token
- *   - CONTENTFUL_ENVIRONMENT: Contentful environment (default: 'master')
- *   - CONTENTFUL_CONTENT_TYPE: Contentful content type ID to migrate (default: 'blogPost')
- *   - CONTENTFUL_USE_PREVIEW: Set to 'true' to use the Preview API (includes draft content)
- *   - CONTENTFUL_PREVIEW_ACCESS_TOKEN: Content Preview API access token (required when CONTENTFUL_USE_PREVIEW is set)
- */
+'use server'
 
-import { createClient, type EntrySkeletonType, type Entry } from 'contentful'
+import { headers } from 'next/headers'
 import { getPayload } from 'payload'
-// eslint-disable-next-line no-restricted-imports -- standalone script, path aliases unavailable
-import config from '../src/payload.config'
-// eslint-disable-next-line no-restricted-imports -- standalone script, path aliases unavailable
+import config from '@payload-config'
+import { createClient, type EntrySkeletonType, type Entry } from 'contentful'
 import {
   transformRichText,
   type ContentfulNode,
   type LinkedEntriesMap,
   type LinkedEntry,
-} from '../src/lib/contentful-to-lexical'
+} from '@/lib/contentful-to-lexical'
 
-// --- Image upload helper ---
+export interface ContentType {
+  id: string
+  name: string
+}
+
+export interface MigrationResult {
+  total: number
+  success: number
+  skipped: number
+  errors: number
+  log: string[]
+}
 
 interface ContentfulFileDetails {
   url: string
@@ -52,11 +36,12 @@ const uploadImage = async (
     title?: string
     description?: string
     file?: ContentfulFileDetails
-  }
+  },
+  log: string[]
 ): Promise<number | null> => {
   const file = imageFields.file
   if (!file) {
-    console.warn('  [WARN] Featured image has no file field')
+    log.push('  [WARN] Featured image has no file field')
     return null
   }
 
@@ -65,13 +50,12 @@ const uploadImage = async (
     url = `https:${url}`
   }
 
-  const description =
-    imageFields.description ?? imageFields.title ?? 'Blog post image'
+  const description = imageFields.description ?? imageFields.title ?? 'Blog post image'
 
-  console.log(`  Downloading image: ${url}`)
+  log.push(`  Downloading image: ${url}`)
   const response = await fetch(url)
   if (!response.ok) {
-    console.error(`  [ERROR] Failed to download image: ${response.status}`)
+    log.push(`  [ERROR] Failed to download image: ${response.status}`)
     return null
   }
 
@@ -89,70 +73,86 @@ const uploadImage = async (
     },
   })
 
-  console.log(`  Uploaded image as media ID: ${mediaDoc.id}`)
+  log.push(`  Uploaded image as media ID: ${mediaDoc.id}`)
   return mediaDoc.id as number
 }
 
-// --- Main migration ---
-
-const migrate = async () => {
-  console.log('=== Contentful -> PayloadCMS Migration ===\n')
-
-  // Validate env vars
+const createContentfulClient = (usePreview: boolean) => {
   const spaceId = process.env['CONTENTFUL_SPACE_ID']
   const environment = process.env['CONTENTFUL_ENVIRONMENT'] ?? 'master'
-  const contentType = process.env['CONTENTFUL_CONTENT_TYPE'] ?? 'blogPost'
-  const usePreview = process.env['CONTENTFUL_USE_PREVIEW'] === 'true'
 
   if (!spaceId) {
-    console.error('Missing required environment variable: CONTENTFUL_SPACE_ID')
-    process.exit(1)
+    throw new Error('Missing required environment variable: CONTENTFUL_SPACE_ID')
   }
 
-  // Connect to Contentful
-  let contentfulClient
   if (usePreview) {
     const previewToken = process.env['CONTENTFUL_PREVIEW_ACCESS_TOKEN']
     if (!previewToken) {
-      console.error(
+      throw new Error(
         'Missing required environment variable: CONTENTFUL_PREVIEW_ACCESS_TOKEN (needed for Preview API)'
       )
-      process.exit(1)
     }
-    contentfulClient = createClient({
+    return createClient({
       space: spaceId,
       accessToken: previewToken,
       host: 'preview.contentful.com',
       environment,
     })
-    console.log('Connected to Contentful (Preview API)\n')
-  } else {
-    const accessToken = process.env['CONTENTFUL_ACCESS_TOKEN']
-    if (!accessToken) {
-      console.error(
-        'Missing required environment variable: CONTENTFUL_ACCESS_TOKEN'
-      )
-      process.exit(1)
-    }
-    contentfulClient = createClient({
-      space: spaceId,
-      accessToken,
-      environment,
-    })
-    console.log('Connected to Contentful\n')
   }
 
-  // Connect to Payload
+  const accessToken = process.env['CONTENTFUL_ACCESS_TOKEN']
+  if (!accessToken) {
+    throw new Error('Missing required environment variable: CONTENTFUL_ACCESS_TOKEN')
+  }
+  return createClient({
+    space: spaceId,
+    accessToken,
+    environment,
+  })
+}
+
+export const fetchContentTypes = async (usePreview: boolean): Promise<ContentType[]> => {
   const payload = await getPayload({ config })
-  console.log('Connected to Payload\n')
+  const { user } = await payload.auth({ headers: await headers() })
+
+  if (!user) {
+    throw new Error('Unauthorized: you must be logged in as an admin user.')
+  }
+
+  const contentfulClient = createContentfulClient(usePreview)
+  const response = await contentfulClient.getContentTypes()
+
+  return response.items.map((ct) => ({ id: ct.sys.id, name: ct.name }))
+}
+
+export const runMigration = async (
+  contentType: string,
+  usePreview: boolean
+): Promise<MigrationResult> => {
+  const log: string[] = []
+
+  // Auth check: verify caller is a logged-in admin user
+  const payload = await getPayload({ config })
+  const { user } = await payload.auth({ headers: await headers() })
+
+  if (!user) {
+    throw new Error('Unauthorized: you must be logged in as an admin user.')
+  }
+
+  log.push('=== Contentful -> PayloadCMS Migration ===')
+  log.push(`Authenticated as: ${user.email}`)
+
+  // Connect to Contentful
+  const contentfulClient = createContentfulClient(usePreview)
+  log.push(`Connected to Contentful${usePreview ? ' (Preview API)' : ''}`)
 
   // Fetch all entries for the given content type from Contentful
-  console.log(`Fetching "${contentType}" entries from Contentful...`)
+  log.push(`Fetching "${contentType}" entries from Contentful...`)
   const entries = await contentfulClient.getEntries<EntrySkeletonType>({
     content_type: contentType,
     include: 10,
   })
-  console.log(`Found ${entries.items.length} entries\n`)
+  log.push(`Found ${entries.items.length} entries`)
 
   // Build linked entries map for resolving embedded entries
   const linkedEntries: LinkedEntriesMap = new Map()
@@ -170,12 +170,14 @@ const migrate = async () => {
   let skipCount = 0
   let errorCount = 0
 
+  const warn = (msg: string) => log.push(`  [WARN] ${msg}`)
+
   for (const entry of entries.items) {
     const fields = entry.fields as Record<string, unknown>
     const title = fields['title'] as string
     const slug = fields['slug'] as string
 
-    console.log(`Processing: "${title}" (${slug})`)
+    log.push(`Processing: "${title}" (${slug})`)
 
     try {
       // Idempotency check: skip if post with same slug exists
@@ -186,7 +188,7 @@ const migrate = async () => {
       })
 
       if (existing.docs.length > 0) {
-        console.log('  Skipped (already exists)\n')
+        log.push('  Skipped (already exists)')
         skipCount++
         continue
       }
@@ -203,14 +205,14 @@ const migrate = async () => {
           }
         | undefined
       if (featuredImage?.fields) {
-        mediaId = await uploadImage(payload, featuredImage.fields)
+        mediaId = await uploadImage(payload, featuredImage.fields, log)
       } else if (featuredImage) {
-        console.warn('  [WARN] Featured image is an unresolved link, skipping')
+        log.push('  [WARN] Featured image is an unresolved link, skipping')
       }
 
       // Transform rich text content
       const richTextDocument = fields['content'] as ContentfulNode
-      const lexicalContent = transformRichText(richTextDocument, linkedEntries)
+      const lexicalContent = transformRichText(richTextDocument, linkedEntries, warn)
 
       // Extract other fields
       const description = (fields['description'] as string) ?? ''
@@ -243,26 +245,35 @@ const migrate = async () => {
         data: postData,
       })
 
-      console.log('  Created successfully\n')
+      log.push('  Created successfully')
       successCount++
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err)
-      console.error(`  [ERROR] Failed to migrate "${title}": ${message}\n`)
+      log.push(`  [ERROR] Failed to migrate "${title}": ${message}`)
+      const data = (err as { data?: { errors?: Array<{ path: string; message: string }> } })
+        .data
+      if (data?.errors) {
+        for (const fieldErr of data.errors) {
+          log.push(`    -> ${fieldErr.path}: ${fieldErr.message}`)
+        }
+      }
       errorCount++
     }
   }
 
   // Summary
-  console.log('=== Migration Summary ===')
-  console.log(`  Total:   ${entries.items.length}`)
-  console.log(`  Success: ${successCount}`)
-  console.log(`  Skipped: ${skipCount}`)
-  console.log(`  Errors:  ${errorCount}`)
+  log.push('')
+  log.push('=== Migration Summary ===')
+  log.push(`  Total:   ${entries.items.length}`)
+  log.push(`  Success: ${successCount}`)
+  log.push(`  Skipped: ${skipCount}`)
+  log.push(`  Errors:  ${errorCount}`)
 
-  process.exit(errorCount > 0 ? 1 : 0)
+  return {
+    total: entries.items.length,
+    success: successCount,
+    skipped: skipCount,
+    errors: errorCount,
+    log,
+  }
 }
-
-migrate().catch(err => {
-  console.error('Migration failed:', err)
-  process.exit(1)
-})

@@ -84,6 +84,7 @@ export default mergeConfig(
           'src/lib/constants.ts',
           'src/domains/home/skills/Technology.ts',
           'src/lib/api.ts', // Payload Local API paths will be tested with real DB
+          'src/lib/contentful-to-lexical.ts', // Migration utility, tested via admin migration page
         ],
       },
     },
