@@ -37,9 +37,6 @@ yarn-error.log*
 # claude local settings
 .claude/settings.local.json
 
-# payload auto-generated
-src/app/(payload)/admin/importMap.js
-
 # payload media uploads
 /media/
 
