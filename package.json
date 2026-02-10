@@ -2,6 +2,7 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -16,7 +17,9 @@
     "test:integration:ci": "playwright test --grep-invert 'visual regression'",
     "test:visual-regression": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci'",
     "test:visual-regression:ci": "NODE_ENV=test playwright test --grep='visual regression'",
-    "test:visual-regression:fix": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci --update-snapshots'"
+    "test:visual-regression:fix": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci --update-snapshots'",
+    "payload": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
+    "ci": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload migrate && next build"
   },
   "dependencies": {
     "@devicon/react": "^0.0.3",
@@ -57,7 +60,6 @@
     "shiki": "^3.22.0"
   },
   "devDependencies": {
-    "contentful": "^11.10.3",
     "@eslint/eslintrc": "^3.3.3",
     "@msw/playwright": "^0.4.5",
     "@next/env": "^16.1.6",
@@ -70,6 +72,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react-swc": "^4.2.3",
     "@vitest/coverage-v8": "^4.0.18",
+    "contentful": "^11.10.3",
     "deepmerge": "^4.3.1",
     "eslint": "^9.39.2",
     "eslint-config-next": "16.1.6",

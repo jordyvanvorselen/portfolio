@@ -243,6 +243,7 @@ export const runMigration = async (
       await payload.create({
         collection: 'posts',
         data: postData,
+        draft: true,
       })
 
       log.push('  Created successfully')

@@ -241,6 +241,7 @@ const migrate = async () => {
       await payload.create({
         collection: 'posts',
         data: postData,
+        draft: true,
       })
 
       console.log('  Created successfully\n')
