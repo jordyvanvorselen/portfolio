@@ -1,4 +1,15 @@
 services:
+  postgres:
+    image: postgres:16
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: payload
+      POSTGRES_PASSWORD: payload
+      POSTGRES_DB: payload
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   playwright:
     image: mcr.microsoft.com/playwright:v1.58.1-noble
     working_dir: /app
@@ -13,3 +24,4 @@ services:
 
 volumes:
   node_modules:
+  postgres_data:

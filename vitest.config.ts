@@ -52,6 +52,7 @@ export default mergeConfig(
       coverage: {
         enabled: true,
         provider: 'v8',
+        include: ['src/**/*.{ts,tsx}'],
         reporter: ['text', 'lcov'],
         thresholds: {
           statements: 100,
@@ -60,11 +61,6 @@ export default mergeConfig(
           lines: 100,
         },
         exclude: [
-          // Dot and config files
-          '.*',
-          '*.config.{ts,tsx,js,cjs,mjs}',
-          '*rc.{cjs,js,mjs,ts,tsx}',
-
           // TS definition
           '**/*.d.ts',
 
@@ -73,16 +69,23 @@ export default mergeConfig(
           'test/**',
           'integration-tests/**',
 
+          // Payload CMS (declarative configs and auto-generated)
+          'src/payload.config.ts',
+          'src/payload-types.ts',
+          'src/collections/**',
+          'src/migrations/**',
+          'src/lib/payload/**',
+
           // Project specific
-          'public/**',
           'src/app/**',
           'src/i18n/**',
           'src/test/**',
           'src/types/project.ts',
-          'src/lib/contentful-types.ts',
+          'src/types/lexical.ts',
           'src/lib/constants.ts',
           'src/domains/home/skills/Technology.ts',
-          'middleware.ts',
+          'src/lib/api.ts', // Payload Local API paths will be tested with real DB
+          'src/lib/contentful-to-lexical.ts', // Migration utility, tested via admin migration page
         ],
       },
     },

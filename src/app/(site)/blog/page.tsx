@@ -30,7 +30,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   try {
     allBlogPosts = await getAllPosts(process.env['VERCEL_ENV'] !== 'production')
   } catch (error) {
-    console.error('Failed to fetch blog posts from Contentful:', error)
+    console.error('Failed to fetch blog posts:', error)
   }
 
   const uniqueTags = getUniqueTagsFromPosts(allBlogPosts)

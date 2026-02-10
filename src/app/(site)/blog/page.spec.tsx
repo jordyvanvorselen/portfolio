@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
 
-import BlogPage, { generateMetadata } from '@/app/blog/page'
+import BlogPage, { generateMetadata } from '@/app/(site)/blog/page'
 import * as api from '@/lib/api'
 
 vi.mock('@/lib/api', () => ({
@@ -126,7 +126,7 @@ describe('BlogPage', () => {
     render(await BlogPage({ searchParams: Promise.resolve({}) }))
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      'Failed to fetch blog posts from Contentful:',
+      'Failed to fetch blog posts:',
       expect.any(Error)
     )
     expect(

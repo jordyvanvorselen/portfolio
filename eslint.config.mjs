@@ -11,6 +11,8 @@ const eslintConfig = defineConfig([
     'build/**',
     'next-env.d.ts',
     'coverage/**',
+    'src/app/(payload)/**',
+    'src/migrations/**',
   ]),
   {
     rules: {

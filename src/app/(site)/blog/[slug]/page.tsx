@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 
 import { getDetailedPostBySlug, getPostAndMorePosts } from '@/lib/api'
-import { Markdown, enhanceContentWithSyntaxHighlighting } from '@/ui/Markdown'
+import { extractAndHighlightCodeBlocks } from '@/lib/payload-richtext-helpers'
+import { PayloadRichText } from '@/ui/PayloadRichText'
 import { Title } from '@/ui/Title'
 import { Text } from '@/ui/Text'
 import { Badge } from '@/ui/Badge'
@@ -62,8 +63,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     process.env['VERCEL_ENV'] !== 'production'
   )
 
-  // Enhance content with syntax highlighting
-  const enhancedContent = await enhanceContentWithSyntaxHighlighting(
+  // Pre-highlight code blocks for Shiki syntax highlighting
+  const highlightedCodeBlocks = await extractAndHighlightCodeBlocks(
     post.content
   )
 
@@ -160,7 +161,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         data-testid="blog-post-content-section"
         className="max-w-4xl mx-auto px-6 sm:px-6 lg:px-8 pb-16"
       >
-        <Markdown content={enhancedContent} />
+        <PayloadRichText
+          data={post.content}
+          highlightedCodeBlocks={highlightedCodeBlocks}
+        />
       </section>
 
       {/* Related Posts */}

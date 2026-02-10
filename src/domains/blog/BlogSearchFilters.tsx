@@ -41,7 +41,8 @@ export const BlogSearchFiltersClient = ({
     const newUrl = queryString ? `/blog?${queryString}` : '/blog'
 
     router.push(newUrl, { scroll: false })
-  }, [debouncedSearch, searchParams, router])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearch])
 
   const handleFilterClick = (tag: string) => {
     const params = new URLSearchParams(searchParams.toString())

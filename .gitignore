@@ -37,6 +37,9 @@ yarn-error.log*
 # claude local settings
 .claude/settings.local.json
 
+# payload media uploads
+/media/
+
 # vercel
 .vercel
 

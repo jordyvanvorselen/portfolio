@@ -1,4 +1,8 @@
-import type { Document, Node, Text } from '@contentful/rich-text-types'
+import type {
+  SerializedEditorState,
+  SerializedTextNode,
+  SerializedElementNode,
+} from '@/types/lexical'
 
 export const formatDate = (
   dateString: string,
@@ -12,7 +16,7 @@ export const formatDate = (
   }).format(date)
 }
 
-export const calculateReadTime = (content: Document): string => {
+export const calculateReadTime = (content: SerializedEditorState): string => {
   const text = extractTextFromRichText(content)
   const wordsPerMinute = 200
   const words = text.split(/\s+/).length
@@ -20,20 +24,57 @@ export const calculateReadTime = (content: Document): string => {
   return `${minutes} min read`
 }
 
-export const extractTextFromRichText = (document: Document): string => {
-  let text = ''
+const isTextNode = (node: unknown): node is SerializedTextNode => {
+  return (
+    typeof node === 'object' &&
+    node !== null &&
+    'type' in node &&
+    node.type === 'text'
+  )
+}
 
-  const traverse = (node: Node) => {
-    if (node.nodeType === 'text') {
-      text += (node as Text).value + ' '
+const isElementNode = (node: unknown): node is SerializedElementNode => {
+  return (
+    typeof node === 'object' &&
+    node !== null &&
+    'type' in node &&
+    'children' in node &&
+    Array.isArray((node as SerializedElementNode).children)
+  )
+}
+
+export const extractTextFromRichText = (
+  editorState: SerializedEditorState
+): string => {
+  let text = ''
+  let needsSpace = false
+
+  const traverse = (node: unknown): void => {
+    if (isTextNode(node)) {
+      if (needsSpace && text.length > 0) {
+        text += ' '
+      }
+      text += node.text
+      needsSpace = false
     }
 
-    if ('content' in node && Array.isArray(node.content)) {
-      node.content.forEach(traverse)
+    if (isElementNode(node)) {
+      node.children.forEach(traverse)
+      // After processing a block-level node's children, add space for the next block
+      if (
+        node.type === 'paragraph' ||
+        node.type === 'heading' ||
+        node.type === 'quote'
+      ) {
+        needsSpace = true
+      }
     }
   }
 
-  traverse(document)
+  if (isElementNode(editorState.root)) {
+    editorState.root.children.forEach(traverse)
+  }
+
   return text.trim()
 }
 
@@ -45,7 +86,7 @@ export const truncateDescription = (
   return text.substring(0, maxLength).trim() + '...'
 }
 
-// Utility function to ensure Contentful asset URLs are absolute HTTPS URLs
+// Utility function to ensure asset URLs are absolute HTTPS URLs
 export const ensureAbsoluteUrl = (url: string | undefined): string => {
   if (!url) return ''
 

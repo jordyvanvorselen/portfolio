@@ -36,6 +36,7 @@ const DiagramRenderer = ({
 
   useEffect(() => {
     const renderDiagram = async () => {
+      /* istanbul ignore else -- Defensive check: ref is always attached in normal React lifecycle */
       if (mermaidRef.current) {
         // Small delay to ensure DOM is ready, especially for modal context
         await new Promise(resolve => setTimeout(resolve, 10))

@@ -1,3 +1,5 @@
 public/
 pnpm-lock.yaml
 coverage/
+src/app/(payload)/
+src/migrations/

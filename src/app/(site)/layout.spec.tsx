@@ -55,7 +55,7 @@ vi.mock('@/hooks/useMediaQuery', () => ({
 // Mock CSS import (unavoidable in Jest)
 vi.mock('./globals.css', () => ({}))
 
-import RootLayout, { generateMetadata } from '@/app/layout'
+import RootLayout, { generateMetadata } from '@/app/(site)/layout'
 
 describe('RootLayout', () => {
   it('renders body content with correct structure', async () => {
