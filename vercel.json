@@ -2,5 +2,5 @@
   "git": {
     "deploymentEnabled": false
   },
-  "buildCommand": "pnpm ci"
+  "buildCommand": "pnpm run ci"
 }
