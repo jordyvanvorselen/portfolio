@@ -87,6 +87,9 @@ export const transformNode = (
       const paragraphNode: LexicalElementNode = {
         type: 'paragraph',
         children: transformChildren(node.content ?? [], linkedEntries, warn),
+        direction: null,
+        format: '',
+        indent: 0,
         version: 1,
       }
       return paragraphNode
@@ -103,6 +106,9 @@ export const transformNode = (
         type: 'heading',
         tag: `h${level}`,
         children: transformChildren(node.content ?? [], linkedEntries, warn),
+        direction: null,
+        format: '',
+        indent: 0,
         version: 1,
       }
       return headingNode
@@ -113,6 +119,9 @@ export const transformNode = (
         type: 'list',
         listType: 'number',
         children: transformChildren(node.content ?? [], linkedEntries, warn),
+        direction: null,
+        format: '',
+        indent: 0,
         version: 1,
       }
       return orderedListNode
@@ -123,6 +132,9 @@ export const transformNode = (
         type: 'list',
         listType: 'bullet',
         children: transformChildren(node.content ?? [], linkedEntries, warn),
+        direction: null,
+        format: '',
+        indent: 0,
         version: 1,
       }
       return unorderedListNode
@@ -132,6 +144,9 @@ export const transformNode = (
       const listItemNode: LexicalElementNode = {
         type: 'listitem',
         children: transformChildren(node.content ?? [], linkedEntries, warn),
+        direction: null,
+        format: '',
+        indent: 0,
         version: 1,
       }
       return listItemNode
@@ -141,6 +156,9 @@ export const transformNode = (
       const quoteNode: LexicalElementNode = {
         type: 'quote',
         children: transformChildren(node.content ?? [], linkedEntries, warn),
+        direction: null,
+        format: '',
+        indent: 0,
         version: 1,
       }
       return quoteNode
@@ -168,6 +186,9 @@ export const transformNode = (
         type: 'link',
         fields: { url },
         children,
+        direction: null,
+        format: '',
+        indent: 0,
         version: 1,
       }
       return linkNode
@@ -201,6 +222,9 @@ export const transformNode = (
             code: (linkedEntry.fields['code'] as string) ?? '',
           },
           children: [],
+          direction: null,
+          format: '',
+          indent: 0,
           version: 2,
         }
         return blockNode

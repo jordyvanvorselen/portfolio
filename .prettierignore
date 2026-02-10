@@ -3,3 +3,4 @@ pnpm-lock.yaml
 coverage/
 src/app/(payload)/
 src/migrations/
+src/payload-types.ts

@@ -13,6 +13,7 @@ const eslintConfig = defineConfig([
     'coverage/**',
     'src/app/(payload)/**',
     'src/migrations/**',
+    'src/payload-types.ts',
   ]),
   {
     rules: {
