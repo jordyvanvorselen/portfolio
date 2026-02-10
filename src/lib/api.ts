@@ -105,6 +105,9 @@ export async function getAllPosts(isDraftMode: boolean): Promise<BlogPost[]> {
     collection: 'posts',
     sort: '-publicationDate',
     draft: isDraftMode,
+    where: {
+      ...(!isDraftMode && { _status: { equals: 'published' } }),
+    },
   })
 
   return result.docs.map(doc => transformPost(doc as Post))
@@ -129,9 +132,8 @@ export async function getPostAndMorePosts(
     payload.find({
       collection: 'posts',
       where: {
-        slug: {
-          equals: slug,
-        },
+        slug: { equals: slug },
+        ...(!preview && { _status: { equals: 'published' } }),
       },
       limit: 1,
       draft: preview,
@@ -139,9 +141,8 @@ export async function getPostAndMorePosts(
     payload.find({
       collection: 'posts',
       where: {
-        slug: {
-          not_equals: slug,
-        },
+        slug: { not_equals: slug },
+        ...(!preview && { _status: { equals: 'published' } }),
       },
       sort: '-publicationDate',
       limit: 3,
@@ -180,9 +181,8 @@ export async function getDetailedPostBySlug(
   const result = await payload.find({
     collection: 'posts',
     where: {
-      slug: {
-        equals: slug,
-      },
+      slug: { equals: slug },
+      ...(!preview && { _status: { equals: 'published' } }),
     },
     limit: 1,
     draft: preview,
