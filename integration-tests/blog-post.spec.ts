@@ -110,6 +110,24 @@ test.describe('Blog Post Page', () => {
     )
   })
 
+  test('blog post mermaid content visual regression', async ({ page }) => {
+    const mermaidPage = await BlogPostPage.goto(page, 'typescript-advanced')
+    await mermaidPage.hideHeader()
+    await expect(mermaidPage.content.mermaidDiagrams.first()).toBeVisible()
+    await expect(mermaidPage.content.section).toHaveScreenshot(
+      'blog-post-mermaid-content.png'
+    )
+  })
+
+  test('blog post code block content visual regression', async ({ page }) => {
+    const codeBlockPage = await BlogPostPage.goto(page, 'react-performance')
+    await codeBlockPage.hideHeader()
+    await expect(codeBlockPage.content.codeBlocks.first()).toBeVisible()
+    await expect(codeBlockPage.content.section).toHaveScreenshot(
+      'blog-post-code-block-content.png'
+    )
+  })
+
   test('related posts section visual regression', async ({ blogPostPage }) => {
     await blogPostPage.hideHeader()
     await expect(blogPostPage.relatedPosts.section).toHaveScreenshot(

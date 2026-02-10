@@ -42,8 +42,8 @@ describe('extractAndHighlightCodeBlocks', () => {
         children: [
           {
             type: 'block',
-            id: 'block-123',
             fields: {
+              id: 'block-123',
               blockType: 'codeBlock',
               language: 'javascript',
               code: 'console.log("hello")',

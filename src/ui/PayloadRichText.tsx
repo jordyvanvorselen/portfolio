@@ -11,8 +11,8 @@ export interface PayloadRichTextProps {
 
 interface BlockNode extends SerializedElementNode {
   type: 'block'
-  id?: string
   fields: {
+    id?: string
     blockType: string
     language?: string
     code?: string
@@ -27,6 +27,16 @@ const isTextNode = (node: unknown): node is SerializedTextNode => {
     'type' in node &&
     node.type === 'text' &&
     'text' in node
+  )
+}
+
+const isBlockNode = (node: unknown): node is BlockNode => {
+  return (
+    typeof node === 'object' &&
+    node !== null &&
+    'type' in node &&
+    node.type === 'block' &&
+    'fields' in node
   )
 }
 
@@ -79,6 +89,73 @@ const headingClasses: Record<string, string> = {
   h6: 'text-base font-semibold text-white mb-3 mt-5',
 }
 
+// Render a block node (may not have children)
+const renderBlockNode = (
+  node: BlockNode,
+  index: number,
+  highlightedCodeBlocks?: Map<string, string>
+): ReactNode => {
+  if (node.fields.blockType === 'codeBlock') {
+    const { language, code } = node.fields
+
+    // Handle Mermaid diagrams
+    if (language?.toLowerCase() === 'mermaid' && code) {
+      return (
+        <MermaidDiagram
+          key={index}
+          code={code}
+          id={`mermaid-${node.fields.id || index}`}
+        />
+      )
+    }
+
+    // Check for pre-highlighted code
+    const blockId = node.fields.id
+    if (blockId && highlightedCodeBlocks?.has(blockId)) {
+      const highlightedHTML = highlightedCodeBlocks.get(blockId)!
+      return (
+        <div
+          key={index}
+          className="my-8 rounded-2xl border-2 border-gray-700/50 shadow-2xl backdrop-blur-sm overflow-hidden group relative transition-all duration-500 hover:border-gray-600/70 hover:shadow-3xl"
+        >
+          <div className="absolute inset-0 bg-gradient-to-bl from-gray-900 via-black via-80% to-black" />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-500/15 to-blue-500/15 opacity-0 group-hover:opacity-40 transition-opacity duration-500" />
+          <div
+            className="overflow-x-auto relative z-10 [&_.shiki]:!bg-transparent [&_.shiki]:m-0 [&_.shiki]:p-6 [&_.shiki]:text-md [&_.shiki]:leading-relaxed [&_.shiki_pre]:!bg-transparent [&_.shiki_pre]:m-0 [&_.shiki_pre]:p-6 [&_.shiki_code]:font-mono"
+            dangerouslySetInnerHTML={{ __html: highlightedHTML }}
+          />
+        </div>
+      )
+    }
+
+    // Fallback to plain code block
+    if (code) {
+      return (
+        <div
+          key={index}
+          className="my-8 rounded-2xl border-2 border-gray-700/50 shadow-2xl backdrop-blur-sm overflow-hidden relative"
+        >
+          <div className="absolute inset-0 bg-gradient-to-bl from-gray-900 via-black via-80% to-black" />
+          <pre className="p-6 overflow-x-auto relative z-10 m-0 bg-transparent text-sm leading-relaxed font-mono">
+            <code className="text-gray-100 font-mono">{code}</code>
+          </pre>
+        </div>
+      )
+    }
+  }
+
+  // Unknown block type — render children if present
+  if ('children' in node && Array.isArray(node.children)) {
+    const children = node.children.map((child, childIndex) =>
+      renderNode(child, childIndex, highlightedCodeBlocks)
+    )
+    return <div key={index}>{children}</div>
+  }
+
+  return null
+}
+
 // Render an element node
 const renderElementNode = (
   node: SerializedElementNode,
@@ -99,60 +176,6 @@ const renderElementNode = (
         height={uploadNode.value.height ?? 400}
       />
     )
-  }
-
-  // Handle block nodes first (they may not have renderable children)
-  if (node.type === 'block') {
-    const blockNode = node as BlockNode
-    if (blockNode.fields.blockType === 'codeBlock') {
-      const { language, code } = blockNode.fields
-
-      // Handle Mermaid diagrams
-      if (language?.toLowerCase() === 'mermaid' && code) {
-        return (
-          <MermaidDiagram
-            key={index}
-            code={code}
-            id={`mermaid-${blockNode.id || index}`}
-          />
-        )
-      }
-
-      // Check for pre-highlighted code
-      const blockId = blockNode.id
-      if (blockId && highlightedCodeBlocks?.has(blockId)) {
-        const highlightedHTML = highlightedCodeBlocks.get(blockId)!
-        return (
-          <div
-            key={index}
-            className="my-8 rounded-2xl border-2 border-gray-700/50 shadow-2xl backdrop-blur-sm overflow-hidden group relative transition-all duration-500 hover:border-gray-600/70 hover:shadow-3xl"
-          >
-            <div className="absolute inset-0 bg-gradient-to-bl from-gray-900 via-black via-80% to-black" />
-            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-br from-teal-500/15 to-blue-500/15 opacity-0 group-hover:opacity-40 transition-opacity duration-500" />
-            <div
-              className="overflow-x-auto relative z-10 [&_.shiki]:!bg-transparent [&_.shiki]:m-0 [&_.shiki]:p-6 [&_.shiki]:text-md [&_.shiki]:leading-relaxed [&_.shiki_pre]:!bg-transparent [&_.shiki_pre]:m-0 [&_.shiki_pre]:p-6 [&_.shiki_code]:font-mono"
-              dangerouslySetInnerHTML={{ __html: highlightedHTML }}
-            />
-          </div>
-        )
-      }
-
-      // Fallback to plain code block
-      if (code) {
-        return (
-          <div
-            key={index}
-            className="my-8 rounded-2xl border-2 border-gray-700/50 shadow-2xl backdrop-blur-sm overflow-hidden relative"
-          >
-            <div className="absolute inset-0 bg-gradient-to-bl from-gray-900 via-black via-80% to-black" />
-            <pre className="p-6 overflow-x-auto relative z-10 m-0 bg-transparent text-sm leading-relaxed font-mono">
-              <code className="text-gray-100 font-mono">{code}</code>
-            </pre>
-          </div>
-        )
-      }
-    }
   }
 
   const children = node.children.map((child, childIndex) =>
@@ -185,24 +208,51 @@ const renderElementNode = (
 
     case 'list': {
       const listNode = node as SerializedElementNode & { listType: string }
-      const isOrdered = listNode.listType === 'number'
+      const { listType } = listNode
+      const isOrdered = listType === 'number'
+      const isChecklist = listType === 'check'
       const ListTag = isOrdered ? 'ol' : 'ul'
+      const listStyleClass = isOrdered
+        ? ' list-decimal'
+        : isChecklist
+          ? ' list-none pl-0'
+          : ' list-disc'
       return (
         <ListTag
           key={index}
-          className={`mb-6 pl-6 space-y-2 text-gray-300 text-xl${isOrdered ? ' list-decimal' : ''}`}
+          className={`mb-6 pl-6 space-y-2 text-gray-300 text-xl${listStyleClass}`}
         >
           {children}
         </ListTag>
       )
     }
 
-    case 'listitem':
+    case 'listitem': {
+      const listItemNode = node as SerializedElementNode & {
+        checked?: boolean
+      }
+      if (listItemNode.checked !== undefined) {
+        return (
+          <li
+            key={index}
+            className="flex items-start gap-3 leading-relaxed list-none"
+          >
+            <input
+              type="checkbox"
+              checked={listItemNode.checked}
+              readOnly
+              className="mt-1.5 h-4 w-4 rounded border-gray-600 bg-gray-800 accent-teal-500"
+            />
+            <span>{children}</span>
+          </li>
+        )
+      }
       return (
         <li key={index} className="leading-relaxed">
           {children}
         </li>
       )
+    }
 
     case 'quote':
       return (
@@ -244,6 +294,10 @@ const renderNode = (
 ): ReactNode => {
   if (isTextNode(node)) {
     return renderTextNode(node, index)
+  }
+
+  if (isBlockNode(node)) {
+    return renderBlockNode(node, index, highlightedCodeBlocks)
   }
 
   if (isElementNode(node)) {

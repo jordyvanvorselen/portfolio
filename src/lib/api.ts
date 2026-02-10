@@ -29,6 +29,7 @@ import {
   mockContent,
   mockContentWithMermaid,
   mockContentWithImages,
+  mockContentCodeBlock,
 } from '@/test/msw/mock-data/blog-posts.mock'
 
 const isMockBackend = (): boolean => {
@@ -165,6 +166,7 @@ export async function getDetailedPostBySlug(
     const mockContentMap: Record<string, SerializedEditorState> = {
       'typescript-advanced': mockContentWithMermaid,
       'python-tips': mockContentWithImages,
+      'react-performance': mockContentCodeBlock,
     }
 
     return {

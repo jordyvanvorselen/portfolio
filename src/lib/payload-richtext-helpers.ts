@@ -6,8 +6,8 @@ import { highlightCode } from '@/lib/shiki'
 
 interface BlockNode extends SerializedElementNode {
   type: 'block'
-  id?: string
   fields: {
+    id?: string
     blockType: string
     language?: string
     code?: string
@@ -41,9 +41,9 @@ async function traverseAndHighlight(
 ): Promise<void> {
   if (isBlockNode(node)) {
     const { blockType, language, code } = node.fields
-    if (blockType === 'codeBlock' && node.id && code && language) {
+    if (blockType === 'codeBlock' && node.fields.id && code && language) {
       const highlighted = await highlightCode(code, language)
-      map.set(node.id, highlighted)
+      map.set(node.fields.id, highlighted)
     }
   }
 

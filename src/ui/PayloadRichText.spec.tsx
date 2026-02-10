@@ -219,7 +219,7 @@ describe('PayloadRichText', () => {
     expect(screen.getByText('code snippet').tagName).toBe('CODE')
   })
 
-  it('renders unordered lists', () => {
+  it('renders unordered lists with bullet markers', () => {
     const editorState: SerializedEditorState = {
       root: {
         type: 'root',
@@ -255,6 +255,7 @@ describe('PayloadRichText', () => {
 
     const list = screen.getByRole('list')
     expect(list.tagName).toBe('UL')
+    expect(list.className).toContain('list-disc')
     expect(screen.getByText('Item 1')).toBeVisible()
   })
 
@@ -295,6 +296,63 @@ describe('PayloadRichText', () => {
     const list = screen.getByRole('list')
     expect(list.tagName).toBe('OL')
     expect(screen.getByText('Step 1')).toBeVisible()
+  })
+
+  it('renders checklists with checked and unchecked items', () => {
+    const editorState: SerializedEditorState = {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'list',
+            listType: 'check',
+            children: [
+              {
+                type: 'listitem',
+                checked: true,
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Completed task',
+                    format: 0,
+                    version: 1,
+                  },
+                ],
+                version: 1,
+              },
+              {
+                type: 'listitem',
+                checked: false,
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Pending task',
+                    format: 0,
+                    version: 1,
+                  },
+                ],
+                version: 1,
+              },
+            ],
+            version: 1,
+          },
+        ],
+        direction: null,
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    } as unknown as SerializedEditorState
+
+    render(<PayloadRichText data={editorState} />)
+
+    expect(screen.getByText('Completed task')).toBeVisible()
+    expect(screen.getByText('Pending task')).toBeVisible()
+
+    const checkboxes = screen.getAllByRole('checkbox')
+    expect(checkboxes).toHaveLength(2)
+    expect(checkboxes[0]).toBeChecked()
+    expect(checkboxes[1]).not.toBeChecked()
   })
 
   it('renders blockquotes', () => {
@@ -498,8 +556,8 @@ describe('PayloadRichText', () => {
         children: [
           {
             type: 'block',
-            id: 'block-1',
             fields: {
+              id: 'block-1',
               blockType: 'codeBlock',
               language: 'javascript',
               code: 'console.log("hello")',
@@ -650,6 +708,61 @@ describe('PayloadRichText', () => {
     expect(image).toHaveAttribute('alt', '')
     expect(image).toHaveAttribute('width', '800')
     expect(image).toHaveAttribute('height', '400')
+  })
+
+  it('renders code blocks without children property', () => {
+    const editorState: SerializedEditorState = {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'block',
+            fields: {
+              id: 'block-no-children',
+              blockType: 'codeBlock',
+              language: 'typescript',
+              code: 'const x: number = 42;',
+            },
+            version: 1,
+          },
+        ],
+        direction: null,
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    } as unknown as SerializedEditorState
+
+    render(<PayloadRichText data={editorState} />)
+
+    expect(screen.getByText('const x: number = 42;')).toBeVisible()
+  })
+
+  it('renders nothing for unknown block types without children', () => {
+    const editorState: SerializedEditorState = {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'block',
+            fields: {
+              blockType: 'customBlock',
+            },
+            version: 1,
+          },
+        ],
+        direction: null,
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    } as unknown as SerializedEditorState
+
+    render(<PayloadRichText data={editorState} />)
+
+    const richText = screen.getByTestId('payload-rich-text')
+    expect(richText).toBeVisible()
+    expect(richText).toHaveTextContent('')
   })
 
   it('renders unknown block types with default div wrapper', () => {

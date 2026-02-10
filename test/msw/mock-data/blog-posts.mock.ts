@@ -45,8 +45,8 @@ export const mockContent: SerializedEditorState = {
       },
       {
         type: 'block',
-        id: 'code-block-1',
         fields: {
+          id: 'code-block-1',
           blockType: 'codeBlock',
           language: 'javascript',
           code: 'const [count, setCount] = useState(0);',
@@ -122,6 +122,39 @@ export const mockContent: SerializedEditorState = {
         version: 1,
       },
       {
+        type: 'list',
+        listType: 'check',
+        children: [
+          {
+            type: 'listitem',
+            checked: true,
+            children: [
+              {
+                type: 'text',
+                text: 'Learn useState hook',
+                format: 0,
+                version: 1,
+              },
+            ],
+            version: 1,
+          },
+          {
+            type: 'listitem',
+            checked: false,
+            children: [
+              {
+                type: 'text',
+                text: 'Master useEffect patterns',
+                format: 0,
+                version: 1,
+              },
+            ],
+            version: 1,
+          },
+        ],
+        version: 1,
+      },
+      {
         type: 'quote',
         children: [
           {
@@ -173,8 +206,8 @@ export const mockContentWithMermaid: SerializedEditorState = {
       },
       {
         type: 'block',
-        id: 'mermaid-block-1',
         fields: {
+          id: 'mermaid-block-1',
           blockType: 'codeBlock',
           language: 'mermaid',
           code: 'graph TD\n    A[Component] --> B[Props]\n    A --> C[State]\n    B --> D[Render]\n    C --> D',
@@ -243,6 +276,43 @@ export const mockContentWithImages: SerializedEditorState = {
             version: 1,
           },
         ],
+        version: 1,
+      },
+    ],
+    direction: null,
+    format: '',
+    indent: 0,
+    version: 1,
+  },
+} as unknown as SerializedEditorState
+
+// Mock content with a focused code block for Shiki highlighting testing
+export const mockContentCodeBlock: SerializedEditorState = {
+  root: {
+    type: 'root',
+    children: [
+      {
+        type: 'heading',
+        tag: 'h2',
+        children: [
+          {
+            type: 'text',
+            text: 'Optimizing React Renders',
+            format: 0,
+            version: 1,
+          },
+        ],
+        version: 1,
+      },
+      {
+        type: 'block',
+        fields: {
+          id: 'code-block-perf',
+          blockType: 'codeBlock',
+          language: 'typescript',
+          code: 'import { memo, useMemo, useCallback } from "react";\n\ninterface Props {\n  items: string[];\n  onSelect: (item: string) => void;\n}\n\nexport const ItemList = memo(({ items, onSelect }: Props) => {\n  const sorted = useMemo(\n    () => items.toSorted((a, b) => a.localeCompare(b)),\n    [items]\n  );\n\n  const handleClick = useCallback(\n    (item: string) => () => onSelect(item),\n    [onSelect]\n  );\n\n  return (\n    <ul>\n      {sorted.map((item) => (\n        <li key={item} onClick={handleClick(item)}>\n          {item}\n        </li>\n      ))}\n    </ul>\n  );\n});',
+        },
+        children: [],
         version: 1,
       },
     ],
