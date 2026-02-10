@@ -1,3 +1,4 @@
 public/
 pnpm-lock.yaml
 coverage/
+src/app/(payload)/

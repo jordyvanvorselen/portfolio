@@ -43,7 +43,7 @@ vi.mock('next-intl/server', () => ({
   ),
 }))
 
-import ExperiencePage, { generateMetadata } from '@/app/experience/page'
+import ExperiencePage, { generateMetadata } from '@/app/(site)/experience/page'
 
 describe('ExperiencePage', () => {
   it('renders main element with correct structure', async () => {

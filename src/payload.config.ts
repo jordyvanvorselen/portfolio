@@ -6,9 +6,12 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { Posts } from '@/collections/Posts'
-import { Media } from '@/collections/Media'
-import { Users } from '@/collections/Users'
+// eslint-disable-next-line no-restricted-imports -- Payload CLI cannot resolve @/ path aliases
+import { Posts } from './collections/Posts'
+// eslint-disable-next-line no-restricted-imports -- Payload CLI cannot resolve @/ path aliases
+import { Media } from './collections/Media'
+// eslint-disable-next-line no-restricted-imports -- Payload CLI cannot resolve @/ path aliases
+import { Users } from './collections/Users'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

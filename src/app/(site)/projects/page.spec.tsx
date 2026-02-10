@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import ProjectsPage, { generateMetadata } from '@/app/projects/page'
+import ProjectsPage, { generateMetadata } from '@/app/(site)/projects/page'
 
 describe('ProjectsPage', () => {
   it('renders projects hero section', () => {
