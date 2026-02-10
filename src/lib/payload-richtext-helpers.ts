@@ -37,33 +37,33 @@ const isElementNode = (node: unknown): node is SerializedElementNode => {
 
 async function traverseAndHighlight(
   node: unknown,
-  map: Map<string, string>
+  record: Record<string, string>
 ): Promise<void> {
   if (isBlockNode(node)) {
     const { blockType, language, code } = node.fields
     if (blockType === 'codeBlock' && node.fields.id && code && language) {
       const highlighted = await highlightCode(code, language)
-      map.set(node.fields.id, highlighted)
+      record[node.fields.id] = highlighted
     }
   }
 
   if (isElementNode(node)) {
     for (const child of node.children) {
-      await traverseAndHighlight(child, map)
+      await traverseAndHighlight(child, record)
     }
   }
 }
 
 export async function extractAndHighlightCodeBlocks(
   data: SerializedEditorState
-): Promise<Map<string, string>> {
-  const map = new Map<string, string>()
+): Promise<Record<string, string>> {
+  const record: Record<string, string> = {}
 
   if (data.root && 'children' in data.root) {
     for (const child of data.root.children) {
-      await traverseAndHighlight(child, map)
+      await traverseAndHighlight(child, record)
     }
   }
 
-  return map
+  return record
 }

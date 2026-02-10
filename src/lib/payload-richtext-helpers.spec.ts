@@ -31,8 +31,7 @@ describe('extractAndHighlightCodeBlocks', () => {
 
     const result = await extractAndHighlightCodeBlocks(editorState)
 
-    expect(result).toBeInstanceOf(Map)
-    expect(result.size).toBe(0)
+    expect(result).toEqual({})
   })
 
   it('extracts and highlights code blocks with block IDs', async () => {
@@ -61,9 +60,9 @@ describe('extractAndHighlightCodeBlocks', () => {
 
     const result = await extractAndHighlightCodeBlocks(editorState)
 
-    expect(result.size).toBe(1)
-    expect(result.has('block-123')).toBe(true)
-    const highlighted = result.get('block-123')
+    expect(Object.keys(result)).toHaveLength(1)
+    expect(result['block-123']).toBeDefined()
+    const highlighted = result['block-123']
     expect(highlighted).toContain('<pre class="shiki')
     expect(highlighted).toContain('console')
     expect(highlighted).toContain('log')
@@ -96,7 +95,7 @@ describe('extractAndHighlightCodeBlocks', () => {
 
     const result = await extractAndHighlightCodeBlocks(editorState)
 
-    expect(result.size).toBe(0)
+    expect(result).toEqual({})
   })
 
   it('handles malformed editor state with no root children', async () => {
@@ -106,7 +105,6 @@ describe('extractAndHighlightCodeBlocks', () => {
 
     const result = await extractAndHighlightCodeBlocks(editorState)
 
-    expect(result).toBeInstanceOf(Map)
-    expect(result.size).toBe(0)
+    expect(result).toEqual({})
   })
 })

@@ -6,7 +6,7 @@ import { MermaidDiagram } from '@/ui/MermaidDiagram'
 
 export interface PayloadRichTextProps {
   data: SerializedEditorState
-  highlightedCodeBlocks?: Map<string, string>
+  highlightedCodeBlocks?: Record<string, string>
 }
 
 interface BlockNode extends SerializedElementNode {
@@ -93,7 +93,7 @@ const headingClasses: Record<string, string> = {
 const renderBlockNode = (
   node: BlockNode,
   index: number,
-  highlightedCodeBlocks?: Map<string, string>
+  highlightedCodeBlocks?: Record<string, string>
 ): ReactNode => {
   if (node.fields.blockType === 'codeBlock') {
     const { language, code } = node.fields
@@ -111,8 +111,8 @@ const renderBlockNode = (
 
     // Check for pre-highlighted code
     const blockId = node.fields.id
-    if (blockId && highlightedCodeBlocks?.has(blockId)) {
-      const highlightedHTML = highlightedCodeBlocks.get(blockId)!
+    if (blockId && highlightedCodeBlocks && blockId in highlightedCodeBlocks) {
+      const highlightedHTML = highlightedCodeBlocks[blockId]!
       return (
         <div
           key={index}
@@ -160,7 +160,7 @@ const renderBlockNode = (
 const renderElementNode = (
   node: SerializedElementNode,
   index: number,
-  highlightedCodeBlocks?: Map<string, string>
+  highlightedCodeBlocks?: Record<string, string>
 ): ReactNode => {
   // Handle upload nodes (images)
   if (node.type === 'upload') {
@@ -290,7 +290,7 @@ const renderElementNode = (
 const renderNode = (
   node: unknown,
   index: number,
-  highlightedCodeBlocks?: Map<string, string>
+  highlightedCodeBlocks?: Record<string, string>
 ): ReactNode => {
   if (isTextNode(node)) {
     return renderTextNode(node, index)

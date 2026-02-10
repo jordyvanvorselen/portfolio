@@ -546,9 +546,9 @@ describe('PayloadRichText', () => {
   })
 
   it('renders code blocks with pre-highlighted Shiki HTML', () => {
-    const highlightedCodeBlocks = new Map([
-      ['block-1', '<pre class="shiki">Highlighted code</pre>'],
-    ])
+    const highlightedCodeBlocks: Record<string, string> = {
+      'block-1': '<pre class="shiki">Highlighted code</pre>',
+    }
 
     const editorState: SerializedEditorState = {
       root: {
