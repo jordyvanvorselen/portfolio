@@ -73,6 +73,7 @@ export default mergeConfig(
           'src/payload.config.ts',
           'src/payload-types.ts',
           'src/collections/**',
+          'src/migrations/**',
           'src/lib/payload/**',
 
           // Project specific
