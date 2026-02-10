@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next'
 import { BASE_URL } from '@/lib/constants'
-// import { getAllPosts } from '@/lib/api' // TODO: Re-enable after Payload CMS migration
+import { getAllPosts } from '@/lib/api'
+
+export const dynamic = 'force-dynamic'
 
 const staticPages = [
   {
@@ -28,8 +30,7 @@ const staticPages = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const currentDate = new Date()
 
-  // TODO: Re-enable blog post entries after Payload CMS migration
-  // const blogPosts = await getAllPosts(false)
+  const blogPosts = await getAllPosts(false)
 
   // Generate static pages
   const staticEntries: MetadataRoute.Sitemap = staticPages.map(page => ({
@@ -39,13 +40,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: page.priority,
   }))
 
-  // TODO: Re-enable after Payload CMS migration
-  // const blogEntries: MetadataRoute.Sitemap = blogPosts.map(post => ({
-  //   url: `${BASE_URL}/blog/${post.slug}`,
-  //   lastModified: new Date(post.date),
-  //   changeFrequency: 'yearly' as const,
-  //   priority: 0.7,
-  // }))
+  const blogEntries: MetadataRoute.Sitemap = blogPosts.map(post => ({
+    url: `${BASE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'yearly' as const,
+    priority: 0.7,
+  }))
 
-  return staticEntries
+  return [...staticEntries, ...blogEntries]
 }
