@@ -29,9 +29,9 @@ export class ContinuousDeliveryCard extends BaseSection {
   readonly dockerKubernetesBadge: Locator = this.skillsSection
     .getByRole('status')
     .filter({ hasText: 'Docker & Kubernetes' })
-  readonly infrastructureAsCodeBadge: Locator = this.skillsSection
+  readonly terraformBadge: Locator = this.skillsSection
     .getByRole('status')
-    .filter({ hasText: 'Infrastructure as Code' })
+    .filter({ hasText: 'Terraform' })
   readonly progressiveDeploymentBadge: Locator = this.skillsSection
     .getByRole('status')
     .filter({ hasText: 'Progressive Deployment' })

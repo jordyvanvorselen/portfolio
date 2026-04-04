@@ -14,8 +14,8 @@ export const TDDCard = () => {
       title={t('expertise.tdd.title')}
       description={t('expertise.tdd.description')}
       skills={[
-        'Jest',
-        'Cypress',
+        'Vitest',
+        'Playwright',
         'Testing Library',
         'Unit Testing',
         'Integration Testing',

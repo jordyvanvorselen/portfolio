@@ -34,8 +34,8 @@
       "title": "Test-Driven Development",
       "description": "I write tests first, then code. This approach ensures robust, bug-free software with comprehensive test coverage. My TDD practice leads to better design decisions and maintainable codebases.",
       "skills": [
-        "Jest",
-        "Cypress",
+        "Vitest",
+        "Playwright",
         "Testing Library",
         "Unit Testing",
         "Integration Testing",
@@ -62,7 +62,7 @@
       "skills": [
         "GitHub Actions",
         "Docker & Kubernetes",
-        "Infrastructure as Code",
+        "Terraform",
         "Progressive Deployment",
         "Automated Rollbacks"
       ]
@@ -182,6 +182,19 @@
           "React (JavaScript) frontend development",
           "Phoenix (Elixir) backend development",
           "IoT integration for smart lighting"
+        ]
+      },
+      "ottoWorkforce": {
+        "position": "Full-Stack Software Engineer",
+        "company": "Otto Workforce",
+        "duration": "2 months",
+        "location": "Remote, NL",
+        "employmentType": "Full-time",
+        "description": "Via Kabisa · Development of internal workforce management tooling.",
+        "achievements": [
+          "Django backend development",
+          "Vue.js frontend development",
+          "Database clustering with Galera Cluster"
         ]
       },
       "kabisa2020": {

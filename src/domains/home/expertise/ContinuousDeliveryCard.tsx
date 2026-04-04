@@ -16,7 +16,7 @@ export const ContinuousDeliveryCard = () => {
       skills={[
         'GitHub Actions',
         'Docker & Kubernetes',
-        'Infrastructure as Code',
+        'Terraform',
         'Progressive Deployment',
         'Automated Rollbacks',
       ]}

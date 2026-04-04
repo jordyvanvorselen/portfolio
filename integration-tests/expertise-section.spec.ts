@@ -18,8 +18,8 @@ test.describe('Expertise Section', () => {
     await expect(homePage.tddCard.keySkillsLabel).toBeVisible()
 
     // Check for skill badges
-    await expect(homePage.tddCard.jestBadge).toBeVisible()
-    await expect(homePage.tddCard.cypressBadge).toBeVisible()
+    await expect(homePage.tddCard.vitestBadge).toBeVisible()
+    await expect(homePage.tddCard.playwrightBadge).toBeVisible()
     await expect(homePage.tddCard.testingLibraryBadge).toBeVisible()
     await expect(homePage.tddCard.unitTestingBadge).toBeVisible()
     await expect(homePage.tddCard.integrationTestingBadge).toBeVisible()
@@ -80,9 +80,7 @@ test.describe('Expertise Section', () => {
     await expect(
       homePage.continuousDeliveryCard.dockerKubernetesBadge
     ).toBeVisible()
-    await expect(
-      homePage.continuousDeliveryCard.infrastructureAsCodeBadge
-    ).toBeVisible()
+    await expect(homePage.continuousDeliveryCard.terraformBadge).toBeVisible()
     await expect(
       homePage.continuousDeliveryCard.progressiveDeploymentBadge
     ).toBeVisible()

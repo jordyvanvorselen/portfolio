@@ -1,6 +1,7 @@
 export interface DevIconProps {
   name: string
   wordmark?: boolean
+  variant?: 'plain' | 'original'
   className?: string
   colored?: boolean
   style?: React.CSSProperties
@@ -9,12 +10,13 @@ export interface DevIconProps {
 export const DevIcon = ({
   name,
   wordmark = false,
+  variant = 'plain',
   className = '',
   colored = true,
   style,
 }: DevIconProps) => {
   // Construct the devicon class name
-  const suffix = wordmark ? 'plain-wordmark' : 'plain'
+  const suffix = wordmark ? 'plain-wordmark' : variant
   const deviconClass = `devicon-${name}-${suffix}`
   const coloredClass = colored ? 'colored' : ''
 

@@ -34,8 +34,8 @@
       "title": "Test-Driven Development",
       "description": "Mijn aanpak is test-first: eerst tests, dan code. Dit levert betrouwbare software op, volledig gedekt door tests. TDD ondersteunt in het nemen van sterke ontwerpkeuzes en het bouwen van duurzame codebases.",
       "skills": [
-        "Jest",
-        "Cypress",
+        "Vitest",
+        "Playwright",
         "Testing Library",
         "Unit Testing",
         "Integration Testing",
@@ -62,7 +62,7 @@
       "skills": [
         "GitHub Actions",
         "Docker & Kubernetes",
-        "Infrastructure as Code",
+        "Terraform",
         "Progressive Deployment",
         "Automated Rollbacks"
       ]
@@ -182,6 +182,19 @@
           "React (JavaScript) frontend ontwikkeling",
           "Phoenix (Elixir) backend ontwikkeling",
           "IoT integratie voor slimme verlichting"
+        ]
+      },
+      "ottoWorkforce": {
+        "position": "Full-Stack Software Engineer",
+        "company": "Otto Workforce",
+        "duration": "2 maanden",
+        "location": "Remote, NL",
+        "employmentType": "Fulltime",
+        "description": "Via Kabisa · Ontwikkeling van interne workforce management tooling.",
+        "achievements": [
+          "Django backend ontwikkeling",
+          "Vue.js frontend ontwikkeling",
+          "Database clustering met Galera Cluster"
         ]
       },
       "kabisa2020": {

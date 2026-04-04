@@ -12,6 +12,7 @@ import { DevIcon } from '@/ui/DevIcon'
 interface Technology {
   name: string
   iconKey: string
+  iconVariant?: 'plain' | 'original'
 }
 
 interface ExperienceCardProps {
@@ -187,7 +188,12 @@ export const ExperienceCard = ({
                 variant="outline"
                 color="default"
                 size="md"
-                icon={<DevIcon name={tech.iconKey} />}
+                icon={
+                  <DevIcon
+                    name={tech.iconKey}
+                    variant={tech.iconVariant ?? 'plain'}
+                  />
+                }
                 className="hover:scale-105 transition-transform duration-200"
               >
                 {tech.name}

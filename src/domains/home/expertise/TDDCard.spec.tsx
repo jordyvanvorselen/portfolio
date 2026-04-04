@@ -39,8 +39,8 @@ describe('TDDCard', () => {
   it('displays skill badges', () => {
     render(<TDDCard />)
 
-    expect(screen.getByText('Jest')).toBeVisible()
-    expect(screen.getByText('Cypress')).toBeVisible()
+    expect(screen.getByText('Vitest')).toBeVisible()
+    expect(screen.getByText('Playwright')).toBeVisible()
     expect(screen.getByText('Testing Library')).toBeVisible()
     expect(screen.getByText('Unit Testing')).toBeVisible()
     expect(screen.getByText('Integration Testing')).toBeVisible()
