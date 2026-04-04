@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
-import { getTranslations, getMessages } from 'next-intl/server'
+import { getTranslations, getMessages, getLocale } from 'next-intl/server'
+import { calculateDuration } from '@/utils/duration'
 import { ExperienceHero } from '@/domains/experience/ExperienceHero'
 import { ExperienceCard } from '@/domains/experience/ExperienceCard'
 import { Title } from '@/ui/Title'
@@ -58,7 +59,8 @@ interface Experience {
 
 const createExperienceFromTranslations = (
   t: (key: string) => string,
-  messages: Messages
+  messages: Messages,
+  locale: string
 ): Experience[] => {
   const experiencePositions = [
     {
@@ -82,9 +84,13 @@ const createExperienceFromTranslations = (
         { name: 'Azure', iconKey: 'azure' },
         { name: 'Terraform', iconKey: 'terraform' },
         { name: 'Docker', iconKey: 'docker' },
+        { name: 'GitHub Actions', iconKey: 'githubactions' },
+        { name: 'Twilio', iconKey: 'twilio' },
+        { name: 'JobRunr', iconKey: 'java' },
         { name: 'Datadog', iconKey: 'datadog' },
         { name: 'Storybook', iconKey: 'storybook' },
       ],
+      startDate: '2024-01-01',
       isCurrentJob: true,
     },
     {
@@ -95,11 +101,16 @@ const createExperienceFromTranslations = (
       technologies: [
         { name: 'TypeScript', iconKey: 'typescript' },
         { name: 'Ruby on Rails', iconKey: 'rails' },
+        { name: 'Sinatra', iconKey: 'ruby' },
         { name: 'React', iconKey: 'react' },
         { name: 'Flask', iconKey: 'flask' },
         { name: 'Django', iconKey: 'django' },
         { name: 'Kubernetes', iconKey: 'kubernetes' },
         { name: 'Docker', iconKey: 'docker' },
+        { name: 'Jenkins', iconKey: 'jenkins' },
+        { name: 'Artifactory', iconKey: '' },
+        { name: 'RHEL Linux', iconKey: 'redhat' },
+        { name: 'Okta', iconKey: 'okta' },
       ],
       isCurrentJob: false,
     },
@@ -124,6 +135,9 @@ const createExperienceFromTranslations = (
         { name: 'Azure', iconKey: 'azure' },
         { name: 'Terraform', iconKey: 'terraform' },
         { name: 'Docker', iconKey: 'docker' },
+        { name: 'GitHub Actions', iconKey: 'githubactions' },
+        { name: 'Twilio', iconKey: 'twilio' },
+        { name: 'JobRunr', iconKey: 'java' },
         { name: 'Datadog', iconKey: 'datadog' },
         { name: 'Storybook', iconKey: 'storybook' },
       ],
@@ -137,11 +151,16 @@ const createExperienceFromTranslations = (
       technologies: [
         { name: 'TypeScript', iconKey: 'typescript' },
         { name: 'Ruby on Rails', iconKey: 'rails' },
+        { name: 'Sinatra', iconKey: 'ruby' },
         { name: 'React', iconKey: 'react' },
         { name: 'Flask', iconKey: 'flask' },
         { name: 'Django', iconKey: 'django' },
         { name: 'Kubernetes', iconKey: 'kubernetes' },
         { name: 'Docker', iconKey: 'docker' },
+        { name: 'Jenkins', iconKey: 'jenkins' },
+        { name: 'Artifactory', iconKey: '' },
+        { name: 'RHEL Linux', iconKey: 'redhat' },
+        { name: 'Okta', iconKey: 'okta' },
       ],
       isCurrentJob: false,
     },
@@ -226,7 +245,7 @@ const createExperienceFromTranslations = (
         { name: 'AWS', iconKey: 'amazonwebservices' },
         { name: 'Azure', iconKey: 'azure' },
       ],
-      isCurrentJob: true,
+      isCurrentJob: false,
     },
     {
       key: 'syntouch',
@@ -301,7 +320,9 @@ const createExperienceFromTranslations = (
     companyUrl: exp.companyUrl,
     logoUrl: exp.logoUrl,
     logoAlt: exp.logoAlt,
-    duration: t(`experience.positions.${exp.key}.duration`),
+    duration: exp.startDate
+      ? calculateDuration(exp.startDate, locale)
+      : t(`experience.positions.${exp.key}.duration`),
     location: t(`experience.positions.${exp.key}.location`),
     employmentType: t(
       `experience.positions.${exp.key}.employmentType`
@@ -316,7 +337,8 @@ const createExperienceFromTranslations = (
 export default async function ExperiencePage() {
   const t = await getTranslations()
   const messages = (await getMessages()) as Messages
-  const experiences = createExperienceFromTranslations(t, messages)
+  const locale = await getLocale()
+  const experiences = createExperienceFromTranslations(t, messages, locale)
   // Calculate unique positions and companies
   const uniquePositions = new Set(experiences.map(exp => exp.position)).size
   const uniqueCompanies = new Set(experiences.map(exp => exp.company)).size

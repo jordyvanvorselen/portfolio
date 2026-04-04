@@ -115,13 +115,14 @@
         "duration": "1 jaar 8 maanden",
         "location": "Remote - Weert, NL",
         "employmentType": "Fulltime",
-        "description": "Via Kabisa · Ontwikkeling van hoogperformante Java backend services met Spring Boot en reactive programming.",
+        "description": "Via Kabisa · Leiding over een team van 9 dat Hertek Connect bouwt, het next-generation brandveiligheidsplatform dat duizenden installaties bedient en honderden miljoenen events per maand verwerkt. Aanjager van engineering excellence door TDD, continuous delivery en kernprincipes uit Shape Up.",
         "achievements": [
-          "Ontwikkelde meerdere Java backend services met Spring Boot en Vertx",
-          "Implementeerde AWS services: ECS, MemoryDB en SQS FiFo",
-          "Backend verwerkt duizenden berichten met hoge prestaties",
-          "Bouwde: React SPA, SSR Thymeleaf, Cordova en Flutter apps",
-          "Horizontale schaalbaarheid voor enterprise applicaties"
+          "Monolithische Spring Boot backend gemodulariseerd naar Spring Modulith-architectuur, van spaghetti naar onderhoudbare bounded contexts",
+          "Kritieke JobRunr-achtergrondtaken geoptimaliseerd die installaties herstellen na verkeerspieken, hersteltijd teruggebracht van 30+ minuten naar minder dan 1 minuut",
+          "Kernprincipes uit Shape Up geadopteerd in ons teamproces, opgesplitst in 4 gerichte tracks. Leveringscadans verbeterd van om de paar maanden naar elke 2 weken",
+          "Uitgebreide testcultuur opgezet: TDD-praktijken, backend-integratietests, Playwright E2E-tests en visuele regressietests",
+          "Schaalbare event processing-architectuur ontworpen op basis van Redis MemoryDB en Vert.x om aanhoudende schaalbaarheidsproblemen bij klanten op te lossen",
+          "Team opgeschaald van een kleine groep naar 9 engineers met behoud van snelheid door gestructureerde onboarding en kennisdeling"
         ]
       },
       "asml2024": {
@@ -130,13 +131,12 @@
         "duration": "3 maanden",
         "location": "Remote - Veldhoven, NL",
         "employmentType": "Fulltime",
-        "description": "Via Kabisa · Ontwikkeling van bedrijfskritieke webtools gebruikt door tienduizenden ontwikkelaars.",
+        "description": "Via Kabisa · Keerde terug bij ASML voor een gerichte 3-maanden opdracht om de snelheid van het nieuwe team te verhogen, kritieke blokkades op te lossen en domeinkennis over te dragen voor hun missiekritieke developer tooling platform.",
         "achievements": [
-          "Ontwikkelde bedrijfskritieke webtools voor 10.000+ ontwikkelaars",
-          "Werkte met Ruby on Rails, React, Flask & Django",
-          "Kubernetes en Docker containerisatie",
-          "Optimalisatie van tool prestaties en schaalbaarheid",
-          "Agile ontwikkeling in grote teams"
+          "Geplande 4-maanden herschrijving van een gem voorkomen door diepgaande technische kennisoverdracht aan het nieuwe team, levertijd teruggebracht naar 1 dag",
+          "Technisch trainingsprogramma opgeleverd over architectuur, domeinkennis en engineering practices om de opstart van het nieuwe team te versnellen",
+          "Fundamentele organisatorische blokkades opgelost die het team ervan weerhielden hun tooling te upgraden, waardoor snellere levering en security-updates weer mogelijk werden",
+          "De architect ondersteund bij het ontwerpen van architectuurontwerpen voor de volgende fase van het platform"
         ]
       },
       "hertek2023": {
@@ -145,13 +145,13 @@
         "duration": "8 maanden",
         "location": "Remote - Weert, NL",
         "employmentType": "Fulltime",
-        "description": "Via Kabisa · Ontwikkeling van Flutter app met strikte certificatiestandaarden voor brandveiligheid.",
+        "description": "Via Kabisa · Leidde een team van 5 dat Connect Evac bouwde, een Flutter-gebaseerde brandalarm-app voor zorginstellingen die legacy piepers verving door stille mobiele coördinatie. Eerste mobiele app in Nederland met NEN 2575-4 certificering.",
         "achievements": [
-          "Bouwde nieuwe Flutter (Dart) mobiele app",
-          "Java Spring Boot backend ontwikkeling",
-          "Voldeed aan strikte certificatiestandaarden",
-          "Directe relatie met brandveiligheidssystemen",
-          "Implementatie van security best practices"
+          "Het volledige Connect Evac-platform from scratch gebouwd: Flutter-app, backend API en alarmroutering. NEN 2575-4 certificering in één keer behaald",
+          "Prestatiekritieke full-stack architectuur ontworpen die brandmeldingen binnen seconden bij zorgmedewerkers aflevert, inclusief bevestigingsverificatie en Twilio voice call fallback",
+          "Robuuste Android foreground service ontworpen met een ping-pong keep-alive mechanisme tussen Dart isolates, plus Firebase push notification fallback, zodat alarmen altijd doorkomen",
+          "Connect Evac als modulair systeem binnen de bestaande backend gearchitecteerd, netjes gescheiden met eigen API en hergebruik van gedeelde infrastructuur zoals panelcommunicatie",
+          "Zero-downtime rolling deployments en Multi-AZ infrastructuur opgeleverd, harde vereisten voor brandveiligheidscertificering"
         ]
       },
       "asml2021": {
@@ -160,13 +160,13 @@
         "duration": "3 jaar 9 maanden",
         "location": "Remote - Veldhoven, NL",
         "employmentType": "Fulltime",
-        "description": "Via Kabisa · Langetermijn ontwikkeling van enterprise webtools voor ontwikkelaars wereldwijd.",
+        "description": "Via Kabisa · Langetermijnontwikkeling van ASML's interne software delivery platform, gebruikt door 10.000+ engineers om patches te plannen, bouwen en uit te rollen op missiekritieke hardware. Doorgegroeid naar Lead Developer, met focus op teamunificatie, moderne engineering practices en Agile transformatie.",
         "achievements": [
-          "Ontwikkelde bedrijfskritieke webtools voor 10.000+ ontwikkelaars",
-          "Expertise in Ruby on Rails, React, Flask & Django",
-          "Container orkestratie met Kubernetes",
-          "Prestatie optimalisatie voor grote schaal",
-          "Cross-functionele samenwerking met internationale teams"
+          "6 applicaties, 10+ custom gems en meerdere microservices onderhouden in een polyglot stack met de hoogste kwaliteitsnormen door TDD en continuous delivery",
+          "Rol-gebaseerd permissiesysteem ontworpen en opgeleverd met een custom DSL in 2 sprints, waardoor niet-technische gebruikers zelf toegangsregels per afdeling kunnen configureren in plaats van elke sprint developer-wijzigingen nodig te hebben",
+          "Agile Scrum-adoptie aangedreven vóór ASML's bredere transformatie, diende als zowel tech lead als scrum master, met aanzienlijke verbetering van teamsamenwerking en snelheid",
+          "Legacy applicaties gemoderniseerd naar bijgewerkte frameworks met behoud van stabiliteit in alle productiesystemen",
+          "Alle Jenkinsfiles en CI/CD-pipelines opgezet voor de volledige applicatiesuite, en custom tooling gebouwd op RHEL Linux"
         ]
       },
       "signify": {
@@ -175,13 +175,12 @@
         "duration": "5 maanden",
         "location": "Eindhoven, NL",
         "employmentType": "Fulltime",
-        "description": "Via Kabisa · Ontwikkeling van het Hue Labs platform en Philips Hue mobiele app.",
+        "description": "Via Kabisa · Full-stack ontwikkeling binnen het Philips Hue ecosysteem, waaronder het Hue Labs experimenteerplatform en het Accessory Scalability project voor de Hue mobiele app. Gebouwd met Phoenix (Elixir) en React, gebruikt door miljoenen gebruikers wereldwijd.",
         "achievements": [
-          "Ontwikkelde Hue Labs platform",
-          "Bijgedragen aan Philips Hue mobiele app",
-          "React (JavaScript) frontend ontwikkeling",
-          "Phoenix (Elixir) backend ontwikkeling",
-          "IoT integratie voor slimme verlichting"
+          "Meegeholpen aan een generiek schaalbaar onboardingsysteem voor de Hue mobiele app dat dynamisch UI-flows genereert per accessoiretype, waardoor het handmatig bouwen van flows voor honderden \"Friends of Hue\" accessoires overbodig werd",
+          "Hue Labs platform gebouwd en onderhouden met een custom DSL waarmee marketingteams scenes en automations konden aanmaken zonder developer-betrokkenheid, wat de contentlevering drastisch versnelde",
+          "Over de volledige stack gewerkt: React frontend, Elixir Phoenix backend, en de JavaScript-kern van de custom DSL",
+          "Bijgedragen aan een high-performance team met nultolerantie voor technische schuld, vaste experimenteertijd en een cultuur van continue verbetering"
         ]
       },
       "ottoWorkforce": {
@@ -190,11 +189,12 @@
         "duration": "2 maanden",
         "location": "Remote, NL",
         "employmentType": "Fulltime",
-        "description": "Via Kabisa · Ontwikkeling van interne workforce management tooling.",
+        "description": "Via Kabisa · Gerichte 2-maanden opdracht om het interne medewerkersplatform van Otto Workforce chirurgisch te verbeteren, gebruikt door tienduizenden internationale flexwerkers. Kritieke features, bugfixes en kwaliteitsverbeteringen opgeleverd binnen budget.",
         "achievements": [
-          "Django backend ontwikkeling",
-          "Vue.js frontend ontwikkeling",
-          "Database clustering met Galera Cluster"
+          "Al het geplande werk binnen budget opgeleverd plus extra verbeteringen, waaronder verminderde technische schuld en toegevoegde testdekking voor het team dat de codebase overnam",
+          "Helpdesk-bijlageondersteuning, planningswijzigingsmeldingen en contractgebaseerde pushmeldingen gebouwd voor tienduizenden flexwerkers",
+          "Automatische blokkering van inactieve gebruikers en TopDesk helpdeskintegratie met periodieke synchronisatie voor supportverzoeken geïmplementeerd",
+          "Codekwaliteit verbeterd door unit tests toe te voegen, legacy code te refactoren en de Django/Vue.js codebase op te schonen voor langetermijnonderhoud"
         ]
       },
       "kabisa2020": {
@@ -203,13 +203,13 @@
         "duration": "3 jaar 9 maanden",
         "location": "Remote - Weert, NL",
         "employmentType": "Fulltime",
-        "description": "Full-Stack Engineer bij Kabisa, gespecialiseerd in het ontwikkelen van elegante (enterprise) softwareoplossingen.",
+        "description": "Guild Leader voor Kabisa's backend engineering community (Java, Ruby, Python), verantwoordelijk voor technische visie, mentoring van 20+ engineers, kwaliteitsbewaking over klantprojecten, en het profileren van Kabisa als autoriteit in softwareontwikkeling.",
         "achievements": [
-          "Full-stack ontwikkeling met meerdere technologieën",
-          "Architectuur van enterprise softwareoplossingen",
-          "Expertise in Java, Python, Ruby, Elixir en Front-end ontwikkeling",
-          "Implementatie van schaalbare microservices architectuur",
-          "Mentoring en coaching van ontwikkelteams"
+          "De backend guild van 20+ engineers geleid als Guild Leader, met focus op kennisdeling, technische standaarden en vaardigheidsontwikkeling in Java, Ruby en Python",
+          "Interne leertrajecten en proficiency scales opgezet voor drie backend stacks, gebruikt om engineers te beoordelen en hun groei naar het volgende niveau te begeleiden",
+          "Regelmatige tech check-ins uitgevoerd bij vrijwel alle klantprojecten, feedback verzameld over tools en technieken om Kabisa's technische standaarden continu te verbeteren",
+          "Architecturele begeleiding en mentoring geboden over projecten heen, teams geholpen de juiste technologieën en aanpak te kiezen voor hun specifieke uitdagingen",
+          "Ingezet als Lead Developer bij grote klanten waaronder ASML en Hertek Safety, met high-impact oplossingen in missiekritieke high-tech domeinen: halfgeleidertooling en brandveiligheid"
         ]
       },
       "kabisa2016": {
@@ -218,13 +218,12 @@
         "duration": "3 jaar 11 maanden",
         "location": "Remote - Weert, NL",
         "employmentType": "Fulltime",
-        "description": "Backend Tech Lead bij Kabisa, gespecialiseerd in het ontwikkelen van elegante (enterprise) softwareoplossingen.",
+        "description": "Begonnen als junior engineer bij Kabisa en snel doorgegroeid naar lead developer rollen door een niet-aflatende focus op engineering excellence. Ingezet bij klanten waaronder Signify, Otto Workforce en ASML, waar een high-performance teamcultuur een blijvende passie vormde voor TDD, continuous delivery en continuous improvement.",
         "achievements": [
-          "Leidde backend ontwikkelteams",
-          "Architectuur van enterprise softwareoplossingen",
-          "Expertise in Java, Python, Ruby, Elixir en Front-end ontwikkeling",
-          "Implementatie van schaalbare microservices architectuur",
-          "Mentoring en coaching van ontwikkelteams"
+          "Gegroeid van junior engineer naar het leiden van senior developers in 4 jaar, erkend voor technische vaardigheid en leiderschapscapaciteiten ongeacht jaren ervaring",
+          "High-performance teampraktijken geleerd bij vroege opdrachten en deze principes meegenomen naar elk volgend team, waarbij de lat voor kwaliteit en samenwerking consequent hoger werd gelegd",
+          "TDD, continuous delivery en automatisering omarmd als kernpraktijken, aantonend dat hogere kwaliteitsnormen leiden tot snellere levering met minder defecten",
+          "Gewerkt in Java, Python, Ruby en Elixir projecten, full-stack expertise opgebouwd die later de basis vormde voor de Guild Leader rol"
         ]
       },
       "syntouch": {
@@ -233,13 +232,14 @@
         "duration": "6 maanden",
         "location": "Eindhoven, NL",
         "employmentType": "Afstuderen",
-        "description": "Afgestudeerd Cum Laude · Ontwikkeling van ERC-20 token en blockchain applicaties.",
+        "description": "Afstudeerproject (Cum Laude) waarin een full-stack blockchain marketplace is gebouwd van cryptocurrency tot storefront. \"SynCoin\" ontworpen en geïmplementeerd, een custom ERC20 token met escrow smart contracts, als basis voor een webapplicatie waarmee gebruikers SynTouch's ambachtelijk bier konden kopen via blockchain-betalingen.",
         "achievements": [
-          "Ontwikkelde ERC-20 token SynCoin met Ethereum smart contracts",
-          "Bouwde escrow, order en crowdsale systeem in Solidity",
-          "Onderzoek naar upgradeable smart contracts",
-          "Node.js backend met Swagger + Express",
-          "Vue.js frontend voor blockchain interactie"
+          "Het complete systeem end-to-end gebouwd: custom ERC20 cryptocurrency, Solidity escrow smart contracts, Node.js/Express backend, en een Vue.js storefront met Web3 wallet-integratie",
+          "Technisch artikel gepubliceerd over het bouwen van ERC20 escrow contracts met documentatie van de architectuur en aanpak",
+          "Onderzoek gepubliceerd dat aantoont dat TDD zowel de veiligheid als ontwikkelsnelheid significant verbetert in smart contract engineering, waar gedeployde bugs onveranderlijk en kostbaar zijn",
+          "Het project gepresenteerd op twee vakbeurzen waaronder nlOUG (Dutch Oracle User Group), met live blockchain-transacties en echt bier als beloning",
+          "TDD toegepast op smart contract development, waardoor de feedbackloop en codebetrouwbaarheid drastisch verbeterden in een domein waar bugs onomkeerbaar zijn",
+          "Cum Laude afgestudeerd met een outstanding score voor zowel de technische implementatie als de presentatie"
         ]
       },
       "scorito": {
@@ -248,13 +248,11 @@
         "duration": "1 jaar",
         "location": "Breda, NL",
         "employmentType": "Parttime",
-        "description": "Webontwikkeling met C# ASP.NET MVC in een Scrum team.",
+        "description": "Parttime software engineer bij Scorito tijdens de studie, met bijdragen aan features en bugfixes voor het grootste fantasy sports platform van Nederland met 500.000+ gebruikers en piekverkeer tijdens grote toernooien zoals het WK en EK.",
         "achievements": [
-          "Webontwikkeling met C# ASP.NET MVC",
-          "Agile ontwikkeling in Scrum team",
-          "Implementatie van nieuwe features",
-          "Unit testing en code reviews",
-          "Database ontwerp met SQL Server"
+          "Nieuwe features en games opgeleverd voor het platform als onderdeel van een professioneel Agile Scrum team, met zowel API-endpoints als frontendcomponenten",
+          "Interne tooling gebouwd om het testen van nieuwe features en refactors te versnellen, waardoor de feedbackloop voor het ontwikkelteam korter werd",
+          "De fundamenten van professionele softwareontwikkeling geleerd: refactoring, architectureel denken, en effectief werken binnen een Scrum team"
         ]
       },
       "scoritoIntern": {
@@ -263,13 +261,12 @@
         "duration": "6 maanden",
         "location": "Breda, NL",
         "employmentType": "Stage",
-        "description": "Ontwikkeling van test framework voor acceptatie testen.",
+        "description": "Stage bij Scorito, het grootste fantasy sports platform van Nederland met 500.000+ gebruikers. Een uitgebreid end-to-end testframework gebouwd dat de basis werd voor de kwaliteitsborging van het team.",
         "achievements": [
-          "Ontwikkelde test framework met Selenium en C#",
-          "Eenvoudige setup van acceptatie tests",
-          "Test automatisering implementatie",
-          "Documentatie en training voor team",
-          "Integratie met CI/CD pipeline"
+          "Selenium + xUnit test automation framework from scratch ontworpen en gebouwd, met Page Object Model, een Fluent API en slimme wachtstrategieën",
+          "Software engineering best practices toegepast op testcode, waardoor het framework elegant en onderhoudbaar werd voor het team om te adopteren en uit te breiden",
+          "Interne training gegeven om het team op te leiden in het framework, waarmee de vroege testcultuur bij Scorito mede werd vormgegeven",
+          "Geleerd dat architectuurpatronen langer meegaan dan tools: het Page Object Model patroon dat hier is gebruikt blijft een best practice in moderne tools zoals Playwright"
         ]
       }
     }

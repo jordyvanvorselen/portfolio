@@ -42,6 +42,7 @@ vi.mock('next-intl/server', () => ({
       },
     })
   ),
+  getLocale: vi.fn(() => Promise.resolve('en')),
 }))
 
 import ExperiencePage, { generateMetadata } from '@/app/(site)/experience/page'
