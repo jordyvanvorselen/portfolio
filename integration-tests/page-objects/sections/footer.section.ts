@@ -13,13 +13,13 @@ export class Footer extends BaseSection {
     /Senior Software Engineer passionate about building/
   )
   readonly location: Locator = this.section.getByText(
-    'De Nieuwe Erven 3, 5431NV Cuijk, the Netherlands 🇳🇱'
+    'Mesta 33, Banderitsa A Block, Apartment A03, Bansko, 2770, Bulgaria 🇧🇬'
   )
   readonly email: Locator = this.section.getByText('jordy@morethanbits.io')
   readonly company: Locator = this.section.getByText(
-    'More than Bits - KVK: 98420003'
+    'Jordy van Vorselen - BULSTAT/EIK: 181555904'
   )
-  readonly btwNumber: Locator = this.section.getByText('BTW: NL005329244B79')
+  readonly btwNumber: Locator = this.section.getByText('VAT: BG181555904')
   readonly quickLinksSection: Locator = this.section.getByRole('heading', {
     name: 'Quick Links',
   })
