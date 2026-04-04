@@ -46,7 +46,7 @@ test.describe('Experience Page', () => {
     ).toBeVisible()
 
     await expect(
-      experiencePage.firstExperienceCard.getByText('1 year 8 months')
+      experiencePage.firstExperienceCard.getByText(/\d+ years? ?\d* ?months?/)
     ).toBeVisible()
 
     await expect(
@@ -69,7 +69,7 @@ test.describe('Experience Page', () => {
 
     await expect(
       experiencePage.firstExperienceCard.getByText(
-        /Developed multiple Java backend services/
+        /Modularized a monolithic Spring Boot backend/
       )
     ).toBeVisible()
 

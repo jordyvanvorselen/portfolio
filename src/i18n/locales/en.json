@@ -34,8 +34,8 @@
       "title": "Test-Driven Development",
       "description": "I write tests first, then code. This approach ensures robust, bug-free software with comprehensive test coverage. My TDD practice leads to better design decisions and maintainable codebases.",
       "skills": [
-        "Jest",
-        "Cypress",
+        "Vitest",
+        "Playwright",
         "Testing Library",
         "Unit Testing",
         "Integration Testing",
@@ -62,7 +62,7 @@
       "skills": [
         "GitHub Actions",
         "Docker & Kubernetes",
-        "Infrastructure as Code",
+        "Terraform",
         "Progressive Deployment",
         "Automated Rollbacks"
       ]
@@ -76,7 +76,7 @@
     "author": {
       "name": "Jordy van Vorselen",
       "description": "Senior Software Engineer passionate about building scalable, maintainable software solutions. Always eager to tackle new challenges and collaborate with amazing teams.",
-      "location": "Mesta 33, Banderitsa A Block, Apartment A03, Bansko, 2770, Bulgaria 🇧🇬",
+      "location": "Mesta 33, Banderitsa A Block, Apartment A03, Bansko, 2770",
       "email": "jordy@morethanbits.io",
       "company": "Jordy van Vorselen - BULSTAT/EIK: 181555904",
       "btwNumber": "VAT: BG181555904"
@@ -115,13 +115,14 @@
         "duration": "1 year 8 months",
         "location": "Remote - Weert, NL",
         "employmentType": "Full-time",
-        "description": "Via Kabisa · Development of high-performance Java backend services with Spring Boot and reactive programming.",
+        "description": "Via Kabisa · Leading a team of 9 building Hertek Connect, the next-generation fire safety platform serving thousands of installations and processing hundreds of millions of events monthly. Driving engineering excellence through TDD, continuous delivery, and key principles from Shape Up.",
         "achievements": [
-          "Developed multiple Java backend services with Spring Boot and Vertx",
-          "Implemented AWS services: ECS, MemoryDB and SQS FiFo",
-          "Backend processes thousands of messages with high performance",
-          "Built: React SPA, SSR Thymeleaf, Cordova and Flutter apps",
-          "Horizontal scalability for enterprise applications"
+          "Modularized a monolithic Spring Boot backend into a Spring Modulith architecture, turning a tangled codebase into maintainable bounded contexts",
+          "Optimized critical JobRunr background jobs that restore installation states after traffic bursts, reducing recovery time from 30+ minutes to under 1 minute",
+          "Adopted key principles from Shape Up into our team process, splitting into 4 focused tracks. Shipping cadence improved from every few months to every 2 weeks",
+          "Established comprehensive testing culture: TDD practices, backend integration tests, Playwright E2E tests, and visual regression testing",
+          "Architected a scalable event processing design based on Redis MemoryDB and Vert.x to resolve ongoing customer-facing scalability challenges",
+          "Scaled the team from a small group to 9 engineers while maintaining velocity through structured onboarding and knowledge sharing"
         ]
       },
       "asml2024": {
@@ -130,13 +131,12 @@
         "duration": "3 months",
         "location": "Remote - Veldhoven, NL",
         "employmentType": "Full-time",
-        "description": "Via Kabisa · Development of business-critical web tools used by tens of thousands of developers.",
+        "description": "Via Kabisa · Returned to ASML for a focused 3-month engagement to accelerate the new team's velocity, resolve critical blockers, and transfer domain knowledge for their mission-critical developer tooling platform.",
         "achievements": [
-          "Developed business-critical web tools for 10,000+ developers",
-          "Worked with Ruby on Rails, React, Flask & Django",
-          "Kubernetes and Docker containerization",
-          "Optimization of tool performance and scalability",
-          "Agile development in large teams"
+          "Prevented a planned 4-month gem rewrite by transferring deep technical knowledge to the new team, reducing delivery time to 1 day",
+          "Delivered a technical training program covering architecture, domain knowledge, and engineering practices to supercharge the new team's ramp-up",
+          "Resolved foundational organisational blockers that had prevented the team from upgrading their tooling, unblocking faster delivery and security updates",
+          "Supported the architect in creating architectural designs for the platform's next phase"
         ]
       },
       "hertek2023": {
@@ -145,13 +145,13 @@
         "duration": "8 months",
         "location": "Remote - Weert, NL",
         "employmentType": "Full-time",
-        "description": "Via Kabisa · Development of Flutter app with strict certification standards for fire safety.",
+        "description": "Via Kabisa · Led a team of 5 building Connect Evac, a Flutter-based fire alarm app for care institutions that replaced legacy pagers with silent mobile coordination. First mobile app in the Netherlands to achieve NEN 2575-4 certification.",
         "achievements": [
-          "Built new Flutter (Dart) mobile app",
-          "Java Spring Boot backend development",
-          "Met strict certification standards",
-          "Direct relationship with fire safety systems",
-          "Implementation of security best practices"
+          "Built the entire Connect Evac platform from scratch: Flutter app, backend API, and alarm routing. Achieved NEN 2575-4 certification on the first attempt",
+          "Engineered a performance-critical full-stack architecture delivering fire alerts to care workers within seconds, including acknowledgment verification and Twilio voice call fallback",
+          "Designed a resilient Android foreground service with a ping-pong keep-alive mechanism between Dart isolates, plus Firebase push notification fallback, ensuring alarms always get through",
+          "Architected Connect Evac as a modular system within the existing backend, cleanly separated with its own API while reusing shared infrastructure like panel communication",
+          "Delivered zero-downtime rolling deployments and Multi-AZ infrastructure, hard requirements for fire safety certification"
         ]
       },
       "asml2021": {
@@ -160,13 +160,13 @@
         "duration": "3 years 9 months",
         "location": "Remote - Veldhoven, NL",
         "employmentType": "Full-time",
-        "description": "Via Kabisa · Long-term development of enterprise web tools for developers worldwide.",
+        "description": "Via Kabisa · Long-term development of ASML's internal software delivery platform used by 10,000+ engineers to plan, build, and roll out patches onto mission-critical hardware. Grew into Lead Developer, driving team unification, modern engineering practices, and Agile transformation.",
         "achievements": [
-          "Developed business-critical web tools for 10,000+ developers",
-          "Expertise in Ruby on Rails, React, Flask & Django",
-          "Container orchestration with Kubernetes",
-          "Performance optimization for large scale",
-          "Cross-functional collaboration with international teams"
+          "Maintained 6 applications, 10+ custom gems, and multiple microservices across a polyglot stack to the highest quality standards through TDD and continuous delivery",
+          "Designed and delivered a role-based permissions system with a custom DSL in 2 sprints, enabling non-technical users to self-configure access rules per department instead of requiring developer changes each sprint",
+          "Drove Agile Scrum adoption before ASML's wider transformation, serving as both tech lead and scrum master, significantly improving team collaboration and velocity",
+          "Modernized legacy applications into updated frameworks while maintaining stability across all production systems",
+          "Set up all Jenkinsfiles and CI/CD pipelines across the application suite, and built custom tooling on RHEL Linux"
         ]
       },
       "signify": {
@@ -175,13 +175,26 @@
         "duration": "5 months",
         "location": "Eindhoven, NL",
         "employmentType": "Full-time",
-        "description": "Via Kabisa · Development of the Hue Labs platform and Philips Hue mobile app.",
+        "description": "Via Kabisa · Full-stack development on the Philips Hue ecosystem, including the Hue Labs experimental platform and the Hue mobile app's Accessory Scalability project. Built with Phoenix (Elixir) and React, serving millions of users worldwide.",
         "achievements": [
-          "Developed Hue Labs platform",
-          "Contributed to Philips Hue mobile app",
-          "React (JavaScript) frontend development",
-          "Phoenix (Elixir) backend development",
-          "IoT integration for smart lighting"
+          "Helped build a generic scalable onboarding system for the Hue mobile app that dynamically generates UI flows per accessory type, replacing the need to hand-build flows for hundreds of \"Friends of Hue\" accessories",
+          "Built and maintained the Hue Labs platform with a custom DSL that enabled marketing teams to create scenes and automations without developer involvement, dramatically accelerating content delivery",
+          "Worked across the full stack: React frontend, Elixir Phoenix backend, and the JavaScript core of the custom DSL",
+          "Contributed to a high-performance team with zero tolerance for technical debt, dedicated experimentation time, and a culture of continuous improvement"
+        ]
+      },
+      "ottoWorkforce": {
+        "position": "Full-Stack Software Engineer",
+        "company": "Otto Workforce",
+        "duration": "2 months",
+        "location": "Remote, NL",
+        "employmentType": "Full-time",
+        "description": "Via Kabisa · Targeted 2-month engagement to surgically improve Otto Workforce's internal employee platform used by tens of thousands of international flex workers. Delivered critical features, bug fixes, and quality improvements within budget.",
+        "achievements": [
+          "Delivered all planned work within budget plus additional improvements, including reduced technical debt and added test coverage for the team inheriting the codebase",
+          "Built helpdesk attachment support, planning change notifications, and contract-based push messaging for tens of thousands of flex workers",
+          "Implemented automated blocking of inactive users and TopDesk helpdesk integration with periodic sync for support requests",
+          "Improved code quality by adding unit tests, refactoring legacy code, and cleaning up the Django/Vue.js codebase for long-term maintainability"
         ]
       },
       "kabisa2020": {
@@ -190,13 +203,13 @@
         "duration": "3 years 9 months",
         "location": "Remote - Weert, NL",
         "employmentType": "Full-time",
-        "description": "Full-Stack Engineer at Kabisa, specialized in developing elegant (enterprise) software solutions.",
+        "description": "Guild Leader for Kabisa's backend engineering community (Java, Ruby, Python), responsible for technical vision, mentoring 20+ engineers, quality assurance across client projects, and representing Kabisa as an authority in software development.",
         "achievements": [
-          "Full-stack development across multiple technologies",
-          "Architecture of enterprise software solutions",
-          "Expertise in Java, Python, Ruby, Elixir and Front-end development",
-          "Implementation of scalable microservices architecture",
-          "Mentoring and coaching of development teams"
+          "Led the backend guild of 20+ engineers as Guild Leader, driving knowledge sharing, technical standards, and proficiency development across Java, Ruby, and Python",
+          "Created internal learning journeys and proficiency scales for three backend stacks, using them to assess engineers and guide their growth to the next level",
+          "Conducted regular tech check-ins across nearly all client projects, gathering feedback on tools and techniques to continuously evolve Kabisa's technical standards",
+          "Provided architectural guidance and mentoring across projects, helping teams choose the right technologies and approach for their specific challenges",
+          "Deployed as Lead Developer to major clients including ASML and Hertek Safety, delivering high-impact solutions in mission-critical high-tech domains: semiconductor tooling and fire safety"
         ]
       },
       "kabisa2016": {
@@ -205,13 +218,12 @@
         "duration": "3 years 11 months",
         "location": "Remote - Weert, NL",
         "employmentType": "Full-time",
-        "description": "Backend Tech Lead at Kabisa, specialized in developing elegant (enterprise) software solutions.",
+        "description": "Started as a junior engineer at Kabisa and rapidly grew into lead developer roles through a relentless focus on engineering excellence. Deployed to clients including Signify, Otto Workforce, and ASML, where high-performance team culture shaped a lasting passion for TDD, continuous delivery, and continuous improvement.",
         "achievements": [
-          "Leading backend development teams",
-          "Architecture of enterprise software solutions",
-          "Expertise in Java, Python, Ruby, Elixir and Front-end development",
-          "Implementation of scalable microservices architecture",
-          "Mentoring and coaching of development teams"
+          "Grew from junior engineer to leading senior developers within 4 years, recognized for technical skill and leadership capabilities regardless of years of experience",
+          "Learned high-performance team practices at early assignments and brought those principles to every subsequent team, consistently raising the bar for quality and collaboration",
+          "Championed TDD, continuous delivery, and automation as core engineering practices, demonstrating that higher quality standards lead to faster delivery with fewer defects",
+          "Worked across Java, Python, Ruby, and Elixir projects, building full-stack expertise that would later form the foundation for the Guild Leader role"
         ]
       },
       "syntouch": {
@@ -220,13 +232,14 @@
         "duration": "6 months",
         "location": "Eindhoven, NL",
         "employmentType": "Graduation",
-        "description": "Graduated Cum Laude · Development of ERC-20 token and blockchain applications.",
+        "description": "Graduation project (Cum Laude) building a full-stack blockchain marketplace from cryptocurrency to storefront. Designed and implemented \"SynCoin,\" a custom ERC20 token with escrow smart contracts, powering a web application where users could purchase SynTouch's craft beer using blockchain payments.",
         "achievements": [
-          "Developed ERC-20 token SynCoin with Ethereum smart contracts",
-          "Built escrow, order and crowdsale system in Solidity",
-          "Research on upgradeable smart contracts",
-          "Node.js backend with Swagger + Express",
-          "Vue.js frontend for blockchain interaction"
+          "Built the complete system end-to-end: custom ERC20 cryptocurrency, Solidity escrow smart contracts, Node.js/Express backend, and a Vue.js storefront with Web3 wallet integration",
+          "Published a technical article on building ERC20 escrow contracts that documented the architecture and approach",
+          "Published research demonstrating that TDD significantly improves both safety and development speed in smart contract engineering, where deployed bugs are immutable and costly",
+          "Showcased the project at two industry events including nlOUG (Dutch Oracle User Group), demonstrating live blockchain transactions with real beer as the reward",
+          "Applied TDD to smart contract development, dramatically increasing the feedback loop and code reliability in a domain where bugs are irreversible",
+          "Graduated Cum Laude with an outstanding score for both the technical implementation and presentation"
         ]
       },
       "scorito": {
@@ -235,13 +248,11 @@
         "duration": "1 year",
         "location": "Breda, NL",
         "employmentType": "Part-time",
-        "description": "Web development with C# ASP.NET MVC in a Scrum team.",
+        "description": "Part-time software engineer at Scorito while studying, contributing features and bug fixes to the Netherlands' largest fantasy sports platform serving 500,000+ users with peak traffic during major tournaments like the World Cup and European Championship.",
         "achievements": [
-          "Web development with C# ASP.NET MVC",
-          "Agile development in Scrum team",
-          "Implementation of new features",
-          "Unit testing and code reviews",
-          "Database design with SQL Server"
+          "Delivered new features and games for the platform as part of a professional Agile Scrum team, building both API endpoints and frontend components",
+          "Built internal tooling to accelerate testing of new features and refactors, reducing the feedback loop for the development team",
+          "Learned the fundamentals of professional software development: refactoring, architectural thinking, and working effectively within a Scrum team"
         ]
       },
       "scoritoIntern": {
@@ -250,13 +261,12 @@
         "duration": "6 months",
         "location": "Breda, NL",
         "employmentType": "Internship",
-        "description": "Development of test framework for acceptance testing.",
+        "description": "Internship at Scorito, the largest fantasy sports platform in the Netherlands with 500,000+ users. Built a comprehensive end-to-end testing framework that became the foundation for the team's quality assurance.",
         "achievements": [
-          "Developed test framework with Selenium and C#",
-          "Simple setup of acceptance tests",
-          "Test automation implementation",
-          "Documentation and training for team",
-          "Integration with CI/CD pipeline"
+          "Designed and built a Selenium + xUnit test automation framework from scratch, featuring Page Object Model, a Fluent API, and smart wait strategies",
+          "Applied software engineering best practices to test code, making the framework elegant and maintainable for the team to adopt and extend",
+          "Delivered an internal training to onboard the team on the framework, helping shape Scorito's early testing culture",
+          "Learned that architectural patterns outlast tools: the Page Object Model pattern used here remains a best practice in modern tools like Playwright today"
         ]
       }
     }

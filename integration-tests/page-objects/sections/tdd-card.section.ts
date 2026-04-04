@@ -17,8 +17,8 @@ export class TddCard extends BaseSection {
     this.section.getByText('KEY SKILLS & TOOLS')
 
   // Skill badges
-  readonly jestBadge: Locator = this.section.getByText('Jest')
-  readonly cypressBadge: Locator = this.section.getByText('Cypress')
+  readonly vitestBadge: Locator = this.section.getByText('Vitest')
+  readonly playwrightBadge: Locator = this.section.getByText('Playwright')
   readonly testingLibraryBadge: Locator =
     this.section.getByText('Testing Library')
   readonly unitTestingBadge: Locator = this.section.getByText('Unit Testing')

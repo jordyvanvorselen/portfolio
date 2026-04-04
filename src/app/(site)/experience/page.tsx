@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
-import { getTranslations, getMessages } from 'next-intl/server'
+import { getTranslations, getMessages, getLocale } from 'next-intl/server'
+import { calculateDuration } from '@/utils/duration'
 import { ExperienceHero } from '@/domains/experience/ExperienceHero'
 import { ExperienceCard } from '@/domains/experience/ExperienceCard'
 import { Title } from '@/ui/Title'
@@ -12,6 +13,7 @@ import scoritoLogo from '@/assets/images/scorito.png'
 import signifyLogo from '@/assets/images/signify.webp'
 import syntouchLogo from '@/assets/images/syntouch.svg'
 import hertekLogo from '@/assets/images/hertek.png'
+import ottoLogo from '@/assets/images/otto.png'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('pages.experience')
@@ -25,6 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
 interface Technology {
   name: string
   iconKey: string
+  iconVariant?: 'plain' | 'original'
 }
 
 type EmploymentType = 'Full-time' | 'Part-time' | 'Internship' | 'Graduation'
@@ -56,7 +59,8 @@ interface Experience {
 
 const createExperienceFromTranslations = (
   t: (key: string) => string,
-  messages: Messages
+  messages: Messages,
+  locale: string
 ): Experience[] => {
   const experiencePositions = [
     {
@@ -66,13 +70,27 @@ const createExperienceFromTranslations = (
       logoAlt: 'Hertek logo',
       technologies: [
         { name: 'Java', iconKey: 'java' },
+        { name: 'TypeScript', iconKey: 'typescript' },
         { name: 'Spring Boot', iconKey: 'spring' },
         { name: 'Vertx', iconKey: 'vertx' },
-        { name: 'AWS', iconKey: 'amazonwebservices' },
+        { name: 'Next.js', iconKey: 'nextjs' },
         { name: 'React', iconKey: 'react' },
         { name: 'Flutter', iconKey: 'flutter' },
         { name: 'Dart', iconKey: 'dart' },
+        { name: 'GraphQL', iconKey: 'graphql' },
+        { name: 'PostgreSQL', iconKey: 'postgresql' },
+        { name: 'Redis', iconKey: 'redis' },
+        { name: 'AWS', iconKey: 'amazonwebservices' },
+        { name: 'Azure', iconKey: 'azure' },
+        { name: 'Terraform', iconKey: 'terraform' },
+        { name: 'Docker', iconKey: 'docker' },
+        { name: 'GitHub Actions', iconKey: 'githubactions' },
+        { name: 'Twilio', iconKey: 'twilio' },
+        { name: 'JobRunr', iconKey: 'java' },
+        { name: 'Datadog', iconKey: 'datadog' },
+        { name: 'Storybook', iconKey: 'storybook' },
       ],
+      startDate: '2024-01-01',
       isCurrentJob: true,
     },
     {
@@ -81,12 +99,18 @@ const createExperienceFromTranslations = (
       logoUrl: asmlLogo.src,
       logoAlt: 'ASML logo',
       technologies: [
+        { name: 'TypeScript', iconKey: 'typescript' },
         { name: 'Ruby on Rails', iconKey: 'rails' },
+        { name: 'Sinatra', iconKey: 'ruby' },
         { name: 'React', iconKey: 'react' },
         { name: 'Flask', iconKey: 'flask' },
         { name: 'Django', iconKey: 'django' },
         { name: 'Kubernetes', iconKey: 'kubernetes' },
         { name: 'Docker', iconKey: 'docker' },
+        { name: 'Jenkins', iconKey: 'jenkins' },
+        { name: 'Artifactory', iconKey: '' },
+        { name: 'RHEL Linux', iconKey: 'redhat' },
+        { name: 'Okta', iconKey: 'okta' },
       ],
       isCurrentJob: false,
     },
@@ -96,10 +120,26 @@ const createExperienceFromTranslations = (
       logoUrl: hertekLogo.src,
       logoAlt: 'Hertek logo',
       technologies: [
+        { name: 'Java', iconKey: 'java' },
+        { name: 'TypeScript', iconKey: 'typescript' },
+        { name: 'Spring Boot', iconKey: 'spring' },
+        { name: 'Vertx', iconKey: 'vertx' },
+        { name: 'Next.js', iconKey: 'nextjs' },
+        { name: 'React', iconKey: 'react' },
         { name: 'Flutter', iconKey: 'flutter' },
         { name: 'Dart', iconKey: 'dart' },
-        { name: 'Java', iconKey: 'java' },
-        { name: 'Spring Boot', iconKey: 'spring' },
+        { name: 'GraphQL', iconKey: 'graphql' },
+        { name: 'PostgreSQL', iconKey: 'postgresql' },
+        { name: 'Redis', iconKey: 'redis' },
+        { name: 'AWS', iconKey: 'amazonwebservices' },
+        { name: 'Azure', iconKey: 'azure' },
+        { name: 'Terraform', iconKey: 'terraform' },
+        { name: 'Docker', iconKey: 'docker' },
+        { name: 'GitHub Actions', iconKey: 'githubactions' },
+        { name: 'Twilio', iconKey: 'twilio' },
+        { name: 'JobRunr', iconKey: 'java' },
+        { name: 'Datadog', iconKey: 'datadog' },
+        { name: 'Storybook', iconKey: 'storybook' },
       ],
       isCurrentJob: false,
     },
@@ -109,12 +149,18 @@ const createExperienceFromTranslations = (
       logoUrl: asmlLogo.src,
       logoAlt: 'ASML logo',
       technologies: [
+        { name: 'TypeScript', iconKey: 'typescript' },
         { name: 'Ruby on Rails', iconKey: 'rails' },
+        { name: 'Sinatra', iconKey: 'ruby' },
         { name: 'React', iconKey: 'react' },
         { name: 'Flask', iconKey: 'flask' },
         { name: 'Django', iconKey: 'django' },
         { name: 'Kubernetes', iconKey: 'kubernetes' },
         { name: 'Docker', iconKey: 'docker' },
+        { name: 'Jenkins', iconKey: 'jenkins' },
+        { name: 'Artifactory', iconKey: '' },
+        { name: 'RHEL Linux', iconKey: 'redhat' },
+        { name: 'Okta', iconKey: 'okta' },
       ],
       isCurrentJob: false,
     },
@@ -124,10 +170,36 @@ const createExperienceFromTranslations = (
       logoUrl: signifyLogo.src,
       logoAlt: 'Signify logo',
       technologies: [
+        { name: 'TypeScript', iconKey: 'typescript' },
         { name: 'React', iconKey: 'react' },
         { name: 'JavaScript', iconKey: 'javascript' },
         { name: 'Phoenix', iconKey: 'phoenix' },
         { name: 'Elixir', iconKey: 'elixir' },
+        { name: 'PostgreSQL', iconKey: 'postgresql' },
+        { name: 'Redux', iconKey: 'redux' },
+        { name: 'AWS', iconKey: 'amazonwebservices' },
+        { name: 'Storybook', iconKey: 'storybook' },
+      ],
+      isCurrentJob: false,
+    },
+    {
+      key: 'ottoWorkforce',
+      companyUrl: 'https://ottoworkforce.nl',
+      logoUrl: ottoLogo.src,
+      logoAlt: 'Otto Workforce logo',
+      technologies: [
+        { name: 'Python', iconKey: 'python' },
+        { name: 'Django', iconKey: 'django' },
+        { name: 'Django REST Framework', iconKey: 'djangorest' },
+        { name: 'Vue.js', iconKey: 'vuejs' },
+        { name: 'MariaDB', iconKey: 'mariadb' },
+        { name: 'Galera Cluster', iconKey: 'mysql' },
+        { name: 'Redis', iconKey: 'redis' },
+        { name: 'Docker', iconKey: 'docker' },
+        { name: 'Kubernetes', iconKey: 'kubernetes' },
+        { name: 'Nginx', iconKey: 'nginx' },
+        { name: 'Datadog', iconKey: 'datadog' },
+        { name: 'Sentry', iconKey: 'sentry' },
       ],
       isCurrentJob: false,
     },
@@ -142,6 +214,14 @@ const createExperienceFromTranslations = (
         { name: 'Ruby', iconKey: 'ruby' },
         { name: 'Elixir', iconKey: 'elixir' },
         { name: 'Spring Boot', iconKey: 'spring' },
+        { name: 'Ruby on Rails', iconKey: 'rails' },
+        { name: 'Django', iconKey: 'django' },
+        { name: 'Phoenix', iconKey: 'phoenix' },
+        { name: 'React', iconKey: 'react' },
+        { name: 'PostgreSQL', iconKey: 'postgresql' },
+        { name: 'Docker', iconKey: 'docker' },
+        { name: 'AWS', iconKey: 'amazonwebservices' },
+        { name: 'Azure', iconKey: 'azure' },
       ],
       isCurrentJob: false,
     },
@@ -156,8 +236,16 @@ const createExperienceFromTranslations = (
         { name: 'Ruby', iconKey: 'ruby' },
         { name: 'Elixir', iconKey: 'elixir' },
         { name: 'Spring Boot', iconKey: 'spring' },
+        { name: 'Ruby on Rails', iconKey: 'rails' },
+        { name: 'Django', iconKey: 'django' },
+        { name: 'Phoenix', iconKey: 'phoenix' },
+        { name: 'React', iconKey: 'react' },
+        { name: 'PostgreSQL', iconKey: 'postgresql' },
+        { name: 'Docker', iconKey: 'docker' },
+        { name: 'AWS', iconKey: 'amazonwebservices' },
+        { name: 'Azure', iconKey: 'azure' },
       ],
-      isCurrentJob: true,
+      isCurrentJob: false,
     },
     {
       key: 'syntouch',
@@ -166,9 +254,21 @@ const createExperienceFromTranslations = (
       logoAlt: 'SynTouch logo',
       technologies: [
         { name: 'Solidity', iconKey: 'solidity' },
+        { name: 'Ethereum', iconKey: 'solidity' },
+        { name: 'ERC20', iconKey: 'solidity' },
         { name: 'Node.js', iconKey: 'nodejs' },
+        {
+          name: 'Express',
+          iconKey: 'express',
+          iconVariant: 'original' as const,
+        },
         { name: 'Vue.js', iconKey: 'vuejs' },
+        { name: 'Vuetify', iconKey: 'vuetify' },
+        { name: 'VueX', iconKey: 'vuejs' },
         { name: 'Web3', iconKey: 'web3js' },
+        { name: 'Metamask', iconKey: 'solidity' },
+        { name: 'Ropsten', iconKey: 'solidity' },
+        { name: 'Mocha', iconKey: 'mocha' },
       ],
       isCurrentJob: false,
     },
@@ -179,9 +279,16 @@ const createExperienceFromTranslations = (
       logoAlt: 'Scorito.com logo',
       technologies: [
         { name: 'C#', iconKey: 'csharp' },
-        { name: 'ASP.NET MVC', iconKey: 'dot-net' },
-        { name: 'SQL Server', iconKey: 'microsoftsqlserver' },
+        { name: 'TypeScript', iconKey: 'typescript' },
         { name: 'JavaScript', iconKey: 'javascript' },
+        { name: 'ASP.NET MVC', iconKey: 'dot-net' },
+        { name: 'MSSQL', iconKey: 'microsoftsqlserver' },
+        { name: 'Redis', iconKey: 'redis' },
+        { name: 'RabbitMQ', iconKey: 'rabbitmq' },
+        { name: 'xUnit', iconKey: 'dot-net' },
+        { name: 'Selenium', iconKey: 'selenium' },
+        { name: 'Test Automation', iconKey: 'selenium' },
+        { name: 'TeamCity', iconKey: 'jetbrains' },
       ],
       isCurrentJob: false,
     },
@@ -192,9 +299,16 @@ const createExperienceFromTranslations = (
       logoAlt: 'Scorito.com logo',
       technologies: [
         { name: 'C#', iconKey: 'csharp' },
+        { name: 'TypeScript', iconKey: 'typescript' },
+        { name: 'JavaScript', iconKey: 'javascript' },
+        { name: 'ASP.NET MVC', iconKey: 'dot-net' },
+        { name: 'MSSQL', iconKey: 'microsoftsqlserver' },
+        { name: 'Redis', iconKey: 'redis' },
+        { name: 'RabbitMQ', iconKey: 'rabbitmq' },
+        { name: 'xUnit', iconKey: 'dot-net' },
         { name: 'Selenium', iconKey: 'selenium' },
-        { name: 'ASP.NET', iconKey: 'dot-net' },
         { name: 'Test Automation', iconKey: 'selenium' },
+        { name: 'TeamCity', iconKey: 'jetbrains' },
       ],
       isCurrentJob: false,
     },
@@ -206,7 +320,9 @@ const createExperienceFromTranslations = (
     companyUrl: exp.companyUrl,
     logoUrl: exp.logoUrl,
     logoAlt: exp.logoAlt,
-    duration: t(`experience.positions.${exp.key}.duration`),
+    duration: exp.startDate
+      ? calculateDuration(exp.startDate, locale)
+      : t(`experience.positions.${exp.key}.duration`),
     location: t(`experience.positions.${exp.key}.location`),
     employmentType: t(
       `experience.positions.${exp.key}.employmentType`
@@ -221,7 +337,8 @@ const createExperienceFromTranslations = (
 export default async function ExperiencePage() {
   const t = await getTranslations()
   const messages = (await getMessages()) as Messages
-  const experiences = createExperienceFromTranslations(t, messages)
+  const locale = await getLocale()
+  const experiences = createExperienceFromTranslations(t, messages, locale)
   // Calculate unique positions and companies
   const uniquePositions = new Set(experiences.map(exp => exp.position)).size
   const uniqueCompanies = new Set(experiences.map(exp => exp.company)).size

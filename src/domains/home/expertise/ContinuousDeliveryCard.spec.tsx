@@ -35,7 +35,7 @@ describe('ContinuousDeliveryCard', () => {
 
     expect(screen.getByText('GitHub Actions')).toBeVisible()
     expect(screen.getByText('Docker & Kubernetes')).toBeVisible()
-    expect(screen.getByText('Infrastructure as Code')).toBeVisible()
+    expect(screen.getByText('Terraform')).toBeVisible()
     expect(screen.getByText('Progressive Deployment')).toBeVisible()
     expect(screen.getByText('Automated Rollbacks')).toBeVisible()
   })

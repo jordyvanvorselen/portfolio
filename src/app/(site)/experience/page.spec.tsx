@@ -32,6 +32,7 @@ vi.mock('next-intl/server', () => ({
           hertek2023: { achievements: ['Hertek Achievement'] },
           asml2021: { achievements: ['ASML 2021 Achievement'] },
           signify: { achievements: ['Signify Achievement'] },
+          ottoWorkforce: { achievements: ['Otto Achievement'] },
           kabisa2020: { achievements: ['Kabisa Achievement'] },
           kabisa2016: { achievements: ['Kabisa 2016 Achievement'] },
           syntouch: { achievements: ['SynTouch Achievement'] },
@@ -41,6 +42,7 @@ vi.mock('next-intl/server', () => ({
       },
     })
   ),
+  getLocale: vi.fn(() => Promise.resolve('en')),
 }))
 
 import ExperiencePage, { generateMetadata } from '@/app/(site)/experience/page'
