@@ -5,7 +5,7 @@ import { HeroTitle } from '@/domains/home/hero/HeroTitle'
 import { ScrollIndicator } from '@/domains/home/hero/ScrollIndicator'
 import { SocialLinks } from '@/domains/home/hero/SocialLinks'
 import Image from 'next/image'
-import jordy from '@/assets/images/jordy.svg'
+import jordy from '@/assets/images/jordy.webp'
 
 export const HeroSection = () => {
   return (
