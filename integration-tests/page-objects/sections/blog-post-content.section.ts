@@ -20,4 +20,15 @@ export class BlogPostContent extends BaseSection {
   readonly mermaidDiagrams: Locator = this.richTextContent.locator(
     '[data-testid="mermaid-diagram"]'
   )
+  readonly callouts: Locator = this.richTextContent.getByRole('note')
+  readonly imageCaptions: Locator = this.richTextContent.locator('figcaption')
+  readonly linkCards: Locator = this.richTextContent.getByRole('link', {
+    name: /Read full story/,
+  })
+  readonly substackSubscribeForm: Locator = this.richTextContent.getByTitle(
+    'Subscribe to the newsletter on Substack'
+  )
+  readonly substackButtons: Locator = this.richTextContent.getByRole('link', {
+    name: /opens on Substack/,
+  })
 }
