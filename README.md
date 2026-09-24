@@ -150,7 +150,7 @@ The blog is powered by **Payload CMS** backed by **Neon** (serverless PostgreSQL
 
 **Crossposting from Substack:**
 
-`pnpm crosspost <substack post url>` copies a published Substack post into Payload as a draft. It keeps the formatting, uploads the images and sets the canonical URL to the Substack post. Substack widgets become blog blocks: callouts, link cards, the Substack signup form and buttons that open Substack. The command stops with a clear error on content the blog cannot show yet, such as footnotes.
+`pnpm crosspost <substack post url>` copies a published Substack post into Payload as a draft. It keeps the formatting, uploads the images and sets the canonical URL to the Substack post. Substack widgets become blog blocks: callouts, link cards, a "Subscribe on Substack" button and other buttons that open Substack. The command stops with a clear error on content the blog cannot show yet, such as footnotes.
 
 ```bash
 PAYLOAD_EMAIL=you@example.com PAYLOAD_PASSWORD=... pnpm crosspost https://name.substack.com/p/post-slug
