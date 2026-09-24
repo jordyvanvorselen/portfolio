@@ -278,6 +278,95 @@ export const mockContentWithImages: SerializedEditorState = {
         ],
         version: 1,
       },
+      // Blocks a crossposted Substack article uses
+      {
+        type: 'block',
+        version: 2,
+        format: '',
+        fields: {
+          id: 'callout-1',
+          blockName: '',
+          blockType: 'callout',
+          content: {
+            root: {
+              type: 'root',
+              children: [
+                {
+                  type: 'paragraph',
+                  children: [
+                    {
+                      type: 'text',
+                      text: 'One team of 10 engineers shares 30+ rules in one repo.',
+                      format: 0,
+                      version: 1,
+                    },
+                  ],
+                  version: 1,
+                },
+              ],
+              direction: null,
+              format: '',
+              indent: 0,
+              version: 1,
+            },
+          },
+        },
+      },
+      {
+        type: 'upload',
+        fields: { caption: 'Rules get skipped. A failing test does not.' },
+        value: {
+          url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop',
+          alt: 'A laptop with code on the screen',
+          width: 800,
+          height: 400,
+        },
+        relationTo: 'media',
+        version: 3,
+      },
+      {
+        type: 'block',
+        version: 2,
+        format: '',
+        fields: {
+          id: 'link-card-1',
+          blockName: '',
+          blockType: 'linkCard',
+          url: '/blog/typescript-advanced',
+          title: 'Advanced TypeScript',
+          description: 'Advanced TypeScript techniques and patterns',
+          author: 'Jordy van Vorselen',
+          publicationDate: '2026-08-22T18:14:36.812Z',
+          image: {
+            url: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&h=400&fit=crop',
+          },
+        },
+      },
+      {
+        type: 'block',
+        version: 2,
+        format: '',
+        fields: {
+          id: 'subscribe-1',
+          blockName: '',
+          blockType: 'substackSubscribe',
+          caption:
+            'I write for founders and CTOs of AI-native teams. Subscribe for free to get the next post.',
+          publicationUrl: 'https://jordyvanvorselen.substack.com',
+        },
+      },
+      {
+        type: 'block',
+        version: 2,
+        format: '',
+        fields: {
+          id: 'substack-button-1',
+          blockName: '',
+          blockType: 'substackButton',
+          label: 'Message Jordy van Vorselen',
+          url: 'https://substack.com/@jordyvanvorselen',
+        },
+      },
     ],
     direction: null,
     format: '',

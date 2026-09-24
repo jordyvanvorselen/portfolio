@@ -2,6 +2,11 @@ import { Fragment, type ReactNode } from 'react'
 import Image from 'next/image'
 import type { SerializedEditorState } from '@/types/lexical'
 import type { SerializedElementNode, SerializedTextNode } from '@/types/lexical'
+import { formatDate } from '@/lib/blog-helpers'
+import { Callout } from '@/ui/Callout'
+import { LinkCard } from '@/ui/LinkCard'
+import { SubstackButton } from '@/ui/SubstackButton'
+import { SubstackSubscribe } from '@/ui/SubstackSubscribe'
 import { MermaidDiagram } from '@/ui/MermaidDiagram'
 
 export interface PayloadRichTextProps {
@@ -16,10 +21,36 @@ interface BlockNode extends SerializedElementNode {
     blockType: string
     language?: string
     code?: string
+    content?: SerializedEditorState
+    url?: string
+    title?: string
+    description?: string
+    author?: string
+    publicationDate?: string
+    image?: { url?: string } | number | null
+    caption?: string
+    publicationUrl?: string
+    label?: string
   }
 }
 
+interface UploadNode {
+  type: 'upload'
+  value: { url: string; alt?: string; width?: number; height?: number }
+  fields?: { caption?: string }
+}
+
 // Type guards
+const isUploadNode = (node: unknown): node is UploadNode => {
+  return (
+    typeof node === 'object' &&
+    node !== null &&
+    'type' in node &&
+    node.type === 'upload' &&
+    'value' in node
+  )
+}
+
 const isTextNode = (node: unknown): node is SerializedTextNode => {
   return (
     typeof node === 'object' &&
@@ -145,6 +176,63 @@ const renderBlockNode = (
     }
   }
 
+  if (node.fields.blockType === 'callout' && node.fields.content) {
+    return (
+      <Callout key={index}>
+        {renderChildren(node.fields.content, highlightedCodeBlocks)}
+      </Callout>
+    )
+  }
+
+  if (
+    node.fields.blockType === 'linkCard' &&
+    node.fields.url &&
+    node.fields.title
+  ) {
+    const { url, title, description, author, publicationDate, image } =
+      node.fields
+    return (
+      <LinkCard
+        key={index}
+        href={url}
+        title={title}
+        {...(description && { description })}
+        {...(author && { author })}
+        {...(publicationDate && { date: formatDate(publicationDate) })}
+        {...(typeof image === 'object' &&
+          image?.url && { imageUrl: image.url })}
+      />
+    )
+  }
+
+  if (
+    node.fields.blockType === 'substackSubscribe' &&
+    node.fields.publicationUrl
+  ) {
+    const { publicationUrl, caption } = node.fields
+    return (
+      <SubstackSubscribe
+        key={index}
+        publicationUrl={publicationUrl}
+        {...(caption && { caption })}
+      />
+    )
+  }
+
+  if (
+    node.fields.blockType === 'substackButton' &&
+    node.fields.label &&
+    node.fields.url
+  ) {
+    return (
+      <SubstackButton
+        key={index}
+        label={node.fields.label}
+        url={node.fields.url}
+      />
+    )
+  }
+
   // Unknown block type — render children if present
   if ('children' in node && Array.isArray(node.children)) {
     const children = node.children.map((child, childIndex) =>
@@ -156,28 +244,37 @@ const renderBlockNode = (
   return null
 }
 
+// Render an upload node (image); Payload stores these without children
+const renderUploadNode = (node: UploadNode, index: number): ReactNode => {
+  const image = (
+    <Image
+      key={index}
+      src={node.value.url}
+      alt={node.value.alt ?? ''}
+      width={node.value.width ?? 800}
+      height={node.value.height ?? 400}
+    />
+  )
+  const caption = node.fields?.caption
+  if (!caption) {
+    return image
+  }
+  return (
+    <figure key={index} className="my-8">
+      {image}
+      <figcaption className="mt-3 text-center text-base text-gray-400">
+        {caption}
+      </figcaption>
+    </figure>
+  )
+}
+
 // Render an element node
 const renderElementNode = (
   node: SerializedElementNode,
   index: number,
   highlightedCodeBlocks?: Record<string, string>
 ): ReactNode => {
-  // Handle upload nodes (images)
-  if (node.type === 'upload') {
-    const uploadNode = node as SerializedElementNode & {
-      value: { url: string; alt?: string; width?: number; height?: number }
-    }
-    return (
-      <Image
-        key={index}
-        src={uploadNode.value.url}
-        alt={uploadNode.value.alt ?? ''}
-        width={uploadNode.value.width ?? 800}
-        height={uploadNode.value.height ?? 400}
-      />
-    )
-  }
-
   const children = node.children.map((child, childIndex) =>
     renderNode(child, childIndex, highlightedCodeBlocks)
   )
@@ -300,6 +397,10 @@ const renderNode = (
     return renderBlockNode(node, index, highlightedCodeBlocks)
   }
 
+  if (isUploadNode(node)) {
+    return renderUploadNode(node, index)
+  }
+
   if (isElementNode(node)) {
     return renderElementNode(node, index, highlightedCodeBlocks)
   }
@@ -307,23 +408,31 @@ const renderNode = (
   return null
 }
 
+// Render the top-level nodes of an editor state (also used for nested rich text in blocks)
+const renderChildren = (
+  editorState: SerializedEditorState,
+  highlightedCodeBlocks?: Record<string, string>
+): ReactNode => {
+  if (
+    !editorState.root ||
+    !('children' in editorState.root) ||
+    !Array.isArray(editorState.root.children)
+  ) {
+    return null
+  }
+
+  return editorState.root.children.map((child, index) =>
+    renderNode(child, index, highlightedCodeBlocks)
+  )
+}
+
 export const PayloadRichText = ({
   data,
   highlightedCodeBlocks,
 }: PayloadRichTextProps) => {
-  const renderContent = (editorState: SerializedEditorState) => {
-    if (
-      !editorState.root ||
-      !('children' in editorState.root) ||
-      !Array.isArray(editorState.root.children)
-    ) {
-      return null
-    }
-
-    return editorState.root.children.map((child, index) =>
-      renderNode(child, index, highlightedCodeBlocks)
-    )
-  }
-
-  return <div data-testid="payload-rich-text">{renderContent(data)}</div>
+  return (
+    <div data-testid="payload-rich-text">
+      {renderChildren(data, highlightedCodeBlocks)}
+    </div>
+  )
 }

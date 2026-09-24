@@ -188,3 +188,55 @@ test.describe('Blog Post Page - Content Features', () => {
     ).toBeVisible()
   })
 })
+
+test.describe('Blog Post Page - Crossposted Substack content', () => {
+  test('highlights callouts', async ({ page }) => {
+    const blogPostPage = await BlogPostPage.goto(page, 'python-tips')
+    await expect(blogPostPage.content.callouts.first()).toHaveText(
+      'One team of 10 engineers shares 30+ rules in one repo.'
+    )
+  })
+
+  test('shows captions below images', async ({ page }) => {
+    const blogPostPage = await BlogPostPage.goto(page, 'python-tips')
+    await expect(blogPostPage.content.imageCaptions.first()).toHaveText(
+      'Rules get skipped. A failing test does not.'
+    )
+  })
+
+  test('link cards open the linked post', async ({ page }) => {
+    const blogPostPage = await BlogPostPage.goto(page, 'python-tips')
+    await blogPostPage.content.linkCards.first().click()
+    await expect(page).toHaveURL(/.*\/blog\/typescript-advanced$/)
+  })
+
+  test('the subscribe block links to the Substack subscribe page', async ({
+    page,
+  }) => {
+    const blogPostPage = await BlogPostPage.goto(page, 'python-tips')
+    await expect(blogPostPage.content.substackSubscribeButton).toHaveAttribute(
+      'href',
+      'https://jordyvanvorselen.substack.com/subscribe'
+    )
+  })
+
+  test('Substack buttons open Substack in a new tab', async ({ page }) => {
+    const blogPostPage = await BlogPostPage.goto(page, 'python-tips')
+    await expect(blogPostPage.content.substackMessageButton).toHaveAttribute(
+      'href',
+      'https://substack.com/@jordyvanvorselen'
+    )
+    await expect(blogPostPage.content.substackMessageButton).toHaveAttribute(
+      'target',
+      '_blank'
+    )
+  })
+
+  test('crossposted content visual regression', async ({ page }) => {
+    const blogPostPage = await BlogPostPage.goto(page, 'python-tips')
+    await blogPostPage.hideHeader()
+    await expect(blogPostPage.content.section).toHaveScreenshot(
+      'blog-post-crosspost-content.png'
+    )
+  })
+})

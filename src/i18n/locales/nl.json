@@ -343,7 +343,10 @@
       "readTime": "{readTime}",
       "tags": "Labels",
       "author": "Geschreven door",
-      "authorName": "Jordy van Vorselen"
+      "authorName": "Jordy van Vorselen",
+      "readFullStory": "Lees het hele verhaal",
+      "opensOnSubstack": "(opent op Substack)",
+      "subscribeOnSubstack": "Abonneer op Substack"
     }
   },
   "pages": {
