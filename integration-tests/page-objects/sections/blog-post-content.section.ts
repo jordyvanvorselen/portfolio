@@ -25,10 +25,12 @@ export class BlogPostContent extends BaseSection {
   readonly linkCards: Locator = this.richTextContent.getByRole('link', {
     name: /Read full story/,
   })
-  readonly substackSubscribeForm: Locator = this.richTextContent.getByTitle(
-    'Subscribe to the newsletter on Substack'
+  readonly substackSubscribeButton: Locator = this.richTextContent.getByRole(
+    'link',
+    { name: /Subscribe on Substack/ }
   )
-  readonly substackButtons: Locator = this.richTextContent.getByRole('link', {
-    name: /opens on Substack/,
-  })
+  readonly substackMessageButton: Locator = this.richTextContent.getByRole(
+    'link',
+    { name: /Message Jordy van Vorselen/ }
+  )
 }

@@ -1,5 +1,4 @@
 import { expect } from '@playwright/test'
-import { http, HttpResponse } from 'msw'
 
 import { test } from '@/integration-tests/fixtures/pages.fixture'
 import { BlogPostPage } from '@/integration-tests/page-objects/pages/blog-post.page'
@@ -191,15 +190,6 @@ test.describe('Blog Post Page - Content Features', () => {
 })
 
 test.describe('Blog Post Page - Crossposted Substack content', () => {
-  // The embedded signup form loads from substack.com and never goes network-idle
-  test.beforeEach(({ msw }) => {
-    msw.use(
-      http.get('https://jordyvanvorselen.substack.com/embed', () =>
-        HttpResponse.html('<html><body></body></html>')
-      )
-    )
-  })
-
   test('highlights callouts', async ({ page }) => {
     const blogPostPage = await BlogPostPage.goto(page, 'python-tips')
     await expect(blogPostPage.content.callouts.first()).toHaveText(
@@ -220,21 +210,23 @@ test.describe('Blog Post Page - Crossposted Substack content', () => {
     await expect(page).toHaveURL(/.*\/blog\/typescript-advanced$/)
   })
 
-  test('embeds the Substack signup form', async ({ page }) => {
+  test('the subscribe block links to the Substack subscribe page', async ({
+    page,
+  }) => {
     const blogPostPage = await BlogPostPage.goto(page, 'python-tips')
-    await expect(blogPostPage.content.substackSubscribeForm).toHaveAttribute(
-      'src',
-      'https://jordyvanvorselen.substack.com/embed'
+    await expect(blogPostPage.content.substackSubscribeButton).toHaveAttribute(
+      'href',
+      'https://jordyvanvorselen.substack.com/subscribe'
     )
   })
 
   test('Substack buttons open Substack in a new tab', async ({ page }) => {
     const blogPostPage = await BlogPostPage.goto(page, 'python-tips')
-    await expect(blogPostPage.content.substackButtons.first()).toHaveAttribute(
+    await expect(blogPostPage.content.substackMessageButton).toHaveAttribute(
       'href',
       'https://substack.com/@jordyvanvorselen'
     )
-    await expect(blogPostPage.content.substackButtons.first()).toHaveAttribute(
+    await expect(blogPostPage.content.substackMessageButton).toHaveAttribute(
       'target',
       '_blank'
     )
@@ -244,9 +236,7 @@ test.describe('Blog Post Page - Crossposted Substack content', () => {
     const blogPostPage = await BlogPostPage.goto(page, 'python-tips')
     await blogPostPage.hideHeader()
     await expect(blogPostPage.content.section).toHaveScreenshot(
-      'blog-post-crosspost-content.png',
-      // The Substack form loads from substack.com, so it is not ours to pin down
-      { mask: [blogPostPage.content.substackSubscribeForm] }
+      'blog-post-crosspost-content.png'
     )
   })
 })

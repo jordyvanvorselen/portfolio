@@ -869,7 +869,7 @@ describe('PayloadRichText crossposted Substack content', () => {
     expect(screen.getByRole('img', { name: "Agents don't care" })).toBeVisible()
   })
 
-  it('renders Substack subscribe blocks as the Substack signup form', () => {
+  it('renders Substack subscribe blocks as a link to subscribe on Substack', () => {
     render(
       <PayloadRichText
         data={editorWith(
@@ -885,10 +885,9 @@ describe('PayloadRichText crossposted Substack content', () => {
     expect(
       screen.getByText('Subscribe for free to get the next post.')
     ).toBeVisible()
-    expect(screen.getByTitle('blog.post.subscribeFormTitle')).toHaveAttribute(
-      'src',
-      'https://jordyvanvorselen.substack.com/embed'
-    )
+    expect(
+      screen.getByRole('link', { name: /blog.post.subscribeOnSubstack/ })
+    ).toHaveAttribute('href', 'https://jordyvanvorselen.substack.com/subscribe')
   })
 
   it('renders Substack button blocks as a button that opens Substack', () => {
