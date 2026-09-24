@@ -343,7 +343,10 @@
       "readTime": "{readTime}",
       "tags": "Tags",
       "author": "Written by",
-      "authorName": "Jordy van Vorselen"
+      "authorName": "Jordy van Vorselen",
+      "readFullStory": "Read full story",
+      "opensOnSubstack": "(opens on Substack)",
+      "subscribeFormTitle": "Subscribe to the newsletter on Substack"
     }
   },
   "pages": {
