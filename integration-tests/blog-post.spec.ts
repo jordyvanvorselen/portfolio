@@ -1,4 +1,5 @@
 import { expect } from '@playwright/test'
+import { http, HttpResponse } from 'msw'
 
 import { test } from '@/integration-tests/fixtures/pages.fixture'
 import { BlogPostPage } from '@/integration-tests/page-objects/pages/blog-post.page'
@@ -190,6 +191,15 @@ test.describe('Blog Post Page - Content Features', () => {
 })
 
 test.describe('Blog Post Page - Crossposted Substack content', () => {
+  // The embedded signup form loads from substack.com and never goes network-idle
+  test.beforeEach(({ msw }) => {
+    msw.use(
+      http.get('https://jordyvanvorselen.substack.com/embed', () =>
+        HttpResponse.html('<html><body></body></html>')
+      )
+    )
+  })
+
   test('highlights callouts', async ({ page }) => {
     const blogPostPage = await BlogPostPage.goto(page, 'python-tips')
     await expect(blogPostPage.content.callouts.first()).toHaveText(
