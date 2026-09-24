@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import type { SerializedEditorState } from '@/types/lexical'
 
 import { PayloadRichText } from '@/ui/PayloadRichText'
@@ -796,5 +796,188 @@ describe('PayloadRichText', () => {
     render(<PayloadRichText data={editorState} />)
 
     expect(screen.getByText('Custom block content')).toBeVisible()
+  })
+})
+
+describe('PayloadRichText crossposted Substack content', () => {
+  const editorWith = (...children: unknown[]) =>
+    ({
+      root: {
+        type: 'root',
+        children,
+        direction: null,
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    }) as unknown as SerializedEditorState
+
+  const paragraph = (text: string) => ({
+    type: 'paragraph',
+    version: 1,
+    children: [{ type: 'text', text, format: 0, version: 1 }],
+  })
+
+  const block = (fields: Record<string, unknown>) => ({
+    type: 'block',
+    version: 2,
+    format: '',
+    fields: { id: 'block-1', blockName: '', ...fields },
+  })
+
+  it('renders callout blocks with their own rich text', () => {
+    render(
+      <PayloadRichText
+        data={editorWith(
+          block({
+            blockType: 'callout',
+            content: editorWith(paragraph('9 engineers share 30 rules')),
+          })
+        )}
+      />
+    )
+
+    expect(screen.getByRole('note')).toHaveTextContent(
+      '9 engineers share 30 rules'
+    )
+  })
+
+  it('renders link card blocks as a card linking to the post', () => {
+    render(
+      <PayloadRichText
+        data={editorWith(
+          block({
+            blockType: 'linkCard',
+            url: '/blog/agents-dont-care',
+            title: "Agents don't care",
+            author: 'Jordy van Vorselen',
+            publicationDate: '2026-08-22T18:14:36.812Z',
+            image: {
+              url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
+            },
+          })
+        )}
+      />
+    )
+
+    expect(
+      screen.getByRole('link', { name: /Agents don't care/ })
+    ).toHaveAttribute('href', '/blog/agents-dont-care')
+    expect(
+      screen.getByText('Jordy van Vorselen · August 22, 2026')
+    ).toBeVisible()
+    expect(screen.getByRole('img', { name: "Agents don't care" })).toBeVisible()
+  })
+
+  it('renders Substack subscribe blocks as the Substack signup form', () => {
+    render(
+      <PayloadRichText
+        data={editorWith(
+          block({
+            blockType: 'substackSubscribe',
+            caption: 'Subscribe for free to get the next post.',
+            publicationUrl: 'https://jordyvanvorselen.substack.com',
+          })
+        )}
+      />
+    )
+
+    expect(
+      screen.getByText('Subscribe for free to get the next post.')
+    ).toBeVisible()
+    expect(screen.getByTitle('blog.post.subscribeFormTitle')).toHaveAttribute(
+      'src',
+      'https://jordyvanvorselen.substack.com/embed'
+    )
+  })
+
+  it('renders Substack button blocks as a button that opens Substack', () => {
+    render(
+      <PayloadRichText
+        data={editorWith(
+          block({
+            blockType: 'substackButton',
+            label: 'Message Jordy van Vorselen',
+            url: 'https://substack.com/@jordyvanvorselen',
+          })
+        )}
+      />
+    )
+
+    expect(
+      screen.getByRole('link', { name: /Message Jordy van Vorselen/ })
+    ).toHaveAttribute('href', 'https://substack.com/@jordyvanvorselen')
+  })
+
+  it('renders image captions below the image', () => {
+    render(
+      <PayloadRichText
+        data={editorWith({
+          type: 'upload',
+          version: 3,
+          relationTo: 'media',
+          fields: { caption: "Rules get skipped. A failing test doesn't." },
+          value: {
+            url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
+            alt: 'A robot ignores a pile of rules',
+            width: 1456,
+            height: 762,
+          },
+        })}
+      />
+    )
+
+    const figure = screen.getByRole('figure')
+    expect(
+      within(figure).getByText("Rules get skipped. A failing test doesn't.")
+    ).toBeVisible()
+    expect(
+      within(figure).getByRole('img', {
+        name: 'A robot ignores a pile of rules',
+      })
+    ).toBeVisible()
+  })
+
+  it('renders images the way Payload stores them, without children', () => {
+    render(
+      <PayloadRichText
+        data={editorWith({
+          type: 'upload',
+          version: 3,
+          relationTo: 'media',
+          fields: {},
+          value: {
+            url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
+            alt: 'A PR comment from the preview deploy',
+          },
+        })}
+      />
+    )
+
+    expect(
+      screen.getByRole('img', { name: 'A PR comment from the preview deploy' })
+    ).toBeVisible()
+    expect(screen.queryByRole('figure')).not.toBeInTheDocument()
+  })
+
+  it('renders link cards without a thumbnail when the image was not loaded', () => {
+    render(
+      <PayloadRichText
+        data={editorWith(
+          block({
+            blockType: 'linkCard',
+            url: 'https://jordyvanvorselen.substack.com/p/agents',
+            title: "Agents don't care",
+            description: "Rules get skipped. A failing test doesn't.",
+            image: 12,
+          })
+        )}
+      />
+    )
+
+    expect(
+      screen.getByText("Rules get skipped. A failing test doesn't.")
+    ).toBeVisible()
+    expect(screen.queryByRole('img')).not.toBeInTheDocument()
   })
 })
