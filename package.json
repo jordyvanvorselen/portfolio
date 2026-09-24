@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.29.2",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -13,11 +14,11 @@
     "format:fix": "prettier --write . --log-level warn",
     "test": "pnpm test:unit && pnpm test:integration && pnpm test:visual-regression",
     "test:unit": "vitest run --coverage",
-    "test:integration": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:integration:ci \"$@\"' --",
+    "test:integration": "docker compose run --rm playwright sh -c 'corepack enable && pnpm install && pnpm test:integration:ci \"$@\"' --",
     "test:integration:ci": "playwright test --grep-invert 'visual regression'",
-    "test:visual-regression": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci'",
+    "test:visual-regression": "docker compose run --rm playwright sh -c 'corepack enable && pnpm install && pnpm test:visual-regression:ci'",
     "test:visual-regression:ci": "NODE_ENV=test playwright test --grep='visual regression'",
-    "test:visual-regression:fix": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci --update-snapshots'",
+    "test:visual-regression:fix": "docker compose run --rm playwright sh -c 'corepack enable && pnpm install && pnpm test:visual-regression:ci --update-snapshots'",
     "payload": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
     "crosspost": "tsx scripts/crosspost.ts",
     "ci": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload migrate && next build"
