@@ -1,6 +1,14 @@
 import type { CollectionConfig } from 'payload'
-import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import {
+  BlocksFeature,
+  lexicalEditor,
+  UploadFeature,
+} from '@payloadcms/richtext-lexical'
+import { Callout } from '@/collections/blocks/Callout'
 import { CodeBlock } from '@/collections/blocks/CodeBlock'
+import { LinkCard } from '@/collections/blocks/LinkCard'
+import { SubstackButton } from '@/collections/blocks/SubstackButton'
+import { SubstackSubscribe } from '@/collections/blocks/SubstackSubscribe'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -94,8 +102,21 @@ export const Posts: CollectionConfig = {
       editor: lexicalEditor({
         features: ({ defaultFeatures }) => [
           ...defaultFeatures,
+          UploadFeature({
+            collections: {
+              media: {
+                fields: [{ name: 'caption', type: 'text' }],
+              },
+            },
+          }),
           BlocksFeature({
-            blocks: [CodeBlock],
+            blocks: [
+              CodeBlock,
+              Callout,
+              LinkCard,
+              SubstackSubscribe,
+              SubstackButton,
+            ],
           }),
         ],
       }),
