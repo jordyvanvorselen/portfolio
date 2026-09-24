@@ -19,6 +19,7 @@
     "test:visual-regression:ci": "NODE_ENV=test playwright test --grep='visual regression'",
     "test:visual-regression:fix": "docker compose run --rm playwright sh -c 'npm install -g pnpm && pnpm install && pnpm test:visual-regression:ci --update-snapshots'",
     "payload": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
+    "crosspost": "tsx scripts/crosspost.ts",
     "ci": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload migrate && next build"
   },
   "dependencies": {
@@ -81,6 +82,7 @@
     "prettier": "^3.8.1",
     "tailwindcss": "^4.1.18",
     "ts-node": "^10.9.2",
+    "tsx": "^4.23.15",
     "type-fest": "^5.4.3",
     "typescript": "^5.9.3",
     "vite-plugin-svgr": "^4.5.0",
