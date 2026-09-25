@@ -346,8 +346,10 @@
       "authorName": "Jordy van Vorselen",
       "readFullStory": "Lees het hele verhaal",
       "opensOnSubstack": "(opent op Substack)",
-      "subscribeOnSubstack": "Abonneer op Substack"
-    }
+      "subscribeOnSubstack": "Abonneer op Substack",
+      "loading": "Artikel laden…"
+    },
+    "loading": "Artikelen laden…"
   },
   "pages": {
     "home": {
