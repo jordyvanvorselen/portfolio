@@ -19,7 +19,8 @@ const main = async () => {
 
   const window = new Window()
   const result = await crosspost(postUrl, {
-    payloadUrl: process.env['PAYLOAD_URL'] ?? 'https://www.morethanbits.io',
+    payloadUrl:
+      process.env['PAYLOAD_URL'] ?? 'https://www.jordyvanvorselen.com',
     email: readEnv('PAYLOAD_EMAIL'),
     password: readEnv('PAYLOAD_PASSWORD'),
     parseHtml: html => {

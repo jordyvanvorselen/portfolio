@@ -156,7 +156,7 @@ The blog is powered by **Payload CMS** backed by **Neon** (serverless PostgreSQL
 PAYLOAD_EMAIL=you@example.com PAYLOAD_PASSWORD=... pnpm crosspost https://name.substack.com/p/post-slug
 ```
 
-Set `PAYLOAD_URL` to a preview deploy to try it on a preview database first. It defaults to `https://www.morethanbits.io`.
+Set `PAYLOAD_URL` to a preview deploy to try it on a preview database first. It defaults to `https://www.jordyvanvorselen.com`.
 
 **Preview Deploy Database Branching:**
 
