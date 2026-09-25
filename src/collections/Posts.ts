@@ -9,6 +9,7 @@ import { CodeBlock } from '@/collections/blocks/CodeBlock'
 import { LinkCard } from '@/collections/blocks/LinkCard'
 import { SubstackButton } from '@/collections/blocks/SubstackButton'
 import { SubstackSubscribe } from '@/collections/blocks/SubstackSubscribe'
+import { revalidatePostsCache } from '@/lib/posts-cache'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -21,6 +22,10 @@ export const Posts: CollectionConfig = {
   },
   versions: {
     drafts: true,
+  },
+  hooks: {
+    afterChange: [revalidatePostsCache],
+    afterDelete: [revalidatePostsCache],
   },
   fields: [
     {
