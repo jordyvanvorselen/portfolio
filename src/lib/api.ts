@@ -5,6 +5,7 @@ import {
   calculateReadTime,
   ensureAbsoluteUrl,
 } from '@/lib/blog-helpers'
+import { cachePublishedPosts } from '@/lib/posts-cache'
 import type { SerializedEditorState } from '@/types/lexical'
 import type { Media, Post } from '@/payload-types'
 
@@ -99,6 +100,10 @@ export async function getAllPosts(isDraftMode: boolean): Promise<BlogPost[]> {
     return mockBlogPosts
   }
 
+  return isDraftMode ? findAllPosts(true) : findPublishedPosts()
+}
+
+async function findAllPosts(isDraftMode: boolean): Promise<BlogPost[]> {
   const payload = await getPayload({ config })
 
   const result = await payload.find({
@@ -113,6 +118,10 @@ export async function getAllPosts(isDraftMode: boolean): Promise<BlogPost[]> {
   return result.docs.map(doc => transformPost(doc as Post))
 }
 
+const findPublishedPosts = cachePublishedPosts('all-posts', () =>
+  findAllPosts(false)
+)
+
 export async function getPostAndMorePosts(
   slug: string,
   preview: boolean
@@ -126,6 +135,15 @@ export async function getPostAndMorePosts(
     }
   }
 
+  return preview
+    ? findPostAndMorePosts(slug, true)
+    : findPublishedPostAndMorePosts(slug)
+}
+
+async function findPostAndMorePosts(
+  slug: string,
+  preview: boolean
+): Promise<{ post: BlogPost | null; morePosts: BlogPost[] }> {
   const payload = await getPayload({ config })
 
   const [postResult, morePostsResult] = await Promise.all([
@@ -156,6 +174,11 @@ export async function getPostAndMorePosts(
   }
 }
 
+const findPublishedPostAndMorePosts = cachePublishedPosts(
+  'post-and-more-posts',
+  (slug: string) => findPostAndMorePosts(slug, false)
+)
+
 export async function getDetailedPostBySlug(
   slug: string,
   preview: boolean
@@ -176,6 +199,15 @@ export async function getDetailedPostBySlug(
     }
   }
 
+  return preview
+    ? findDetailedPostBySlug(slug, true)
+    : findPublishedDetailedPostBySlug(slug)
+}
+
+async function findDetailedPostBySlug(
+  slug: string,
+  preview: boolean
+): Promise<DetailedBlogPost | null> {
   const payload = await getPayload({ config })
 
   const result = await payload.find({
@@ -192,3 +224,8 @@ export async function getDetailedPostBySlug(
 
   return transformDetailedPost(result.docs[0] as Post)
 }
+
+const findPublishedDetailedPostBySlug = cachePublishedPosts(
+  'detailed-post',
+  (slug: string) => findDetailedPostBySlug(slug, false)
+)
