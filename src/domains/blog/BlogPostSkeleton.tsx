@@ -27,7 +27,7 @@ export const BlogPostSkeleton = () => {
 
       <section
         data-testid="blog-post-content-skeleton"
-        className="max-w-4xl mx-auto px-6 sm:px-6 lg:px-8 pb-16 flex flex-col gap-4"
+        className="max-w-4xl min-h-screen mx-auto px-6 sm:px-6 lg:px-8 pb-16 flex flex-col gap-4"
       >
         <Skeleton className="h-5 w-full" />
         <Skeleton className="h-5 w-full" />

@@ -354,11 +354,13 @@
   "pages": {
     "home": {
       "title": "Jordy van Vorselen - Portfolio",
-      "description": "Full-stack ontwikkelaar en software engineer portfolio"
+      "description": "Full-stack ontwikkelaar en software engineer portfolio",
+      "loading": "Pagina laden…"
     },
     "projects": {
       "title": "Projecten - Jordy van Vorselen",
-      "description": "Projecten en open source bijdragen door Jordy van Vorselen"
+      "description": "Projecten en open source bijdragen door Jordy van Vorselen",
+      "loading": "Projecten laden…"
     },
     "blog": {
       "title": "Blog - Jordy van Vorselen",
@@ -368,7 +370,8 @@
       "title": "Ervaring - Jordy van Vorselen",
       "description": "Professionele werkervaring en carrièrereis door Jordy van Vorselen",
       "professionalJourney": "Professionele Reis",
-      "journeyDescription": "Van vroege stages tot senior engineering rollen, zo is mijn reis in software ontwikkeling geëvolueerd door continu leren en impactvolle bijdragen."
+      "journeyDescription": "Van vroege stages tot senior engineering rollen, zo is mijn reis in software ontwikkeling geëvolueerd door continu leren en impactvolle bijdragen.",
+      "loading": "Ervaring laden…"
     }
   },
   "layout": {
