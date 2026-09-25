@@ -8,7 +8,7 @@ const BlogCardSkeleton = () => (
     data-testid="blog-card-skeleton"
     className="overflow-hidden rounded-xl bg-gray-800/50 border border-gray-700"
   >
-    <Skeleton className="aspect-[16/9] rounded-none" />
+    <Skeleton className="aspect-[16/9]" rounded="none" />
     <div className="p-6 min-h-[18.5rem] flex flex-col gap-3">
       <Skeleton className="h-4 w-40" />
       <Skeleton className="h-6 w-4/5" />
@@ -36,7 +36,7 @@ export const BlogPageSkeleton = () => {
           data-testid="featured-blog-card-skeleton"
           className="mt-12 overflow-hidden rounded-2xl border border-teal-500/30 bg-gray-800/70 lg:grid lg:grid-cols-2 lg:gap-8"
         >
-          <Skeleton className="aspect-[16/9] rounded-none" />
+          <Skeleton className="aspect-[16/9]" rounded="none" />
           <div className="p-8 lg:py-12 flex flex-col justify-center gap-4">
             <Skeleton className="h-4 w-40" />
             <Skeleton className="h-10 w-5/6" />
