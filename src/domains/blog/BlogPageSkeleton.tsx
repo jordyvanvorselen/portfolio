@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl'
 
+import { PageHeroSkeleton } from '@/domains/common/PageHeroSkeleton'
 import { Skeleton } from '@/ui/Skeleton'
 
 const BlogCardSkeleton = () => (
@@ -26,14 +27,7 @@ export const BlogPageSkeleton = () => {
         {t('blog.loading')}
       </div>
 
-      <section className="header-offset relative pt-16 pb-20 overflow-hidden mt-8">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-950 to-black"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-6">
-          <Skeleton className="h-12 w-72" />
-          <Skeleton className="h-6 w-full max-w-2xl" />
-          <Skeleton className="h-6 w-2/3 max-w-xl" />
-        </div>
-      </section>
+      <PageHeroSkeleton />
 
       <div className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <Skeleton className="h-12 w-full" />
