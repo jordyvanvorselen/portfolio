@@ -12,6 +12,13 @@ export interface Pillar {
   tagline: string
   leak: string
   fix: string
+  evidence: Evidence
+}
+
+export interface Evidence {
+  finding: string
+  source: string
+  href: string
 }
 
 export interface AnswerOption {
@@ -53,6 +60,12 @@ export const pillars: Pillar[] = [
     tagline: 'You measure lead time and stability, not vibes.',
     leak: 'You can’t see whether AI helps or hurts, so every decision runs on gut feeling.',
     fix: 'Pull lead time, escaped defects and rework out of your Git and CI history. Set a baseline this week.',
+    evidence: {
+      finding:
+        'Lead time, change fail rate and rework rate are the standard measures of delivery speed and stability.',
+      source: 'DORA software delivery metrics',
+      href: 'https://dora.dev/guides/dora-metrics/',
+    },
   },
   {
     id: 'tests',
@@ -60,6 +73,12 @@ export const pillars: Pillar[] = [
     tagline: 'A green build means shippable.',
     leak: 'AI-written tests raise coverage but catch little. Nobody trusts a green build.',
     fix: 'Mutation-test your critical paths. Delete tautological tests. Gate merges on mutation score.',
+    evidence: {
+      finding:
+        'Mutation testing finds test gaps that match real bugs. Developers who see them write more and better tests.',
+      source: 'Google, ICSE 2021 · 15 million mutants',
+      href: 'https://homes.cs.washington.edu/~rjust/publ/mutation_testing_practices_icse_2021.pdf',
+    },
   },
   {
     id: 'specs',
@@ -67,6 +86,11 @@ export const pillars: Pillar[] = [
     tagline: 'Agents know when a feature is done.',
     leak: 'Correct behaviour lives in people’s heads. Agents guess, reviewers argue.',
     fix: 'Write executable specs for your critical flows before the agent writes code.',
+    evidence: {
+      finding: '30% of developers have little or no trust in AI-written code.',
+      source: 'DORA 2025 · nearly 5,000 professionals',
+      href: 'https://dora.dev/research/2025/dora-report/',
+    },
   },
   {
     id: 'pipeline',
@@ -74,6 +98,12 @@ export const pillars: Pillar[] = [
     tagline: 'CI blocks slop before a human sees it.',
     leak: 'Humans are the only filter. Your seniors spend their day catching what a pipeline should.',
     fix: 'Gate every PR on tests, specs and architecture rules. Get the main pipeline under 10 minutes.',
+    evidence: {
+      finding:
+        'AI adoption now raises throughput, but still makes delivery less stable.',
+      source: 'DORA 2025 · nearly 5,000 professionals',
+      href: 'https://dora.dev/research/2025/dora-report/',
+    },
   },
   {
     id: 'review',
@@ -81,6 +111,11 @@ export const pillars: Pillar[] = [
     tagline: 'PRs merge the same day.',
     leak: 'Reviewing a PR takes longer than generating it did. The queue is the new bottleneck.',
     fix: 'Let the pipeline check correctness so review can focus on intent. Pair on the risky parts.',
+    evidence: {
+      finding: 'Median PR review time rose 441% as AI adoption grew.',
+      source: 'Faros AI 2026 · 22,000 developers',
+      href: 'https://www.faros.ai/research/ai-acceleration-whiplash',
+    },
   },
   {
     id: 'releases',
@@ -88,6 +123,12 @@ export const pillars: Pillar[] = [
     tagline: 'Releases are boring and on time.',
     leak: 'Releases slip, then break on rollout. Features ship twice: once to demo, once to work.',
     fix: 'Ship smaller batches behind flags. Make every merge releasable and release on a fixed rhythm.',
+    evidence: {
+      finding:
+        'Working in small batches improves product performance for teams that use AI.',
+      source: 'DORA AI Capabilities Model 2025',
+      href: 'https://dora.dev/ai/capabilities-model/report/',
+    },
   },
 ]
 

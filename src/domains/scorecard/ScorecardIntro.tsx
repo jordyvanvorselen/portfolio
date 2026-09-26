@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, BookOpen, ExternalLink } from 'lucide-react'
 
 import { pillarIcons } from '@/domains/scorecard/pillarIcons'
 import { pillars } from '@/domains/scorecard/scorecard.data'
@@ -11,9 +11,9 @@ interface ScorecardIntroProps {
 
 const evidence = [
   {
-    value: '+441%',
-    label: 'PR review time on teams with high AI adoption',
-    source: 'Faros AI, 22,000 developers',
+    value: '+242.7%',
+    label: 'incidents per pull request as AI adoption grew',
+    source: 'Faros AI 2026, 22,000 developers',
   },
   {
     value: '−7.2%',
@@ -67,9 +67,17 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => (
           AI makes code cheap. These six decide whether that code reaches users
           fast, or waits in queues and comes back as rework.
         </p>
+        <p className="mt-6 flex items-start gap-2 text-sm text-gray-400 leading-relaxed">
+          <BookOpen
+            className="mt-0.5 w-4 h-4 shrink-0 text-teal-400"
+            aria-hidden="true"
+          />
+          Every rail is backed by published research from DORA, Google and Faros
+          AI.
+        </p>
       </div>
 
-      <dl className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-x-10">
+      <dl className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 content-start gap-x-10">
         {pillars.map(pillar => {
           const Icon = pillarIcons[pillar.id]
           return (
@@ -83,7 +91,20 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => (
               />
               <div>
                 <dt className="font-semibold text-white">{pillar.name}</dt>
-                <dd className="mt-1 text-gray-400">{pillar.tagline}</dd>
+                <dd className="mt-1 text-gray-300">{pillar.tagline}</dd>
+                <dd className="mt-3 text-sm text-gray-400 leading-relaxed">
+                  {pillar.evidence.finding}
+                  <a
+                    href={pillar.evidence.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 flex w-fit items-center gap-1 text-teal-300 underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-teal-400"
+                  >
+                    {pillar.evidence.source}
+                    <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                    <span className="sr-only">(opens in a new tab)</span>
+                  </a>
+                </dd>
               </div>
             </div>
           )
