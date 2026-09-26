@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { AnalyzingPipeline } from '@/domains/scorecard/AnalyzingPipeline'
@@ -19,6 +20,7 @@ type Stage = 'intro' | 'quiz' | 'analyzing' | 'results'
 const ADVANCE_DELAY_MS = 220
 
 export const Scorecard = () => {
+  const t = useTranslations('scorecard')
   const [stage, setStage] = useState<Stage>('intro')
   const [index, setIndex] = useState(0)
   const [direction, setDirection] = useState<'next' | 'prev'>('next')
@@ -88,7 +90,7 @@ export const Scorecard = () => {
     <section
       ref={sectionRef}
       className="header-offset relative min-h-[calc(100vh-4rem)] overflow-hidden py-16 sm:py-24"
-      aria-label="AI Delivery Scorecard"
+      aria-label={t('sectionLabel')}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-950 to-black" />
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">

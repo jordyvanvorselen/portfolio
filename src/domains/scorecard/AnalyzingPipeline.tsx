@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import {
   CircleAlert,
   CircleCheck,
@@ -30,13 +31,6 @@ const START_MS = 450
 const JOB_MS = 1000
 const LINE_MS = 250
 const AUTO_CONTINUE_MS = 5000
-
-const statusWord: Record<Tone, string> = {
-  rose: 'leaking',
-  amber: 'at risk',
-  blue: 'holding',
-  teal: 'healthy',
-}
 
 const checkStyle: Record<CheckStatus, { mark: string; text: string }> = {
   pass: { mark: '✓', text: 'text-teal-400' },
@@ -71,7 +65,9 @@ export const AnalyzingPipeline = ({
   answers,
   onDone,
 }: AnalyzingPipelineProps) => {
+  const t = useTranslations('scorecard')
   const { pillarScores, biggestLeak, hasLeak } = result
+  const leakName = t(`pillars.${biggestLeak.pillar.id}.name`)
   const jobsEnd = jobStart(pillarScores.length)
   const leakAt = jobsEnd + 150
   const finishedAt = leakAt + 350
@@ -83,19 +79,27 @@ export const AnalyzingPipeline = ({
       const checks = checksFor(pillar.id, answers)
       const tone = toneForScore(score)
       return [
-        { at: start, line: { kind: 'group', text: pillar.name } },
+        {
+          at: start,
+          line: {
+            kind: 'group',
+            text: t('analyzing.run', { name: t(`pillars.${pillar.id}.name`) }),
+          },
+        },
         ...checks.map((check, checkIndex) => ({
           at: start + (checkIndex + 1) * LINE_MS,
           line: {
             kind: 'check' as const,
-            text: check.check,
-            answer: check.answer,
+            text: t(`questions.${check.questionId}.check`),
+            answer: t(
+              `questions.${check.questionId}.options.${check.answerIndex}`
+            ),
             status: check.status,
           },
         })),
         {
           at: start + (checks.length + 1) * LINE_MS,
-          line: { kind: 'result', text: statusWord[tone], tone },
+          line: { kind: 'result', text: t(`analyzing.status.${tone}`), tone },
         },
       ]
     }
@@ -104,14 +108,14 @@ export const AnalyzingPipeline = ({
     {
       at: leakAt,
       line: hasLeak
-        ? { kind: 'leak', text: `Biggest leak: ${biggestLeak.pillar.name}` }
-        : { kind: 'healthy', text: 'No leaks found' },
+        ? { kind: 'leak', text: t('analyzing.biggestLeak', { name: leakName }) }
+        : { kind: 'healthy', text: t('analyzing.noLeaks') },
     },
     {
       at: finishedAt,
       line: {
         kind: 'summary',
-        text: `${pillarScores.length} rails checked · report ready`,
+        text: t('analyzing.summary', { count: pillarScores.length }),
       },
     }
   )
@@ -135,16 +139,18 @@ export const AnalyzingPipeline = ({
         data-autofocus
         className="text-2xl sm:text-3xl font-bold text-white outline-none"
       >
-        Running your delivery checks
+        {t('analyzing.title')}
       </h2>
       <p className="sr-only" role="status">
         {isFinished
           ? hasLeak
-            ? `Done. Biggest leak: ${biggestLeak.pillar.name}.`
-            : 'Done. No leaks found.'
+            ? t('analyzing.statusDoneLeak', { name: leakName })
+            : t('analyzing.statusDoneHealthy')
           : running
-            ? `Checking ${running.pillar.name}`
-            : 'Starting'}
+            ? t('analyzing.statusChecking', {
+                name: t(`pillars.${running.pillar.id}.name`),
+              })
+            : t('analyzing.statusStarting')}
       </p>
 
       <div
@@ -164,17 +170,17 @@ export const AnalyzingPipeline = ({
           {isFinished && !hasLeak ? (
             <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-teal-500/15 px-3 py-1 text-xs font-semibold text-teal-300 motion-safe:animate-pop">
               <CircleCheck className="h-3.5 w-3.5" />
-              All rails healthy
+              {t('analyzing.allHealthy')}
             </span>
           ) : isFinished ? (
             <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-rose-500/15 px-3 py-1 text-xs font-semibold text-rose-300 motion-safe:animate-pop">
               <CircleX className="h-3.5 w-3.5" />
-              {needsWorkCount} {needsWorkCount === 1 ? 'rail' : 'rails'} to fix
+              {t('analyzing.railsToFix', { count: needsWorkCount })}
             </span>
           ) : (
             <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-300">
               <LoaderCircle className="h-3.5 w-3.5 motion-safe:animate-spin" />
-              In progress
+              {t('analyzing.inProgress')}
             </span>
           )}
         </div>
@@ -231,7 +237,7 @@ export const AnalyzingPipeline = ({
                       isDone || isRunning ? 'text-gray-200' : 'text-gray-500'
                     }`}
                   >
-                    {pillar.name}
+                    {t(`pillars.${pillar.id}.name`)}
                   </span>
                   <span className="hidden font-mono text-xs tabular-nums text-gray-500 sm:block">
                     {isDone || isRunning ? `${seconds.toFixed(1)}s` : ''}
@@ -260,7 +266,7 @@ export const AnalyzingPipeline = ({
       <div className="mt-6 flex min-h-12 justify-end">
         {isFinished && (
           <AutoContinueButton durationMs={AUTO_CONTINUE_MS} onContinue={onDone}>
-            See your report
+            {t('analyzing.seeReport')}
           </AutoContinueButton>
         )}
       </div>
@@ -275,7 +281,7 @@ const LogRow = ({ number, line }: { number: number; line: LogLine }) => (
     </span>
     <span className="min-w-0 truncate">
       {line.kind === 'group' && (
-        <span className="font-semibold text-white">▸ Run {line.text}</span>
+        <span className="font-semibold text-white">▸ {line.text}</span>
       )}
       {line.kind === 'check' && (
         <>

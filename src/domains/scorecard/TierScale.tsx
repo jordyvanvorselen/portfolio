@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 import { tiers, type Tier } from '@/domains/scorecard/scorecard.data'
@@ -49,6 +50,7 @@ const useSweep = (target: number) => {
 }
 
 export const TierScale = ({ score, current }: TierScaleProps) => {
+  const t = useTranslations('scorecard')
   const position = useSweep(score)
   const hasLanded = position >= score - 1
 
@@ -58,7 +60,7 @@ export const TierScale = ({ score, current }: TierScaleProps) => {
         <div className="flex gap-1">
           {ascending.map((tier, index) => {
             const { from, to } = rangeOf(index)
-            const isCurrent = tier.name === current.name
+            const isCurrent = tier.id === current.id
             const trail = Math.min(
               Math.max((position - from) / (to - from), 0),
               1
@@ -66,7 +68,7 @@ export const TierScale = ({ score, current }: TierScaleProps) => {
             const fill = isCurrent && hasLanded ? 1 : trail
             return (
               <div
-                key={tier.name}
+                key={tier.id}
                 className="h-1.5 overflow-hidden rounded-full bg-gray-800"
                 style={{ width: `${to - from}%` }}
               >
@@ -94,10 +96,10 @@ export const TierScale = ({ score, current }: TierScaleProps) => {
       <div className="mt-3 flex gap-1 text-xs">
         {ascending.map((tier, index) => {
           const { from, to } = rangeOf(index)
-          const isReached = tier.name === current.name && position >= from
+          const isReached = tier.id === current.id && position >= from
           return (
             <div
-              key={tier.name}
+              key={tier.id}
               className={`text-left transition-colors duration-200 ${
                 isReached
                   ? `font-semibold ${toneStyles[tier.tone].text}`
@@ -105,7 +107,7 @@ export const TierScale = ({ score, current }: TierScaleProps) => {
               }`}
               style={{ width: `${to - from}%` }}
             >
-              {tier.name}
+              {t(`tiers.${tier.id}.name`)}
             </div>
           )
         })}

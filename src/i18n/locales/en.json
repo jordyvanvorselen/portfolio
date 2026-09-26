@@ -418,5 +418,342 @@
       "english": "English",
       "dutch": "Nederlands"
     }
+  },
+  "scorecard": {
+    "meta": {
+      "title": "AI Delivery Scorecard | Jordy van Vorselen",
+      "description": "AI made your team faster. How much faster could it be? Score the six rails that decide how much of AI’s speed reaches your users."
+    },
+    "sectionLabel": "AI Delivery Scorecard",
+    "intro": {
+      "titleLead": "AI made your team faster.",
+      "titleAccent": "How much faster could it be?",
+      "body": "Most AI-native teams ship faster than a year ago. Most also lose a big part of the gain to review queues, rework and slipped releases. Score the six rails that decide how much of AI’s speed reaches your users.",
+      "start": "Start the scorecard",
+      "sample": "See a sample report",
+      "facts": "14 questions · 3 minutes · Results on screen, no email needed",
+      "railsTitle": "The six rails",
+      "railsBody": "AI makes code cheap. These six decide whether that code reaches users fast, or waits in queues and comes back as rework.",
+      "railsEvidence": "Every rail is backed by published research from DORA, Google and Faros AI.",
+      "opensInNewTab": "(opens in a new tab)",
+      "closingTitle": "Which rail leaks the most speed on your team?",
+      "closingBody": "Find out in 3 minutes. You get your score per rail, your biggest leak and the first fix to try."
+    },
+    "symptoms": {
+      "title": "Sound familiar?",
+      "subtitle": "What AI-native teams see after the first speed-up.",
+      "closing": "It’s not the AI. It’s the rails your code runs on.",
+      "source": "{finding} · Faros AI 2026 · 22,000 developers",
+      "review": {
+        "quote": "Reviewing the PR takes longer than writing it did.",
+        "label": "longer to review a pull request",
+        "finding": "Median review time +441%"
+      },
+      "incidents": {
+        "quote": "We merge more than ever, and production breaks more too.",
+        "label": "more incidents per pull request",
+        "finding": "Incidents per PR +242.7%"
+      }
+    },
+    "quiz": {
+      "progress": "Scorecard progress",
+      "back": "Back",
+      "intro": "Intro",
+      "aboutTeam": "About your team",
+      "tip": "Tip: press <key>1</key>–<key>4</key> to answer"
+    },
+    "analyzing": {
+      "title": "Running your delivery checks",
+      "statusStarting": "Starting",
+      "statusChecking": "Checking {name}",
+      "statusDoneLeak": "Done. Biggest leak: {name}.",
+      "statusDoneHealthy": "Done. No leaks found.",
+      "inProgress": "In progress",
+      "allHealthy": "All rails healthy",
+      "railsToFix": "{count, plural, one {# rail} other {# rails}} to fix",
+      "run": "Run {name}",
+      "biggestLeak": "Biggest leak: {name}",
+      "noLeaks": "No leaks found",
+      "summary": "{count} rails checked · report ready",
+      "status": {
+        "rose": "leaking",
+        "amber": "at risk",
+        "blue": "holding",
+        "teal": "healthy"
+      },
+      "seeReport": "See your report",
+      "autoOpens": "(opens automatically in {seconds} seconds)"
+    },
+    "results": {
+      "scoreLine": "Your delivery scores <score></score> out of 100:",
+      "engineLabel": "Engine speed",
+      "engineCaption": "Share of code AI writes",
+      "roadLabel": "Road speed",
+      "roadCaption": "Delivery score out of 100",
+      "outrunTitle": "Your engine is outrunning your rails",
+      "keepUpTitle": "Your rails keep up with your engine",
+      "outrunBody": "AI writes about {aiShare}% of your code. Your delivery rails score {score} out of 100. Much of the speed AI adds never reaches your users.",
+      "keepUpBody": "AI writes about {aiShare}% of your code, and your rails score {score} out of 100. The speed AI adds reaches your users.",
+      "railsTitle": "Your six rails",
+      "radarLabel": "Score per delivery rail",
+      "biggestLeakBadge": "Biggest leak",
+      "leakEyebrow": "Your biggest leak",
+      "leakScore": "Score {score} out of 100",
+      "firstFix": "First fix",
+      "healthyEyebrow": "No leaks found",
+      "perfectTitle": "A perfect score",
+      "holdTitle": "Every rail holds",
+      "perfectBody": "All six rails score 100. The speed AI adds reaches your users, and your team can add more engine safely.",
+      "holdBody": "All six rails score {healthy} or more. The speed AI adds reaches your users. Your weakest rail is {name}, at {score}.",
+      "keepTitle": "Keep it that way",
+      "keepBody": "Self-assessments tend to run optimistic. Check these answers against your own Git and CI history before you add more engine.",
+      "costTitle": "Speed you leave on the table",
+      "costTitleNothingLost": "Nothing left on the table",
+      "hoursTerm": "Engineer time lost",
+      "hoursValue": "~{hours}h",
+      "hoursLabel": "of engineer time a week",
+      "costTerm": "Cost",
+      "costLabel": "a month, lost to rework and waiting",
+      "costNote": "Rough estimate for {teamSize} engineers at €75 an hour. The audit replaces it with numbers from your own Git and CI history.",
+      "auditTitle": "Want the real numbers?",
+      "auditBody": "The AI Delivery Audit measures lead time, escaped defects and review load in your own Git and CI history.",
+      "auditPlan": "You get clear insight into where your speed leaks, and a full plan with actionable steps to fix it, based on those measurements.",
+      "auditCta": "Book a 30-minute call",
+      "auditMailSubject": "AI Delivery Audit",
+      "newsletterTitle": "Get one delivery fix a week",
+      "newsletterBody": "Short, practical posts on turning AI speed into shipped features. Free, on Substack.",
+      "newsletterPitch": "Each post takes one leak, like slow reviews or tests that catch nothing, and shows a fix your team can try the same week.",
+      "newsletterCta": "Subscribe on Substack",
+      "restart": "Retake the scorecard",
+      "share": "Share the scorecard",
+      "linkCopied": "Link copied",
+      "shareTitle": "AI Delivery Scorecard"
+    },
+    "pillars": {
+      "measurement": {
+        "name": "Speedometer",
+        "tagline": "You measure delivery, not vibes.",
+        "leak": "You can’t see whether AI helps or hurts, so every decision runs on gut feeling.",
+        "fix": "Pull lead time, escaped defects and rework out of your Git and CI history. Set a baseline this week.",
+        "finding": "Lead time, change fail rate and rework rate are the standard measures of delivery speed and stability.",
+        "source": "DORA software delivery metrics"
+      },
+      "tests": {
+        "name": "Test signal",
+        "tagline": "A green build means shippable.",
+        "leak": "AI-written tests raise coverage but catch little. Nobody trusts a green build.",
+        "fix": "Mutation-test your critical paths. Delete tautological tests. Gate merges on mutation score.",
+        "finding": "Mutation testing finds test gaps that match real bugs. Developers who see them write more and better tests.",
+        "source": "Google, ICSE 2021 · 15 million mutants"
+      },
+      "specs": {
+        "name": "Definition of correct",
+        "tagline": "Agents know when a feature is done.",
+        "leak": "Correct behaviour lives in people’s heads. Agents guess, reviewers argue.",
+        "fix": "Write executable specs for your critical flows before the agent writes code.",
+        "finding": "30% of developers have little or no trust in AI-written code.",
+        "source": "DORA 2025 · nearly 5,000 professionals"
+      },
+      "pipeline": {
+        "name": "Pipeline gates",
+        "tagline": "CI blocks slop before a human sees it.",
+        "leak": "Humans are the only filter. Your seniors spend their day catching what a pipeline should.",
+        "fix": "Gate every PR on tests, specs and architecture rules. Get the main pipeline under 10 minutes.",
+        "finding": "AI adoption now raises throughput, but still makes delivery less stable.",
+        "source": "DORA 2025 · nearly 5,000 professionals"
+      },
+      "review": {
+        "name": "Review flow",
+        "tagline": "PRs merge the same day.",
+        "leak": "Reviewing a PR takes longer than generating it did. The queue is the new bottleneck.",
+        "fix": "Let the pipeline check correctness so review can focus on intent. Pair on the risky parts.",
+        "finding": "Median PR review time rose 441% as AI adoption grew.",
+        "source": "Faros AI 2026 · 22,000 developers"
+      },
+      "releases": {
+        "name": "Release rhythm",
+        "tagline": "Releases are boring and on time.",
+        "leak": "Releases slip, then break on rollout. Features ship twice: once to demo, once to work.",
+        "fix": "Ship smaller batches behind flags. Make every merge releasable and release on a fixed rhythm.",
+        "finding": "Working in small batches improves product performance for teams that use AI.",
+        "source": "DORA AI Capabilities Model 2025"
+      }
+    },
+    "questions": {
+      "teamSize": {
+        "text": "How many engineers ship code in your product team?",
+        "why": "We use this to estimate what the leaks cost you.",
+        "options": {
+          "0": "1–5 engineers",
+          "1": "6–15 engineers",
+          "2": "16–30 engineers",
+          "3": "More than 30"
+        }
+      },
+      "aiShare": {
+        "text": "Roughly how much of your new code do AI agents write?",
+        "why": "This is your engine speed. The scorecard compares it to your road speed.",
+        "options": {
+          "0": "Less than 25%",
+          "1": "25–50%",
+          "2": "50–75%",
+          "3": "More than 75%"
+        }
+      },
+      "leadTime": {
+        "text": "Could you tell me your median lead time from commit to production for last month, right now?",
+        "why": "Lead time is the speedometer. Without it, \"faster\" is a feeling.",
+        "check": "Lead time known",
+        "options": {
+          "0": "No idea",
+          "1": "I have a gut feeling",
+          "2": "We could dig it up from Git and CI",
+          "3": "Yes, it’s on a dashboard we check"
+        }
+      },
+      "aiImpact": {
+        "text": "How do you know whether AI is making your team faster?",
+        "why": "More PRs is engine speed. Shipped, stable features is road speed.",
+        "check": "AI impact measured",
+        "options": {
+          "0": "We feel faster",
+          "1": "PR and commit counts went up",
+          "2": "We compare cycle time before and after",
+          "3": "We track speed and stability against a baseline"
+        }
+      },
+      "greenBuild": {
+        "text": "When CI goes green, would you bet your weekend on the release?",
+        "why": "A test suite is only worth the confidence it gives you.",
+        "check": "Green build trusted",
+        "options": {
+          "0": "No, green means little",
+          "1": "For some parts of the app",
+          "2": "Mostly, after a manual check",
+          "3": "Yes, green means shippable"
+        }
+      },
+      "testQuality": {
+        "text": "Who checks that AI-written tests actually catch bugs?",
+        "why": "Agents are great at writing tests that pass. That’s not the same as tests that protect.",
+        "check": "AI tests verified",
+        "options": {
+          "0": "Nobody, coverage looks fine",
+          "1": "Reviewers glance at them",
+          "2": "We sometimes break code to see tests fail",
+          "3": "Mutation testing runs on critical paths"
+        }
+      },
+      "correctness": {
+        "text": "Where does \"correct behaviour\" for a feature live?",
+        "why": "If correct isn’t written down in a form a machine can check, every review is an opinion.",
+        "check": "Correct behaviour defined",
+        "options": {
+          "0": "In people’s heads",
+          "1": "In tickets and docs",
+          "2": "Partly in acceptance tests",
+          "3": "In executable specs that run on every PR"
+        }
+      },
+      "agentDone": {
+        "text": "When an agent builds a feature, how does it know it’s done?",
+        "why": "Agents stop when they think they’re done. Specs decide when they are.",
+        "check": "Agents know when done",
+        "options": {
+          "0": "When it says it’s done",
+          "1": "When the reviewer is happy",
+          "2": "When the unit tests pass",
+          "3": "When specs written up front pass"
+        }
+      },
+      "slopFilter": {
+        "text": "What stops a sloppy AI-generated PR before a human sees it?",
+        "why": "Every problem the pipeline catches is one your seniors don’t have to.",
+        "check": "Slop blocked before review",
+        "options": {
+          "0": "Nothing, humans are the filter",
+          "1": "Linting and formatting",
+          "2": "Linting, types and tests",
+          "3": "Tests, specs, mutation score and architecture rules"
+        }
+      },
+      "pipelineSpeed": {
+        "text": "How long does your main pipeline take?",
+        "why": "A slow pipeline turns every AI speed-up into waiting time.",
+        "check": "Pipeline speed",
+        "options": {
+          "0": "Over 45 minutes, or flaky",
+          "1": "20–45 minutes",
+          "2": "10–20 minutes",
+          "3": "Under 10 minutes, reliably"
+        }
+      },
+      "reviewWait": {
+        "text": "How long does a typical PR wait for review?",
+        "why": "Faros AI measured PR review time up 441% on teams with high AI adoption.",
+        "check": "Review wait time",
+        "options": {
+          "0": "Days",
+          "1": "About a day",
+          "2": "A few hours",
+          "3": "Under an hour, or we pair"
+        }
+      },
+      "reviewOwner": {
+        "text": "Who actually reads the code that ships?",
+        "why": "When one person reads everything, that person is your throughput.",
+        "check": "Shipped code gets read",
+        "options": {
+          "0": "Mostly me, I’m the bottleneck",
+          "1": "One or two seniors",
+          "2": "The whole team, unevenly",
+          "3": "Everyone, and reviews focus on intent"
+        }
+      },
+      "releaseSlip": {
+        "text": "How often do planned releases slip?",
+        "why": "Releases that slip are the clearest sign that speed is leaking somewhere.",
+        "check": "Releases on time",
+        "options": {
+          "0": "Almost always",
+          "1": "Often",
+          "2": "Sometimes",
+          "3": "Rarely, releases are boring"
+        }
+      },
+      "shipTwice": {
+        "text": "How often does a new feature need a fix in its first week?",
+        "why": "A feature that ships twice cost you twice.",
+        "check": "Features ship once",
+        "options": {
+          "0": "Almost every feature",
+          "1": "About half of them",
+          "2": "Now and then",
+          "3": "Rarely"
+        }
+      }
+    },
+    "tiers": {
+      "overdrive": {
+        "name": "Overdrive",
+        "headline": "You get the speed AI promised.",
+        "summary": "Your rails turn faster agents into faster, stable releases. Few teams get here. Guard it as the team grows."
+      },
+      "cruising": {
+        "name": "Cruising",
+        "headline": "Fast, with speed left on the table.",
+        "summary": "Most of your AI speed reaches production. One or two weak rails still hold back the rest, every sprint."
+      },
+      "leaking": {
+        "name": "Leaking",
+        "headline": "You’re faster. You could be much faster.",
+        "summary": "AI sped you up, but a big part of the gain leaks into review queues, rework and firefighting before it reaches users."
+      },
+      "redlining": {
+        "name": "Redlining",
+        "headline": "You get a fraction of AI’s speed.",
+        "summary": "Your team produces more code than ever. Review queues, rework and slipped releases eat most of the gain before it reaches users."
+      }
+    }
   }
 }

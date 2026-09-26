@@ -418,5 +418,342 @@
       "english": "English",
       "dutch": "Nederlands"
     }
+  },
+  "scorecard": {
+    "meta": {
+      "title": "AI Delivery Scorecard | Jordy van Vorselen",
+      "description": "AI heeft je team sneller gemaakt. Hoeveel sneller kan het nog? Scoor de zes rails die bepalen hoeveel van de snelheid van AI je gebruikers bereikt."
+    },
+    "sectionLabel": "AI Delivery Scorecard",
+    "intro": {
+      "titleLead": "AI heeft je team sneller gemaakt.",
+      "titleAccent": "Hoeveel sneller kan het nog?",
+      "body": "De meeste AI-native teams leveren sneller dan een jaar geleden. De meeste verliezen ook een groot deel van die winst aan reviewwachtrijen, herstelwerk en uitgestelde releases. Scoor de zes rails die bepalen hoeveel van de snelheid van AI je gebruikers bereikt.",
+      "start": "Start de scorecard",
+      "sample": "Bekijk een voorbeeldrapport",
+      "facts": "14 vragen · 3 minuten · Resultaat direct op je scherm, geen e-mail nodig",
+      "railsTitle": "De zes rails",
+      "railsBody": "AI maakt code goedkoop. Deze zes bepalen of die code snel bij gebruikers komt, of in wachtrijen blijft hangen en terugkomt als herstelwerk.",
+      "railsEvidence": "Elke rail is onderbouwd met gepubliceerd onderzoek van DORA, Google en Faros AI.",
+      "opensInNewTab": "(opent in een nieuw tabblad)",
+      "closingTitle": "Welke rail lekt bij jouw team de meeste snelheid?",
+      "closingBody": "Ontdek het in 3 minuten. Je krijgt je score per rail, je grootste lek en de eerste verbetering om te proberen."
+    },
+    "symptoms": {
+      "title": "Klinkt bekend?",
+      "subtitle": "Wat AI-native teams zien na de eerste versnelling.",
+      "closing": "Het ligt niet aan de AI. Het ligt aan de rails waar je code over rijdt.",
+      "source": "{finding} · Faros AI 2026 · 22.000 developers",
+      "review": {
+        "quote": "Een PR reviewen duurt langer dan hem schrijven.",
+        "label": "langer om een pull request te reviewen",
+        "finding": "Mediane reviewtijd +441%"
+      },
+      "incidents": {
+        "quote": "We mergen meer dan ooit, en productie gaat ook vaker stuk.",
+        "label": "meer incidenten per pull request",
+        "finding": "Incidenten per PR +242,7%"
+      }
+    },
+    "quiz": {
+      "progress": "Voortgang scorecard",
+      "back": "Terug",
+      "intro": "Intro",
+      "aboutTeam": "Over je team",
+      "tip": "Tip: druk op <key>1</key>–<key>4</key> om te antwoorden"
+    },
+    "analyzing": {
+      "title": "Je delivery-checks draaien",
+      "statusStarting": "Bezig met starten",
+      "statusChecking": "{name} controleren",
+      "statusDoneLeak": "Klaar. Grootste lek: {name}.",
+      "statusDoneHealthy": "Klaar. Geen lekken gevonden.",
+      "inProgress": "Bezig",
+      "allHealthy": "Alle rails gezond",
+      "railsToFix": "{count, plural, one {# rail} other {# rails}} te verbeteren",
+      "run": "{name} uitvoeren",
+      "biggestLeak": "Grootste lek: {name}",
+      "noLeaks": "Geen lekken gevonden",
+      "summary": "{count} rails gecontroleerd · rapport klaar",
+      "status": {
+        "rose": "lekt",
+        "amber": "risico",
+        "blue": "houdt stand",
+        "teal": "gezond"
+      },
+      "seeReport": "Bekijk je rapport",
+      "autoOpens": "(opent automatisch over {seconds} seconden)"
+    },
+    "results": {
+      "scoreLine": "Je delivery scoort <score></score> van de 100:",
+      "engineLabel": "Motorsnelheid",
+      "engineCaption": "Aandeel code dat AI schrijft",
+      "roadLabel": "Wegsnelheid",
+      "roadCaption": "Delivery-score van de 100",
+      "outrunTitle": "Je motor loopt je rails voorbij",
+      "keepUpTitle": "Je rails houden je motor bij",
+      "outrunBody": "AI schrijft ongeveer {aiShare}% van je code. Je delivery-rails scoren {score} van de 100. Veel van de snelheid die AI toevoegt, bereikt je gebruikers nooit.",
+      "keepUpBody": "AI schrijft ongeveer {aiShare}% van je code, en je rails scoren {score} van de 100. De snelheid die AI toevoegt, bereikt je gebruikers.",
+      "railsTitle": "Je zes rails",
+      "radarLabel": "Score per delivery-rail",
+      "biggestLeakBadge": "Grootste lek",
+      "leakEyebrow": "Je grootste lek",
+      "leakScore": "Score {score} van de 100",
+      "firstFix": "Eerste verbetering",
+      "healthyEyebrow": "Geen lekken gevonden",
+      "perfectTitle": "Een perfecte score",
+      "holdTitle": "Elke rail houdt stand",
+      "perfectBody": "Alle zes rails scoren 100. De snelheid die AI toevoegt, bereikt je gebruikers, en je team kan veilig meer motor toevoegen.",
+      "holdBody": "Alle zes rails scoren {healthy} of meer. De snelheid die AI toevoegt, bereikt je gebruikers. Je zwakste rail is {name}, met {score}.",
+      "keepTitle": "Houd het zo",
+      "keepBody": "Zelfevaluaties vallen vaak te optimistisch uit. Toets deze antwoorden aan je eigen Git- en CI-historie voordat je meer motor toevoegt.",
+      "costTitle": "Snelheid die je laat liggen",
+      "costTitleNothingLost": "Niets blijft liggen",
+      "hoursTerm": "Verloren engineeringtijd",
+      "hoursValue": "~{hours}u",
+      "hoursLabel": "engineeringtijd per week",
+      "costTerm": "Kosten",
+      "costLabel": "per maand, verloren aan herstelwerk en wachten",
+      "costNote": "Ruwe schatting voor {teamSize} engineers à €75 per uur. De audit vervangt dit door cijfers uit je eigen Git- en CI-historie.",
+      "auditTitle": "Wil je de echte cijfers?",
+      "auditBody": "De AI Delivery Audit meet doorlooptijd, ontsnapte defecten en reviewdruk in je eigen Git- en CI-historie.",
+      "auditPlan": "Je krijgt helder inzicht in waar je snelheid weglekt, en een volledig plan met concrete stappen om het op te lossen, gebaseerd op die metingen.",
+      "auditCta": "Plan een gesprek van 30 minuten",
+      "auditMailSubject": "AI Delivery Audit",
+      "newsletterTitle": "Elke week één delivery-verbetering",
+      "newsletterBody": "Korte, praktische posts over hoe je AI-snelheid omzet in opgeleverde features. Gratis, op Substack.",
+      "newsletterPitch": "Elke post pakt één lek, zoals trage reviews of tests die niets vangen, en laat een verbetering zien die je team dezelfde week kan proberen.",
+      "newsletterCta": "Abonneer op Substack",
+      "restart": "Doe de scorecard opnieuw",
+      "share": "Deel de scorecard",
+      "linkCopied": "Link gekopieerd",
+      "shareTitle": "AI Delivery Scorecard"
+    },
+    "pillars": {
+      "measurement": {
+        "name": "Snelheidsmeter",
+        "tagline": "Je meet delivery, geen gevoel.",
+        "leak": "Je ziet niet of AI helpt of schaadt, dus elke beslissing draait op onderbuikgevoel.",
+        "fix": "Haal doorlooptijd, ontsnapte defecten en herstelwerk uit je Git- en CI-historie. Leg deze week een nulmeting vast.",
+        "finding": "Doorlooptijd, change fail rate en rework rate zijn de standaardmaten voor delivery-snelheid en stabiliteit.",
+        "source": "DORA software delivery metrics"
+      },
+      "tests": {
+        "name": "Testsignaal",
+        "tagline": "Een groene build betekent klaar om te releasen.",
+        "leak": "Door AI geschreven tests verhogen de coverage, maar vangen weinig. Niemand vertrouwt een groene build.",
+        "fix": "Mutatietest je kritieke paden. Verwijder tautologische tests. Laat merges afhangen van de mutatiescore.",
+        "finding": "Mutatietesten vinden testgaten die overeenkomen met echte bugs. Developers die ze zien, schrijven meer en betere tests.",
+        "source": "Google, ICSE 2021 · 15 miljoen mutanten"
+      },
+      "specs": {
+        "name": "Definitie van correct",
+        "tagline": "Agents weten wanneer een feature af is.",
+        "leak": "Correct gedrag zit in de hoofden van mensen. Agents gokken, reviewers discussiëren.",
+        "fix": "Schrijf uitvoerbare specs voor je kritieke flows voordat de agent code schrijft.",
+        "finding": "30% van de developers heeft weinig of geen vertrouwen in door AI geschreven code.",
+        "source": "DORA 2025 · bijna 5.000 professionals"
+      },
+      "pipeline": {
+        "name": "Pipelinepoorten",
+        "tagline": "CI houdt slordig werk tegen voordat een mens het ziet.",
+        "leak": "Mensen zijn het enige filter. Je seniors zijn de hele dag bezig met vangen wat een pipeline zou moeten vangen.",
+        "fix": "Laat elke PR langs tests, specs en architectuurregels gaan. Krijg de hoofdpipeline onder de 10 minuten.",
+        "finding": "AI-adoptie verhoogt nu de doorvoer, maar maakt delivery nog steeds minder stabiel.",
+        "source": "DORA 2025 · bijna 5.000 professionals"
+      },
+      "review": {
+        "name": "Reviewflow",
+        "tagline": "PR's worden dezelfde dag gemerged.",
+        "leak": "Een PR reviewen duurt langer dan hem genereren. De wachtrij is de nieuwe bottleneck.",
+        "fix": "Laat de pipeline de correctheid controleren, zodat review zich op de bedoeling kan richten. Pair op de risicovolle delen.",
+        "finding": "De mediane PR-reviewtijd steeg met 441% naarmate AI-adoptie groeide.",
+        "source": "Faros AI 2026 · 22.000 developers"
+      },
+      "releases": {
+        "name": "Releaseritme",
+        "tagline": "Releases zijn saai en op tijd.",
+        "leak": "Releases schuiven op en gaan daarna stuk bij de uitrol. Features gaan twee keer live: één keer voor de demo, één keer om te werken.",
+        "fix": "Lever kleinere batches achter feature flags. Maak elke merge releasebaar en release in een vast ritme.",
+        "finding": "Werken in kleine batches verbetert de productprestaties van teams die AI gebruiken.",
+        "source": "DORA AI Capabilities Model 2025"
+      }
+    },
+    "questions": {
+      "teamSize": {
+        "text": "Hoeveel engineers leveren code in je productteam?",
+        "why": "Hiermee schatten we wat de lekken je kosten.",
+        "options": {
+          "0": "1–5 engineers",
+          "1": "6–15 engineers",
+          "2": "16–30 engineers",
+          "3": "Meer dan 30"
+        }
+      },
+      "aiShare": {
+        "text": "Hoeveel van je nieuwe code schrijven AI-agents ongeveer?",
+        "why": "Dit is je motorsnelheid. De scorecard vergelijkt die met je wegsnelheid.",
+        "options": {
+          "0": "Minder dan 25%",
+          "1": "25–50%",
+          "2": "50–75%",
+          "3": "Meer dan 75%"
+        }
+      },
+      "leadTime": {
+        "text": "Kun je me nu vertellen wat je mediane doorlooptijd van commit naar productie was vorige maand?",
+        "why": "Doorlooptijd is de snelheidsmeter. Zonder die meting is \"sneller\" een gevoel.",
+        "check": "Doorlooptijd bekend",
+        "options": {
+          "0": "Geen idee",
+          "1": "Ik heb een onderbuikgevoel",
+          "2": "We kunnen het uit Git en CI halen",
+          "3": "Ja, het staat op een dashboard dat we bekijken"
+        }
+      },
+      "aiImpact": {
+        "text": "Hoe weet je of AI je team sneller maakt?",
+        "why": "Meer PR's is motorsnelheid. Opgeleverde, stabiele features is wegsnelheid.",
+        "check": "Impact van AI gemeten",
+        "options": {
+          "0": "Het voelt sneller",
+          "1": "Het aantal PR's en commits is gestegen",
+          "2": "We vergelijken de cyclustijd voor en na",
+          "3": "We meten snelheid en stabiliteit tegen een nulmeting"
+        }
+      },
+      "greenBuild": {
+        "text": "Als CI groen wordt, zou je dan je weekend verwedden op de release?",
+        "why": "Een testsuite is alleen zoveel waard als het vertrouwen dat hij je geeft.",
+        "check": "Groene build vertrouwd",
+        "options": {
+          "0": "Nee, groen zegt weinig",
+          "1": "Voor sommige delen van de app",
+          "2": "Meestal, na een handmatige check",
+          "3": "Ja, groen betekent klaar om te releasen"
+        }
+      },
+      "testQuality": {
+        "text": "Wie controleert of door AI geschreven tests echt bugs vangen?",
+        "why": "Agents zijn goed in tests schrijven die slagen. Dat is niet hetzelfde als tests die beschermen.",
+        "check": "AI-tests gecontroleerd",
+        "options": {
+          "0": "Niemand, de coverage ziet er goed uit",
+          "1": "Reviewers kijken er even naar",
+          "2": "Soms breken we code om tests te zien falen",
+          "3": "Mutatietesten draaien op kritieke paden"
+        }
+      },
+      "correctness": {
+        "text": "Waar staat het \"correcte gedrag\" van een feature?",
+        "why": "Als correct niet is vastgelegd in een vorm die een machine kan controleren, is elke review een mening.",
+        "check": "Correct gedrag vastgelegd",
+        "options": {
+          "0": "In de hoofden van mensen",
+          "1": "In tickets en documentatie",
+          "2": "Deels in acceptatietests",
+          "3": "In uitvoerbare specs die op elke PR draaien"
+        }
+      },
+      "agentDone": {
+        "text": "Als een agent een feature bouwt, hoe weet die dan dat hij klaar is?",
+        "why": "Agents stoppen als ze denken dat ze klaar zijn. Specs bepalen wanneer dat zo is.",
+        "check": "Agents weten wanneer het af is",
+        "options": {
+          "0": "Als hij zegt dat hij klaar is",
+          "1": "Als de reviewer tevreden is",
+          "2": "Als de unittests slagen",
+          "3": "Als vooraf geschreven specs slagen"
+        }
+      },
+      "slopFilter": {
+        "text": "Wat houdt een slordige, door AI gegenereerde PR tegen voordat een mens hem ziet?",
+        "why": "Elk probleem dat de pipeline vangt, hoeven je seniors niet te vangen.",
+        "check": "Slordig werk tegengehouden vóór review",
+        "options": {
+          "0": "Niets, mensen zijn het filter",
+          "1": "Linting en formatting",
+          "2": "Linting, types en tests",
+          "3": "Tests, specs, mutatiescore en architectuurregels"
+        }
+      },
+      "pipelineSpeed": {
+        "text": "Hoe lang duurt je hoofdpipeline?",
+        "why": "Een trage pipeline verandert elke versnelling door AI in wachttijd.",
+        "check": "Pipelinesnelheid",
+        "options": {
+          "0": "Meer dan 45 minuten, of onbetrouwbaar",
+          "1": "20–45 minuten",
+          "2": "10–20 minuten",
+          "3": "Onder de 10 minuten, betrouwbaar"
+        }
+      },
+      "reviewWait": {
+        "text": "Hoe lang wacht een gemiddelde PR op review?",
+        "why": "Faros AI mat een 441% langere PR-reviewtijd bij teams met veel AI-gebruik.",
+        "check": "Wachttijd voor review",
+        "options": {
+          "0": "Dagen",
+          "1": "Ongeveer een dag",
+          "2": "Een paar uur",
+          "3": "Minder dan een uur, of we pairen"
+        }
+      },
+      "reviewOwner": {
+        "text": "Wie leest de code die live gaat echt?",
+        "why": "Als één persoon alles leest, bepaalt die persoon je doorvoer.",
+        "check": "Opgeleverde code wordt gelezen",
+        "options": {
+          "0": "Vooral ik, ik ben de bottleneck",
+          "1": "Een of twee seniors",
+          "2": "Het hele team, ongelijk verdeeld",
+          "3": "Iedereen, en reviews richten zich op de bedoeling"
+        }
+      },
+      "releaseSlip": {
+        "text": "Hoe vaak schuiven geplande releases op?",
+        "why": "Releases die opschuiven zijn het duidelijkste teken dat er ergens snelheid weglekt.",
+        "check": "Releases op tijd",
+        "options": {
+          "0": "Bijna altijd",
+          "1": "Vaak",
+          "2": "Soms",
+          "3": "Zelden, releases zijn saai"
+        }
+      },
+      "shipTwice": {
+        "text": "Hoe vaak heeft een nieuwe feature in de eerste week een fix nodig?",
+        "why": "Een feature die twee keer live gaat, kost je twee keer.",
+        "check": "Features gaan één keer live",
+        "options": {
+          "0": "Bijna elke feature",
+          "1": "Ongeveer de helft",
+          "2": "Af en toe",
+          "3": "Zelden"
+        }
+      }
+    },
+    "tiers": {
+      "overdrive": {
+        "name": "Overdrive",
+        "headline": "Je krijgt de snelheid die AI beloofde.",
+        "summary": "Je rails zetten snellere agents om in snellere, stabiele releases. Weinig teams komen zo ver. Bewaak het terwijl het team groeit."
+      },
+      "cruising": {
+        "name": "Kruissnelheid",
+        "headline": "Snel, maar er blijft snelheid liggen.",
+        "summary": "Het grootste deel van je AI-snelheid bereikt productie. Een of twee zwakke rails remmen de rest nog steeds af, elke sprint."
+      },
+      "leaking": {
+        "name": "Lekkend",
+        "headline": "Je bent sneller. Je kunt veel sneller zijn.",
+        "summary": "AI heeft je versneld, maar een groot deel van de winst lekt weg in reviewwachtrijen, herstelwerk en brandjes blussen voordat het gebruikers bereikt."
+      },
+      "redlining": {
+        "name": "In het rood",
+        "headline": "Je krijgt maar een fractie van de snelheid van AI.",
+        "summary": "Je team produceert meer code dan ooit. Reviewwachtrijen, herstelwerk en uitgestelde releases eten het grootste deel van de winst op voordat het gebruikers bereikt."
+      }
+    }
   }
 }

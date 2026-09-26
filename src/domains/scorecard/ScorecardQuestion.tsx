@@ -2,6 +2,7 @@
 
 import { useEffect, useId } from 'react'
 import { ArrowLeft, Check, Users } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { pillarIcons } from '@/domains/scorecard/pillarIcons'
 import { pillars, type Question } from '@/domains/scorecard/scorecard.data'
@@ -17,9 +18,7 @@ interface ScorecardQuestionProps {
 }
 
 const optionValues = (question: Question) =>
-  question.kind === 'scored'
-    ? question.options.map(({ label, points }) => ({ label, value: points }))
-    : question.options
+  question.kind === 'scored' ? question.points : question.values
 
 const isTyping = (target: EventTarget | null) =>
   target instanceof HTMLElement &&
@@ -34,6 +33,7 @@ export const ScorecardQuestion = ({
   onSelect,
   onBack,
 }: ScorecardQuestionProps) => {
+  const t = useTranslations('scorecard')
   const headingId = useId()
   const options = optionValues(question)
   const pillar =
@@ -47,7 +47,7 @@ export const ScorecardQuestion = ({
       if (event.metaKey || event.ctrlKey || event.altKey) return
       if (isTyping(event.target)) return
       const option = options[Number(event.key) - 1]
-      if (option) onSelect(option.value)
+      if (option !== undefined) onSelect(option)
       if (event.key === 'Backspace') onBack()
     }
     window.addEventListener('keydown', onKeyDown)
@@ -59,7 +59,7 @@ export const ScorecardQuestion = ({
       <div
         className="flex gap-1.5"
         role="progressbar"
-        aria-label="Scorecard progress"
+        aria-label={t('quiz.progress')}
         aria-valuemin={1}
         aria-valuemax={total}
         aria-valuenow={index + 1}
@@ -89,11 +89,11 @@ export const ScorecardQuestion = ({
           className="-ml-2 inline-flex min-h-11 items-center gap-1.5 rounded-lg px-2 text-gray-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
         >
           <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-          {index === 0 ? 'Intro' : 'Back'}
+          {index === 0 ? t('quiz.intro') : t('quiz.back')}
         </button>
         <span className="inline-flex items-center gap-2 text-gray-400">
           <Icon className="w-4 h-4 text-teal-400" aria-hidden="true" />
-          {pillar ? pillar.name : 'About your team'}
+          {pillar ? t(`pillars.${pillar.id}.name`) : t('quiz.aboutTeam')}
           <span aria-hidden="true">·</span>
           <span className="tabular-nums">
             {index + 1} / {total}
@@ -111,10 +111,12 @@ export const ScorecardQuestion = ({
           data-autofocus
           className="text-3xl sm:text-4xl font-bold leading-tight text-white text-balance outline-none"
         >
-          {question.text}
+          {t(`questions.${question.id}.text`)}
         </h2>
 
-        <p className="mt-4 text-lg text-gray-400">{question.why}</p>
+        <p className="mt-4 text-lg text-gray-400">
+          {t(`questions.${question.id}.why`)}
+        </p>
 
         <div
           className="mt-10 grid gap-3"
@@ -122,13 +124,13 @@ export const ScorecardQuestion = ({
           aria-labelledby={headingId}
         >
           {options.map((option, optionIndex) => {
-            const isSelected = selected === option.value
+            const isSelected = selected === option
             return (
               <button
-                key={option.label}
+                key={option}
                 type="button"
                 aria-pressed={isSelected}
-                onClick={() => onSelect(option.value)}
+                onClick={() => onSelect(option)}
                 className={`group click-feedback-subtle flex items-center gap-4 rounded-xl border p-5 text-left transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400 ${
                   isSelected
                     ? 'border-teal-400 bg-teal-500/10'
@@ -152,7 +154,7 @@ export const ScorecardQuestion = ({
                 <span
                   className={`text-lg ${isSelected ? 'text-white' : 'text-gray-300'}`}
                 >
-                  {option.label}
+                  {t(`questions.${question.id}.options.${optionIndex}`)}
                 </span>
               </button>
             )
@@ -160,15 +162,13 @@ export const ScorecardQuestion = ({
         </div>
 
         <p className="mt-8 hidden sm:block text-center text-sm text-gray-400">
-          Tip: press{' '}
-          <kbd className="rounded border border-gray-700 px-1.5 py-0.5 text-gray-300">
-            1
-          </kbd>
-          –
-          <kbd className="rounded border border-gray-700 px-1.5 py-0.5 text-gray-300">
-            4
-          </kbd>{' '}
-          to answer
+          {t.rich('quiz.tip', {
+            key: chunks => (
+              <kbd className="rounded border border-gray-700 px-1.5 py-0.5 text-gray-300">
+                {chunks}
+              </kbd>
+            ),
+          })}
         </p>
       </div>
     </div>

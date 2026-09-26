@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { ArrowRight } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { usePrefersReducedMotion } from '@/domains/scorecard/usePrefersReducedMotion'
 
@@ -16,6 +17,7 @@ export const AutoContinueButton = ({
   onContinue,
   children,
 }: AutoContinueButtonProps) => {
+  const t = useTranslations('scorecard.analyzing')
   const ref = useRef<HTMLButtonElement>(null)
   const prefersReducedMotion = usePrefersReducedMotion()
   const [elapsed, setElapsed] = useState(0)
@@ -55,7 +57,7 @@ export const AutoContinueButton = ({
       )}
       <span className="relative">{children}</span>
       <span className="sr-only">
-        (opens automatically in {Math.round(durationMs / 1000)} seconds)
+        {t('autoOpens', { seconds: Math.round(durationMs / 1000) })}
       </span>
       <span
         className="relative w-8 rounded-md bg-gray-800 py-0.5 text-center text-sm tabular-nums text-gray-300"

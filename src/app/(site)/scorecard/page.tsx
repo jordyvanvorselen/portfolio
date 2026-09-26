@@ -1,11 +1,15 @@
 import { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 
 import { Scorecard } from '@/domains/scorecard/Scorecard'
 
-export const metadata: Metadata = {
-  title: 'AI Delivery Scorecard | Jordy van Vorselen',
-  description:
-    'AI made your team faster. How much faster could it be? Score the six rails that decide how much of AI’s speed reaches your users.',
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('scorecard.meta')
+
+  return {
+    title: t('title'),
+    description: t('description'),
+  }
 }
 
 const ScorecardPage = () => {

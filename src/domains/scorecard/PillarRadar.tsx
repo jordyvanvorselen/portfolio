@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useRef } from 'react'
 
 import type { PillarScore } from '@/domains/scorecard/scorecard.data'
@@ -31,6 +32,7 @@ const polygon = (count: number, percentAt: (index: number) => number) =>
   }).join(' ')
 
 export const PillarRadar = ({ scores }: PillarRadarProps) => {
+  const t = useTranslations('scorecard')
   const prefersReducedMotion = usePrefersReducedMotion()
   const ref = useRef<SVGSVGElement>(null)
   const isRevealed = useInView(ref, 0.6)
@@ -42,7 +44,7 @@ export const PillarRadar = ({ scores }: PillarRadarProps) => {
       viewBox="-40 0 400 300"
       className="w-full max-w-md mx-auto"
       role="img"
-      aria-label="Score per delivery rail"
+      aria-label={t('results.radarLabel')}
     >
       <defs>
         <radialGradient id="radar-fill">
@@ -76,7 +78,7 @@ export const PillarRadar = ({ scores }: PillarRadarProps) => {
               fontSize="13"
               fontWeight="600"
             >
-              {pillar.name}
+              {t(`pillars.${pillar.id}.name`)}
             </text>
           </g>
         )

@@ -1,5 +1,6 @@
 'use client'
 
+import { useLocale, useTranslations } from 'next-intl'
 import { useEffect, useRef, useState } from 'react'
 import {
   ArrowRight,
@@ -34,11 +35,12 @@ interface ScorecardResultsProps {
   onRestart: () => void
 }
 
-const euro = new Intl.NumberFormat('en-IE', {
-  style: 'currency',
-  currency: 'EUR',
-  maximumFractionDigits: 0,
-})
+const euroFormatFor = (locale: string) =>
+  new Intl.NumberFormat(locale === 'nl' ? 'nl-NL' : 'en-IE', {
+    style: 'currency',
+    currency: 'EUR',
+    maximumFractionDigits: 0,
+  })
 
 const Panel = ({
   children,
@@ -66,6 +68,10 @@ export const ScorecardResults = ({
 }: ScorecardResultsProps) => {
   const { score, tier, pillarScores, biggestLeak, hasLeak, aiShare } = result
   const isNothingLost = result.leakedHoursPerWeek === 0
+  const t = useTranslations('scorecard.results')
+  const tScorecard = useTranslations('scorecard')
+  const euro = euroFormatFor(useLocale())
+  const leakName = tScorecard(`pillars.${biggestLeak.pillar.id}.name`)
   const tone = toneStyles[tier.tone]
   const isOutrun = aiShare > score
   const prefersReducedMotion = usePrefersReducedMotion()
@@ -91,9 +97,7 @@ export const ScorecardResults = ({
   const share = async () => {
     const url = window.location.href
     if (navigator.share) {
-      await navigator
-        .share({ title: 'AI Delivery Scorecard', url })
-        .catch(() => {})
+      await navigator.share({ title: t('shareTitle'), url }).catch(() => {})
       return
     }
     await navigator.clipboard.writeText(url)
@@ -104,14 +108,19 @@ export const ScorecardResults = ({
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <header className="text-center max-w-3xl mx-auto">
         <p className="text-lg text-gray-400">
-          Your delivery scores{' '}
-          <span
-            className="font-semibold text-white tabular-nums"
-            aria-hidden="true"
-          >
-            {shownScore}
-          </span>
-          <span className="sr-only">{score}</span> out of 100:
+          {t.rich('scoreLine', {
+            score: () => (
+              <>
+                <span
+                  className="font-semibold text-white tabular-nums"
+                  aria-hidden="true"
+                >
+                  {shownScore}
+                </span>
+                <span className="sr-only">{score}</span>
+              </>
+            ),
+          })}
         </p>
         <div className="relative">
           {!hasLeak && (
@@ -123,15 +132,15 @@ export const ScorecardResults = ({
             className={`mt-2 text-6xl sm:text-7xl font-bold tracking-tight outline-none motion-safe:animate-verdict ${tone.text}`}
             style={{ textShadow: `0 0 28px ${tone.hex}59` }}
           >
-            {tier.name}
+            {tScorecard(`tiers.${tier.id}.name`)}
           </h1>
         </div>
         <TierScale score={score} current={tier} />
         <p className="mt-8 text-2xl sm:text-3xl font-semibold text-white text-balance">
-          {tier.headline}
+          {tScorecard(`tiers.${tier.id}.headline`)}
         </p>
         <p className="mt-4 text-lg text-gray-400 leading-relaxed text-pretty">
-          {tier.summary}
+          {tScorecard(`tiers.${tier.id}.summary`)}
         </p>
       </header>
 
@@ -141,29 +150,27 @@ export const ScorecardResults = ({
             variant="tachometer"
             value={aiShare}
             unit="%"
-            label="Engine speed"
-            caption="Share of code AI writes"
+            label={t('engineLabel')}
+            caption={t('engineCaption')}
             delayMs={0}
             isReady={isVerdictDone}
             durationMs={900}
           />
           <div className="text-center md:max-w-[15rem]">
             <div className="text-xl font-semibold text-white">
-              {isOutrun
-                ? 'Your engine is outrunning your rails'
-                : 'Your rails keep up with your engine'}
+              {isOutrun ? t('outrunTitle') : t('keepUpTitle')}
             </div>
             <p className="mt-3 text-gray-400">
               {isOutrun
-                ? `AI writes about ${aiShare}% of your code. Your delivery rails score ${score} out of 100. Much of the speed AI adds never reaches your users.`
-                : `AI writes about ${aiShare}% of your code, and your rails score ${score} out of 100. The speed AI adds reaches your users.`}
+                ? t('outrunBody', { aiShare, score })
+                : t('keepUpBody', { aiShare, score })}
             </p>
           </div>
           <Gauge
             variant="speedometer"
             value={score}
-            label="Road speed"
-            caption="Delivery score out of 100"
+            label={t('roadLabel')}
+            caption={t('roadCaption')}
             delayMs={400}
             isReady={isVerdictDone}
             durationMs={1500}
@@ -172,7 +179,7 @@ export const ScorecardResults = ({
       </Panel>
 
       <Panel className="mt-6">
-        <PanelTitle>Your six rails</PanelTitle>
+        <PanelTitle>{t('railsTitle')}</PanelTitle>
         <div className="mt-6 grid grid-cols-1 lg:grid-cols-5 items-center gap-10">
           <div className="hidden sm:block lg:col-span-2">
             <PillarRadar scores={pillarScores} />
@@ -191,11 +198,11 @@ export const ScorecardResults = ({
                         aria-hidden="true"
                       />
                       <span className="font-medium text-gray-200">
-                        {pillar.name}
+                        {tScorecard(`pillars.${pillar.id}.name`)}
                       </span>
                       {isLeak && (
                         <span className="rounded-full bg-rose-500/15 px-2 py-0.5 text-xs font-semibold text-rose-300">
-                          Biggest leak
+                          {t('biggestLeakBadge')}
                         </span>
                       )}
                     </div>
@@ -237,31 +244,29 @@ export const ScorecardResults = ({
             <div className="relative">
               <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-rose-300">
                 <TriangleAlert className="w-4 h-4" aria-hidden="true" />
-                Your biggest leak
+                {t('leakEyebrow')}
               </div>
               <div className="mt-4 flex items-center gap-4">
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-rose-500/10 text-rose-300 ring-1 ring-rose-500/30">
                   <LeakIcon className="w-7 h-7" aria-hidden="true" />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-bold text-white">
-                    {biggestLeak.pillar.name}
-                  </h2>
+                  <h2 className="text-3xl font-bold text-white">{leakName}</h2>
                   <p className="text-gray-400">
-                    Score {biggestLeak.score} out of 100
+                    {t('leakScore', { score: biggestLeak.score })}
                   </p>
                 </div>
               </div>
               <p className="mt-6 text-lg text-gray-300 leading-relaxed">
-                {biggestLeak.pillar.leak}
+                {tScorecard(`pillars.${biggestLeak.pillar.id}.leak`)}
               </p>
               <div className="mt-6 rounded-xl border border-teal-500/20 bg-teal-500/5 p-5">
                 <h3 className="flex items-center gap-2 text-sm font-semibold text-teal-300">
                   <Wrench className="w-4 h-4" aria-hidden="true" />
-                  First fix
+                  {t('firstFix')}
                 </h3>
                 <p className="mt-2 text-gray-300 leading-relaxed">
-                  {biggestLeak.pillar.fix}
+                  {tScorecard(`pillars.${biggestLeak.pillar.id}.fix`)}
                 </p>
               </div>
             </div>
@@ -270,24 +275,27 @@ export const ScorecardResults = ({
           <Panel className="lg:col-span-3 border-teal-400/40">
             <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-teal-300">
               <ShieldCheck className="w-4 h-4" aria-hidden="true" />
-              No leaks found
+              {t('healthyEyebrow')}
             </div>
             <h2 className="mt-4 text-3xl font-bold text-white">
-              {score === 100 ? 'A perfect score' : 'Every rail holds'}
+              {score === 100 ? t('perfectTitle') : t('holdTitle')}
             </h2>
             <p className="mt-4 text-lg text-gray-300 leading-relaxed">
               {score === 100
-                ? 'All six rails score 100. The speed AI adds reaches your users, and your team can add more engine safely.'
-                : `All six rails score ${HEALTHY_SCORE} or more. The speed AI adds reaches your users. Your weakest rail is ${biggestLeak.pillar.name}, at ${biggestLeak.score}.`}
+                ? t('perfectBody')
+                : t('holdBody', {
+                    healthy: HEALTHY_SCORE,
+                    name: leakName,
+                    score: biggestLeak.score,
+                  })}
             </p>
             <div className="mt-6 rounded-xl border border-teal-500/20 bg-teal-500/5 p-5">
               <h3 className="flex items-center gap-2 text-sm font-semibold text-teal-300">
                 <Wrench className="w-4 h-4" aria-hidden="true" />
-                Keep it that way
+                {t('keepTitle')}
               </h3>
               <p className="mt-2 text-gray-300 leading-relaxed">
-                Self-assessments tend to run optimistic. Check these answers
-                against your own Git and CI history before you add more engine.
+                {t('keepBody')}
               </p>
             </div>
           </Panel>
@@ -295,9 +303,7 @@ export const ScorecardResults = ({
 
         <Panel className="lg:col-span-2">
           <PanelTitle>
-            {isNothingLost
-              ? 'Nothing left on the table'
-              : 'Speed you leave on the table'}
+            {isNothingLost ? t('costTitleNothingLost') : t('costTitle')}
           </PanelTitle>
           <dl ref={costRef} className="mt-6 space-y-6">
             <div className="flex items-center gap-4">
@@ -307,13 +313,13 @@ export const ScorecardResults = ({
                 <Timer className="w-6 h-6" aria-hidden="true" />
               </div>
               <div>
-                <dt className="sr-only">Engineer time lost</dt>
+                <dt className="sr-only">{t('hoursTerm')}</dt>
                 <dd
                   className={`text-4xl font-bold tabular-nums ${isNothingLost ? 'text-teal-300' : 'text-white'}`}
                 >
-                  ~{hours}h
+                  {t('hoursValue', { hours })}
                 </dd>
-                <dd className="text-gray-400">of engineer time a week</dd>
+                <dd className="text-gray-400">{t('hoursLabel')}</dd>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -323,55 +329,46 @@ export const ScorecardResults = ({
                 <Euro className="w-6 h-6" aria-hidden="true" />
               </div>
               <div>
-                <dt className="sr-only">Cost</dt>
+                <dt className="sr-only">{t('costTerm')}</dt>
                 <dd
                   className={`text-4xl font-bold tabular-nums ${isNothingLost ? 'text-teal-300' : 'text-white'}`}
                 >
                   {euro.format(euros)}
                 </dd>
-                <dd className="text-gray-400">
-                  a month, lost to rework and waiting
-                </dd>
+                <dd className="text-gray-400">{t('costLabel')}</dd>
               </div>
             </div>
           </dl>
           <p className="mt-6 text-sm text-gray-400">
-            Rough estimate for {result.teamSize} engineers at €75 an hour. The
-            audit replaces it with numbers from your own Git and CI history.
+            {t('costNote', { teamSize: result.teamSize })}
           </p>
         </Panel>
       </div>
 
       <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Panel className="flex flex-col border-teal-400/30">
-          <PanelTitle>Want the real numbers?</PanelTitle>
-          <p className="mt-3 text-gray-300 leading-relaxed">
-            The AI Delivery Audit measures lead time, escaped defects and review
-            load in your own Git and CI history.
-          </p>
+          <PanelTitle>{t('auditTitle')}</PanelTitle>
+          <p className="mt-3 text-gray-300 leading-relaxed">{t('auditBody')}</p>
           <p className="mt-3 mb-6 text-gray-300 leading-relaxed">
-            You get clear insight into where your speed leaks, and a full plan
-            with actionable steps to fix it, based on those measurements.
+            {t('auditPlan')}
           </p>
           <Button
-            href="mailto:jordy@vanvorselen.com?subject=AI%20Delivery%20Audit"
+            href={`mailto:jordy@vanvorselen.com?subject=${encodeURIComponent(t('auditMailSubject'))}`}
             size="lg"
             className="group mt-auto gap-2 self-start border-2 border-transparent"
           >
-            Book a 30-minute call
+            {t('auditCta')}
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
           </Button>
         </Panel>
 
         <Panel className="flex flex-col">
-          <PanelTitle>Get one delivery fix a week</PanelTitle>
+          <PanelTitle>{t('newsletterTitle')}</PanelTitle>
           <p className="mt-3 text-gray-300 leading-relaxed">
-            Short, practical posts on turning AI speed into shipped features.
-            Free, on Substack.
+            {t('newsletterBody')}
           </p>
           <p className="mt-3 mb-6 text-gray-300 leading-relaxed">
-            Each post takes one leak, like slow reviews or tests that catch
-            nothing, and shows a fix your team can try the same week.
+            {t('newsletterPitch')}
           </p>
           <Button
             href="https://jordyvanvorselen.substack.com/subscribe"
@@ -380,7 +377,7 @@ export const ScorecardResults = ({
             className="mt-auto gap-2 self-start"
           >
             <SubstackIcon />
-            Subscribe on Substack
+            {t('newsletterCta')}
           </Button>
         </Panel>
       </div>
@@ -392,7 +389,7 @@ export const ScorecardResults = ({
           className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-gray-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
         >
           <RotateCcw className="w-4 h-4" aria-hidden="true" />
-          Retake the scorecard
+          {t('restart')}
         </button>
         <button
           type="button"
@@ -405,7 +402,7 @@ export const ScorecardResults = ({
             <Share2 className="w-4 h-4" aria-hidden="true" />
           )}
           <span aria-live="polite">
-            {isLinkCopied ? 'Link copied' : 'Share the scorecard'}
+            {isLinkCopied ? t('linkCopied') : t('share')}
           </span>
         </button>
       </div>
