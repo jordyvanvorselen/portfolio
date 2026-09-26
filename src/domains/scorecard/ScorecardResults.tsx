@@ -1,14 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowRight, RotateCcw, Share2 } from 'lucide-react'
+import { ArrowRight, Check, RotateCcw, Share2 } from 'lucide-react'
 
 import { Gauge } from '@/domains/scorecard/Gauge'
 import { PillarRadar } from '@/domains/scorecard/PillarRadar'
 import { pillarIcons } from '@/domains/scorecard/pillarIcons'
 import type { ScorecardResult } from '@/domains/scorecard/scorecard.data'
 import { toneStyles } from '@/domains/scorecard/tones'
-import { useCountUp } from '@/domains/scorecard/useCountUp'
+import { usePrefersReducedMotion } from '@/domains/scorecard/usePrefersReducedMotion'
 import { Button } from '@/ui/Button'
 import { SubstackIcon } from '@/ui/SubstackIcon'
 
@@ -26,15 +26,12 @@ const euro = new Intl.NumberFormat('en-IE', {
 const Panel = ({
   children,
   className = '',
-  delayMs = 0,
 }: {
   children: React.ReactNode
   className?: string
-  delayMs?: number
 }) => (
   <section
-    className={`animate-rise rounded-2xl border border-gray-800 bg-gray-900/50 p-6 sm:p-8 ${className}`}
-    style={{ animationDelay: `${delayMs}ms` }}
+    className={`rounded-2xl border border-gray-800 bg-gray-900/50 p-6 sm:p-8 ${className}`}
   >
     {children}
   </section>
@@ -51,43 +48,50 @@ export const ScorecardResults = ({
   const { score, tier, pillarScores, biggestLeak, aiShare } = result
   const tone = toneStyles[tier.tone]
   const isOutrun = aiShare > score
-  const hours = useCountUp(result.leakedHoursPerWeek, 1600, 900)
-  const euros = useCountUp(result.leakedEurosPerMonth, 1600, 900)
+  const prefersReducedMotion = usePrefersReducedMotion()
   const [isRevealed, setIsRevealed] = useState(false)
+  const [isLinkCopied, setIsLinkCopied] = useState(false)
   const LeakIcon = pillarIcons[biggestLeak.pillar.id]
 
   useEffect(() => {
-    const timeout = setTimeout(() => setIsRevealed(true), 300)
+    const timeout = setTimeout(() => setIsRevealed(true), 50)
     return () => clearTimeout(timeout)
   }, [])
+
+  const share = async () => {
+    const url = window.location.href
+    if (navigator.share) {
+      await navigator
+        .share({ title: 'AI Delivery Scorecard', url })
+        .catch(() => {})
+      return
+    }
+    await navigator.clipboard.writeText(url)
+    setIsLinkCopied(true)
+  }
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <header className="text-center max-w-3xl mx-auto">
-        <p className="animate-rise text-lg text-gray-400">
+        <p className="text-lg text-gray-400">
           Your delivery scores {score} out of 100:
         </p>
         <h1
-          className={`animate-rise mt-2 text-6xl sm:text-7xl font-bold tracking-tight ${tone.text}`}
-          style={{ animationDelay: '80ms' }}
+          tabIndex={-1}
+          data-autofocus
+          className={`mt-2 text-6xl sm:text-7xl font-bold tracking-tight outline-none ${tone.text}`}
         >
           {tier.name}
         </h1>
-        <p
-          className="animate-rise mt-6 text-2xl sm:text-3xl font-semibold text-white text-balance"
-          style={{ animationDelay: '160ms' }}
-        >
+        <p className="mt-6 text-2xl sm:text-3xl font-semibold text-white text-balance">
           {tier.headline}
         </p>
-        <p
-          className="animate-rise mt-4 text-lg text-gray-400 leading-relaxed text-pretty"
-          style={{ animationDelay: '240ms' }}
-        >
+        <p className="mt-4 text-lg text-gray-400 leading-relaxed text-pretty">
           {tier.summary}
         </p>
       </header>
 
-      <Panel className="mt-14" delayMs={320}>
+      <Panel className="mt-14">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center gap-8">
           <Gauge
             variant="tachometer"
@@ -95,7 +99,8 @@ export const ScorecardResults = ({
             unit="%"
             label="Engine speed"
             caption="Share of code AI writes"
-            delayMs={500}
+            delayMs={250}
+            durationMs={900}
           />
           <div className="text-center md:max-w-[15rem]">
             <div className="text-xl font-semibold text-white">
@@ -114,12 +119,13 @@ export const ScorecardResults = ({
             value={score}
             label="Road speed"
             caption="Delivery score out of 100"
-            delayMs={700}
+            delayMs={650}
+            durationMs={1500}
           />
         </div>
       </Panel>
 
-      <Panel className="mt-6" delayMs={420}>
+      <Panel className="mt-6">
         <PanelTitle>Your six rails</PanelTitle>
         <div className="mt-6 grid grid-cols-1 lg:grid-cols-5 items-center gap-10">
           <div className="lg:col-span-2">
@@ -152,12 +158,16 @@ export const ScorecardResults = ({
                   </div>
                   <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-gray-800">
                     <div
-                      className={`h-full rounded-full ${isLeak ? 'bg-amber-400' : 'bg-teal-400'}`}
+                      className={`h-full w-full origin-left rounded-full ${isLeak ? 'bg-amber-400' : 'bg-teal-400'}`}
                       style={{
-                        width: isRevealed
-                          ? `${Math.max(pillarScore, 2)}%`
-                          : '0%',
-                        transition: `width 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${index * 90}ms`,
+                        transform: `scaleX(${
+                          isRevealed || prefersReducedMotion
+                            ? Math.max(pillarScore, 2) / 100
+                            : 0
+                        })`,
+                        transition: prefersReducedMotion
+                          ? 'none'
+                          : `transform 700ms cubic-bezier(0.16, 1, 0.3, 1) ${1200 + index * 60}ms`,
                       }}
                     />
                   </div>
@@ -169,7 +179,7 @@ export const ScorecardResults = ({
       </Panel>
 
       <div className="mt-6 grid grid-cols-1 lg:grid-cols-5 gap-6">
-        <Panel className="lg:col-span-3 border-amber-400/30" delayMs={500}>
+        <Panel className="lg:col-span-3 border-amber-400/30">
           <div className="flex items-start gap-4">
             <LeakIcon
               className="mt-1 w-6 h-6 shrink-0 text-amber-300"
@@ -195,20 +205,20 @@ export const ScorecardResults = ({
           </div>
         </Panel>
 
-        <Panel className="lg:col-span-2" delayMs={580}>
+        <Panel className="lg:col-span-2">
           <PanelTitle>Speed you leave on the table</PanelTitle>
           <dl className="mt-6 space-y-6">
             <div>
               <dt className="sr-only">Engineer time lost</dt>
               <dd className="text-4xl font-bold text-white tabular-nums">
-                ~{hours} hours
+                ~{result.leakedHoursPerWeek} hours
               </dd>
               <dd className="mt-1 text-gray-400">of engineer time a week</dd>
             </div>
             <div>
               <dt className="sr-only">Cost</dt>
               <dd className="text-4xl font-bold text-white tabular-nums">
-                {euro.format(euros)}
+                {euro.format(result.leakedEurosPerMonth)}
               </dd>
               <dd className="mt-1 text-gray-400">
                 a month, lost to rework and waiting
@@ -223,7 +233,7 @@ export const ScorecardResults = ({
       </div>
 
       <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Panel className="border-teal-400/30" delayMs={660}>
+        <Panel className="border-teal-400/30">
           <PanelTitle>Want the real numbers?</PanelTitle>
           <p className="mt-3 text-gray-300 leading-relaxed">
             The AI Delivery Audit pulls lead time, escaped defects and review
@@ -243,7 +253,7 @@ export const ScorecardResults = ({
           </Button>
         </Panel>
 
-        <Panel delayMs={740}>
+        <Panel>
           <PanelTitle>Get one delivery fix a week</PanelTitle>
           <p className="mt-3 text-gray-300 leading-relaxed">
             Short, practical posts on turning AI speed into shipped features.
@@ -261,21 +271,28 @@ export const ScorecardResults = ({
         </Panel>
       </div>
 
-      <div className="mt-10 flex flex-wrap justify-center gap-6 text-sm">
+      <div className="mt-10 flex flex-wrap justify-center gap-4 text-sm">
         <button
           type="button"
           onClick={onRestart}
-          className="inline-flex items-center gap-2 text-gray-400 transition-colors hover:text-white"
+          className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-gray-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
         >
-          <RotateCcw className="w-4 h-4" />
+          <RotateCcw className="w-4 h-4" aria-hidden="true" />
           Retake the scorecard
         </button>
         <button
           type="button"
-          className="inline-flex items-center gap-2 text-gray-400 transition-colors hover:text-white"
+          onClick={share}
+          className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-gray-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
         >
-          <Share2 className="w-4 h-4" />
-          Share with your team
+          {isLinkCopied ? (
+            <Check className="w-4 h-4 text-teal-400" aria-hidden="true" />
+          ) : (
+            <Share2 className="w-4 h-4" aria-hidden="true" />
+          )}
+          <span aria-live="polite">
+            {isLinkCopied ? 'Link copied' : 'Share the scorecard'}
+          </span>
         </button>
       </div>
     </div>

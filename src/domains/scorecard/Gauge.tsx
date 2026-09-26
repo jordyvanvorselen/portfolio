@@ -9,6 +9,7 @@ interface GaugeProps {
   unit?: string
   variant: 'tachometer' | 'speedometer'
   delayMs?: number
+  durationMs?: number
 }
 
 const CX = 120
@@ -41,14 +42,19 @@ export const Gauge = ({
   unit = '',
   variant,
   delayMs = 0,
+  durationMs = 1400,
 }: GaugeProps) => {
-  const current = useCountUp(value, 1800, delayMs)
+  const current = useCountUp(value, durationMs, delayMs)
   const needleAngle = START_ANGLE + (SWEEP * current) / 100
   const isTachometer = variant === 'tachometer'
 
   return (
-    <figure className="flex flex-col items-center" aria-label={label}>
-      <svg viewBox="0 0 240 200" className="w-full max-w-[280px]">
+    <figure className="flex flex-col items-center">
+      <svg
+        viewBox="0 0 240 200"
+        className="w-full max-w-[280px]"
+        aria-hidden="true"
+      >
         <path
           d={arcPath(0, 100, RADIUS)}
           fill="none"
@@ -128,7 +134,11 @@ export const Gauge = ({
         <div className="text-sm font-semibold uppercase tracking-widest text-gray-300">
           {label}
         </div>
-        <div className="mt-1 text-sm text-gray-500">{caption}</div>
+        <div className="mt-1 text-sm text-gray-400">{caption}</div>
+        <div className="sr-only">
+          {value}
+          {unit}
+        </div>
       </figcaption>
     </figure>
   )

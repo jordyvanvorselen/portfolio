@@ -25,26 +25,20 @@ const evidence = [
 export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => (
   <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="text-center max-w-4xl mx-auto">
-      <h1 className="animate-rise text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-white leading-[1.05] text-balance">
+      <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-white leading-[1.05] text-balance">
         AI made your team faster.{' '}
         <span className="sm:block text-teal-300">
           How much faster could it be?
         </span>
       </h1>
 
-      <p
-        className="animate-rise mt-8 text-lg sm:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto text-pretty"
-        style={{ animationDelay: '80ms' }}
-      >
+      <p className="mt-8 text-lg sm:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto text-pretty">
         Most AI-native teams ship faster than a year ago. Most also lose a big
         part of the gain to review queues, rework and slipped releases. Score
         the six rails that decide how much of AI’s speed reaches your users.
       </p>
 
-      <div
-        className="animate-rise mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center"
-        style={{ animationDelay: '160ms' }}
-      >
+      <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
         <Button
           type="button"
           size="lg"
@@ -59,10 +53,7 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => (
         </Button>
       </div>
 
-      <p
-        className="animate-rise mt-5 text-sm text-gray-400"
-        style={{ animationDelay: '160ms' }}
-      >
+      <p className="mt-5 text-sm text-gray-400">
         14 questions · 3 minutes · Results on screen, no email needed
       </p>
     </div>

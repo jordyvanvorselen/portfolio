@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 
 import type { PillarScore } from '@/domains/scorecard/scorecard.data'
+import { usePrefersReducedMotion } from '@/domains/scorecard/usePrefersReducedMotion'
 
 interface PillarRadarProps {
   scores: PillarScore[]
@@ -29,17 +30,18 @@ const polygon = (count: number, percentAt: (index: number) => number) =>
   }).join(' ')
 
 export const PillarRadar = ({ scores }: PillarRadarProps) => {
+  const prefersReducedMotion = usePrefersReducedMotion()
   const [isRevealed, setIsRevealed] = useState(false)
   const count = scores.length
 
   useEffect(() => {
-    const timeout = setTimeout(() => setIsRevealed(true), 400)
+    const timeout = setTimeout(() => setIsRevealed(true), 50)
     return () => clearTimeout(timeout)
   }, [])
 
   return (
     <svg
-      viewBox="-24 0 368 300"
+      viewBox="-40 0 400 300"
       className="w-full max-w-md mx-auto"
       role="img"
       aria-label="Score per delivery rail"
@@ -65,8 +67,8 @@ export const PillarRadar = ({ scores }: PillarRadarProps) => {
               y={label.y}
               textAnchor="middle"
               dominantBaseline="middle"
-              className="fill-gray-400"
-              fontSize="11"
+              className="fill-gray-300"
+              fontSize="13"
               fontWeight="600"
             >
               {pillar.name}
@@ -77,9 +79,11 @@ export const PillarRadar = ({ scores }: PillarRadarProps) => {
 
       <g
         style={{
-          transform: `scale(${isRevealed ? 1 : 0})`,
+          transform: `scale(${isRevealed || prefersReducedMotion ? 1 : 0})`,
           transformOrigin: `${CX}px ${CY}px`,
-          transition: 'transform 1.2s cubic-bezier(0.22, 1, 0.36, 1)',
+          transition: prefersReducedMotion
+            ? 'none'
+            : 'transform 900ms cubic-bezier(0.16, 1, 0.3, 1) 1200ms',
         }}
       >
         <polygon

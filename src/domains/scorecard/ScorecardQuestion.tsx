@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useId } from 'react'
 import { ArrowLeft, Check, Users } from 'lucide-react'
 
 import { pillarIcons } from '@/domains/scorecard/pillarIcons'
@@ -20,6 +20,10 @@ const optionValues = (question: Question) =>
     ? question.options.map(({ label, points }) => ({ label, value: points }))
     : question.options
 
+const isTyping = (target: EventTarget | null) =>
+  target instanceof HTMLElement &&
+  (target.isContentEditable || ['INPUT', 'TEXTAREA'].includes(target.tagName))
+
 export const ScorecardQuestion = ({
   question,
   index,
@@ -28,6 +32,7 @@ export const ScorecardQuestion = ({
   onSelect,
   onBack,
 }: ScorecardQuestionProps) => {
+  const headingId = useId()
   const options = optionValues(question)
   const pillar =
     question.kind === 'scored'
@@ -37,9 +42,11 @@ export const ScorecardQuestion = ({
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
+      if (event.metaKey || event.ctrlKey || event.altKey) return
+      if (isTyping(event.target)) return
       const option = options[Number(event.key) - 1]
       if (option) onSelect(option.value)
-      if (event.key === 'Backspace' || event.key === 'ArrowLeft') onBack()
+      if (event.key === 'Backspace') onBack()
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
@@ -47,79 +54,88 @@ export const ScorecardQuestion = ({
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex gap-1.5" aria-hidden="true">
+      <div
+        className="flex gap-1.5"
+        role="progressbar"
+        aria-label="Scorecard progress"
+        aria-valuemin={1}
+        aria-valuemax={total}
+        aria-valuenow={index + 1}
+      >
         {Array.from({ length: total }, (_, step) => (
           <div
             key={step}
             className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-800"
           >
             <div
-              className={`h-full rounded-full bg-gradient-to-r from-teal-400 to-blue-400 transition-all duration-500 ${
-                step < index ? 'w-full' : step === index ? 'w-1/2' : 'w-0'
+              className={`h-full origin-left rounded-full bg-teal-400 transition-transform duration-300 ease-out motion-reduce:transition-none ${
+                step < index
+                  ? 'scale-x-100'
+                  : step === index
+                    ? 'scale-x-50'
+                    : 'scale-x-0'
               }`}
             />
           </div>
         ))}
       </div>
 
-      <div className="mt-6 flex items-center justify-between text-sm">
+      <div className="mt-4 flex items-center justify-between text-sm">
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-1.5 text-gray-500 transition-colors hover:text-white"
+          className="-ml-2 inline-flex min-h-11 items-center gap-1.5 rounded-lg px-2 text-gray-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4" aria-hidden="true" />
           {index === 0 ? 'Intro' : 'Back'}
         </button>
         <span className="inline-flex items-center gap-2 text-gray-400">
           <Icon className="w-4 h-4 text-teal-400" aria-hidden="true" />
           {pillar ? pillar.name : 'About your team'}
-          <span className="text-gray-600" aria-hidden="true">
-            ·
-          </span>
+          <span aria-hidden="true">·</span>
           <span className="tabular-nums">
             {index + 1} / {total}
           </span>
         </span>
       </div>
 
-      <div key={question.id} className="mt-12">
+      <div key={question.id} className="mt-10 motion-safe:animate-rise">
         <h2
-          className="animate-rise text-3xl sm:text-4xl font-bold leading-tight text-white"
-          style={{ animationDelay: '60ms' }}
+          id={headingId}
+          tabIndex={-1}
+          data-autofocus
+          className="text-3xl sm:text-4xl font-bold leading-tight text-white text-balance outline-none"
         >
           {question.text}
         </h2>
 
-        <p
-          className="animate-rise mt-4 text-lg text-gray-500"
-          style={{ animationDelay: '120ms' }}
-        >
-          {question.why}
-        </p>
+        <p className="mt-4 text-lg text-gray-400">{question.why}</p>
 
-        <div className="mt-10 grid gap-3" role="radiogroup">
+        <div
+          className="mt-10 grid gap-3"
+          role="group"
+          aria-labelledby={headingId}
+        >
           {options.map((option, optionIndex) => {
             const isSelected = selected === option.value
             return (
               <button
                 key={option.label}
                 type="button"
-                role="radio"
-                aria-checked={isSelected}
+                aria-pressed={isSelected}
                 onClick={() => onSelect(option.value)}
-                className={`animate-rise group click-feedback-subtle flex items-center gap-4 rounded-xl border p-5 text-left transition-all duration-300 ${
+                className={`group click-feedback-subtle flex items-center gap-4 rounded-xl border p-5 text-left transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400 ${
                   isSelected
-                    ? 'border-teal-400 bg-teal-500/10 shadow-lg shadow-teal-500/10'
+                    ? 'border-teal-400 bg-teal-500/10'
                     : 'border-gray-800 bg-gray-900/50 hover:border-gray-600 hover:bg-gray-900'
                 }`}
-                style={{ animationDelay: `${180 + optionIndex * 60}ms` }}
               >
                 <span
+                  aria-hidden="true"
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border text-sm font-bold transition-colors ${
                     isSelected
                       ? 'border-teal-400 bg-teal-400 text-gray-950'
-                      : 'border-gray-700 text-gray-500 group-hover:border-gray-500 group-hover:text-gray-300'
+                      : 'border-gray-700 text-gray-400 group-hover:border-gray-500 group-hover:text-gray-200'
                   }`}
                 >
                   {isSelected ? <Check className="w-4 h-4" /> : optionIndex + 1}
@@ -134,13 +150,13 @@ export const ScorecardQuestion = ({
           })}
         </div>
 
-        <p className="mt-8 hidden sm:block text-center text-sm text-gray-600">
+        <p className="mt-8 hidden sm:block text-center text-sm text-gray-400">
           Tip: press{' '}
-          <kbd className="rounded border border-gray-700 px-1.5 py-0.5 text-gray-400">
+          <kbd className="rounded border border-gray-700 px-1.5 py-0.5 text-gray-300">
             1
           </kbd>
           –
-          <kbd className="rounded border border-gray-700 px-1.5 py-0.5 text-gray-400">
+          <kbd className="rounded border border-gray-700 px-1.5 py-0.5 text-gray-300">
             4
           </kbd>{' '}
           to answer
