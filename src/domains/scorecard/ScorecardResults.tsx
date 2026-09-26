@@ -274,16 +274,18 @@ export const ScorecardResults = ({
           <PanelTitle>Want the real numbers?</PanelTitle>
           <p className="mt-3 text-gray-300 leading-relaxed">
             The AI Delivery Audit measures lead time, escaped defects and review
-            load in your own Git and CI history. You get clear insight into
-            where your speed leaks, and a full plan with actionable steps to fix
-            it, based on those measurements.
+            load in your own Git and CI history.
+          </p>
+          <p className="mt-3 text-gray-300 leading-relaxed">
+            You get clear insight into where your speed leaks, and a full plan
+            with actionable steps to fix it, based on those measurements.
           </p>
           <Button
             href="mailto:jordy@vanvorselen.com?subject=AI%20Delivery%20Audit"
             size="lg"
             className="group mt-6 gap-2"
           >
-            Book a 20-minute call
+            Book a 30-minute call
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
           </Button>
         </Panel>
