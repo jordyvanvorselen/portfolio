@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   ArrowRight,
   Check,
@@ -19,6 +19,7 @@ import type { ScorecardResult } from '@/domains/scorecard/scorecard.data'
 import { TierScale } from '@/domains/scorecard/TierScale'
 import { toneForScore, toneStyles } from '@/domains/scorecard/tones'
 import { useCountUp } from '@/domains/scorecard/useCountUp'
+import { useInView } from '@/domains/scorecard/useInView'
 import { usePrefersReducedMotion } from '@/domains/scorecard/usePrefersReducedMotion'
 import { Button } from '@/ui/Button'
 import { SubstackIcon } from '@/ui/SubstackIcon'
@@ -52,6 +53,8 @@ const PanelTitle = ({ children }: { children: React.ReactNode }) => (
   <h2 className="text-xl font-semibold text-white">{children}</h2>
 )
 
+const VERDICT_MS = 1000
+
 export const ScorecardResults = ({
   result,
   onRestart,
@@ -60,16 +63,24 @@ export const ScorecardResults = ({
   const tone = toneStyles[tier.tone]
   const isOutrun = aiShare > score
   const prefersReducedMotion = usePrefersReducedMotion()
-  const [isRevealed, setIsRevealed] = useState(false)
   const [isLinkCopied, setIsLinkCopied] = useState(false)
-  const hours = useCountUp(result.leakedHoursPerWeek, 1400, 1600)
-  const euros = useCountUp(result.leakedEurosPerMonth, 1400, 1600)
+  const [isVerdictDone, setIsVerdictDone] = useState(false)
+  const railsRef = useRef<HTMLUListElement>(null)
+  const costRef = useRef<HTMLDListElement>(null)
+  const isRailsInView = useInView(railsRef, 0.5)
+  const isCostInView = useInView(costRef)
+  const shownScore = useCountUp(score, 900, 150)
+  const hours = useCountUp(result.leakedHoursPerWeek, 1200, 150, isCostInView)
+  const euros = useCountUp(result.leakedEurosPerMonth, 1200, 150, isCostInView)
   const LeakIcon = pillarIcons[biggestLeak.pillar.id]
 
   useEffect(() => {
-    const timeout = setTimeout(() => setIsRevealed(true), 50)
+    const timeout = setTimeout(
+      () => setIsVerdictDone(true),
+      prefersReducedMotion ? 0 : VERDICT_MS
+    )
     return () => clearTimeout(timeout)
-  }, [])
+  }, [prefersReducedMotion])
 
   const share = async () => {
     const url = window.location.href
@@ -87,12 +98,19 @@ export const ScorecardResults = ({
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <header className="text-center max-w-3xl mx-auto">
         <p className="text-lg text-gray-400">
-          Your delivery scores {score} out of 100:
+          Your delivery scores{' '}
+          <span
+            className="font-semibold text-white tabular-nums"
+            aria-hidden="true"
+          >
+            {shownScore}
+          </span>
+          <span className="sr-only">{score}</span> out of 100:
         </p>
         <h1
           tabIndex={-1}
           data-autofocus
-          className={`mt-2 text-6xl sm:text-7xl font-bold tracking-tight outline-none ${tone.text}`}
+          className={`mt-2 text-6xl sm:text-7xl font-bold tracking-tight outline-none motion-safe:animate-verdict ${tone.text}`}
           style={{ textShadow: `0 0 28px ${tone.hex}59` }}
         >
           {tier.name}
@@ -114,7 +132,8 @@ export const ScorecardResults = ({
             unit="%"
             label="Engine speed"
             caption="Share of code AI writes"
-            delayMs={250}
+            delayMs={0}
+            isReady={isVerdictDone}
             durationMs={900}
           />
           <div className="text-center md:max-w-[15rem]">
@@ -134,7 +153,8 @@ export const ScorecardResults = ({
             value={score}
             label="Road speed"
             caption="Delivery score out of 100"
-            delayMs={650}
+            delayMs={400}
+            isReady={isVerdictDone}
             durationMs={1500}
           />
         </div>
@@ -146,7 +166,7 @@ export const ScorecardResults = ({
           <div className="hidden sm:block lg:col-span-2">
             <PillarRadar scores={pillarScores} />
           </div>
-          <ul className="lg:col-span-3 space-y-5">
+          <ul ref={railsRef} className="lg:col-span-3 space-y-5">
             {pillarScores.map(({ pillar, score: pillarScore }, index) => {
               const Icon = pillarIcons[pillar.id]
               const isLeak = pillar.id === biggestLeak.pillar.id
@@ -179,13 +199,13 @@ export const ScorecardResults = ({
                       className={`h-full w-full origin-left rounded-full bg-gradient-to-r ${pillarTone.bar}`}
                       style={{
                         transform: `scaleX(${
-                          isRevealed || prefersReducedMotion
+                          isRailsInView || prefersReducedMotion
                             ? Math.max(pillarScore, 2) / 100
                             : 0
                         })`,
                         transition: prefersReducedMotion
                           ? 'none'
-                          : `transform 700ms cubic-bezier(0.16, 1, 0.3, 1) ${1200 + index * 60}ms`,
+                          : `transform 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms`,
                       }}
                     />
                   </div>
@@ -237,7 +257,7 @@ export const ScorecardResults = ({
 
         <Panel className="lg:col-span-2">
           <PanelTitle>Speed you leave on the table</PanelTitle>
-          <dl className="mt-6 space-y-6">
+          <dl ref={costRef} className="mt-6 space-y-6">
             <div className="flex items-center gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
                 <Timer className="w-6 h-6" aria-hidden="true" />

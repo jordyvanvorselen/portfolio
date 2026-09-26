@@ -5,16 +5,36 @@
 
 @theme {
   --font-sans: 'DM Sans', system-ui, sans-serif;
-  --animate-rise: rise 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-enter-next: enter-next 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-enter-prev: enter-prev 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-pop: pop 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-verdict: verdict 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 
-  @keyframes rise {
+  @keyframes enter-next {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateX(24px);
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+  }
+
+  @keyframes enter-prev {
+    from {
+      opacity: 0;
+      transform: translateX(-24px);
+    }
+  }
+
+  @keyframes pop {
+    from {
+      transform: scale(0.4);
+    }
+  }
+
+  @keyframes verdict {
+    from {
+      opacity: 0;
+      filter: blur(12px);
+      transform: scale(0.94);
     }
   }
 }

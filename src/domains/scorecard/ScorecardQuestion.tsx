@@ -9,6 +9,7 @@ import { pillars, type Question } from '@/domains/scorecard/scorecard.data'
 interface ScorecardQuestionProps {
   question: Question
   index: number
+  direction: 'next' | 'prev'
   total: number
   selected: number | undefined
   onSelect: (value: number) => void
@@ -27,6 +28,7 @@ const isTyping = (target: EventTarget | null) =>
 export const ScorecardQuestion = ({
   question,
   index,
+  direction,
   total,
   selected,
   onSelect,
@@ -99,7 +101,10 @@ export const ScorecardQuestion = ({
         </span>
       </div>
 
-      <div key={question.id} className="mt-10 motion-safe:animate-rise">
+      <div
+        key={question.id}
+        className={`mt-10 ${direction === 'next' ? 'motion-safe:animate-enter-next' : 'motion-safe:animate-enter-prev'}`}
+      >
         <h2
           id={headingId}
           tabIndex={-1}
@@ -138,7 +143,11 @@ export const ScorecardQuestion = ({
                       : 'border-gray-700 text-gray-400 group-hover:border-gray-500 group-hover:text-gray-200'
                   }`}
                 >
-                  {isSelected ? <Check className="w-4 h-4" /> : optionIndex + 1}
+                  {isSelected ? (
+                    <Check className="w-4 h-4 motion-safe:animate-pop" />
+                  ) : (
+                    optionIndex + 1
+                  )}
                 </span>
                 <span
                   className={`text-lg ${isSelected ? 'text-white' : 'text-gray-300'}`}

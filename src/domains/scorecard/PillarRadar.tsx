@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useRef } from 'react'
 
 import type { PillarScore } from '@/domains/scorecard/scorecard.data'
+import { useInView } from '@/domains/scorecard/useInView'
 import { usePrefersReducedMotion } from '@/domains/scorecard/usePrefersReducedMotion'
 
 interface PillarRadarProps {
@@ -31,16 +32,13 @@ const polygon = (count: number, percentAt: (index: number) => number) =>
 
 export const PillarRadar = ({ scores }: PillarRadarProps) => {
   const prefersReducedMotion = usePrefersReducedMotion()
-  const [isRevealed, setIsRevealed] = useState(false)
+  const ref = useRef<SVGSVGElement>(null)
+  const isRevealed = useInView(ref, 0.6)
   const count = scores.length
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setIsRevealed(true), 50)
-    return () => clearTimeout(timeout)
-  }, [])
 
   return (
     <svg
+      ref={ref}
       viewBox="-40 0 400 300"
       className="w-full max-w-md mx-auto"
       role="img"
@@ -90,7 +88,7 @@ export const PillarRadar = ({ scores }: PillarRadarProps) => {
           transformOrigin: `${CX}px ${CY}px`,
           transition: prefersReducedMotion
             ? 'none'
-            : 'transform 900ms cubic-bezier(0.16, 1, 0.3, 1) 1200ms',
+            : 'transform 900ms cubic-bezier(0.16, 1, 0.3, 1) 150ms',
         }}
       >
         <polygon

@@ -7,7 +7,7 @@ interface ScorecardAnalyzingProps {
   onDone: () => void
 }
 
-const STEP_MS = 450
+const STEP_MS = 700
 
 const steps = [
   'Scoring your six delivery rails',
@@ -21,7 +21,7 @@ export const ScorecardAnalyzing = ({ onDone }: ScorecardAnalyzingProps) => {
 
   useEffect(() => {
     if (completed === steps.length) {
-      const timeout = setTimeout(onDone, 300)
+      const timeout = setTimeout(onDone, 500)
       return () => clearTimeout(timeout)
     }
     const timeout = setTimeout(() => setCompleted(completed + 1), STEP_MS)
@@ -56,7 +56,7 @@ export const ScorecardAnalyzing = ({ onDone }: ScorecardAnalyzingProps) => {
                 aria-hidden="true"
               >
                 {isDone ? (
-                  <Check className="w-4 h-4" />
+                  <Check className="w-4 h-4 motion-safe:animate-pop" />
                 ) : (
                   <LoaderCircle
                     className={`w-4 h-4 ${isActive ? 'motion-safe:animate-spin' : ''}`}

@@ -21,6 +21,7 @@ const ADVANCE_DELAY_MS = 220
 export const Scorecard = () => {
   const [stage, setStage] = useState<Stage>('intro')
   const [index, setIndex] = useState(0)
+  const [direction, setDirection] = useState<'next' | 'prev'>('next')
   const [answers, setAnswers] = useState<Answers>({})
   const sectionRef = useRef<HTMLElement>(null)
   const advanceRef = useRef<ReturnType<typeof setTimeout>>(undefined)
@@ -50,7 +51,10 @@ export const Scorecard = () => {
       clearTimeout(advanceRef.current)
       advanceRef.current = setTimeout(() => {
         if (index === questions.length - 1) setStage('analyzing')
-        else setIndex(index + 1)
+        else {
+          setDirection('next')
+          setIndex(index + 1)
+        }
       }, ADVANCE_DELAY_MS)
     },
     [question, index]
@@ -59,7 +63,10 @@ export const Scorecard = () => {
   const onBack = useCallback(() => {
     clearTimeout(advanceRef.current)
     if (index === 0) setStage('intro')
-    else setIndex(index - 1)
+    else {
+      setDirection('prev')
+      setIndex(index - 1)
+    }
   }, [index])
 
   const onAnalyzed = useCallback(() => setStage('results'), [])
@@ -67,6 +74,7 @@ export const Scorecard = () => {
   const restart = () => {
     setAnswers({})
     setIndex(0)
+    setDirection('next')
     setStage('intro')
   }
 
@@ -83,8 +91,8 @@ export const Scorecard = () => {
     >
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-950 to-black" />
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl motion-safe:animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl motion-safe:animate-pulse delay-1000" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
       </div>
 
       <div className="relative">
@@ -98,6 +106,7 @@ export const Scorecard = () => {
           <ScorecardQuestion
             question={question}
             index={index}
+            direction={direction}
             total={questions.length}
             selected={answers[question.id]}
             onSelect={onSelect}

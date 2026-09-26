@@ -4,12 +4,17 @@ import { useEffect, useState } from 'react'
 
 import { usePrefersReducedMotion } from '@/domains/scorecard/usePrefersReducedMotion'
 
-export const useCountUp = (target: number, durationMs = 1600, delayMs = 0) => {
+export const useCountUp = (
+  target: number,
+  durationMs = 1600,
+  delayMs = 0,
+  isActive = true
+) => {
   const prefersReducedMotion = usePrefersReducedMotion()
   const [value, setValue] = useState(0)
 
   useEffect(() => {
-    if (prefersReducedMotion) return
+    if (prefersReducedMotion || !isActive) return
 
     let frame = 0
     let start: number | undefined
@@ -30,7 +35,7 @@ export const useCountUp = (target: number, durationMs = 1600, delayMs = 0) => {
       clearTimeout(timeout)
       cancelAnimationFrame(frame)
     }
-  }, [target, durationMs, delayMs, prefersReducedMotion])
+  }, [target, durationMs, delayMs, isActive, prefersReducedMotion])
 
   return prefersReducedMotion ? target : value
 }

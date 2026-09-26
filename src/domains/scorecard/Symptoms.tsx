@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { ArrowDown } from 'lucide-react'
 
 import { useCountUp } from '@/domains/scorecard/useCountUp'
+import { useInView } from '@/domains/scorecard/useInView'
 
 const symptoms = [
   {
@@ -29,38 +30,14 @@ interface CountingMultiplierProps {
   delayMs: number
 }
 
-const CountingMultiplier = ({ tenths, delayMs }: CountingMultiplierProps) => {
-  const counted = useCountUp(tenths - 10, 1400, delayMs)
-  return <>{formatTenths(10 + counted)}</>
-}
-
 const RevealedMultiplier = ({ tenths, delayMs }: CountingMultiplierProps) => {
   const ref = useRef<HTMLSpanElement>(null)
-  const [isInView, setIsInView] = useState(false)
-
-  useEffect(() => {
-    const element = ref.current
-    if (!element) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          setIsInView(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 1 }
-    )
-    observer.observe(element)
-    return () => observer.disconnect()
-  }, [])
+  const isInView = useInView(ref)
+  const counted = useCountUp(tenths - 10, 1400, delayMs, isInView)
 
   return (
     <span ref={ref} aria-hidden="true">
-      {isInView ? (
-        <CountingMultiplier tenths={tenths} delayMs={delayMs} />
-      ) : (
-        formatTenths(10)
-      )}
+      {formatTenths(10 + counted)}
     </span>
   )
 }

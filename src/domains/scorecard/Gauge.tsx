@@ -1,8 +1,9 @@
 'use client'
 
-import { useId } from 'react'
+import { useId, useRef } from 'react'
 
 import { useCountUp } from '@/domains/scorecard/useCountUp'
+import { useInView } from '@/domains/scorecard/useInView'
 
 interface GaugeProps {
   value: number
@@ -12,6 +13,7 @@ interface GaugeProps {
   variant: 'tachometer' | 'speedometer'
   delayMs?: number
   durationMs?: number
+  isReady?: boolean
 }
 
 const CX = 120
@@ -45,14 +47,17 @@ export const Gauge = ({
   variant,
   delayMs = 0,
   durationMs = 1400,
+  isReady = true,
 }: GaugeProps) => {
   const id = `gauge${useId().replace(/[^a-zA-Z0-9]/g, '')}`
-  const current = useCountUp(value, durationMs, delayMs)
+  const ref = useRef<HTMLElement>(null)
+  const isInView = useInView(ref, 0.8)
+  const current = useCountUp(value, durationMs, delayMs, isInView && isReady)
   const needleAngle = START_ANGLE + (SWEEP * current) / 100
   const isTachometer = variant === 'tachometer'
 
   return (
-    <figure className="flex flex-col items-center">
+    <figure ref={ref} className="flex flex-col items-center">
       <svg
         viewBox="0 0 240 200"
         className="w-full max-w-[280px]"
