@@ -14,11 +14,13 @@ const evidence = [
     value: '+441%',
     label: 'median PR review time as AI adoption grew',
     source: 'Faros AI 2026, 22,000 developers',
+    tone: 'text-amber-400',
   },
   {
     value: '+242.7%',
     label: 'incidents per pull request as AI adoption grew',
     source: 'Faros AI 2026, 22,000 developers',
+    tone: 'text-rose-400',
   },
 ]
 
@@ -57,6 +59,25 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => (
         14 questions · 3 minutes · Results on screen, no email needed
       </p>
     </div>
+
+    <section className="mt-28">
+      <h2 className="text-2xl sm:text-3xl font-bold text-white text-center">
+        Sound familiar?
+      </h2>
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-px overflow-hidden rounded-xl border border-gray-800 bg-gray-800">
+        {evidence.map(({ value, label, source, tone }) => (
+          <figure key={label} className="bg-gray-950 px-8 py-10">
+            <div className={`text-5xl font-bold tabular-nums ${tone}`}>
+              {value}
+            </div>
+            <div className="mt-3 text-lg text-gray-200">{label}</div>
+            <figcaption className="mt-1 text-sm text-gray-400">
+              {source}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
 
     <div className="mt-28 grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
       <div>
@@ -110,20 +131,6 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => (
           )
         })}
       </dl>
-    </div>
-
-    <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-px overflow-hidden rounded-xl border border-gray-800 bg-gray-800">
-      {evidence.map(({ value, label, source }) => (
-        <figure key={label} className="bg-gray-950 px-8 py-10">
-          <div className="text-4xl font-bold text-white tabular-nums">
-            {value}
-          </div>
-          <div className="mt-2 text-gray-300">{label}</div>
-          <figcaption className="mt-1 text-sm text-gray-400">
-            {source}
-          </figcaption>
-        </figure>
-      ))}
     </div>
   </div>
 )
