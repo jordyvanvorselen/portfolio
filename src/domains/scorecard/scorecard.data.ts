@@ -57,7 +57,7 @@ export const pillars: Pillar[] = [
   {
     id: 'measurement',
     name: 'Speedometer',
-    tagline: 'You measure lead time and stability, not vibes.',
+    tagline: 'You measure delivery, not vibes.',
     leak: 'You can’t see whether AI helps or hurts, so every decision runs on gut feeling.',
     fix: 'Pull lead time, escaped defects and rework out of your Git and CI history. Set a baseline this week.',
     evidence: {
