@@ -2,27 +2,13 @@ import { ArrowRight, BookOpen, ExternalLink } from 'lucide-react'
 
 import { pillarIcons } from '@/domains/scorecard/pillarIcons'
 import { pillars } from '@/domains/scorecard/scorecard.data'
+import { Symptoms } from '@/domains/scorecard/Symptoms'
 import { Button } from '@/ui/Button'
 
 interface ScorecardIntroProps {
   onStart: () => void
   onPreview: () => void
 }
-
-const evidence = [
-  {
-    value: '+441%',
-    label: 'median PR review time as AI adoption grew',
-    source: 'Faros AI 2026, 22,000 developers',
-    tone: 'text-amber-400',
-  },
-  {
-    value: '+242.7%',
-    label: 'incidents per pull request as AI adoption grew',
-    source: 'Faros AI 2026, 22,000 developers',
-    tone: 'text-rose-400',
-  },
-]
 
 export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => (
   <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,24 +46,7 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => (
       </p>
     </div>
 
-    <section className="mt-28">
-      <h2 className="text-2xl sm:text-3xl font-bold text-white text-center">
-        Sound familiar?
-      </h2>
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-px overflow-hidden rounded-xl border border-gray-800 bg-gray-800">
-        {evidence.map(({ value, label, source, tone }) => (
-          <figure key={label} className="bg-gray-950 px-8 py-10">
-            <div className={`text-5xl font-bold tabular-nums ${tone}`}>
-              {value}
-            </div>
-            <div className="mt-3 text-lg text-gray-200">{label}</div>
-            <figcaption className="mt-1 text-sm text-gray-400">
-              {source}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-    </section>
+    <Symptoms />
 
     <div className="mt-28 grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
       <div>
@@ -132,5 +101,35 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => (
         })}
       </dl>
     </div>
+
+    <section
+      className="mt-24 rounded-2xl border border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-gray-900/60 to-blue-500/10 px-6 py-14 text-center sm:px-12"
+      aria-labelledby="closing-cta-heading"
+    >
+      <h2
+        id="closing-cta-heading"
+        className="text-3xl sm:text-4xl font-bold text-white text-balance"
+      >
+        Which rail leaks the most speed on your team?
+      </h2>
+      <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto text-pretty">
+        Find out in 3 minutes. You get your score per rail, your biggest leak
+        and the first fix to try.
+      </p>
+      <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <Button
+          type="button"
+          size="lg"
+          onClick={onStart}
+          className="group gap-2"
+        >
+          Start the scorecard
+          <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+        </Button>
+        <Button type="button" size="lg" color="secondary" onClick={onPreview}>
+          See a sample report
+        </Button>
+      </div>
+    </section>
   </div>
 )
