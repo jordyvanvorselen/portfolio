@@ -228,7 +228,7 @@ export const questions: Question[] = [
     kind: 'scored',
     pillar: 'review',
     text: 'How long does a typical PR wait for review?',
-    why: 'Teams using AI see review time go up by as much as 441%.',
+    why: 'Faros AI measured PR review time up 441% on teams with high AI adoption.',
     options: [
       { label: 'Days', points: 0 },
       { label: 'About a day', points: 1 },
@@ -281,33 +281,33 @@ export const tiers: Tier[] = [
   {
     name: 'Overdrive',
     min: 80,
-    headline: 'AI speed that compounds.',
+    headline: 'You get the speed AI promised.',
     summary:
-      'Your rails hold. Faster agents turn into faster, stable releases. Guard it as the team grows.',
+      'Your rails turn faster agents into faster, stable releases. Few teams get here. Guard it as the team grows.',
     tone: 'teal',
   },
   {
     name: 'Cruising',
     min: 60,
-    headline: 'Solid rails, a few leaks left.',
+    headline: 'Fast, with speed left on the table.',
     summary:
-      'Most of your AI speed reaches production. One or two weak rails still cost you every sprint.',
+      'Most of your AI speed reaches production. One or two weak rails still hold back the rest, every sprint.',
     tone: 'blue',
   },
   {
     name: 'Leaking',
     min: 40,
-    headline: 'You’re fast. The speed leaks.',
+    headline: 'You’re faster. You could be much faster.',
     summary:
-      'The engine revs, but a big part of the speed disappears into review queues, rework and firefighting.',
+      'AI sped you up, but a big part of the gain leaks into review queues, rework and firefighting before it reaches users.',
     tone: 'amber',
   },
   {
     name: 'Redlining',
     min: 0,
-    headline: 'The engine screams. The car barely moves.',
+    headline: 'You get a fraction of AI’s speed.',
     summary:
-      'You merge more than ever, but little of it ships and stays shipped. Leaks like these compound fast.',
+      'Your team produces more code than ever. Review queues, rework and slipped releases eat most of the gain before it reaches users.',
     tone: 'rose',
   },
 ]

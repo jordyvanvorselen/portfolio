@@ -1,10 +1,9 @@
 'use client'
 
-import { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ArrowRight,
   CalendarCheck,
-  Check,
   Euro,
   Mail,
   RotateCcw,
@@ -20,6 +19,7 @@ import { pillarIcons } from '@/domains/scorecard/pillarIcons'
 import type { ScorecardResult } from '@/domains/scorecard/scorecard.data'
 import { toneForScore, toneStyles } from '@/domains/scorecard/tones'
 import { useCountUp } from '@/domains/scorecard/useCountUp'
+import { SubstackIcon } from '@/ui/SubstackIcon'
 
 interface ScorecardResultsProps {
   result: ScorecardResult
@@ -61,23 +61,16 @@ export const ScorecardResults = ({
 }: ScorecardResultsProps) => {
   const { score, tier, pillarScores, biggestLeak, aiShare } = result
   const tone = toneStyles[tier.tone]
-  const gap = Math.max(aiShare - score, 0)
+  const isOutrun = aiShare > score
   const hours = useCountUp(result.leakedHoursPerWeek, 1600, 900)
   const euros = useCountUp(result.leakedEurosPerMonth, 1600, 900)
   const [isRevealed, setIsRevealed] = useState(false)
-  const [email, setEmail] = useState('')
-  const [isSent, setIsSent] = useState(false)
   const LeakIcon = pillarIcons[biggestLeak.pillar.id]
 
   useEffect(() => {
     const timeout = setTimeout(() => setIsRevealed(true), 300)
     return () => clearTimeout(timeout)
   }, [])
-
-  const onSubmit = (event: FormEvent) => {
-    event.preventDefault()
-    setIsSent(true)
-  }
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,24 +114,26 @@ export const ScorecardResults = ({
             delayMs={500}
           />
           <div className="text-center md:max-w-[14rem]">
-            {gap > 0 ? (
+            {isOutrun ? (
               <>
-                <div className={`text-5xl font-bold ${tone.text}`}>−{gap}</div>
-                <div className="mt-2 text-gray-300 font-medium">
-                  points of AI speed never reach the road
+                <div className="text-xl font-bold text-white">
+                  Your engine is outrunning your rails
                 </div>
-                <div className="mt-3 text-sm text-gray-500">
-                  The engine revs faster than your delivery rails can carry.
-                </div>
+                <p className="mt-3 text-gray-400">
+                  AI writes about {aiShare}% of your code. Your delivery rails
+                  score {score} out of 100. Much of the speed AI adds never
+                  reaches your users.
+                </p>
               </>
             ) : (
               <>
-                <div className="text-5xl font-bold text-teal-400">
-                  <Check className="inline w-12 h-12" />
-                </div>
-                <div className="mt-2 text-gray-300 font-medium">
+                <div className="text-xl font-bold text-white">
                   Your rails keep up with your engine
                 </div>
+                <p className="mt-3 text-gray-400">
+                  AI writes about {aiShare}% of your code, and your rails score{' '}
+                  {score} out of 100. The speed AI adds reaches your users.
+                </p>
               </>
             )}
           </div>
@@ -238,7 +233,7 @@ export const ScorecardResults = ({
         </Panel>
 
         <Panel className="lg:col-span-2" delayMs={660}>
-          <Eyebrow>What the leaks may cost you</Eyebrow>
+          <Eyebrow>Speed you leave on the table</Eyebrow>
           <div className="mt-6 space-y-6">
             <div className="flex items-center gap-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
@@ -260,7 +255,7 @@ export const ScorecardResults = ({
                   {euro.format(euros)}
                 </div>
                 <div className="text-gray-400">
-                  per month in rework and waiting
+                  per month lost to rework and waiting
                 </div>
               </div>
             </div>
@@ -276,41 +271,24 @@ export const ScorecardResults = ({
         <Panel delayMs={740}>
           <div className="flex items-center gap-2 text-gray-400">
             <Mail className="w-4 h-4" />
-            <Eyebrow>Get the full report</Eyebrow>
+            <Eyebrow>Free newsletter</Eyebrow>
           </div>
           <h2 className="mt-4 text-2xl font-bold text-white">
-            Your 6-rail report as a PDF
+            Get one delivery fix a week
           </h2>
           <p className="mt-2 text-gray-400">
-            A fix plan for every rail, plus how your score compares to other
-            AI-native teams.
+            Short, practical posts on turning AI speed into shipped features.
+            Free, on Substack.
           </p>
-          {isSent ? (
-            <div className="animate-rise mt-6 flex items-center gap-3 rounded-xl border border-teal-500/30 bg-teal-500/10 p-4 text-teal-200">
-              <Check className="w-5 h-5" />
-              On its way to {email}
-            </div>
-          ) : (
-            <form
-              onSubmit={onSubmit}
-              className="mt-6 flex flex-col sm:flex-row gap-3"
-            >
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={event => setEmail(event.target.value)}
-                placeholder="you@company.com"
-                className="flex-1 rounded-xl border border-gray-700 bg-gray-950 px-4 py-3 text-white placeholder:text-gray-600 outline-none transition focus:border-teal-400 focus:ring-2 focus:ring-teal-400/20"
-              />
-              <button
-                type="submit"
-                className="click-feedback rounded-xl bg-white px-6 py-3 font-semibold text-gray-950 transition hover:bg-gray-200"
-              >
-                Send report
-              </button>
-            </form>
-          )}
+          <a
+            href="https://jordyvanvorselen.substack.com/subscribe"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="click-feedback mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 font-semibold text-gray-950 transition hover:bg-gray-200"
+          >
+            <SubstackIcon />
+            Subscribe on Substack
+          </a>
         </Panel>
 
         <Panel

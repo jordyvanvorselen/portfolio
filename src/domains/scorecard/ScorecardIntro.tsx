@@ -11,18 +11,13 @@ interface ScorecardIntroProps {
 const evidence = [
   {
     value: '+441%',
-    label: 'review time on AI-heavy teams',
-    source: 'Faros AI',
+    label: 'PR review time on teams with high AI adoption',
+    source: 'Faros AI, 22,000 developers',
   },
   {
     value: '−7.2%',
-    label: 'delivery stability per +25% AI adoption',
-    source: 'DORA 2025',
-  },
-  {
-    value: '3×',
-    label: 'more PRs, same roadmap',
-    source: 'the velocity illusion',
+    label: 'delivery stability for every 25% more AI adoption',
+    source: 'DORA 2024',
   },
 ]
 
@@ -38,20 +33,20 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => (
         className="animate-rise mt-8 text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-white leading-[1.05]"
         style={{ animationDelay: '80ms' }}
       >
-        Is AI making your team{' '}
+        AI made your team faster. How much faster{' '}
         <span className="bg-gradient-to-r from-teal-300 via-teal-400 to-blue-400 bg-clip-text text-transparent">
-          faster
+          could it be
         </span>
-        , or just busier?
+        ?
       </h1>
 
       <p
         className="animate-rise mt-8 text-lg sm:text-xl lg:text-2xl text-gray-400 leading-relaxed max-w-3xl mx-auto"
         style={{ animationDelay: '160ms' }}
       >
-        Your team merges more PRs than ever. Is your roadmap moving as fast?
-        Score your delivery on the six rails that turn AI speed into shipped
-        features.
+        Most AI-native teams ship faster than a year ago. Most also lose a big
+        part of the gain to review queues, rework and slipped releases. Score
+        the six rails that decide how much of AI’s speed reaches your users.
       </p>
 
       <div
@@ -117,7 +112,7 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => (
       })}
     </div>
 
-    <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-px overflow-hidden rounded-xl border border-gray-800 bg-gray-800">
+    <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-px overflow-hidden rounded-xl border border-gray-800 bg-gray-800">
       {evidence.map(({ value, label, source }) => (
         <div key={label} className="bg-gray-950 p-8 text-center">
           <div className="text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
