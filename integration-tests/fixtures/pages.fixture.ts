@@ -6,6 +6,7 @@ import { BlogPage } from '@/integration-tests/page-objects/pages/blog.page'
 import { BlogPostPage } from '@/integration-tests/page-objects/pages/blog-post.page'
 import { ProjectsPage } from '@/integration-tests/page-objects/pages/projects.page'
 import { ExperiencePage } from '@/integration-tests/page-objects/pages/experience.page'
+import { ScorecardPage } from '@/integration-tests/page-objects/pages/scorecard.page'
 import { defaultHandlers } from '@/test/msw/defaultHandlers'
 
 type Fixture = {
@@ -15,6 +16,7 @@ type Fixture = {
   blogPostPage: BlogPostPage
   projectsPage: ProjectsPage
   experiencePage: ExperiencePage
+  scorecardPage: ScorecardPage
 }
 
 export const test = base.extend<Fixture>({
@@ -44,5 +46,9 @@ export const test = base.extend<Fixture>({
 
   experiencePage: async ({ page }, pwUse) => {
     await pwUse(await ExperiencePage.goto(page))
+  },
+
+  scorecardPage: async ({ page }, pwUse) => {
+    await pwUse(await ScorecardPage.goto(page))
   },
 })

@@ -46,11 +46,11 @@ export const SparkBurst = ({ count, delayMs }: SparkBurstProps) => {
   const prefersReducedMotion = usePrefersReducedMotion()
 
   useEffect(() => {
-    const canvas = ref.current
-    const context = canvas?.getContext('2d')
-    if (!canvas || !context || prefersReducedMotion) return
+    const canvas = ref.current!
+    const context = canvas.getContext('2d')
+    if (!context || prefersReducedMotion) return
 
-    const ratio = window.devicePixelRatio || 1
+    const ratio = window.devicePixelRatio
     canvas.width = WIDTH * ratio
     canvas.height = HEIGHT * ratio
     context.scale(ratio, ratio)

@@ -36,7 +36,7 @@ interface ScorecardResultsProps {
 }
 
 const euroFormatFor = (locale: string) =>
-  new Intl.NumberFormat(locale === 'nl' ? 'nl-NL' : 'en-IE', {
+  new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: 'EUR',
     maximumFractionDigits: 0,

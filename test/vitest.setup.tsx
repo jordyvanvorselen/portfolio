@@ -47,6 +47,17 @@ vitest.mock('next-intl', () => {
           const boldCallback = components['b']
           return boldCallback(baseFunction(key))
         }
+        if (components) {
+          // Render every other tag after the key, with the tag name as content
+          return (
+            <>
+              {baseFunction(key)}
+              {Object.entries(components).map(([tag, render]) => (
+                <React.Fragment key={tag}>{render(tag)}</React.Fragment>
+              ))}
+            </>
+          )
+        }
         return baseFunction(key)
       }
     )

@@ -155,7 +155,7 @@ export const scoreAnswers = (answers: Answers): ScorecardResult => {
     pillarScores.reduce((sum, { score }) => sum + score, 0) /
       pillarScores.length
   )
-  const tier = tiers.find(({ min }) => score >= min) ?? tiers[tiers.length - 1]!
+  const tier = tiers.find(({ min }) => score >= min)!
   const biggestLeak = pillarScores.reduce((lowest, current) =>
     current.score < lowest.score ? current : lowest
   )
@@ -215,7 +215,7 @@ export const checksFor = (
   scoredQuestions
     .filter(question => question.pillar === pillarId)
     .map(question => {
-      const points = answers[question.id] ?? 0
+      const points = answers[question.id]!
       return {
         questionId: question.id,
         answerIndex: question.points.indexOf(points),

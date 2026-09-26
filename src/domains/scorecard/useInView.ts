@@ -9,11 +9,10 @@ export const useInView = (
   const [isInView, setIsInView] = useState(false)
 
   useEffect(() => {
-    const element = ref.current
-    if (!element) return
+    const element = ref.current!
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry?.isIntersecting) {
+        if (entry!.isIntersecting) {
           setIsInView(true)
           observer.disconnect()
         }

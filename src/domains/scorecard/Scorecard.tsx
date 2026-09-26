@@ -49,8 +49,7 @@ export const Scorecard = () => {
 
   const onSelect = useCallback(
     (value: number) => {
-      if (!question) return
-      setAnswers(previous => ({ ...previous, [question.id]: value }))
+      setAnswers(previous => ({ ...previous, [questions[index]!.id]: value }))
       clearTimeout(advanceRef.current)
       advanceRef.current = setTimeout(() => {
         if (index === questions.length - 1) setStage('analyzing')
@@ -60,7 +59,7 @@ export const Scorecard = () => {
         }
       }, ADVANCE_DELAY_MS)
     },
-    [question, index]
+    [index]
   )
 
   const onBack = useCallback(() => {
