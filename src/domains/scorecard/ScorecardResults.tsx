@@ -16,6 +16,7 @@ import { Gauge } from '@/domains/scorecard/Gauge'
 import { PillarRadar } from '@/domains/scorecard/PillarRadar'
 import { pillarIcons } from '@/domains/scorecard/pillarIcons'
 import type { ScorecardResult } from '@/domains/scorecard/scorecard.data'
+import { TierScale } from '@/domains/scorecard/TierScale'
 import { toneForScore, toneStyles } from '@/domains/scorecard/tones'
 import { useCountUp } from '@/domains/scorecard/useCountUp'
 import { usePrefersReducedMotion } from '@/domains/scorecard/usePrefersReducedMotion'
@@ -92,10 +93,12 @@ export const ScorecardResults = ({
           tabIndex={-1}
           data-autofocus
           className={`mt-2 text-6xl sm:text-7xl font-bold tracking-tight outline-none ${tone.text}`}
+          style={{ textShadow: `0 0 28px ${tone.hex}59` }}
         >
           {tier.name}
         </h1>
-        <p className="mt-6 text-2xl sm:text-3xl font-semibold text-white text-balance">
+        <TierScale score={score} current={tier} />
+        <p className="mt-8 text-2xl sm:text-3xl font-semibold text-white text-balance">
           {tier.headline}
         </p>
         <p className="mt-4 text-lg text-gray-400 leading-relaxed text-pretty">
