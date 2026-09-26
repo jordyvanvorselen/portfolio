@@ -1,7 +1,5 @@
 'use client'
 
-import { useId } from 'react'
-
 import { useCountUp } from '@/domains/scorecard/useCountUp'
 
 interface GaugeProps {
@@ -44,7 +42,6 @@ export const Gauge = ({
   variant,
   delayMs = 0,
 }: GaugeProps) => {
-  const id = `gauge${useId().replace(/[^a-zA-Z0-9]/g, '')}`
   const current = useCountUp(value, 1800, delayMs)
   const needleAngle = START_ANGLE + (SWEEP * current) / 100
   const isTachometer = variant === 'tachometer'
@@ -52,44 +49,6 @@ export const Gauge = ({
   return (
     <figure className="flex flex-col items-center" aria-label={label}>
       <svg viewBox="0 0 240 200" className="w-full max-w-[280px]">
-        <defs>
-          <linearGradient
-            id={`${id}-fill`}
-            gradientUnits="userSpaceOnUse"
-            x1="24"
-            x2="216"
-            y1="0"
-            y2="0"
-          >
-            {isTachometer ? (
-              <>
-                <stop offset="0%" stopColor="#64748b" />
-                <stop offset="70%" stopColor="#f59e0b" />
-                <stop offset="100%" stopColor="#f43f5e" />
-              </>
-            ) : (
-              <>
-                <stop offset="0%" stopColor="#f43f5e" />
-                <stop offset="45%" stopColor="#f59e0b" />
-                <stop offset="100%" stopColor="#14b8a6" />
-              </>
-            )}
-          </linearGradient>
-          <filter
-            id={`${id}-glow`}
-            x="-50%"
-            y="-50%"
-            width="200%"
-            height="200%"
-          >
-            <feGaussianBlur stdDeviation="4" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-
         <path
           d={arcPath(0, 100, RADIUS)}
           fill="none"
@@ -101,8 +60,8 @@ export const Gauge = ({
           <path
             d={arcPath(80, 100, RADIUS + 13)}
             fill="none"
-            stroke="#f43f5e"
-            strokeOpacity="0.6"
+            stroke="#fbbf24"
+            strokeOpacity="0.7"
             strokeWidth="3"
           />
         )}
@@ -110,10 +69,9 @@ export const Gauge = ({
           <path
             d={arcPath(0, current, RADIUS)}
             fill="none"
-            stroke={`url(#${id}-fill)`}
+            stroke={isTachometer ? '#d1d5db' : '#2dd4bf'}
             strokeWidth="14"
             strokeLinecap="round"
-            filter={`url(#${id}-glow)`}
           />
         )}
 

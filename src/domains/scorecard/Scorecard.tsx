@@ -63,16 +63,6 @@ export const Scorecard = () => {
       aria-label="AI Delivery Scorecard"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-950 to-black" />
-      <div
-        className="absolute inset-0 opacity-[0.15]"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(148,163,184,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.12) 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
-          maskImage:
-            'radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 100%)',
-        }}
-      />
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000" />

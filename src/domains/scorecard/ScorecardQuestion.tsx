@@ -71,19 +71,21 @@ export const ScorecardQuestion = ({
           <ArrowLeft className="w-4 h-4" />
           {index === 0 ? 'Intro' : 'Back'}
         </button>
-        <span className="font-medium text-gray-500">
-          {index + 1} / {total}
+        <span className="inline-flex items-center gap-2 text-gray-400">
+          <Icon className="w-4 h-4 text-teal-400" aria-hidden="true" />
+          {pillar ? pillar.name : 'About your team'}
+          <span className="text-gray-600" aria-hidden="true">
+            ·
+          </span>
+          <span className="tabular-nums">
+            {index + 1} / {total}
+          </span>
         </span>
       </div>
 
       <div key={question.id} className="mt-12">
-        <div className="animate-rise inline-flex items-center gap-2 rounded-full border border-gray-700 bg-gray-900/60 px-3 py-1 text-sm font-medium text-gray-300">
-          <Icon className="w-4 h-4 text-teal-400" />
-          {pillar ? pillar.name : 'About your team'}
-        </div>
-
         <h2
-          className="animate-rise mt-6 text-3xl sm:text-4xl font-bold leading-tight text-white"
+          className="animate-rise text-3xl sm:text-4xl font-bold leading-tight text-white"
           style={{ animationDelay: '60ms' }}
         >
           {question.text}

@@ -43,7 +43,7 @@ export interface Tier {
   min: number
   headline: string
   summary: string
-  tone: 'rose' | 'amber' | 'blue' | 'teal'
+  tone: 'brand' | 'warning'
 }
 
 export const pillars: Pillar[] = [
@@ -284,7 +284,7 @@ export const tiers: Tier[] = [
     headline: 'You get the speed AI promised.',
     summary:
       'Your rails turn faster agents into faster, stable releases. Few teams get here. Guard it as the team grows.',
-    tone: 'teal',
+    tone: 'brand',
   },
   {
     name: 'Cruising',
@@ -292,7 +292,7 @@ export const tiers: Tier[] = [
     headline: 'Fast, with speed left on the table.',
     summary:
       'Most of your AI speed reaches production. One or two weak rails still hold back the rest, every sprint.',
-    tone: 'blue',
+    tone: 'brand',
   },
   {
     name: 'Leaking',
@@ -300,7 +300,7 @@ export const tiers: Tier[] = [
     headline: 'You’re faster. You could be much faster.',
     summary:
       'AI sped you up, but a big part of the gain leaks into review queues, rework and firefighting before it reaches users.',
-    tone: 'amber',
+    tone: 'warning',
   },
   {
     name: 'Redlining',
@@ -308,7 +308,7 @@ export const tiers: Tier[] = [
     headline: 'You get a fraction of AI’s speed.',
     summary:
       'Your team produces more code than ever. Review queues, rework and slipped releases eat most of the gain before it reaches users.',
-    tone: 'rose',
+    tone: 'warning',
   },
 ]
 
