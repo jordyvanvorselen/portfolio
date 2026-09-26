@@ -29,7 +29,7 @@ export const ScorecardAnalyzing = ({ onDone }: ScorecardAnalyzingProps) => {
   }, [completed, onDone])
 
   return (
-    <div className="max-w-md mx-auto px-4">
+    <div className="max-w-md mx-auto px-4 min-h-[50vh] flex flex-col justify-center">
       <h2
         tabIndex={-1}
         data-autofocus
