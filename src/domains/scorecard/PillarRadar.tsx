@@ -46,6 +46,13 @@ export const PillarRadar = ({ scores }: PillarRadarProps) => {
       role="img"
       aria-label="Score per delivery rail"
     >
+      <defs>
+        <radialGradient id="radar-fill">
+          <stop offset="0%" stopColor="#14b8a6" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.45" />
+        </radialGradient>
+      </defs>
+
       {RINGS.map(ring => (
         <polygon
           key={ring}
@@ -88,8 +95,7 @@ export const PillarRadar = ({ scores }: PillarRadarProps) => {
       >
         <polygon
           points={polygon(count, index => Math.max(scores[index]!.score, 4))}
-          fill="#2dd4bf"
-          fillOpacity="0.15"
+          fill="url(#radar-fill)"
           stroke="#2dd4bf"
           strokeWidth="2"
           strokeLinejoin="round"

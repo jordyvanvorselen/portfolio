@@ -1,13 +1,23 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowRight, Check, RotateCcw, Share2 } from 'lucide-react'
+import {
+  ArrowRight,
+  Check,
+  Euro,
+  RotateCcw,
+  Share2,
+  Timer,
+  TriangleAlert,
+  Wrench,
+} from 'lucide-react'
 
 import { Gauge } from '@/domains/scorecard/Gauge'
 import { PillarRadar } from '@/domains/scorecard/PillarRadar'
 import { pillarIcons } from '@/domains/scorecard/pillarIcons'
 import type { ScorecardResult } from '@/domains/scorecard/scorecard.data'
-import { toneStyles } from '@/domains/scorecard/tones'
+import { toneForScore, toneStyles } from '@/domains/scorecard/tones'
+import { useCountUp } from '@/domains/scorecard/useCountUp'
 import { usePrefersReducedMotion } from '@/domains/scorecard/usePrefersReducedMotion'
 import { Button } from '@/ui/Button'
 import { SubstackIcon } from '@/ui/SubstackIcon'
@@ -31,7 +41,7 @@ const Panel = ({
   className?: string
 }) => (
   <section
-    className={`rounded-2xl border border-gray-800 bg-gray-900/50 p-6 sm:p-8 ${className}`}
+    className={`relative overflow-hidden rounded-2xl border border-gray-800 bg-gray-900/50 p-6 sm:p-8 ${className}`}
   >
     {children}
   </section>
@@ -51,6 +61,8 @@ export const ScorecardResults = ({
   const prefersReducedMotion = usePrefersReducedMotion()
   const [isRevealed, setIsRevealed] = useState(false)
   const [isLinkCopied, setIsLinkCopied] = useState(false)
+  const hours = useCountUp(result.leakedHoursPerWeek, 1400, 1600)
+  const euros = useCountUp(result.leakedEurosPerMonth, 1400, 1600)
   const LeakIcon = pillarIcons[biggestLeak.pillar.id]
 
   useEffect(() => {
@@ -135,6 +147,7 @@ export const ScorecardResults = ({
             {pillarScores.map(({ pillar, score: pillarScore }, index) => {
               const Icon = pillarIcons[pillar.id]
               const isLeak = pillar.id === biggestLeak.pillar.id
+              const pillarTone = toneStyles[toneForScore(pillarScore)]
               return (
                 <li key={pillar.id}>
                   <div className="flex items-center justify-between gap-4">
@@ -147,18 +160,20 @@ export const ScorecardResults = ({
                         {pillar.name}
                       </span>
                       {isLeak && (
-                        <span className="text-sm text-amber-300">
+                        <span className="rounded-full bg-rose-500/15 px-2 py-0.5 text-xs font-semibold text-rose-300">
                           Biggest leak
                         </span>
                       )}
                     </div>
-                    <span className="font-semibold tabular-nums text-gray-200">
+                    <span
+                      className={`font-bold tabular-nums ${pillarTone.text}`}
+                    >
                       {pillarScore}
                     </span>
                   </div>
-                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-gray-800">
+                  <div className="mt-2 h-2 overflow-hidden rounded-full bg-gray-800">
                     <div
-                      className={`h-full w-full origin-left rounded-full ${isLeak ? 'bg-amber-400' : 'bg-teal-400'}`}
+                      className={`h-full w-full origin-left rounded-full bg-gradient-to-r ${pillarTone.bar}`}
                       style={{
                         transform: `scaleX(${
                           isRevealed || prefersReducedMotion
@@ -179,50 +194,72 @@ export const ScorecardResults = ({
       </Panel>
 
       <div className="mt-6 grid grid-cols-1 lg:grid-cols-5 gap-6">
-        <Panel className="lg:col-span-3 border-amber-400/30">
-          <div className="flex items-start gap-4">
-            <LeakIcon
-              className="mt-1 w-6 h-6 shrink-0 text-amber-300"
-              aria-hidden="true"
-            />
-            <div>
-              <h2 className="text-2xl font-semibold text-white">
-                Your biggest leak: {biggestLeak.pillar.name}
-              </h2>
-              <p className="mt-1 text-gray-400">
-                Score {biggestLeak.score} out of 100
+        <Panel className="lg:col-span-3 border-rose-500/30">
+          <div
+            className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-rose-500/10 blur-3xl"
+            aria-hidden="true"
+          />
+          <div className="relative">
+            <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-rose-300">
+              <TriangleAlert className="w-4 h-4" aria-hidden="true" />
+              Your biggest leak
+            </div>
+            <div className="mt-4 flex items-center gap-4">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-rose-500/10 text-rose-300 ring-1 ring-rose-500/30">
+                <LeakIcon className="w-7 h-7" aria-hidden="true" />
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold text-white">
+                  {biggestLeak.pillar.name}
+                </h2>
+                <p className="text-gray-400">
+                  Score {biggestLeak.score} out of 100
+                </p>
+              </div>
+            </div>
+            <p className="mt-6 text-lg text-gray-300 leading-relaxed">
+              {biggestLeak.pillar.leak}
+            </p>
+            <div className="mt-6 rounded-xl border border-teal-500/20 bg-teal-500/5 p-5">
+              <h3 className="flex items-center gap-2 text-sm font-semibold text-teal-300">
+                <Wrench className="w-4 h-4" aria-hidden="true" />
+                First fix
+              </h3>
+              <p className="mt-2 text-gray-300 leading-relaxed">
+                {biggestLeak.pillar.fix}
               </p>
             </div>
-          </div>
-          <p className="mt-6 text-lg text-gray-300 leading-relaxed">
-            {biggestLeak.pillar.leak}
-          </p>
-          <div className="mt-6 border-t border-gray-800 pt-6">
-            <h3 className="font-semibold text-teal-300">First fix</h3>
-            <p className="mt-2 text-gray-300 leading-relaxed">
-              {biggestLeak.pillar.fix}
-            </p>
           </div>
         </Panel>
 
         <Panel className="lg:col-span-2">
           <PanelTitle>Speed you leave on the table</PanelTitle>
           <dl className="mt-6 space-y-6">
-            <div>
-              <dt className="sr-only">Engineer time lost</dt>
-              <dd className="text-4xl font-bold text-white tabular-nums">
-                ~{result.leakedHoursPerWeek} hours
-              </dd>
-              <dd className="mt-1 text-gray-400">of engineer time a week</dd>
+            <div className="flex items-center gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
+                <Timer className="w-6 h-6" aria-hidden="true" />
+              </div>
+              <div>
+                <dt className="sr-only">Engineer time lost</dt>
+                <dd className="text-4xl font-bold text-white tabular-nums">
+                  ~{hours}h
+                </dd>
+                <dd className="text-gray-400">of engineer time a week</dd>
+              </div>
             </div>
-            <div>
-              <dt className="sr-only">Cost</dt>
-              <dd className="text-4xl font-bold text-white tabular-nums">
-                {euro.format(result.leakedEurosPerMonth)}
-              </dd>
-              <dd className="mt-1 text-gray-400">
-                a month, lost to rework and waiting
-              </dd>
+            <div className="flex items-center gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
+                <Euro className="w-6 h-6" aria-hidden="true" />
+              </div>
+              <div>
+                <dt className="sr-only">Cost</dt>
+                <dd className="text-4xl font-bold text-white tabular-nums">
+                  {euro.format(euros)}
+                </dd>
+                <dd className="text-gray-400">
+                  a month, lost to rework and waiting
+                </dd>
+              </div>
             </div>
           </dl>
           <p className="mt-6 text-sm text-gray-400">
@@ -236,12 +273,10 @@ export const ScorecardResults = ({
         <Panel className="border-teal-400/30">
           <PanelTitle>Want the real numbers?</PanelTitle>
           <p className="mt-3 text-gray-300 leading-relaxed">
-            The AI Delivery Audit pulls lead time, escaped defects and review
-            load out of your own Git and CI history. You get a fix plan with the
-            euro cost of every leak.
-          </p>
-          <p className="mt-4 text-sm text-gray-400">
-            2 weeks · €3,500 fixed · Free if it finds no leak worth fixing
+            The AI Delivery Audit measures lead time, escaped defects and review
+            load in your own Git and CI history. You get clear insight into
+            where your speed leaks, and a full plan with actionable steps to fix
+            it, based on those measurements.
           </p>
           <Button
             href="mailto:jordy@vanvorselen.com?subject=AI%20Delivery%20Audit"
