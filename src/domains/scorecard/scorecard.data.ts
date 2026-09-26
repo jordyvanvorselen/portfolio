@@ -29,6 +29,7 @@ export interface AnswerOption {
 export interface ScoredQuestion {
   id: string
   kind: 'scored'
+  check: string
   pillar: PillarId
   text: string
   why: string
@@ -160,6 +161,7 @@ export const questions: Question[] = [
   {
     id: 'leadTime',
     kind: 'scored',
+    check: 'Lead time known',
     pillar: 'measurement',
     text: 'Could you tell me your median lead time from commit to production for last month, right now?',
     why: 'Lead time is the speedometer. Without it, "faster" is a feeling.',
@@ -173,6 +175,7 @@ export const questions: Question[] = [
   {
     id: 'aiImpact',
     kind: 'scored',
+    check: 'AI impact measured',
     pillar: 'measurement',
     text: 'How do you know whether AI is making your team faster?',
     why: 'More PRs is engine speed. Shipped, stable features is road speed.',
@@ -186,6 +189,7 @@ export const questions: Question[] = [
   {
     id: 'greenBuild',
     kind: 'scored',
+    check: 'Green build trusted',
     pillar: 'tests',
     text: 'When CI goes green, would you bet your weekend on the release?',
     why: 'A test suite is only worth the confidence it gives you.',
@@ -199,6 +203,7 @@ export const questions: Question[] = [
   {
     id: 'testQuality',
     kind: 'scored',
+    check: 'AI tests verified',
     pillar: 'tests',
     text: 'Who checks that AI-written tests actually catch bugs?',
     why: 'Agents are great at writing tests that pass. That’s not the same as tests that protect.',
@@ -212,6 +217,7 @@ export const questions: Question[] = [
   {
     id: 'correctness',
     kind: 'scored',
+    check: 'Correct behaviour defined',
     pillar: 'specs',
     text: 'Where does "correct behaviour" for a feature live?',
     why: 'If correct isn’t written down in a form a machine can check, every review is an opinion.',
@@ -225,6 +231,7 @@ export const questions: Question[] = [
   {
     id: 'agentDone',
     kind: 'scored',
+    check: 'Agents know when done',
     pillar: 'specs',
     text: 'When an agent builds a feature, how does it know it’s done?',
     why: 'Agents stop when they think they’re done. Specs decide when they are.',
@@ -238,6 +245,7 @@ export const questions: Question[] = [
   {
     id: 'slopFilter',
     kind: 'scored',
+    check: 'Slop blocked before review',
     pillar: 'pipeline',
     text: 'What stops a sloppy AI-generated PR before a human sees it?',
     why: 'Every problem the pipeline catches is one your seniors don’t have to.',
@@ -254,6 +262,7 @@ export const questions: Question[] = [
   {
     id: 'pipelineSpeed',
     kind: 'scored',
+    check: 'Pipeline speed',
     pillar: 'pipeline',
     text: 'How long does your main pipeline take?',
     why: 'A slow pipeline turns every AI speed-up into waiting time.',
@@ -267,6 +276,7 @@ export const questions: Question[] = [
   {
     id: 'reviewWait',
     kind: 'scored',
+    check: 'Review wait time',
     pillar: 'review',
     text: 'How long does a typical PR wait for review?',
     why: 'Faros AI measured PR review time up 441% on teams with high AI adoption.',
@@ -280,6 +290,7 @@ export const questions: Question[] = [
   {
     id: 'reviewOwner',
     kind: 'scored',
+    check: 'Shipped code gets read',
     pillar: 'review',
     text: 'Who actually reads the code that ships?',
     why: 'When one person reads everything, that person is your throughput.',
@@ -293,6 +304,7 @@ export const questions: Question[] = [
   {
     id: 'releaseSlip',
     kind: 'scored',
+    check: 'Releases on time',
     pillar: 'releases',
     text: 'How often do planned releases slip?',
     why: 'Releases that slip are the clearest sign that speed is leaking somewhere.',
@@ -306,6 +318,7 @@ export const questions: Question[] = [
   {
     id: 'shipTwice',
     kind: 'scored',
+    check: 'Features ship once',
     pillar: 'releases',
     text: 'How often does a new feature need a fix in its first week?',
     why: 'A feature that ships twice cost you twice.',
@@ -365,12 +378,14 @@ export interface ScorecardResult {
   tier: Tier
   pillarScores: PillarScore[]
   biggestLeak: PillarScore
+  hasLeak: boolean
   aiShare: number
   teamSize: number
   leakedHoursPerWeek: number
   leakedEurosPerMonth: number
 }
 
+export const HEALTHY_SCORE = 80
 const HOURS_LOST_PER_ENGINEER_AT_ZERO = 6
 const HOURLY_COST_EUR = 75
 const WEEKS_PER_MONTH = 4.33
@@ -410,6 +425,7 @@ export const scoreAnswers = (answers: Answers): ScorecardResult => {
     tier,
     pillarScores,
     biggestLeak,
+    hasLeak: biggestLeak.score < HEALTHY_SCORE,
     aiShare: answers['aiShare'] ?? 50,
     teamSize,
     leakedHoursPerWeek,
@@ -436,3 +452,30 @@ export const sampleAnswers: Answers = {
   releaseSlip: 1,
   shipTwice: 2,
 }
+
+export type CheckStatus = 'pass' | 'warn' | 'fail'
+
+export interface PillarCheck {
+  check: string
+  answer: string
+  status: CheckStatus
+}
+
+const statusForPoints = (points: number): CheckStatus =>
+  points >= 3 ? 'pass' : points === 2 ? 'warn' : 'fail'
+
+export const checksFor = (
+  pillarId: PillarId,
+  answers: Answers
+): PillarCheck[] =>
+  scoredQuestions
+    .filter(question => question.pillar === pillarId)
+    .map(question => {
+      const points = answers[question.id] ?? 0
+      const option = question.options.find(option => option.points === points)
+      return {
+        check: question.check,
+        answer: option?.label ?? 'No answer',
+        status: statusForPoints(points),
+      }
+    })

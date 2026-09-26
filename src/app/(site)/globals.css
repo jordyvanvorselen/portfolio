@@ -8,6 +8,9 @@
   --animate-enter-next: enter-next 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-enter-prev: enter-prev 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-pop: pop 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-tile-pop: tile-pop 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-leak-ring: leak-ring 1.1s ease-out infinite;
+  --animate-log-in: log-in 0.2s ease-out;
   --animate-verdict: verdict 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 
   @keyframes enter-next {
@@ -27,6 +30,30 @@
   @keyframes pop {
     from {
       transform: scale(0.4);
+    }
+  }
+
+  @keyframes tile-pop {
+    40% {
+      transform: scale(1.15);
+    }
+  }
+
+  @keyframes leak-ring {
+    from {
+      opacity: 0.9;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.6);
+    }
+  }
+
+  @keyframes log-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
     }
   }
 

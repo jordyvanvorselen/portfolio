@@ -1,8 +1,8 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-import { ScorecardAnalyzing } from '@/domains/scorecard/ScorecardAnalyzing'
+import { AnalyzingPipeline } from '@/domains/scorecard/AnalyzingPipeline'
 import { ScorecardIntro } from '@/domains/scorecard/ScorecardIntro'
 import { ScorecardQuestion } from '@/domains/scorecard/ScorecardQuestion'
 import { ScorecardResults } from '@/domains/scorecard/ScorecardResults'
@@ -27,6 +27,7 @@ export const Scorecard = () => {
   const advanceRef = useRef<ReturnType<typeof setTimeout>>(undefined)
   const prefersReducedMotion = usePrefersReducedMotion()
   const question = questions[index]
+  const result = useMemo(() => scoreAnswers(answers), [answers])
 
   useEffect(() => {
     window.scrollTo({
@@ -113,12 +114,15 @@ export const Scorecard = () => {
             onBack={onBack}
           />
         )}
-        {stage === 'analyzing' && <ScorecardAnalyzing onDone={onAnalyzed} />}
-        {stage === 'results' && (
-          <ScorecardResults
-            result={scoreAnswers(answers)}
-            onRestart={restart}
+        {stage === 'analyzing' && (
+          <AnalyzingPipeline
+            result={result}
+            answers={answers}
+            onDone={onAnalyzed}
           />
+        )}
+        {stage === 'results' && (
+          <ScorecardResults result={result} onRestart={restart} />
         )}
       </div>
     </section>

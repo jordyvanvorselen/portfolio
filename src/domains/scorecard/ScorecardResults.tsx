@@ -7,6 +7,7 @@ import {
   Euro,
   RotateCcw,
   Share2,
+  ShieldCheck,
   Timer,
   TriangleAlert,
   Wrench,
@@ -15,7 +16,11 @@ import {
 import { Gauge } from '@/domains/scorecard/Gauge'
 import { PillarRadar } from '@/domains/scorecard/PillarRadar'
 import { pillarIcons } from '@/domains/scorecard/pillarIcons'
-import type { ScorecardResult } from '@/domains/scorecard/scorecard.data'
+import {
+  HEALTHY_SCORE,
+  type ScorecardResult,
+} from '@/domains/scorecard/scorecard.data'
+import { SparkBurst } from '@/domains/scorecard/SparkBurst'
 import { TierScale } from '@/domains/scorecard/TierScale'
 import { toneForScore, toneStyles } from '@/domains/scorecard/tones'
 import { useCountUp } from '@/domains/scorecard/useCountUp'
@@ -59,7 +64,8 @@ export const ScorecardResults = ({
   result,
   onRestart,
 }: ScorecardResultsProps) => {
-  const { score, tier, pillarScores, biggestLeak, aiShare } = result
+  const { score, tier, pillarScores, biggestLeak, hasLeak, aiShare } = result
+  const isNothingLost = result.leakedHoursPerWeek === 0
   const tone = toneStyles[tier.tone]
   const isOutrun = aiShare > score
   const prefersReducedMotion = usePrefersReducedMotion()
@@ -107,14 +113,19 @@ export const ScorecardResults = ({
           </span>
           <span className="sr-only">{score}</span> out of 100:
         </p>
-        <h1
-          tabIndex={-1}
-          data-autofocus
-          className={`mt-2 text-6xl sm:text-7xl font-bold tracking-tight outline-none motion-safe:animate-verdict ${tone.text}`}
-          style={{ textShadow: `0 0 28px ${tone.hex}59` }}
-        >
-          {tier.name}
-        </h1>
+        <div className="relative">
+          {!hasLeak && (
+            <SparkBurst count={score === 100 ? 140 : 70} delayMs={1000} />
+          )}
+          <h1
+            tabIndex={-1}
+            data-autofocus
+            className={`mt-2 text-6xl sm:text-7xl font-bold tracking-tight outline-none motion-safe:animate-verdict ${tone.text}`}
+            style={{ textShadow: `0 0 28px ${tone.hex}59` }}
+          >
+            {tier.name}
+          </h1>
+        </div>
         <TierScale score={score} current={tier} />
         <p className="mt-8 text-2xl sm:text-3xl font-semibold text-white text-balance">
           {tier.headline}
@@ -169,7 +180,7 @@ export const ScorecardResults = ({
           <ul ref={railsRef} className="lg:col-span-3 space-y-5">
             {pillarScores.map(({ pillar, score: pillarScore }, index) => {
               const Icon = pillarIcons[pillar.id]
-              const isLeak = pillar.id === biggestLeak.pillar.id
+              const isLeak = hasLeak && pillar.id === biggestLeak.pillar.id
               const pillarTone = toneStyles[toneForScore(pillarScore)]
               return (
                 <li key={pillar.id}>
@@ -217,66 +228,105 @@ export const ScorecardResults = ({
       </Panel>
 
       <div className="mt-6 grid grid-cols-1 lg:grid-cols-5 gap-6">
-        <Panel className="lg:col-span-3 border-rose-500/30">
-          <div
-            className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-rose-500/10 blur-3xl"
-            aria-hidden="true"
-          />
-          <div className="relative">
-            <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-rose-300">
-              <TriangleAlert className="w-4 h-4" aria-hidden="true" />
-              Your biggest leak
-            </div>
-            <div className="mt-4 flex items-center gap-4">
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-rose-500/10 text-rose-300 ring-1 ring-rose-500/30">
-                <LeakIcon className="w-7 h-7" aria-hidden="true" />
+        {hasLeak ? (
+          <Panel className="lg:col-span-3 border-rose-500/30">
+            <div
+              className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-rose-500/10 blur-3xl"
+              aria-hidden="true"
+            />
+            <div className="relative">
+              <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-rose-300">
+                <TriangleAlert className="w-4 h-4" aria-hidden="true" />
+                Your biggest leak
               </div>
-              <div>
-                <h2 className="text-3xl font-bold text-white">
-                  {biggestLeak.pillar.name}
-                </h2>
-                <p className="text-gray-400">
-                  Score {biggestLeak.score} out of 100
+              <div className="mt-4 flex items-center gap-4">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-rose-500/10 text-rose-300 ring-1 ring-rose-500/30">
+                  <LeakIcon className="w-7 h-7" aria-hidden="true" />
+                </div>
+                <div>
+                  <h2 className="text-3xl font-bold text-white">
+                    {biggestLeak.pillar.name}
+                  </h2>
+                  <p className="text-gray-400">
+                    Score {biggestLeak.score} out of 100
+                  </p>
+                </div>
+              </div>
+              <p className="mt-6 text-lg text-gray-300 leading-relaxed">
+                {biggestLeak.pillar.leak}
+              </p>
+              <div className="mt-6 rounded-xl border border-teal-500/20 bg-teal-500/5 p-5">
+                <h3 className="flex items-center gap-2 text-sm font-semibold text-teal-300">
+                  <Wrench className="w-4 h-4" aria-hidden="true" />
+                  First fix
+                </h3>
+                <p className="mt-2 text-gray-300 leading-relaxed">
+                  {biggestLeak.pillar.fix}
                 </p>
               </div>
             </div>
-            <p className="mt-6 text-lg text-gray-300 leading-relaxed">
-              {biggestLeak.pillar.leak}
+          </Panel>
+        ) : (
+          <Panel className="lg:col-span-3 border-teal-400/40">
+            <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-teal-300">
+              <ShieldCheck className="w-4 h-4" aria-hidden="true" />
+              No leaks found
+            </div>
+            <h2 className="mt-4 text-3xl font-bold text-white">
+              {score === 100 ? 'A perfect score' : 'Every rail holds'}
+            </h2>
+            <p className="mt-4 text-lg text-gray-300 leading-relaxed">
+              {score === 100
+                ? 'All six rails score 100. The speed AI adds reaches your users, and your team can add more engine safely.'
+                : `All six rails score ${HEALTHY_SCORE} or more. The speed AI adds reaches your users. Your weakest rail is ${biggestLeak.pillar.name}, at ${biggestLeak.score}.`}
             </p>
             <div className="mt-6 rounded-xl border border-teal-500/20 bg-teal-500/5 p-5">
               <h3 className="flex items-center gap-2 text-sm font-semibold text-teal-300">
                 <Wrench className="w-4 h-4" aria-hidden="true" />
-                First fix
+                Keep it that way
               </h3>
               <p className="mt-2 text-gray-300 leading-relaxed">
-                {biggestLeak.pillar.fix}
+                Self-assessments tend to run optimistic. Check these answers
+                against your own Git and CI history before you add more engine.
               </p>
             </div>
-          </div>
-        </Panel>
+          </Panel>
+        )}
 
         <Panel className="lg:col-span-2">
-          <PanelTitle>Speed you leave on the table</PanelTitle>
+          <PanelTitle>
+            {isNothingLost
+              ? 'Nothing left on the table'
+              : 'Speed you leave on the table'}
+          </PanelTitle>
           <dl ref={costRef} className="mt-6 space-y-6">
             <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
+              <div
+                className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${isNothingLost ? 'bg-teal-500/10 text-teal-300' : 'bg-amber-500/10 text-amber-300'}`}
+              >
                 <Timer className="w-6 h-6" aria-hidden="true" />
               </div>
               <div>
                 <dt className="sr-only">Engineer time lost</dt>
-                <dd className="text-4xl font-bold text-white tabular-nums">
+                <dd
+                  className={`text-4xl font-bold tabular-nums ${isNothingLost ? 'text-teal-300' : 'text-white'}`}
+                >
                   ~{hours}h
                 </dd>
                 <dd className="text-gray-400">of engineer time a week</dd>
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
+              <div
+                className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${isNothingLost ? 'bg-teal-500/10 text-teal-300' : 'bg-amber-500/10 text-amber-300'}`}
+              >
                 <Euro className="w-6 h-6" aria-hidden="true" />
               </div>
               <div>
                 <dt className="sr-only">Cost</dt>
-                <dd className="text-4xl font-bold text-white tabular-nums">
+                <dd
+                  className={`text-4xl font-bold tabular-nums ${isNothingLost ? 'text-teal-300' : 'text-white'}`}
+                >
                   {euro.format(euros)}
                 </dd>
                 <dd className="text-gray-400">
