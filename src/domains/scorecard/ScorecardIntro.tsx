@@ -11,14 +11,14 @@ interface ScorecardIntroProps {
 
 const evidence = [
   {
-    value: '+242.7%',
-    label: 'incidents per pull request as AI adoption grew',
+    value: '+441%',
+    label: 'median PR review time as AI adoption grew',
     source: 'Faros AI 2026, 22,000 developers',
   },
   {
-    value: '−7.2%',
-    label: 'delivery stability for every 25% more AI adoption',
-    source: 'DORA 2024',
+    value: '+242.7%',
+    label: 'incidents per pull request as AI adoption grew',
+    source: 'Faros AI 2026, 22,000 developers',
   },
 ]
 
