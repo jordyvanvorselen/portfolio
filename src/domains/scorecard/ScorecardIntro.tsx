@@ -9,6 +9,8 @@ import { pillarIcons } from '@/domains/scorecard/pillarIcons'
 import { pillars } from '@/domains/scorecard/scorecard.data'
 import { ScorecardHero } from '@/domains/scorecard/ScorecardHero'
 import { ScrollCue } from '@/domains/scorecard/ScrollCue'
+import { MaskedRise } from '@/domains/scorecard/MaskedRise'
+import { useInView } from '@/domains/scorecard/useInView'
 import { useScrollCrunch } from '@/domains/scorecard/useScrollCrunch'
 import { usePrefersReducedMotion } from '@/domains/scorecard/usePrefersReducedMotion'
 import { Button } from '@/ui/Button'
@@ -24,10 +26,20 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
   const cueRef = useRef<HTMLButtonElement>(null)
   const bottlenecksRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = usePrefersReducedMotion()
+  const bottleneckListRef = useRef<HTMLDListElement>(null)
+  const closingCtaRef = useRef<HTMLElement>(null)
+  const areBottlenecksLit =
+    useInView(bottleneckListRef, 0.3) || prefersReducedMotion
+  const isClosingCtaShown =
+    useInView(closingCtaRef, 0.5) || prefersReducedMotion
   const scrollToBottlenecks = useScrollCrunch(
     { heroRef, cueRef, targetRef: bottlenecksRef },
     !prefersReducedMotion
   )
+  const fadeIn = (delayMs: number) => ({
+    className: `transition-opacity duration-500 ${isClosingCtaShown ? 'opacity-100' : 'opacity-0'}`,
+    style: { transitionDelay: `${delayMs}ms` },
+  })
 
   return (
     <>
@@ -50,7 +62,9 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
           <div>
             <h2 className="text-2xl sm:text-3xl font-bold text-white">
-              {t('intro.bottlenecksTitle')}
+              <MaskedRise isShown={areBottlenecksLit}>
+                {t('intro.bottlenecksTitle')}
+              </MaskedRise>
             </h2>
             <p className="mt-4 text-gray-400 leading-relaxed">
               {t('intro.bottlenecksBody')}
@@ -70,8 +84,11 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
             </figure>
           </div>
 
-          <dl className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 content-start gap-x-10">
-            {pillars.map(pillar => {
+          <dl
+            ref={bottleneckListRef}
+            className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 content-start gap-x-10"
+          >
+            {pillars.map((pillar, index) => {
               const Icon = pillarIcons[pillar.id]
               return (
                 <div
@@ -79,7 +96,10 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
                   className="flex gap-4 border-t border-gray-800 py-6"
                 >
                   <Icon
-                    className="mt-1 w-5 h-5 shrink-0 text-teal-400"
+                    className={`mt-1 w-5 h-5 shrink-0 transition-colors duration-500 ${
+                      areBottlenecksLit ? 'text-teal-400' : 'text-gray-700'
+                    }`}
+                    style={{ transitionDelay: `${index * 90}ms` }}
                     aria-hidden="true"
                   />
                   <div>
@@ -112,8 +132,9 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24 [overflow-anchor:none]">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-16 sm:pb-24 [overflow-anchor:none]">
         <section
+          ref={closingCtaRef}
           className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-gray-900/60 to-blue-500/10 px-6 py-14 text-center sm:px-12"
           aria-labelledby="closing-cta-heading"
         >
@@ -121,12 +142,20 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
             id="closing-cta-heading"
             className="text-3xl sm:text-4xl font-bold text-white text-balance"
           >
-            {t('intro.closingTitle')}
+            <MaskedRise isShown={isClosingCtaShown} className="pb-1">
+              {t('intro.closingTitle')}
+            </MaskedRise>
           </h2>
-          <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto text-pretty">
+          <p
+            style={fadeIn(350).style}
+            className={`mt-4 text-lg text-gray-300 max-w-2xl mx-auto text-pretty ${fadeIn(350).className}`}
+          >
             {t('intro.closingBody')}
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div
+            style={fadeIn(600).style}
+            className={`mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center ${fadeIn(600).className}`}
+          >
             <Button
               type="button"
               size="lg"

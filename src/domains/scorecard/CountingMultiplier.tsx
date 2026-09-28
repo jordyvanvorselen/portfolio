@@ -8,18 +8,18 @@ import { useInView } from '@/domains/scorecard/useInView'
 interface CountingMultiplierProps {
   value: number
   delayMs: number
-  durationMs?: number
-  timesClassName?: string
+  durationMs: number
+  timesClassName: string
 }
 
 export const CountingMultiplier = ({
   value,
   delayMs,
-  durationMs = 1400,
-  timesClassName = '',
+  durationMs,
+  timesClassName,
 }: CountingMultiplierProps) => {
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref)
+  const isInView = useInView(ref, 0.1)
   const tenths = Math.round(value * 10)
   const counted = useCountUp(tenths - 10, durationMs, delayMs, isInView)
   const format = (multiplier: number) => multiplier.toFixed(1)

@@ -150,17 +150,28 @@ describe(Scorecard, () => {
       expect(screen.getByText('scorecard.intro.findingsSource')).toBeVisible()
     })
 
-    it('counts the multipliers up from 1.0 once they are in view', () => {
+    it('counts the review multiplier up from 1.0 once it is in view', () => {
       prefersReducedMotion(false)
       render(<Scorecard />)
 
-      expect(screen.getAllByText('1.0')).toHaveLength(2)
+      expect(screen.getByText('1.0')).toBeInTheDocument()
 
       advance(4_000)
 
       expect(screen.queryByText('1.0')).not.toBeInTheDocument()
       expect(screen.getAllByText('5.4')).toHaveLength(2)
-      expect(screen.getAllByText('3.4')).toHaveLength(2)
+    })
+
+    it('reveals the bottlenecks heading and the closing call to action once they are in view', () => {
+      prefersReducedMotion(false)
+      render(<Scorecard />)
+
+      expect(screen.getByText('scorecard.intro.bottlenecksTitle')).toHaveClass(
+        'motion-safe:animate-mask-rise'
+      )
+      expect(screen.getByText('scorecard.intro.closingBody')).toHaveClass(
+        'opacity-100'
+      )
     })
 
     describe('scroll cue', () => {
@@ -195,7 +206,7 @@ describe(Scorecard, () => {
         scrollTo(0)
       })
 
-      it('fades out as the visitor scrolls and leaves the tab order once gone', () => {
+      it('fades out once the visitor scrolls and leaves the tab order while gone', () => {
         render(<Scorecard />)
 
         expect(scrollCue()).toHaveStyle({ opacity: '1' })
@@ -207,20 +218,25 @@ describe(Scorecard, () => {
 
         scrollTo(0)
 
+        expect(scrollCue()).toHaveStyle({ opacity: '1' })
         expect(scrollCue()).toHaveAttribute('tabindex', '0')
       })
 
-      it('pulls the bottlenecks up into the empty hero space while the visitor scrolls', () => {
+      it('slides the bottlenecks up into the empty hero space once the visitor scrolls', () => {
         prefersReducedMotion(false)
         render(<Scorecard />)
 
-        scrollTo(window.innerHeight / 4)
+        scrollTo(window.innerHeight * 0.1)
 
-        expect(bottlenecks()).toHaveStyle({ marginTop: '-84px' })
+        expect(bottlenecks()).toHaveStyle({ marginTop: '0px' })
 
         scrollTo(window.innerHeight)
 
-        expect(bottlenecks()).toHaveStyle({ marginTop: '-168px' })
+        expect(bottlenecks()).toHaveStyle({ marginTop: '-235.2px' })
+
+        scrollTo(0)
+
+        expect(bottlenecks()).toHaveStyle({ marginTop: '0px' })
       })
 
       it('keeps the bottlenecks in place for visitors who prefer reduced motion', () => {
@@ -238,7 +254,7 @@ describe(Scorecard, () => {
         fireEvent.click(scrollCue())
 
         expect(window.scrollTo).toHaveBeenCalledWith({
-          top: BOTTLENECKS_TOP - 168 - 64,
+          top: BOTTLENECKS_TOP - 235.2 - 64,
           behavior: 'smooth',
         })
       })
@@ -253,6 +269,22 @@ describe(Scorecard, () => {
           behavior: 'auto',
         })
       })
+    })
+
+    it('crossfades into the quiz with a view transition when motion is allowed', () => {
+      prefersReducedMotion(false)
+      const startViewTransition = vi.fn((update: () => void) => update())
+      Object.defineProperty(document, 'startViewTransition', {
+        value: startViewTransition,
+        configurable: true,
+      })
+      render(<Scorecard />)
+
+      startQuiz()
+
+      expect(startViewTransition).toHaveBeenCalledOnce()
+      expect(questionHeading()).toBeVisible()
+      delete (document as { startViewTransition?: unknown }).startViewTransition
     })
 
     it('quotes a familiar complaint next to the bottlenecks', () => {

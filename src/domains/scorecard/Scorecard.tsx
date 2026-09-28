@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 
 import { AnalyzingPipeline } from '@/domains/scorecard/AnalyzingPipeline'
 import { ScorecardIntro } from '@/domains/scorecard/ScorecardIntro'
@@ -31,6 +32,14 @@ export const Scorecard = () => {
   const question = questions[index]
   const result = useMemo(() => scoreAnswers(answers), [answers])
 
+  const crossfade = useCallback(
+    (update: () => void) => {
+      if (prefersReducedMotion || !document.startViewTransition) update()
+      else document.startViewTransition(() => flushSync(update))
+    },
+    [prefersReducedMotion]
+  )
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -52,38 +61,44 @@ export const Scorecard = () => {
       setAnswers(previous => ({ ...previous, [questions[index]!.id]: value }))
       clearTimeout(advanceRef.current)
       advanceRef.current = setTimeout(() => {
-        if (index === questions.length - 1) setStage('analyzing')
+        if (index === questions.length - 1)
+          crossfade(() => setStage('analyzing'))
         else {
           setDirection('next')
           setIndex(index + 1)
         }
       }, ADVANCE_DELAY_MS)
     },
-    [index]
+    [index, crossfade]
   )
 
   const onBack = useCallback(() => {
     clearTimeout(advanceRef.current)
-    if (index === 0) setStage('intro')
+    if (index === 0) crossfade(() => setStage('intro'))
     else {
       setDirection('prev')
       setIndex(index - 1)
     }
-  }, [index])
+  }, [index, crossfade])
 
-  const onAnalyzed = useCallback(() => setStage('results'), [])
+  const onAnalyzed = useCallback(
+    () => crossfade(() => setStage('results')),
+    [crossfade]
+  )
 
-  const restart = () => {
-    setAnswers({})
-    setIndex(0)
-    setDirection('next')
-    setStage('intro')
-  }
+  const restart = () =>
+    crossfade(() => {
+      setAnswers({})
+      setIndex(0)
+      setDirection('next')
+      setStage('intro')
+    })
 
-  const preview = () => {
-    setAnswers(sampleAnswers)
-    setStage('analyzing')
-  }
+  const preview = () =>
+    crossfade(() => {
+      setAnswers(sampleAnswers)
+      setStage('analyzing')
+    })
 
   return (
     <section
@@ -103,7 +118,7 @@ export const Scorecard = () => {
       <div className={`relative ${stage === 'intro' ? '' : 'py-16 sm:py-24'}`}>
         {stage === 'intro' && (
           <ScorecardIntro
-            onStart={() => setStage('quiz')}
+            onStart={() => crossfade(() => setStage('quiz'))}
             onPreview={preview}
           />
         )}

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import type { ReactNode } from 'react'
 
 import { CountingMultiplier } from '@/domains/scorecard/CountingMultiplier'
+import { MaskedRise } from '@/domains/scorecard/MaskedRise'
 import { Button } from '@/ui/Button'
 
 const REVIEW_MULTIPLIER = 5.4
@@ -18,9 +19,7 @@ const strong = (chunks: ReactNode) => (
   <span className="whitespace-nowrap font-semibold text-white">{chunks}</span>
 )
 
-const incidentMultiplier = () => (
-  <CountingMultiplier value={INCIDENT_MULTIPLIER} delayMs={1600} />
-)
+const incidentMultiplier = () => <span>{INCIDENT_MULTIPLIER.toFixed(1)}×</span>
 
 interface ScorecardHeroProps {
   onStart: () => void
@@ -32,37 +31,50 @@ export const ScorecardHero = ({ onStart, onPreview }: ScorecardHeroProps) => {
 
   return (
     <div className="mx-auto w-full max-w-5xl">
-      <p className="flex items-center gap-4 text-xs sm:text-sm uppercase tracking-[0.22em] text-gray-500">
-        <span className="h-px w-10 bg-gray-600" aria-hidden="true" />
-        {t('eyebrow')}
-      </p>
+      <MaskedRise>
+        <span className="flex items-center gap-4 text-xs sm:text-sm uppercase tracking-[0.22em] text-gray-500">
+          <span className="h-px w-10 bg-gray-600" aria-hidden="true" />
+          {t('eyebrow')}
+        </span>
+      </MaskedRise>
 
       <h1 className="mt-6 grid gap-6 lg:grid-cols-[auto_1fr] lg:items-end lg:gap-12">
-        <span className="block text-[9rem] sm:text-[12rem] lg:text-[15rem] font-semibold leading-[0.78] tracking-[-0.06em] text-white">
-          <CountingMultiplier
-            value={REVIEW_MULTIPLIER}
-            delayMs={400}
-            durationMs={2000}
-            timesClassName="ml-1 text-[0.45em] tracking-normal text-gray-500"
-          />
-        </span>
-        <span className="block pb-2 text-3xl sm:text-4xl lg:text-5xl font-semibold leading-[1.05] tracking-[-0.03em] text-white text-balance">
-          {t.rich('reviewFinding', { accent })}
-        </span>
+        <MaskedRise delayMs={150} className="-mt-[0.12em] pt-[0.12em]">
+          <span className="block text-[9rem] sm:text-[12rem] lg:text-[15rem] font-semibold leading-[0.78] tracking-[-0.06em] text-white">
+            <CountingMultiplier
+              value={REVIEW_MULTIPLIER}
+              delayMs={150}
+              durationMs={1400}
+              timesClassName="ml-1 text-[0.45em] tracking-normal text-gray-500"
+            />
+          </span>
+        </MaskedRise>
+        <MaskedRise delayMs={400} className="pb-2">
+          <span className="block text-3xl sm:text-4xl lg:text-5xl font-semibold leading-[1.05] tracking-[-0.03em] text-white text-balance">
+            {t.rich('reviewFinding', { accent })}
+          </span>
+        </MaskedRise>
       </h1>
 
-      <p className="mt-8 max-w-3xl text-xl sm:text-2xl leading-snug text-gray-400 tracking-[-0.01em]">
-        {t.rich('incidentFinding', {
-          accent,
-          strong,
-          multiplier: incidentMultiplier,
-        })}
-      </p>
-      <p className="mt-3 text-xs uppercase tracking-[0.18em] text-gray-600">
-        {t('findingsSource')}
-      </p>
+      <MaskedRise delayMs={750} className="mt-8">
+        <span className="block max-w-3xl text-xl sm:text-2xl leading-snug text-gray-400 tracking-[-0.01em]">
+          {t.rich('incidentFinding', {
+            accent,
+            strong,
+            multiplier: incidentMultiplier,
+          })}
+        </span>
+      </MaskedRise>
+      <MaskedRise delayMs={900} className="mt-3">
+        <span className="block text-xs uppercase tracking-[0.18em] text-gray-600">
+          {t('findingsSource')}
+        </span>
+      </MaskedRise>
 
-      <div className="mt-12 flex flex-col gap-8 border-t border-gray-800 pt-8 lg:flex-row lg:items-center lg:justify-between">
+      <div
+        className="mt-12 flex flex-col gap-8 border-t border-gray-800 pt-8 lg:flex-row lg:items-center lg:justify-between motion-safe:animate-fade-in"
+        style={{ animationDelay: '1050ms' }}
+      >
         <p className="max-w-lg text-lg text-gray-400 leading-relaxed text-pretty">
           {t.rich('body', { strong })}
         </p>
