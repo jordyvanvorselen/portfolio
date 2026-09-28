@@ -56,6 +56,14 @@ test.describe('AI Delivery Scorecard', () => {
       ).toHaveAttribute('target', '_blank')
     })
 
+    test('quotes a familiar complaint next to the bottlenecks', async ({
+      scorecardPage,
+    }) => {
+      await expect(scorecardPage.intro.quote).toHaveText(
+        'Reviewing a PR takes longer than writing it did. And production breaks more than ever.'
+      )
+    })
+
     test('starts the scorecard from the closing call to action', async ({
       scorecardPage,
     }) => {

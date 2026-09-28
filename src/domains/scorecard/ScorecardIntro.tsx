@@ -3,6 +3,7 @@
 import { ArrowRight, BookOpen, ExternalLink } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
+import { QuoteMark } from '@/domains/scorecard/QuoteMark'
 import { pillarIcons } from '@/domains/scorecard/pillarIcons'
 import { pillars } from '@/domains/scorecard/scorecard.data'
 import { ScorecardHero } from '@/domains/scorecard/ScorecardHero'
@@ -46,6 +47,12 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
             />
             {t('intro.bottlenecksEvidence')}
           </p>
+          <figure className="mt-10 border-t border-gray-800 pt-6">
+            <QuoteMark className="h-4 w-auto fill-teal-300" />
+            <blockquote className="mt-3 text-base font-medium leading-relaxed text-gray-200 text-pretty">
+              {t('intro.quote')}
+            </blockquote>
+          </figure>
         </div>
 
         <dl className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 content-start gap-x-10">

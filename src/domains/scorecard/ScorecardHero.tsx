@@ -79,7 +79,7 @@ export const ScorecardHero = ({ onStart, onPreview }: ScorecardHeroProps) => {
           <button
             type="button"
             onClick={onPreview}
-            className="whitespace-nowrap text-base font-medium text-gray-300 underline decoration-gray-600 underline-offset-8 transition-colors hover:text-white hover:decoration-white"
+            className="cursor-pointer whitespace-nowrap text-base font-medium text-gray-300 underline decoration-gray-600 underline-offset-8 transition-colors hover:text-white hover:decoration-white"
           >
             {t('sample')}
           </button>

@@ -86,7 +86,7 @@ export const ScorecardQuestion = ({
         <button
           type="button"
           onClick={onBack}
-          className="-ml-2 inline-flex min-h-11 items-center gap-1.5 rounded-lg px-2 text-gray-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
+          className="-ml-2 inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-lg px-2 text-gray-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
         >
           <ArrowLeft className="w-4 h-4" aria-hidden="true" />
           {index === 0 ? t('quiz.intro') : t('quiz.back')}
@@ -131,7 +131,7 @@ export const ScorecardQuestion = ({
                 type="button"
                 aria-pressed={isSelected}
                 onClick={() => onSelect(option)}
-                className={`group click-feedback-subtle flex items-center gap-4 rounded-xl border p-5 text-left transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400 ${
+                className={`group click-feedback-subtle flex cursor-pointer items-center gap-4 rounded-xl border p-5 text-left transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400 ${
                   isSelected
                     ? 'border-teal-400 bg-teal-500/10'
                     : 'border-gray-800 bg-gray-900/50 hover:border-gray-600 hover:bg-gray-900'

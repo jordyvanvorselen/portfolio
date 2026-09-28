@@ -386,7 +386,7 @@ export const ScorecardResults = ({
         <button
           type="button"
           onClick={onRestart}
-          className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-gray-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
+          className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-lg px-3 text-gray-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
         >
           <RotateCcw className="w-4 h-4" aria-hidden="true" />
           {t('restart')}
@@ -394,7 +394,7 @@ export const ScorecardResults = ({
         <button
           type="button"
           onClick={share}
-          className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-gray-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
+          className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-lg px-3 text-gray-400 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
         >
           {isLinkCopied ? (
             <Check className="w-4 h-4 text-teal-400" aria-hidden="true" />

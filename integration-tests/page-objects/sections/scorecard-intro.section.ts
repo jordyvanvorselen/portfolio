@@ -27,6 +27,7 @@ export class ScorecardIntro extends BaseSection {
   readonly bottlenecksHeading: Locator = this.section.getByRole('heading', {
     name: 'The six bottlenecks',
   })
+  readonly quote: Locator = this.section.getByRole('blockquote')
   readonly bottleneckNames: Locator = this.section.getByRole('term')
   readonly evidenceLinks: Locator = this.section.getByRole('link', {
     name: /opens in a new tab/,

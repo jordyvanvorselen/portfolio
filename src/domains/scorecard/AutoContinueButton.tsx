@@ -46,7 +46,7 @@ export const AutoContinueButton = ({
       ref={ref}
       type="button"
       onClick={onContinue}
-      className="group relative inline-flex min-h-12 items-center gap-3 overflow-hidden rounded-lg border border-gray-700 px-5 text-lg font-medium text-white transition-colors hover:border-gray-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400 motion-safe:animate-log-in"
+      className="group relative inline-flex min-h-12 cursor-pointer items-center gap-3 overflow-hidden rounded-lg border border-gray-700 px-5 text-lg font-medium text-white transition-colors hover:border-gray-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400 motion-safe:animate-log-in"
     >
       {!prefersReducedMotion && (
         <span

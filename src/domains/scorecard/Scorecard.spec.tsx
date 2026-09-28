@@ -169,7 +169,7 @@ describe(Scorecard, () => {
       render(<Scorecard />)
 
       fireEvent.click(
-        screen.getByRole('button', { name: 'scorecard.intro.scrollCueTitle' })
+        screen.getByRole('button', { name: /intro.scrollCueTitle/ })
       )
 
       expect(scrollIntoView).toHaveBeenCalledWith({
@@ -184,13 +184,21 @@ describe(Scorecard, () => {
       render(<Scorecard />)
 
       fireEvent.click(
-        screen.getByRole('button', { name: 'scorecard.intro.scrollCueTitle' })
+        screen.getByRole('button', { name: /intro.scrollCueTitle/ })
       )
 
       expect(scrollIntoView).toHaveBeenCalledWith({
         behavior: 'auto',
         block: 'start',
       })
+    })
+
+    it('quotes a familiar complaint next to the bottlenecks', () => {
+      render(<Scorecard />)
+
+      expect(screen.getByRole('blockquote')).toHaveTextContent(
+        'scorecard.intro.quote'
+      )
     })
 
     it('links every bottleneck to its research in a new tab', () => {

@@ -434,9 +434,11 @@
       "start": "Start the scorecard",
       "sample": "See a sample report",
       "scrollCueTitle": "Why AI speed gets lost",
+      "scrollCueSubtitle": "Explore the six bottlenecks behind it",
       "bottlenecksTitle": "The six bottlenecks",
       "bottlenecksBody": "AI makes code cheap. These six decide whether that code reaches users fast, or waits in queues and comes back as rework.",
       "bottlenecksEvidence": "Every bottleneck is backed by published research from DORA, Google and Faros AI.",
+      "quote": "Reviewing a PR takes longer than writing it did. And production breaks more than ever.",
       "opensInNewTab": "(opens in a new tab)",
       "closingTitle": "Which bottleneck costs your team the most speed?",
       "closingBody": "Find out in 3 minutes. You get your score per bottleneck, your biggest leak and the first fix to try."

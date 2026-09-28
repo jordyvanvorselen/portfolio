@@ -434,9 +434,11 @@
       "start": "Start de scorecard",
       "sample": "Bekijk een voorbeeldrapport",
       "scrollCueTitle": "Waarom AI-snelheid verloren gaat",
+      "scrollCueSubtitle": "Ontdek de zes knelpunten erachter",
       "bottlenecksTitle": "De zes knelpunten",
       "bottlenecksBody": "AI maakt code goedkoop. Deze zes bepalen of die code snel bij gebruikers komt, of in wachtrijen blijft hangen en terugkomt als herstelwerk.",
       "bottlenecksEvidence": "Elk knelpunt is onderbouwd met gepubliceerd onderzoek van DORA, Google en Faros AI.",
+      "quote": "Een PR reviewen duurt langer dan hem schrijven. En productie gaat vaker stuk dan ooit.",
       "opensInNewTab": "(opent in een nieuw tabblad)",
       "closingTitle": "Welk knelpunt kost jouw team de meeste snelheid?",
       "closingBody": "Ontdek het in 3 minuten. Je krijgt je score per knelpunt, je grootste lek en de eerste verbetering om te proberen."
