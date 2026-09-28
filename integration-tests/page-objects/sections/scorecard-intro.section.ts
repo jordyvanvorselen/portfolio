@@ -14,9 +14,16 @@ export class ScorecardIntro extends BaseSection {
   readonly sampleReportButton: Locator = this.section
     .getByRole('button', { name: 'See a sample report' })
     .first()
-  readonly facts: Locator = this.section.getByText(
-    '14 questions · 3 minutes · Results on screen, no email needed'
+  readonly incidentFinding: Locator = this.section.getByText(
+    /more incidents once it ships/
   )
+  readonly findingsSource: Locator = this.section.getByText(
+    'Faros AI · 2026 · 22,000 developers',
+    { exact: true }
+  )
+  readonly scrollCue: Locator = this.section.getByRole('button', {
+    name: 'Why AI speed gets lost',
+  })
   readonly bottlenecksHeading: Locator = this.section.getByRole('heading', {
     name: 'The six bottlenecks',
   })

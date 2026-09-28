@@ -6,11 +6,9 @@ import { ScorecardClosingCta } from '@/integration-tests/page-objects/sections/s
 import { ScorecardIntro } from '@/integration-tests/page-objects/sections/scorecard-intro.section'
 import { ScorecardQuiz } from '@/integration-tests/page-objects/sections/scorecard-quiz.section'
 import { ScorecardResults } from '@/integration-tests/page-objects/sections/scorecard-results.section'
-import { ScorecardSymptoms } from '@/integration-tests/page-objects/sections/scorecard-symptoms.section'
 
 export class ScorecardPage extends BasePage {
   readonly intro: ScorecardIntro = new ScorecardIntro(this.page)
-  readonly symptoms: ScorecardSymptoms = new ScorecardSymptoms(this.page)
   readonly closingCta: ScorecardClosingCta = new ScorecardClosingCta(this.page)
   readonly quiz: ScorecardQuiz = new ScorecardQuiz(this.page)
   readonly analyzing: ScorecardAnalyzing = new ScorecardAnalyzing(this.page)

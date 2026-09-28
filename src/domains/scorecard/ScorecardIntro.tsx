@@ -5,7 +5,8 @@ import { useTranslations } from 'next-intl'
 
 import { pillarIcons } from '@/domains/scorecard/pillarIcons'
 import { pillars } from '@/domains/scorecard/scorecard.data'
-import { Symptoms } from '@/domains/scorecard/Symptoms'
+import { ScorecardHero } from '@/domains/scorecard/ScorecardHero'
+import { ScrollCue } from '@/domains/scorecard/ScrollCue'
 import { Button } from '@/ui/Button'
 
 interface ScorecardIntroProps {
@@ -18,39 +19,19 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center max-w-4xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-white leading-[1.05] text-balance">
-          {t('intro.titleLead')}{' '}
-          <span className="sm:block text-teal-300">
-            {t('intro.titleAccent')}
-          </span>
-        </h1>
-
-        <p className="mt-8 text-lg sm:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto text-pretty">
-          {t('intro.body')}
-        </p>
-
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button
-            type="button"
-            size="lg"
-            onClick={onStart}
-            className="group gap-2"
-          >
-            {t('intro.start')}
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
-          </Button>
-          <Button type="button" size="lg" color="secondary" onClick={onPreview}>
-            {t('intro.sample')}
-          </Button>
+      <div className="flex min-h-[calc(100svh-var(--header-height))] flex-col">
+        <div className="flex flex-1 flex-col justify-center py-8">
+          <ScorecardHero onStart={onStart} onPreview={onPreview} />
         </div>
-
-        <p className="mt-5 text-sm text-gray-400">{t('intro.facts')}</p>
+        <div className="flex justify-center pb-8">
+          <ScrollCue targetId="bottlenecks" />
+        </div>
       </div>
 
-      <Symptoms />
-
-      <div className="mt-28 grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
+      <div
+        id="bottlenecks"
+        className="scroll-mt-16 py-12 sm:py-16 grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16"
+      >
         <div>
           <h2 className="text-2xl sm:text-3xl font-bold text-white">
             {t('intro.bottlenecksTitle')}
@@ -109,7 +90,7 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
       </div>
 
       <section
-        className="mt-24 rounded-2xl border border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-gray-900/60 to-blue-500/10 px-6 py-14 text-center sm:px-12"
+        className="mt-12 sm:mt-16 rounded-2xl border border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-gray-900/60 to-blue-500/10 px-6 py-14 text-center sm:px-12"
         aria-labelledby="closing-cta-heading"
       >
         <h2

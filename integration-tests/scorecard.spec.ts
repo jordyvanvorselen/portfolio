@@ -7,27 +7,28 @@ test.describe('AI Delivery Scorecard', () => {
   test.use({ contextOptions: { reducedMotion: 'reduce' } })
 
   test.describe('intro', () => {
-    test('introduces the scorecard with a start button and a sample report', async ({
+    test('leads with the review and incident findings and their source', async ({
       scorecardPage,
     }) => {
       const { intro } = scorecardPage
 
-      await expect(intro.title).toHaveText(
-        'More pull requests than ever. Release dates as late as ever.'
+      await expect(intro.title).toHaveAccessibleName(
+        '5.4× longer to review a pull request.'
       )
-      await expect(intro.facts).toBeVisible()
+      await expect(intro.incidentFinding).toContainText('3.4× more')
+      await expect(intro.findingsSource).toBeVisible()
       await expect(intro.startButton).toBeVisible()
       await expect(intro.sampleReportButton).toBeVisible()
     })
 
-    test('shows the review and incident symptoms as multipliers', async ({
+    test('scrolls to the six bottlenecks from the scroll cue', async ({
       scorecardPage,
     }) => {
-      const { symptoms } = scorecardPage
+      const { intro } = scorecardPage
 
-      await expect(symptoms.quotes).toHaveCount(2)
-      await expect(symptoms.reviewMultiplier).toBeVisible()
-      await expect(symptoms.incidentMultiplier).toBeVisible()
+      await intro.scrollCue.click()
+
+      await expect(intro.bottlenecksHeading).toBeInViewport()
     })
 
     test('backs each of the six bottlenecks with research that opens in a new tab', async ({
@@ -251,8 +252,8 @@ test.describe('AI Delivery Scorecard', () => {
       await expect(scorecardPage.page).toHaveTitle(
         'AI Delivery Scorecard | Jordy van Vorselen'
       )
-      await expect(scorecardPage.intro.title).toHaveText(
-        'Meer pull requests dan ooit. Releases nog net zo laat als altijd.'
+      await expect(scorecardPage.intro.title).toHaveAccessibleName(
+        '5.4× langer om een pull request te reviewen.'
       )
     })
   })

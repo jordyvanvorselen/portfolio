@@ -422,38 +422,24 @@
   "scorecard": {
     "meta": {
       "title": "AI Delivery Scorecard | Jordy van Vorselen",
-      "description": "More pull requests than ever. Release dates as late as ever. Find the bottlenecks that stop AI’s speed from reaching your users."
+      "description": "Since teams went AI-native, a pull request takes 5.4× longer to review. Find the bottleneck that costs your team its AI speed, in 3 minutes."
     },
     "sectionLabel": "AI Delivery Scorecard",
     "intro": {
-      "titleLead": "More pull requests than ever.",
-      "titleAccent": "Release dates as late as ever.",
-      "body": "The speed AI adds leaks away into review queues, rework and problematic releases. Answer 14 questions and find out which bottlenecks slow your team down.",
+      "eyebrow": "Since teams went AI-native",
+      "reviewFinding": "longer to <accent>review</accent> a pull request.",
+      "incidentFinding": "And <strong><multiplier></multiplier> more</strong> <accent>incidents</accent> once it ships.",
+      "findingsSource": "Faros AI · 2026 · 22,000 developers",
+      "body": "The speed AI adds is real. However, most teams <strong>lose it</strong> somewhere in the process. Find <strong>your bottleneck</strong> in 3 minutes.",
       "start": "Start the scorecard",
       "sample": "See a sample report",
-      "facts": "14 questions · 3 minutes · Results on screen, no email needed",
+      "scrollCueTitle": "Why AI speed gets lost",
       "bottlenecksTitle": "The six bottlenecks",
       "bottlenecksBody": "AI makes code cheap. These six decide whether that code reaches users fast, or waits in queues and comes back as rework.",
       "bottlenecksEvidence": "Every bottleneck is backed by published research from DORA, Google and Faros AI.",
       "opensInNewTab": "(opens in a new tab)",
       "closingTitle": "Which bottleneck costs your team the most speed?",
       "closingBody": "Find out in 3 minutes. You get your score per bottleneck, your biggest leak and the first fix to try."
-    },
-    "symptoms": {
-      "title": "Sound familiar?",
-      "subtitle": "What AI-native teams see after the first speed-up.",
-      "closing": "It’s not the AI. It’s the bottlenecks after the code is written.",
-      "source": "{finding} · Faros AI 2026 · 22,000 developers",
-      "review": {
-        "quote": "Reviewing the PR takes longer than writing it did.",
-        "label": "longer to review a pull request",
-        "finding": "Median review time +441%"
-      },
-      "incidents": {
-        "quote": "We merge more than ever, and production breaks more too.",
-        "label": "more incidents per pull request",
-        "finding": "Incidents per PR +242.7%"
-      }
     },
     "quiz": {
       "progress": "Scorecard progress",

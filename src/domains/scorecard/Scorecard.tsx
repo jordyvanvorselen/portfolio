@@ -88,16 +88,21 @@ export const Scorecard = () => {
   return (
     <section
       ref={sectionRef}
-      className="header-offset relative min-h-[calc(100vh-4rem)] overflow-hidden py-16 sm:py-24"
+      className="header-offset relative min-h-[calc(100vh-4rem)] overflow-hidden"
       aria-label={t('sectionLabel')}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-950 to-black" />
-      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div
+        className={`absolute inset-0 overflow-hidden ${stage === 'intro' ? 'hidden' : ''}`}
+        aria-hidden="true"
+      >
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative">
+      <div
+        className={`relative ${stage === 'intro' ? 'pb-16 sm:pb-24' : 'py-16 sm:py-24'}`}
+      >
         {stage === 'intro' && (
           <ScorecardIntro
             onStart={() => setStage('quiz')}

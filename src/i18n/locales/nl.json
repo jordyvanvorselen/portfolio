@@ -422,38 +422,24 @@
   "scorecard": {
     "meta": {
       "title": "AI Delivery Scorecard | Jordy van Vorselen",
-      "description": "Meer pull requests dan ooit. Releases nog net zo laat als altijd. Vind de knelpunten die de snelheid van AI bij je gebruikers weghouden."
+      "description": "Sinds teams AI-native werken, duurt de review van een pull request 5.4× langer. Vind in 3 minuten het knelpunt dat jouw team zijn AI-snelheid kost."
     },
     "sectionLabel": "AI Delivery Scorecard",
     "intro": {
-      "titleLead": "Meer pull requests dan ooit.",
-      "titleAccent": "Releases nog net zo laat als altijd.",
-      "body": "De snelheid die AI toevoegt, lekt weg in reviewwachtrijen, herstelwerk en problematische releases. Beantwoord 14 vragen en ontdek welke knelpunten je team afremmen.",
+      "eyebrow": "Sinds teams AI-native werken",
+      "reviewFinding": "langer om een pull request te <accent>reviewen</accent>.",
+      "incidentFinding": "En <strong><multiplier></multiplier> meer</strong> <accent>incidenten</accent> zodra het live staat.",
+      "findingsSource": "Faros AI · 2026 · 22.000 developers",
+      "body": "De snelheid die AI toevoegt is echt. Maar de meeste teams <strong>verliezen die</strong> ergens in het proces. Vind <strong>jouw knelpunt</strong> in 3 minuten.",
       "start": "Start de scorecard",
       "sample": "Bekijk een voorbeeldrapport",
-      "facts": "14 vragen · 3 minuten · Resultaat direct op je scherm, geen e-mail nodig",
+      "scrollCueTitle": "Waarom AI-snelheid verloren gaat",
       "bottlenecksTitle": "De zes knelpunten",
       "bottlenecksBody": "AI maakt code goedkoop. Deze zes bepalen of die code snel bij gebruikers komt, of in wachtrijen blijft hangen en terugkomt als herstelwerk.",
       "bottlenecksEvidence": "Elk knelpunt is onderbouwd met gepubliceerd onderzoek van DORA, Google en Faros AI.",
       "opensInNewTab": "(opent in een nieuw tabblad)",
       "closingTitle": "Welk knelpunt kost jouw team de meeste snelheid?",
       "closingBody": "Ontdek het in 3 minuten. Je krijgt je score per knelpunt, je grootste lek en de eerste verbetering om te proberen."
-    },
-    "symptoms": {
-      "title": "Klinkt bekend?",
-      "subtitle": "Wat AI-native teams zien na de eerste versnelling.",
-      "closing": "Het ligt niet aan de AI. Het ligt aan de knelpunten nadat de code geschreven is.",
-      "source": "{finding} · Faros AI 2026 · 22.000 developers",
-      "review": {
-        "quote": "Een PR reviewen duurt langer dan hem schrijven.",
-        "label": "langer om een pull request te reviewen",
-        "finding": "Mediane reviewtijd +441%"
-      },
-      "incidents": {
-        "quote": "We mergen meer dan ooit, en productie gaat ook vaker stuk.",
-        "label": "meer incidenten per pull request",
-        "finding": "Incidenten per PR +242,7%"
-      }
     },
     "quiz": {
       "progress": "Voortgang scorecard",

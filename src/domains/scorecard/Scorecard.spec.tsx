@@ -123,7 +123,7 @@ describe(Scorecard, () => {
       render(<Scorecard />)
 
       expect(
-        screen.getByRole('heading', { level: 1, name: /intro.titleLead/ })
+        screen.getByRole('heading', { level: 1, name: /intro.reviewFinding/ })
       ).toBeVisible()
       expect(
         screen.getAllByRole('button', { name: 'scorecard.intro.start' })
@@ -139,22 +139,58 @@ describe(Scorecard, () => {
       expect(html).toContain('scorecard.intro.start')
     })
 
-    it('shows the review and incident symptoms as multipliers', () => {
+    it('leads with the review and incident multipliers', () => {
       render(<Scorecard />)
 
-      expect(screen.getByText('scorecard.symptoms.title')).toBeVisible()
-      expect(screen.getAllByText('5.4×')[0]).toBeVisible()
-      expect(screen.getAllByText('3.4×')[0]).toBeVisible()
+      expect(
+        screen.getByRole('heading', { level: 1, name: /^5\.4×/ })
+      ).toBeVisible()
+      expect(screen.getByText('3.4×')).toBeInTheDocument()
+      expect(screen.getByText('scorecard.intro.findingsSource')).toBeVisible()
     })
 
-    it('counts the symptom multipliers up once they are in view', () => {
+    it('counts the multipliers up from 1.0 once they are in view', () => {
       prefersReducedMotion(false)
       render(<Scorecard />)
 
-      advance(2_000)
+      expect(screen.getAllByText('1.0')).toHaveLength(2)
 
-      expect(screen.getAllByText('5.4×')).toHaveLength(2)
-      expect(screen.getAllByText('3.4×')).toHaveLength(2)
+      advance(4_000)
+
+      expect(screen.queryByText('1.0')).not.toBeInTheDocument()
+      expect(screen.getAllByText('5.4')).toHaveLength(2)
+      expect(screen.getAllByText('3.4')).toHaveLength(2)
+    })
+
+    it('scrolls smoothly to the bottlenecks from the scroll cue', () => {
+      prefersReducedMotion(false)
+      const scrollIntoView = vi.fn()
+      Element.prototype.scrollIntoView = scrollIntoView
+      render(<Scorecard />)
+
+      fireEvent.click(
+        screen.getByRole('button', { name: 'scorecard.intro.scrollCueTitle' })
+      )
+
+      expect(scrollIntoView).toHaveBeenCalledWith({
+        behavior: 'smooth',
+        block: 'start',
+      })
+    })
+
+    it('jumps to the bottlenecks without animation when the visitor prefers reduced motion', () => {
+      const scrollIntoView = vi.fn()
+      Element.prototype.scrollIntoView = scrollIntoView
+      render(<Scorecard />)
+
+      fireEvent.click(
+        screen.getByRole('button', { name: 'scorecard.intro.scrollCueTitle' })
+      )
+
+      expect(scrollIntoView).toHaveBeenCalledWith({
+        behavior: 'auto',
+        block: 'start',
+      })
     })
 
     it('links every bottleneck to its research in a new tab', () => {
