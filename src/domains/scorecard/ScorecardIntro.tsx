@@ -1,6 +1,7 @@
 'use client'
 
 import { ArrowRight, BookOpen, ExternalLink } from 'lucide-react'
+import { useRef } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { QuoteMark } from '@/domains/scorecard/QuoteMark'
@@ -8,6 +9,8 @@ import { pillarIcons } from '@/domains/scorecard/pillarIcons'
 import { pillars } from '@/domains/scorecard/scorecard.data'
 import { ScorecardHero } from '@/domains/scorecard/ScorecardHero'
 import { ScrollCue } from '@/domains/scorecard/ScrollCue'
+import { useScrollCrunch } from '@/domains/scorecard/useScrollCrunch'
+import { usePrefersReducedMotion } from '@/domains/scorecard/usePrefersReducedMotion'
 import { Button } from '@/ui/Button'
 
 interface ScorecardIntroProps {
@@ -17,19 +20,33 @@ interface ScorecardIntroProps {
 
 export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
   const t = useTranslations('scorecard')
+  const heroRef = useRef<HTMLDivElement>(null)
+  const cueRef = useRef<HTMLButtonElement>(null)
+  const bottlenecksRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = usePrefersReducedMotion()
+  const scrollToBottlenecks = useScrollCrunch(
+    { heroRef, cueRef, targetRef: bottlenecksRef },
+    !prefersReducedMotion
+  )
 
   return (
     <>
       <div className="content-section-min mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 flex flex-col">
         <div className="flex flex-1 flex-col justify-center py-8">
-          <ScorecardHero onStart={onStart} onPreview={onPreview} />
+          <div ref={heroRef}>
+            <ScorecardHero onStart={onStart} onPreview={onPreview} />
+          </div>
         </div>
         <div className="flex justify-center pb-8">
-          <ScrollCue targetId="bottlenecks" />
+          <ScrollCue ref={cueRef} onClick={scrollToBottlenecks} />
         </div>
       </div>
 
-      <div id="bottlenecks" className="scroll-mt-16">
+      <div
+        id="bottlenecks"
+        ref={bottlenecksRef}
+        className="scroll-mt-16 [overflow-anchor:none]"
+      >
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
           <div>
             <h2 className="text-2xl sm:text-3xl font-bold text-white">
@@ -95,7 +112,7 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24 [overflow-anchor:none]">
         <section
           className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-gray-900/60 to-blue-500/10 px-6 py-14 text-center sm:px-12"
           aria-labelledby="closing-cta-heading"

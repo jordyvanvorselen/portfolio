@@ -163,38 +163,10 @@ describe(Scorecard, () => {
       expect(screen.getAllByText('3.4')).toHaveLength(2)
     })
 
-    it('scrolls smoothly to the bottlenecks from the scroll cue', () => {
-      prefersReducedMotion(false)
-      const scrollIntoView = vi.fn()
-      Element.prototype.scrollIntoView = scrollIntoView
-      render(<Scorecard />)
+    describe('scroll cue', () => {
+      const HERO_BOTTOM = 500
+      const BOTTLENECKS_TOP = 900
 
-      fireEvent.click(
-        screen.getByRole('button', { name: /intro.scrollCueTitle/ })
-      )
-
-      expect(scrollIntoView).toHaveBeenCalledWith({
-        behavior: 'smooth',
-        block: 'start',
-      })
-    })
-
-    it('jumps to the bottlenecks without animation when the visitor prefers reduced motion', () => {
-      const scrollIntoView = vi.fn()
-      Element.prototype.scrollIntoView = scrollIntoView
-      render(<Scorecard />)
-
-      fireEvent.click(
-        screen.getByRole('button', { name: /intro.scrollCueTitle/ })
-      )
-
-      expect(scrollIntoView).toHaveBeenCalledWith({
-        behavior: 'auto',
-        block: 'start',
-      })
-    })
-
-    it('fades the scroll cue out as the bottlenecks scroll into view', () => {
       const scrollTo = (y: number) => {
         Object.defineProperty(window, 'scrollY', {
           value: y,
@@ -202,25 +174,85 @@ describe(Scorecard, () => {
         })
         fireEvent.scroll(window)
       }
-      vi.spyOn(
-        HTMLElement.prototype,
-        'getBoundingClientRect'
-      ).mockImplementation(function (this: HTMLElement) {
-        const top = this.id === 'bottlenecks' ? 1_000 - window.scrollY : 0
-        return { top } as DOMRect
+
+      const bottlenecks = () => document.getElementById('bottlenecks')!
+
+      const scrollCue = () =>
+        screen.getByRole('button', { name: /intro.scrollCueTitle/ })
+
+      beforeEach(() => {
+        vi.spyOn(
+          HTMLElement.prototype,
+          'getBoundingClientRect'
+        ).mockImplementation(function (this: HTMLElement) {
+          if (this.id !== 'bottlenecks') {
+            return { top: 0, bottom: HERO_BOTTOM - window.scrollY } as DOMRect
+          }
+          const margin = parseFloat(this.style.marginTop || '0')
+          return { top: BOTTLENECKS_TOP - window.scrollY + margin } as DOMRect
+        })
+        vi.spyOn(window, 'scrollTo').mockImplementation(() => {})
+        scrollTo(0)
       })
-      scrollTo(0)
-      render(<Scorecard />)
-      const scrollCue = screen.getByRole('button', {
-        name: /intro.scrollCueTitle/,
+
+      it('fades out as the visitor scrolls and leaves the tab order once gone', () => {
+        render(<Scorecard />)
+
+        expect(scrollCue()).toHaveStyle({ opacity: '1' })
+
+        scrollTo(window.innerHeight)
+
+        expect(scrollCue()).toHaveStyle({ opacity: '0', pointerEvents: 'none' })
+        expect(scrollCue()).toHaveAttribute('tabindex', '-1')
+
+        scrollTo(0)
+
+        expect(scrollCue()).toHaveAttribute('tabindex', '0')
       })
 
-      expect(scrollCue).toHaveStyle({ opacity: '1' })
+      it('pulls the bottlenecks up into the empty hero space while the visitor scrolls', () => {
+        prefersReducedMotion(false)
+        render(<Scorecard />)
 
-      scrollTo(1_000)
+        scrollTo(window.innerHeight / 4)
 
-      expect(scrollCue).toHaveStyle({ opacity: '0' })
-      expect(scrollCue).toHaveAttribute('tabindex', '-1')
+        expect(bottlenecks()).toHaveStyle({ marginTop: '-84px' })
+
+        scrollTo(window.innerHeight)
+
+        expect(bottlenecks()).toHaveStyle({ marginTop: '-168px' })
+      })
+
+      it('keeps the bottlenecks in place for visitors who prefer reduced motion', () => {
+        render(<Scorecard />)
+
+        scrollTo(window.innerHeight)
+
+        expect(bottlenecks()).toHaveStyle({ marginTop: '0px' })
+      })
+
+      it('scrolls smoothly to where the bottlenecks end up', () => {
+        prefersReducedMotion(false)
+        render(<Scorecard />)
+
+        fireEvent.click(scrollCue())
+
+        expect(window.scrollTo).toHaveBeenCalledWith({
+          top: BOTTLENECKS_TOP - 168 - 64,
+          behavior: 'smooth',
+        })
+      })
+
+      it('jumps to the bottlenecks without animation when the visitor prefers reduced motion', () => {
+        render(<Scorecard />)
+
+        fireEvent.click(scrollCue())
+
+        expect(window.scrollTo).toHaveBeenCalledWith({
+          top: BOTTLENECKS_TOP - 64,
+          behavior: 'auto',
+        })
+      })
     })
 
     it('quotes a familiar complaint next to the bottlenecks', () => {
