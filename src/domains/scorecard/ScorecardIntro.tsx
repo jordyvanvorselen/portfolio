@@ -53,17 +53,17 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
       <div className="mt-28 grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
         <div>
           <h2 className="text-2xl sm:text-3xl font-bold text-white">
-            {t('intro.railsTitle')}
+            {t('intro.bottlenecksTitle')}
           </h2>
           <p className="mt-4 text-gray-400 leading-relaxed">
-            {t('intro.railsBody')}
+            {t('intro.bottlenecksBody')}
           </p>
           <p className="mt-6 flex items-start gap-2 text-sm text-gray-400 leading-relaxed">
             <BookOpen
               className="mt-0.5 w-4 h-4 shrink-0 text-teal-400"
               aria-hidden="true"
             />
-            {t('intro.railsEvidence')}
+            {t('intro.bottlenecksEvidence')}
           </p>
         </div>
 

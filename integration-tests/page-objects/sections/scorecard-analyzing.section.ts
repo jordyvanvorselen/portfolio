@@ -16,7 +16,7 @@ export class ScorecardAnalyzing extends BaseSection {
   })
   readonly countdown: Locator = this.seeReportButton.getByText(/^\ds$/)
 
-  logLine(text: string | RegExp): Locator {
-    return this.section.getByText(text)
+  logLine(text: string | RegExp, options?: { exact: boolean }): Locator {
+    return this.section.getByText(text, options)
   }
 }

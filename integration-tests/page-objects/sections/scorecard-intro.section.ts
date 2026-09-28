@@ -17,10 +17,10 @@ export class ScorecardIntro extends BaseSection {
   readonly facts: Locator = this.section.getByText(
     '14 questions · 3 minutes · Results on screen, no email needed'
   )
-  readonly railsHeading: Locator = this.section.getByRole('heading', {
-    name: 'The six rails',
+  readonly bottlenecksHeading: Locator = this.section.getByRole('heading', {
+    name: 'The six bottlenecks',
   })
-  readonly railNames: Locator = this.section.getByRole('term')
+  readonly bottleneckNames: Locator = this.section.getByRole('term')
   readonly evidenceLinks: Locator = this.section.getByRole('link', {
     name: /opens in a new tab/,
   })

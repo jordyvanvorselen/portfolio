@@ -13,7 +13,7 @@ test.describe('AI Delivery Scorecard', () => {
       const { intro } = scorecardPage
 
       await expect(intro.title).toHaveText(
-        'AI made your team faster. How much faster could it be?'
+        'More pull requests than ever. Release dates as late as ever.'
       )
       await expect(intro.facts).toBeVisible()
       await expect(intro.startButton).toBeVisible()
@@ -30,12 +30,12 @@ test.describe('AI Delivery Scorecard', () => {
       await expect(symptoms.incidentMultiplier).toBeVisible()
     })
 
-    test('backs each of the six rails with research that opens in a new tab', async ({
+    test('backs each of the six bottlenecks with research that opens in a new tab', async ({
       scorecardPage,
     }) => {
       const { intro } = scorecardPage
 
-      await expect(intro.railNames).toHaveText([
+      await expect(intro.bottleneckNames).toHaveText([
         'Speedometer',
         'Test signal',
         'Definition of correct',
@@ -125,7 +125,7 @@ test.describe('AI Delivery Scorecard', () => {
   })
 
   test.describe('delivery checks', () => {
-    test('runs a check per rail from the visitor’s own answers', async ({
+    test('runs a check per bottleneck from the visitor’s own answers', async ({
       scorecardPage,
     }) => {
       const quiz = await scorecardPage.startQuiz()
@@ -211,7 +211,7 @@ test.describe('AI Delivery Scorecard', () => {
   })
 
   test.describe('perfect score', () => {
-    test('finishes the checks with all rails healthy', async ({
+    test('finishes the checks without bottlenecks', async ({
       scorecardPage,
     }) => {
       const quiz = await scorecardPage.startQuiz()
@@ -219,7 +219,9 @@ test.describe('AI Delivery Scorecard', () => {
 
       const { analyzing } = scorecardPage
       await expect(analyzing.logLine('━━ No leaks found')).toBeVisible()
-      await expect(analyzing.logLine('All rails healthy')).toBeVisible()
+      await expect(
+        analyzing.logLine('No bottlenecks', { exact: true })
+      ).toBeVisible()
       await expect(analyzing.status).toHaveText('Done. No leaks found.')
     })
 
@@ -250,7 +252,7 @@ test.describe('AI Delivery Scorecard', () => {
         'AI Delivery Scorecard | Jordy van Vorselen'
       )
       await expect(scorecardPage.intro.title).toHaveText(
-        'AI heeft je team sneller gemaakt. Hoeveel sneller kan het nog?'
+        'Meer pull requests dan ooit. Releases nog net zo laat als altijd.'
       )
     })
   })

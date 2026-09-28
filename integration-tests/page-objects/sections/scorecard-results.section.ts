@@ -8,12 +8,12 @@ export class ScorecardResults extends BaseSection {
   })
 
   readonly tier: Locator = this.section.getByRole('heading', { level: 1 })
-  readonly scoreLine: Locator = this.section.getByText(/Your delivery scores/)
-  readonly railsHeading: Locator = this.section.getByRole('heading', {
-    name: 'Your six rails',
+  readonly scoreLine: Locator = this.section.getByText(/^Your delivery scores/)
+  readonly bottlenecksHeading: Locator = this.section.getByRole('heading', {
+    name: 'How you handle the six bottlenecks',
   })
   readonly radar: Locator = this.section.getByRole('img', {
-    name: 'Score per delivery rail',
+    name: 'Score per bottleneck',
   })
   readonly biggestLeakBadges: Locator = this.section.getByText('Biggest leak', {
     exact: true,

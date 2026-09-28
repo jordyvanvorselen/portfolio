@@ -179,7 +179,7 @@ export const ScorecardResults = ({
       </Panel>
 
       <Panel className="mt-6">
-        <PanelTitle>{t('railsTitle')}</PanelTitle>
+        <PanelTitle>{t('bottlenecksTitle')}</PanelTitle>
         <div className="mt-6 grid grid-cols-1 lg:grid-cols-5 items-center gap-10">
           <div className="hidden sm:block lg:col-span-2">
             <PillarRadar scores={pillarScores} />

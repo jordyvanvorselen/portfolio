@@ -4,7 +4,7 @@ import { BaseSection } from '@/integration-tests/page-objects/base.section'
 
 export class ScorecardClosingCta extends BaseSection {
   override readonly section: Locator = this.page.getByRole('region', {
-    name: 'Which rail leaks the most speed on your team?',
+    name: 'Which bottleneck costs your team the most speed?',
   })
 
   readonly startButton: Locator = this.section.getByRole('button', {

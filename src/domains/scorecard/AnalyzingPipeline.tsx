@@ -175,7 +175,7 @@ export const AnalyzingPipeline = ({
           ) : isFinished ? (
             <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-rose-500/15 px-3 py-1 text-xs font-semibold text-rose-300 motion-safe:animate-pop">
               <CircleX className="h-3.5 w-3.5" />
-              {t('analyzing.railsToFix', { count: needsWorkCount })}
+              {t('analyzing.bottlenecksToFix', { count: needsWorkCount })}
             </span>
           ) : (
             <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-300">

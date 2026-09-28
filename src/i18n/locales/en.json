@@ -422,27 +422,27 @@
   "scorecard": {
     "meta": {
       "title": "AI Delivery Scorecard | Jordy van Vorselen",
-      "description": "AI made your team faster. How much faster could it be? Score the six rails that decide how much of AI’s speed reaches your users."
+      "description": "More pull requests than ever. Release dates as late as ever. Find the bottlenecks that stop AI’s speed from reaching your users."
     },
     "sectionLabel": "AI Delivery Scorecard",
     "intro": {
-      "titleLead": "AI made your team faster.",
-      "titleAccent": "How much faster could it be?",
-      "body": "Most AI-native teams ship faster than a year ago. Most also lose a big part of the gain to review queues, rework and slipped releases. Score the six rails that decide how much of AI’s speed reaches your users.",
+      "titleLead": "More pull requests than ever.",
+      "titleAccent": "Release dates as late as ever.",
+      "body": "The speed AI adds leaks away into review queues, rework and problematic releases. Answer 14 questions and find out which bottlenecks slow your team down.",
       "start": "Start the scorecard",
       "sample": "See a sample report",
       "facts": "14 questions · 3 minutes · Results on screen, no email needed",
-      "railsTitle": "The six rails",
-      "railsBody": "AI makes code cheap. These six decide whether that code reaches users fast, or waits in queues and comes back as rework.",
-      "railsEvidence": "Every rail is backed by published research from DORA, Google and Faros AI.",
+      "bottlenecksTitle": "The six bottlenecks",
+      "bottlenecksBody": "AI makes code cheap. These six decide whether that code reaches users fast, or waits in queues and comes back as rework.",
+      "bottlenecksEvidence": "Every bottleneck is backed by published research from DORA, Google and Faros AI.",
       "opensInNewTab": "(opens in a new tab)",
-      "closingTitle": "Which rail leaks the most speed on your team?",
-      "closingBody": "Find out in 3 minutes. You get your score per rail, your biggest leak and the first fix to try."
+      "closingTitle": "Which bottleneck costs your team the most speed?",
+      "closingBody": "Find out in 3 minutes. You get your score per bottleneck, your biggest leak and the first fix to try."
     },
     "symptoms": {
       "title": "Sound familiar?",
       "subtitle": "What AI-native teams see after the first speed-up.",
-      "closing": "It’s not the AI. It’s the rails your code runs on.",
+      "closing": "It’s not the AI. It’s the bottlenecks after the code is written.",
       "source": "{finding} · Faros AI 2026 · 22,000 developers",
       "review": {
         "quote": "Reviewing the PR takes longer than writing it did.",
@@ -469,12 +469,12 @@
       "statusDoneLeak": "Done. Biggest leak: {name}.",
       "statusDoneHealthy": "Done. No leaks found.",
       "inProgress": "In progress",
-      "allHealthy": "All rails healthy",
-      "railsToFix": "{count, plural, one {# rail} other {# rails}} to fix",
+      "allHealthy": "No bottlenecks",
+      "bottlenecksToFix": "{count, plural, one {# bottleneck} other {# bottlenecks}} to fix",
       "run": "Run {name}",
       "biggestLeak": "Biggest leak: {name}",
       "noLeaks": "No leaks found",
-      "summary": "{count} rails checked · report ready",
+      "summary": "{count} bottlenecks checked · report ready",
       "status": {
         "rose": "leaking",
         "amber": "at risk",
@@ -490,21 +490,21 @@
       "engineCaption": "Share of code AI writes",
       "roadLabel": "Road speed",
       "roadCaption": "Delivery score out of 100",
-      "outrunTitle": "Your engine is outrunning your rails",
-      "keepUpTitle": "Your rails keep up with your engine",
-      "outrunBody": "AI writes about {aiShare}% of your code. Your delivery rails score {score} out of 100. Much of the speed AI adds never reaches your users.",
-      "keepUpBody": "AI writes about {aiShare}% of your code, and your rails score {score} out of 100. The speed AI adds reaches your users.",
-      "railsTitle": "Your six rails",
-      "radarLabel": "Score per delivery rail",
+      "outrunTitle": "Your engine is outrunning your delivery",
+      "keepUpTitle": "Your delivery keeps up with your engine",
+      "outrunBody": "AI writes about {aiShare}% of your code. Your delivery scores {score} out of 100. Much of the speed AI adds never reaches your users.",
+      "keepUpBody": "AI writes about {aiShare}% of your code, and your delivery scores {score} out of 100. The speed AI adds reaches your users.",
+      "bottlenecksTitle": "How you handle the six bottlenecks",
+      "radarLabel": "Score per bottleneck",
       "biggestLeakBadge": "Biggest leak",
       "leakEyebrow": "Your biggest leak",
       "leakScore": "Score {score} out of 100",
       "firstFix": "First fix",
       "healthyEyebrow": "No leaks found",
       "perfectTitle": "A perfect score",
-      "holdTitle": "Every rail holds",
-      "perfectBody": "All six rails score 100. The speed AI adds reaches your users, and your team can add more engine safely.",
-      "holdBody": "All six rails score {healthy} or more. The speed AI adds reaches your users. Your weakest rail is {name}, at {score}.",
+      "holdTitle": "No bottleneck holds you back",
+      "perfectBody": "You score 100 on all six bottlenecks. The speed AI adds reaches your users, and your team can add more engine safely.",
+      "holdBody": "You score {healthy} or more on every bottleneck. The speed AI adds reaches your users. Your weakest spot is {name}, at {score}.",
       "keepTitle": "Keep it that way",
       "keepBody": "Self-assessments tend to run optimistic. Check these answers against your own Git and CI history before you add more engine.",
       "costTitle": "Speed you leave on the table",
@@ -737,12 +737,12 @@
       "overdrive": {
         "name": "Overdrive",
         "headline": "You get the speed AI promised.",
-        "summary": "Your rails turn faster agents into faster, stable releases. Few teams get here. Guard it as the team grows."
+        "summary": "Your delivery turns faster agents into faster, stable releases. Few teams get here. Guard it as the team grows."
       },
       "cruising": {
         "name": "Cruising",
         "headline": "Fast, with speed left on the table.",
-        "summary": "Most of your AI speed reaches production. One or two weak rails still hold back the rest, every sprint."
+        "summary": "Most of your AI speed reaches production. One or two bottlenecks still hold back the rest, every sprint."
       },
       "leaking": {
         "name": "Leaking",

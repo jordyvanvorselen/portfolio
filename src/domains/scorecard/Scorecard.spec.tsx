@@ -157,7 +157,7 @@ describe(Scorecard, () => {
       expect(screen.getAllByText('3.4×')).toHaveLength(2)
     })
 
-    it('links every rail to its research in a new tab', () => {
+    it('links every bottleneck to its research in a new tab', () => {
       render(<Scorecard />)
 
       const links = screen.getAllByRole('link', {
@@ -209,7 +209,7 @@ describe(Scorecard, () => {
       )
     })
 
-    it('shows the rail a scored question belongs to', () => {
+    it('shows the bottleneck a scored question belongs to', () => {
       render(<Scorecard />)
       startQuiz()
 
@@ -330,7 +330,7 @@ describe(Scorecard, () => {
   })
 
   describe('delivery checks', () => {
-    it('runs a check per rail with the visitor’s own answers', () => {
+    it('runs a check per bottleneck with the visitor’s own answers', () => {
       render(<Scorecard />)
       startQuiz()
 
@@ -352,7 +352,7 @@ describe(Scorecard, () => {
       )
     })
 
-    it('streams the checks one rail at a time', () => {
+    it('streams the checks one bottleneck at a time', () => {
       prefersReducedMotion(false)
       render(<Scorecard />)
       openSampleReport()
@@ -368,7 +368,7 @@ describe(Scorecard, () => {
 
       advance(CHECKS_MS)
       expect(
-        screen.getByText('scorecard.analyzing.railsToFix count=6')
+        screen.getByText('scorecard.analyzing.bottlenecksToFix count=6')
       ).toBeVisible()
     })
 
@@ -440,7 +440,7 @@ describe(Scorecard, () => {
       )
     })
 
-    it('says the engine outruns the rails when AI writes more than the rails score', () => {
+    it('says the engine outruns delivery when AI writes more than delivery scores', () => {
       render(<Scorecard />)
       openSampleReport()
       finishChecks()
@@ -498,7 +498,7 @@ describe(Scorecard, () => {
       ).not.toBeInTheDocument()
     })
 
-    it('says the rails keep up when they score higher than the AI share', () => {
+    it('says delivery keeps up when it scores higher than the AI share', () => {
       render(<Scorecard />)
       startQuiz()
       answerAll(BEST_ANSWERS)
@@ -507,7 +507,7 @@ describe(Scorecard, () => {
       expect(screen.getByText('scorecard.results.keepUpTitle')).toBeVisible()
     })
 
-    it('names the weakest rail when every rail holds but the score is not perfect', () => {
+    it('names the weakest spot when no bottleneck holds the team back but the score is not perfect', () => {
       render(<Scorecard />)
       startQuiz()
       answerAll(HEALTHY_ANSWERS)
