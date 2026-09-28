@@ -4,6 +4,7 @@ import { ChevronDown } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { usePrefersReducedMotion } from '@/domains/scorecard/usePrefersReducedMotion'
+import { useScrollFade } from '@/domains/scorecard/useScrollFade'
 
 interface ScrollCueProps {
   targetId: string
@@ -12,6 +13,7 @@ interface ScrollCueProps {
 export const ScrollCue = ({ targetId }: ScrollCueProps) => {
   const t = useTranslations('scorecard.intro')
   const prefersReducedMotion = usePrefersReducedMotion()
+  const opacity = useScrollFade(targetId)
 
   const scrollToTarget = () => {
     document.getElementById(targetId)!.scrollIntoView({
@@ -24,7 +26,9 @@ export const ScrollCue = ({ targetId }: ScrollCueProps) => {
     <button
       type="button"
       onClick={scrollToTarget}
-      className="group flex cursor-pointer flex-col items-center rounded-lg px-4 py-2 focus-visible:outline-2 focus-visible:outline-teal-400"
+      style={{ opacity }}
+      tabIndex={opacity === 0 ? -1 : undefined}
+      className={`${opacity === 0 ? 'pointer-events-none' : ''} group flex cursor-pointer flex-col items-center rounded-lg px-4 py-2 focus-visible:outline-2 focus-visible:outline-teal-400`}
     >
       <span className="mb-1 text-center text-base font-medium text-gray-300">
         {t('scrollCueTitle')}

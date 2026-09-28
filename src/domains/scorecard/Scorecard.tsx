@@ -100,9 +100,7 @@ export const Scorecard = () => {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
       </div>
 
-      <div
-        className={`relative ${stage === 'intro' ? 'pb-16 sm:pb-24' : 'py-16 sm:py-24'}`}
-      >
+      <div className={`relative ${stage === 'intro' ? '' : 'py-16 sm:py-24'}`}>
         {stage === 'intro' && (
           <ScorecardIntro
             onStart={() => setStage('quiz')}

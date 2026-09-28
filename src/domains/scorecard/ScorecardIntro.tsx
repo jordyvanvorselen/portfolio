@@ -19,8 +19,8 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
   const t = useTranslations('scorecard')
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex min-h-[calc(100svh-var(--header-height))] flex-col">
+    <>
+      <div className="content-section-min mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 flex flex-col">
         <div className="flex flex-1 flex-col justify-center py-8">
           <ScorecardHero onStart={onStart} onPreview={onPreview} />
         </div>
@@ -29,101 +29,107 @@ export const ScorecardIntro = ({ onStart, onPreview }: ScorecardIntroProps) => {
         </div>
       </div>
 
-      <div
-        id="bottlenecks"
-        className="scroll-mt-16 py-12 sm:py-16 grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16"
-      >
-        <div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white">
-            {t('intro.bottlenecksTitle')}
-          </h2>
-          <p className="mt-4 text-gray-400 leading-relaxed">
-            {t('intro.bottlenecksBody')}
-          </p>
-          <p className="mt-6 flex items-start gap-2 text-sm text-gray-400 leading-relaxed">
-            <BookOpen
-              className="mt-0.5 w-4 h-4 shrink-0 text-teal-400"
-              aria-hidden="true"
-            />
-            {t('intro.bottlenecksEvidence')}
-          </p>
-          <figure className="mt-10 border-t border-gray-800 pt-6">
-            <QuoteMark className="h-4 w-auto fill-teal-300" />
-            <blockquote className="mt-3 text-base font-medium leading-relaxed text-gray-200 text-pretty">
-              {t('intro.quote')}
-            </blockquote>
-          </figure>
-        </div>
+      <div id="bottlenecks" className="scroll-mt-16">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white">
+              {t('intro.bottlenecksTitle')}
+            </h2>
+            <p className="mt-4 text-gray-400 leading-relaxed">
+              {t('intro.bottlenecksBody')}
+            </p>
+            <p className="mt-6 flex items-start gap-2 text-sm text-gray-400 leading-relaxed">
+              <BookOpen
+                className="mt-0.5 w-4 h-4 shrink-0 text-teal-400"
+                aria-hidden="true"
+              />
+              {t('intro.bottlenecksEvidence')}
+            </p>
+            <figure className="mt-10 border-t border-gray-800 pt-6">
+              <QuoteMark className="h-4 w-auto fill-teal-300" />
+              <blockquote className="mt-3 text-base font-medium leading-relaxed text-gray-200 text-pretty">
+                {t('intro.quote')}
+              </blockquote>
+            </figure>
+          </div>
 
-        <dl className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 content-start gap-x-10">
-          {pillars.map(pillar => {
-            const Icon = pillarIcons[pillar.id]
-            return (
-              <div
-                key={pillar.id}
-                className="flex gap-4 border-t border-gray-800 py-6"
-              >
-                <Icon
-                  className="mt-1 w-5 h-5 shrink-0 text-teal-400"
-                  aria-hidden="true"
-                />
-                <div>
-                  <dt className="font-semibold text-white">
-                    {t(`pillars.${pillar.id}.name`)}
-                  </dt>
-                  <dd className="mt-1 text-gray-300">
-                    {t(`pillars.${pillar.id}.tagline`)}
-                  </dd>
-                  <dd className="mt-3 text-sm text-gray-400 leading-relaxed">
-                    {t(`pillars.${pillar.id}.finding`)}
-                    <a
-                      href={pillar.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-1 flex w-fit items-center gap-1 text-teal-300 underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-teal-400"
-                    >
-                      {t(`pillars.${pillar.id}.source`)}
-                      <ExternalLink className="w-3 h-3" aria-hidden="true" />
-                      <span className="sr-only">
-                        {t('intro.opensInNewTab')}
-                      </span>
-                    </a>
-                  </dd>
+          <dl className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 content-start gap-x-10">
+            {pillars.map(pillar => {
+              const Icon = pillarIcons[pillar.id]
+              return (
+                <div
+                  key={pillar.id}
+                  className="flex gap-4 border-t border-gray-800 py-6"
+                >
+                  <Icon
+                    className="mt-1 w-5 h-5 shrink-0 text-teal-400"
+                    aria-hidden="true"
+                  />
+                  <div>
+                    <dt className="font-semibold text-white">
+                      {t(`pillars.${pillar.id}.name`)}
+                    </dt>
+                    <dd className="mt-1 text-gray-300">
+                      {t(`pillars.${pillar.id}.tagline`)}
+                    </dd>
+                    <dd className="mt-3 text-sm text-gray-400 leading-relaxed">
+                      {t(`pillars.${pillar.id}.finding`)}
+                      <a
+                        href={pillar.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1 flex w-fit items-center gap-1 text-teal-300 underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-teal-400"
+                      >
+                        {t(`pillars.${pillar.id}.source`)}
+                        <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                        <span className="sr-only">
+                          {t('intro.opensInNewTab')}
+                        </span>
+                      </a>
+                    </dd>
+                  </div>
                 </div>
-              </div>
-            )
-          })}
-        </dl>
+              )
+            })}
+          </dl>
+        </div>
       </div>
 
-      <section
-        className="mt-12 sm:mt-16 rounded-2xl border border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-gray-900/60 to-blue-500/10 px-6 py-14 text-center sm:px-12"
-        aria-labelledby="closing-cta-heading"
-      >
-        <h2
-          id="closing-cta-heading"
-          className="text-3xl sm:text-4xl font-bold text-white text-balance"
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
+        <section
+          className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-gray-900/60 to-blue-500/10 px-6 py-14 text-center sm:px-12"
+          aria-labelledby="closing-cta-heading"
         >
-          {t('intro.closingTitle')}
-        </h2>
-        <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto text-pretty">
-          {t('intro.closingBody')}
-        </p>
-        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button
-            type="button"
-            size="lg"
-            onClick={onStart}
-            className="group gap-2"
+          <h2
+            id="closing-cta-heading"
+            className="text-3xl sm:text-4xl font-bold text-white text-balance"
           >
-            {t('intro.start')}
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
-          </Button>
-          <Button type="button" size="lg" color="secondary" onClick={onPreview}>
-            {t('intro.sample')}
-          </Button>
-        </div>
-      </section>
-    </div>
+            {t('intro.closingTitle')}
+          </h2>
+          <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto text-pretty">
+            {t('intro.closingBody')}
+          </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button
+              type="button"
+              size="lg"
+              onClick={onStart}
+              className="group gap-2"
+            >
+              {t('intro.start')}
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+            </Button>
+            <Button
+              type="button"
+              size="lg"
+              color="secondary"
+              onClick={onPreview}
+            >
+              {t('intro.sample')}
+            </Button>
+          </div>
+        </section>
+      </div>
+    </>
   )
 }

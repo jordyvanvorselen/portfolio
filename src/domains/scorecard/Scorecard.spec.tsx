@@ -113,6 +113,7 @@ describe(Scorecard, () => {
   })
 
   afterEach(() => {
+    Object.defineProperty(window, 'scrollY', { value: 0, configurable: true })
     vi.useRealTimers()
     vi.unstubAllGlobals()
     vi.restoreAllMocks()
@@ -191,6 +192,35 @@ describe(Scorecard, () => {
         behavior: 'auto',
         block: 'start',
       })
+    })
+
+    it('fades the scroll cue out as the bottlenecks scroll into view', () => {
+      const scrollTo = (y: number) => {
+        Object.defineProperty(window, 'scrollY', {
+          value: y,
+          configurable: true,
+        })
+        fireEvent.scroll(window)
+      }
+      vi.spyOn(
+        HTMLElement.prototype,
+        'getBoundingClientRect'
+      ).mockImplementation(function (this: HTMLElement) {
+        const top = this.id === 'bottlenecks' ? 1_000 - window.scrollY : 0
+        return { top } as DOMRect
+      })
+      scrollTo(0)
+      render(<Scorecard />)
+      const scrollCue = screen.getByRole('button', {
+        name: /intro.scrollCueTitle/,
+      })
+
+      expect(scrollCue).toHaveStyle({ opacity: '1' })
+
+      scrollTo(1_000)
+
+      expect(scrollCue).toHaveStyle({ opacity: '0' })
+      expect(scrollCue).toHaveAttribute('tabindex', '-1')
     })
 
     it('quotes a familiar complaint next to the bottlenecks', () => {
